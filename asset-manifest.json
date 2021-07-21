@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/math_fact_connect_four/static/css/main.5739ad41.chunk.css",
+    "main.js": "/math_fact_connect_four/static/js/main.02aa4dd2.chunk.js",
+    "main.js.map": "/math_fact_connect_four/static/js/main.02aa4dd2.chunk.js.map",
+    "runtime-main.js": "/math_fact_connect_four/static/js/runtime-main.51602d24.js",
+    "runtime-main.js.map": "/math_fact_connect_four/static/js/runtime-main.51602d24.js.map",
+    "static/js/2.50e40d17.chunk.js": "/math_fact_connect_four/static/js/2.50e40d17.chunk.js",
+    "static/js/2.50e40d17.chunk.js.map": "/math_fact_connect_four/static/js/2.50e40d17.chunk.js.map",
+    "static/js/3.3b2f9d3e.chunk.js": "/math_fact_connect_four/static/js/3.3b2f9d3e.chunk.js",
+    "static/js/3.3b2f9d3e.chunk.js.map": "/math_fact_connect_four/static/js/3.3b2f9d3e.chunk.js.map",
+    "index.html": "/math_fact_connect_four/index.html",
+    "static/css/main.5739ad41.chunk.css.map": "/math_fact_connect_four/static/css/main.5739ad41.chunk.css.map",
+    "static/js/2.50e40d17.chunk.js.LICENSE.txt": "/math_fact_connect_four/static/js/2.50e40d17.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/math_fact_connect_four/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.51602d24.js",
+    "static/js/2.50e40d17.chunk.js",
+    "static/css/main.5739ad41.chunk.css",
+    "static/js/main.02aa4dd2.chunk.js"
+  ]
+}
