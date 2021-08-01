@@ -9,11 +9,13 @@
     "@fontsource/roboto": "4.5.0",
     "@material-ui/core": "5.0.0-beta.2",
     "@material-ui/icons": "5.0.0-beta.1",
+    "@material-ui/system": "5.0.0-beta.2",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "11.2.7",
     "@testing-library/user-event": "12.8.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "1.1.2"
   },
