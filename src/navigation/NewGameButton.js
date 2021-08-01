@@ -1,0 +1,1 @@
+// NewGAmeButton opens the SettingsDialog
