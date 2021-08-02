@@ -34,7 +34,14 @@ export default function App() {
     // const classes = useStyles();
 
     return (
-        <React.Fragment>
+        <Box sx={{
+            backgroundColor: '#101012',
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flexStart',
+        }}>
             <CssBaseline />
             <ThemeProvider theme={theme}>
                 <Container maxWidth='md' sx={{ backgroundColor: theme.palette.common.white, height: '100vh'}} >
@@ -65,6 +72,6 @@ export default function App() {
                     </Router>
                 </Container>
             </ThemeProvider>
-        </React.Fragment>
+        </Box>
     );
 }
