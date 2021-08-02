@@ -18,6 +18,8 @@ import PlayVsBot from "./pages/PlayVsBot"
 // MUI  components
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Box from '@material-ui/core/Box'
+import Container from '@material-ui/core/Container'
+
 
 // THEMING
 import theme from "./theme"
@@ -35,7 +37,7 @@ export default function App() {
         <React.Fragment>
             <CssBaseline />
             <ThemeProvider theme={theme}>
-                <Box   >
+                <Container maxWidth='md' sx={{ backgroundColor: theme.palette.common.white, height: '100vh'}} >
                     <Router>
                         <Switch>
                             <Route exact path="/">
@@ -58,10 +60,10 @@ export default function App() {
                                 <PlayVsBot />
                             </Route>
 
-                            
+
                         </Switch>
                     </Router>
-                </Box>
+                </Container>
             </ThemeProvider>
         </React.Fragment>
     );
