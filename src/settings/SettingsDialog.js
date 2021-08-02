@@ -53,18 +53,9 @@ export default function SettingsDialog(props) {
                 
                 <DialogContent>
                     <SettingsStepper />
-                    
+
 
                 </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
-                        Disagree
-                    </Button>
-                    <Button onClick={handleClose} autoFocus>
-                        Agree
-                    </Button>
-                </DialogActions>
-                
             </Dialog>
         </Container>
     );
