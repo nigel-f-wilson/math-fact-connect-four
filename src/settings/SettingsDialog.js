@@ -18,6 +18,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
+// MUI icons
+import CloseIcon from '@material-ui/icons/Close';
+import { AlignVerticalTopSharp } from '@material-ui/icons';
+
+
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
 
@@ -41,12 +46,17 @@ export default function SettingsDialog(props) {
     };
 
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth='md' >
             <Dialog 
                 onClose={handleClose} 
                 open={open}
                 fullScreen={fullScreen}
-                >
+            >
+                <CloseIcon 
+                    sx={{ margin: '16px 16px 0 auto'}}
+                    // onClick={handleClose()}
+                />
+
                 <DialogTitle sx={{ maxWidth: 'calc(100% - 2rem)', padding: '1rem' }}  >
                     What kind of game do you want to play?
                 </DialogTitle>
