@@ -1,4 +1,9 @@
 import * as React from 'react';
+
+// MY components
+import { PlayVsHuman, PlayVsBot } from "./PlayModeButtons";
+
+// MUI components
 import Box from '@material-ui/core/Box';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
