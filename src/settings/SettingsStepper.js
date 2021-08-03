@@ -105,3 +105,7 @@ export default function SettingsStepper() {
         </Box>
     );
 }
+
+function EasyButton(props) {
+    
+}
