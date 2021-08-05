@@ -33,17 +33,18 @@ export default function App() {
     // const classes = useStyles();
 
     return (
-        <Box sx={{
-            backgroundColor: 'info.light',
-            height: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'flexStart',
-        }}>
+        <React.Fragment>
             <CssBaseline />
             <ThemeProvider theme={theme}>
-                <Container maxWidth='sm' disableGutters sx={{ backgroundColor: theme.palette.common.white, height: '100vh'}} >
+            <Box sx={{
+                bgcolor: 'background',
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'flexStart',
+            }}>
+                <Container maxWidth='sm' disableGutters >
                     <Router>
                         <Switch>
                             <Route exact path="/">
@@ -54,7 +55,7 @@ export default function App() {
                                 <Rules />
                             </Route>
 
-                            
+
 
                             <Route path="/play-vs-human">
                                 <PlayVsHuman />
@@ -68,7 +69,8 @@ export default function App() {
                         </Switch>
                     </Router>
                 </Container>
-            </ThemeProvider>
-        </Box>
+            </Box>
+        </ThemeProvider>
+        </React.Fragment>
     );
 }
