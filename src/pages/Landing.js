@@ -13,9 +13,9 @@ import { Container } from '@material-ui/core'
 export default function Landing() {
 
     return (
-        <Container maxWidth="md">
-            <Typography color="text.primary" variant="h1">
-                Welcome to the Landing Page
+        <Container maxWidth="md" sx={{ pt: '1rem' }}>
+            <Typography color="text.primary" variant="h2" gutterBottom >
+                Welcome to Math Fact Connect Four!
             </Typography>
             <NewGameButton />
 
