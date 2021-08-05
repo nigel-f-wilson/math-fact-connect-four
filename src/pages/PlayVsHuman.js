@@ -6,18 +6,18 @@ import {
 
 
 // MUI  components
-import { Typography, Container } from '@material-ui/core'
-
+import { Typography, Container, Box } from '@material-ui/core'
+import theme from '../theme';
 
 
 export default function PlayVsHuman() {
 
     return (
-        <Container maxWidth="md">
-            <Typography color="text.primary" variant="h1">
-                Welcome to the PlayVsHuman Page
-            </Typography>
         <Container maxWidth="md" disableGutters >
+            <Box sx={{ bgcolor: 'board.main', mt: 4, pt: '100%', width: '100%' }} >
+                
+            </Box>
+            
         </Container>
     );
 }
