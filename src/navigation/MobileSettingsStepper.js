@@ -6,6 +6,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 // MUI components
 import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
@@ -13,7 +14,9 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -22,8 +25,14 @@ import { useTheme } from '@material-ui/core/styles';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
+
+
+
+
+
 export function MobileSettingsStepper(props) {
     const [activeStep, setActiveStep] = React.useState(0);
+
     const [playMode, setPlayMode] = React.useState("");
     const [botDifficulty, setBotDifficulty] = React.useState("");
     // const [playWithTimeLimit, setPlayWithTimeLimit] = React.useState(false);  // only an option in human vs. human mod
@@ -31,6 +40,27 @@ export function MobileSettingsStepper(props) {
     const [rowNumbers, setRowNumbers] = React.useState([1, 2, 3, 4, 5, 6]);
     const [colNumbers, setColNumbers] = React.useState([1, 2, 3, 4, 5, 6, 7]);
 
+
+    const steps = [
+        {
+            index: 0,
+            label: 'Play vs. Human or Bot?',
+            buttons: setPlayModeButtons,
+        },
+        {
+            label: 'How well should the Bot play?',
+        },
+        {
+            label: "What are the players' names?",
+        },
+        {
+            label: 'What type of math questions should be asked?',
+        },
+        {
+            label: 'What type of math questions should be asked?',
+        },
+    ];
+    const maxSteps = steps.length;
 
 
     const goToNextStep = () => {
@@ -40,50 +70,83 @@ export function MobileSettingsStepper(props) {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleReset = () => {
-        setActiveStep(0);
-    };
-
-
+    
 
     return (
-        <Box sx={{ width: 550 }}>
-            {/* <Stepper
-                activeStep={activeStep}
-                orientation="vertical"
+        <Box sx={{  }}>
+            <Paper
+                square
+                elevation={0}
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    height: 50,
+                    pl: 2,
+                    bgcolor: 'background.default',
+                }}
             >
+                
+            </Paper>
                 <SelectPlayModeStep />
                 <SelectBotDifficultyStep />
                 <SelectProblemTypeStep />
-                <Step key={"Select Player Names"}>
-                    <StepLabel>
-                        <Typography variant="caption">Enter Player Names</Typography>
-                    </StepLabel>
-                    <StepContent>
-                        <Box sx={{ mb: 2 }} display='flex' flexDirection='column' >
-                            <StartGameButton />
-                            <BackButton />
-                        </Box>
-                    </StepContent>
-                </Step>
-            </Stepper> */}
+                <EnterPlayerNamesStep />
             <MobileStepper activeStep={activeStep}
                 variant="progress"
                 steps={6}
                 position="static"
-                sx={{ maxWidth: 400, flexGrow: 1 }}
+                sx={{  }}
+                nextButton={<NextButton />}
+                backButton={<BackButton />}
             >
+                
             </MobileStepper>
 
         </Box>
     )
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    // Steps
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    // Selection Buttons
+    ///////////////////////////////////////////////////////////////////////////////////////
+    function setPlayModeButtons(props) {
+        return (
+            <React.Fragment>
+                <Button 
+                    onClick={setPlayMode('human')}
+                    variant={playMode === 'human' ? "contained" : "outlined"}
+                    startIcon={<ArrowBackIosIcon />}
+                    sx={{ mt: 1, mr: 1 }}
+                >
+                    Play vs. Human
+                </Button>
+                <Button
+                    onClick={setPlayMode('bot')}
+                    variant={playMode === 'bot' ? "contained" : "outlined"}
+                    startIcon={<ArrowBackIosIcon />}
+                    sx={{ mt: 1, mr: 1 }}
+                >
+                    Play vs. Bot
+                </Button>
+            </React.Fragment>
+
+        )
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    // Navigation Buttons
+    ///////////////////////////////////////////////////////////////////////////////////////    
     function BackButton(props) {
         return (
             <Button variant="outlined" 
                 startIcon={<ArrowBackIosIcon />}
                 onClick={goBackOneStep}
-                sx={{ mt: 1, mr: 1 }}
+                sx={{ color: 'common.black', mt: 1, mr: 1 }}
             >
                 Back
             </Button>
@@ -92,11 +155,11 @@ export function MobileSettingsStepper(props) {
     function NextButton(props) {
         return (
             <Button variant="outlined"
-                startIcon={<ArrowForwardIosIcon />}
+                // startIcon={<ArrowForwardIosIcon />}
                 onClick={goToNextStep}
                 sx={{ mt: 1, mr: 1 }}
             >
-                Next
+                Next <ArrowForwardIosIcon />
             </Button>
         )
     }
@@ -118,10 +181,10 @@ export function MobileSettingsStepper(props) {
         return (
             <Button
                 variant="contained"
-                onClick={props.onClick}
+                onClick={props.setStateFunction(props.setting)}
                 sx={{ mt: 1, mr: 1 }}
             >
-                {props.label}
+                {props.startIcon}{props.label}
             </Button>
         )
     }
@@ -140,6 +203,7 @@ export function MobileSettingsStepper(props) {
                     <Box sx={{ mb: 2 }} display='flex' flexDirection='column' >
                         <SettingsStepperButton
                             label="Play vs. Bot"
+                            startIcon={"<i class='fas fa-robot'></i>"}
                             onClick={() => {
                                 setPlayMode("bot")
                                 goToNextStep()
@@ -249,6 +313,23 @@ export function MobileSettingsStepper(props) {
                         />
                         <BackButton />
 
+                    </Box>
+                </StepContent>
+            </Step>
+        )
+    }
+
+    
+    function EnterPlayerNamesStep(props) {
+        return (
+            <Step key={"Select Player Names"}>
+                <StepLabel>
+                    <Typography variant="caption">Enter Player Names</Typography>
+                </StepLabel>
+                <StepContent>
+                    <Box sx={{ mb: 2 }} display='flex' flexDirection='column' >
+                        <StartGameButton />
+                        <BackButton />
                     </Box>
                 </StepContent>
             </Step>

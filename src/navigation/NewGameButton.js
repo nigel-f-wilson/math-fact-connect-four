@@ -15,7 +15,6 @@ import Typography from '@material-ui/core/Typography';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -80,15 +79,18 @@ function SettingsDialog(props) {
                     onClick={() => onClose()}
                 />
 
-                <DialogTitle sx={{ padding: '1rem' }}  >
+                {/* <DialogTitle sx={{ padding: '1rem' }}  >
                     What kind of game do you want to play?
-                </DialogTitle>
+                </DialogTitle> */}
 
-                <DialogContent sx={{ display: { xs: 'none', md: 'block' } }} >
+                {/* <DialogContent sx={{ display: { xs: 'none', md: 'block' } }} >
                     <DesktopSettingsStepper />
                 </DialogContent>
                 <DialogContent sx={{ display: { xs: 'block', md: 'none' } }}>
                     <MobileSettingsStepper />
+                </DialogContent> */}
+                <DialogContent sx={{ display: { xs: 'block' } }} >
+                    <DesktopSettingsStepper />
                 </DialogContent>
             </Dialog>
         </Box>
