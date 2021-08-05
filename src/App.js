@@ -54,9 +54,7 @@ export default function App() {
                                 <Rules />
                             </Route>
 
-                            <Route path="/game-settings">
-                                <Settings />
-                            </Route>
+                            
 
                             <Route path="/play-vs-human">
                                 <PlayVsHuman />
