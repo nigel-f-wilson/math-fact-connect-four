@@ -13,11 +13,9 @@ import theme from '../theme';
 export default function PlayVsHuman() {
 
     return (
-        <Container maxWidth="md" disableGutters >
-            <Box sx={{ bgcolor: 'board.main', mt: 4, pt: '100%', width: '100%' }} >
-                
-            </Box>
+        <Box sx={{ bgcolor: 'board.main', mt: 4, pt: '100%', width: '100%' }} >
             
-        </Container>
+        </Box>
+        
     );
 }
