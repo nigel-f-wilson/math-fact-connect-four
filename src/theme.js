@@ -37,7 +37,20 @@ const theme = createTheme({
             playerOne: '#d50000',
             playerTwo: '#ffea00',
             unclaimed: '#ffffff',
-        }
+        },
+        background: '#81d4fa',
+        white: '#FFFFFF',
+    },
+    components: {
+        MuiPaper: {
+            styleOverrides: {
+                // Name of the slot
+                root: {
+                    // Some CSS
+                    backgroundColor: '#fff',
+                },
+            },
+        },
     },
     typography: {
         
