@@ -18,19 +18,35 @@ export default function Landing() {
             <Typography color="text.primary" variant="h2" gutterBottom >
                 Welcome to Math Fact Connect Four!
             </Typography>
-            <Typography color="text.primary" variant="body1" gutterBottom >
-                You can play in human vs. human mode on a shared device or play against a bot. <br />
-                This game can be used to practice foundational multiplication and division facts, 
-                rules of exponents, and basic algebra. 
+            <Typography color="text.primary" variant="h5" gutterBottom >
+                A production of the NOLA STEM Garden &copy;
             </Typography>
             <Typography color="text.primary" variant="body1" gutterBottom >
                 Once you select which column you'd like to drop a chip in, a math question will pop up.
-                Answer correctly and your move goes through as planned, answer incorrectly and you lose your turn. 
-                The first player (or team) to get four consecutive chips in any row, column, or diagonal wins! 
+                Answer correctly and your move goes through as planned, answer incorrectly and you lose your turn.
+                The first player (or team) to get four consecutive chips in any row, column, or diagonal wins!
             </Typography>
-            <Box sx={{ display: 'flex', justifyContent: 'center', pt: '1rem' }} >
+            <Typography color="text.primary" variant="body1" gutterBottom >
+                You can play in human vs. human mode on a shared device or play against a bot.
+                This game can be used to practice multiplication and division facts, rules of exponents, and basic algebra. 
+            </Typography>
+            
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: '1rem' }} >
                 <NewGameButton />
             </Box>
+
+            <Typography color="text.primary" variant="body1" gutterBottom >
+                I want to thank my students at College Track, the Waldorf School of New Orleans, and Bricolage Academy
+                for inspiring me to create this game and helping me to test and improve it. This game was originally played
+                using laminated cards hung on the wall. My students enthusiasm for the game made me want to share it
+                with other teachers and classes but making sets of the cards and the grid to hang them from was quite time
+                consuming. I decided to remake this game as a free online app so it can reach as many kids as possible
+                and hopefully put a little bit of joy back into the practicing math foundations.
+            </Typography>
+            <Typography color="text.primary" variant="body1" gutterBottom >
+                The code for this project is open-source so if your are curious how it works behind the scenes just visit my GitHub page.
+                If you find a mistake or have an idea for how to improve this game, please open an issue.
+            </Typography>
             
         </Container>
     );
