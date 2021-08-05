@@ -34,7 +34,7 @@ export default function App() {
 
     return (
         <Box sx={{
-            backgroundColor: '#101012',
+            backgroundColor: 'info.light',
             height: '100vh',
             display: 'flex',
             flexDirection: 'column',
