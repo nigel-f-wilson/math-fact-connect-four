@@ -114,6 +114,21 @@ export function MobileSettingsStepper(props) {
         )
     }
 
+    function SettingsStepperButton(props) {
+        return (
+            <Button
+                variant="contained"
+                onClick={props.onClick}
+                sx={{ mt: 1, mr: 1 }}
+            >
+                {props.label}
+            </Button>
+        )
+    }
+    
+    
+
+
     function SelectPlayModeStep(props) {
         return (
             <Step index={0} key={"Select Human Or Bot"}>
@@ -292,26 +307,6 @@ export function MobileSettingsStepper(props) {
         )
     }
 
-
-    function SettingsStepperButton(props) {
-        return (
-            <Button
-                variant="contained"
-                onClick={props.onClick}
-                sx={{ mt: 1, mr: 1 }}
-            >
-                {props.label}
-            </Button>
-        )
-    }
-    function StartGameButton(props) {
-        return (
-            <SettingsStepperButton
-                label="Start Game!"
-                onClick={goBackOneStep}
-            />
-        )
-    }
 
     
 
