@@ -10,7 +10,6 @@ import './App.css';
 // PAGES
 import Landing from "./pages/Landing"
 import Rules from "./pages/Rules"
-import Settings from "./pages/Settings"
 import PlayVsHuman from "./pages/PlayVsHuman"
 import PlayVsBot from "./pages/PlayVsBot"
 
