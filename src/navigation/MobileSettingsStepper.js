@@ -17,7 +17,9 @@ import StepContent from '@material-ui/core/StepContent';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
-
+//  MUI Icons
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 export function MobileSettingsStepper(props) {
     const [activeStep, setActiveStep] = React.useState(0);
@@ -75,6 +77,28 @@ export function MobileSettingsStepper(props) {
         </Box>
     )
 
+    function BackButton(props) {
+        return (
+            <Button variant="outlined" 
+                startIcon={<ArrowBackIosIcon />}
+                onClick={goBackOneStep}
+                sx={{ mt: 1, mr: 1 }}
+            >
+                Back
+            </Button>
+        )
+    }
+    function NextButton(props) {
+        return (
+            <Button variant="outlined"
+                startIcon={<ArrowForwardIosIcon />}
+                onClick={goToNextStep}
+                sx={{ mt: 1, mr: 1 }}
+            >
+                Next
+            </Button>
+        )
+    }
     function SelectPlayModeStep(props) {
         return (
             <Step index={0} key={"Select Human Or Bot"}>
@@ -265,18 +289,6 @@ export function MobileSettingsStepper(props) {
             </Button>
         )
     }
-    function BackButton(props) {
-        return (
-            <Button
-                variant="outlined"
-                disabled={props.disabled}
-                onClick={goBackOneStep}
-                sx={{ mt: 1, mr: 1 }}
-            >
-                Back
-            </Button>
-        )
-    }
     function StartGameButton(props) {
         return (
             <SettingsStepperButton
@@ -286,6 +298,7 @@ export function MobileSettingsStepper(props) {
         )
     }
 
+    
 
 
 }
