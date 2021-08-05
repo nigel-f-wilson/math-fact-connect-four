@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
+import { Link as RouterLink } from "react-router-dom";
 
 // MY components
 
@@ -99,6 +100,20 @@ export function MobileSettingsStepper(props) {
             </Button>
         )
     }
+    function StartGameButton(props) {
+        return (
+            <Button variant="outlined"
+                startIcon={<ArrowBackIosIcon />}
+                component={RouterLink}
+                to={(props.playMode === "human") ? 'play-vs-human' : 'play-vs-bot' }
+                onClick={goBackOneStep}
+                sx={{ mt: 1, mr: 1 }}
+            >
+                Start Game!
+            </Button>
+        )
+    }
+
     function SelectPlayModeStep(props) {
         return (
             <Step index={0} key={"Select Human Or Bot"}>
