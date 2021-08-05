@@ -17,6 +17,7 @@ export default function PlayVsHuman() {
             <Typography color="text.primary" variant="h1">
                 Welcome to the PlayVsHuman Page
             </Typography>
+        <Container maxWidth="md" disableGutters >
         </Container>
     );
 }

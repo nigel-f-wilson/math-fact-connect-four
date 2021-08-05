@@ -43,7 +43,7 @@ export default function App() {
         }}>
             <CssBaseline />
             <ThemeProvider theme={theme}>
-                <Container maxWidth='md' sx={{ backgroundColor: theme.palette.common.white, height: '100vh'}} >
+                <Container maxWidth='md' disableGutters sx={{ backgroundColor: theme.palette.common.white, height: '100vh'}} >
                     <Router>
                         <Switch>
                             <Route exact path="/">
