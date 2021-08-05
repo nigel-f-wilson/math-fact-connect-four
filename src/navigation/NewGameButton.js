@@ -1,6 +1,5 @@
-// NewGAmeButton opens the SettingsDialog
-
 import React from 'react'
+import PropTypes from 'prop-types';
 
 
 // MY components
