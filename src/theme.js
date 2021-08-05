@@ -28,14 +28,16 @@ const theme = createTheme({
             disabledBackground: '#2e6b12',
             disabledOpacity: '0.5'
         },
-        playerOne: {
-            backgroundColor: '#C11',
-            text: '#000'
+        board: {
+            light: '#2962ff',
+            main: '#0039cb',
+            dark: '#001399',
         },
-        playerTwo: {
-            backgroundColor: '#11C',
-            text: '#FFF'
-        },
+        chip: {
+            playerOne: '#d50000',
+            playerTwo: '#ffea00',
+            unclaimed: '#ffffff',
+        }
     },
     typography: {
         
