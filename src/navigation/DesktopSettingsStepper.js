@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
+import { Link as RouterLink } from "react-router-dom"
 
 // MY components
 
@@ -269,6 +270,7 @@ export function DesktopSettingsStepper(props) {
         return (
             <SettingsStepperButton
                 label="Start Game!"
+                component={RouterLink}
                 onClick={goBackOneStep}
             />
         )
