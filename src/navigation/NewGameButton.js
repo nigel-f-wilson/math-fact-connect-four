@@ -42,7 +42,6 @@ export default function NewGameButton() {
                 New Game
             </Button>
             <SettingsDialog
-                sx={{  }}
                 dialogOpen={dialogOpen}
                 onClose={handleCloseDialog}
             />
@@ -68,27 +67,31 @@ function SettingsDialog(props) {
     };
 
     return (
-        <Dialog
-            onClose={onClose}
-            open={dialogOpen}
-            fullScreen={fullScreen}
+        <Box 
+            sx={{ bgcolor: 'white' }}
         >
-            <CloseIcon
-                sx={{ margin: '1rem 1rem 0 auto' }}
-                onClick={() => onClose()}
-            />
+            <Dialog
+                onClose={onClose}
+                open={dialogOpen}
+                fullScreen={fullScreen}
+            >
+                <CloseIcon
+                    sx={{ margin: '1rem 1rem 0 auto' }}
+                    onClick={() => onClose()}
+                />
 
-            <DialogTitle sx={{ padding: '1rem' }}  >
-                What kind of game do you want to play?
-            </DialogTitle>
+                <DialogTitle sx={{ padding: '1rem' }}  >
+                    What kind of game do you want to play?
+                </DialogTitle>
 
-            <DialogContent sx={{ display: { xs: 'none', md: 'block' } }} >
-                <DesktopSettingsStepper  />
-            </DialogContent>
-            <DialogContent sx={{ display: { xs: 'block', md: 'none' } }}>
-                <MobileSettingsStepper  />
-            </DialogContent>
-        </Dialog>
+                <DialogContent sx={{ display: { xs: 'none', md: 'block' } }} >
+                    <DesktopSettingsStepper />
+                </DialogContent>
+                <DialogContent sx={{ display: { xs: 'block', md: 'none' } }}>
+                    <MobileSettingsStepper />
+                </DialogContent>
+            </Dialog>
+        </Box>
     );
 }
 
