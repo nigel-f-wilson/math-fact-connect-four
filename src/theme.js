@@ -53,7 +53,10 @@ const theme = createTheme({
         },
     },
     typography: {
-        
+        button: {
+            fontSize: '1.0rem',
+            fontWeight: '700'
+        }
     },
     status: {
        
