@@ -105,25 +105,23 @@ export function MobileSettingsStepper(props) {
     
 
     return (
-        <Box sx={{  }}>
-            <Paper
-                square
-                elevation={0}
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    height: 50,
-                    pl: 2,
-                    bgcolor: 'background.default',
-                }}
-            >
-                
-            </Paper>
-                <SelectPlayModeStep />
-                <SelectBotDifficultyStep />
-                <SelectProblemTypeStep />
-                <EnterPlayerNamesStep />
-            <MobileStepper activeStep={activeStep}
+        <Box sx={{ height: '90%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <Typography variant='h4' textAlign="center" sx={{ mb: 6 }} >
+                {steps[activeStep].label}
+            </Typography>
+            <Typography variant='h4' textAlign="center"   >
+                {`Active: ${activeStep}`}
+            </Typography>
+            <Typography variant='h4' textAlign="center"   >
+                {`Completed: ${completedSteps}`}
+            </Typography>
+
+            {steps[activeStep].buttons}
+            
+            
+            
+            <MobileStepper 
+                activeStep={activeStep}
                 variant="dots"
                 steps={6}
                 position="bottom"
