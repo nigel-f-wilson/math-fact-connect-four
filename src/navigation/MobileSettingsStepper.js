@@ -24,7 +24,8 @@ import { useTheme } from '@material-ui/core/styles';
 //  MUI Icons
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-
+// import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'; 
+// import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 
 
 
@@ -143,23 +144,21 @@ export function MobileSettingsStepper(props) {
     ///////////////////////////////////////////////////////////////////////////////////////    
     function BackButton(props) {
         return (
-            <Button variant="outlined" 
-                startIcon={<ArrowBackIosIcon />}
+            <Button variant="text" 
                 onClick={goBackOneStep}
-                sx={{ color: 'common.black', mt: 1, mr: 1 }}
+                sx={{ color: 'primary.main', mt: 1, mr: 1, fontSize: 'large' }}
             >
-                Back
+                <ArrowBackIosIcon fontSize='small' />&ensp;Back
             </Button>
         )
     }
     function NextButton(props) {
         return (
-            <Button variant="outlined"
-                // startIcon={<ArrowForwardIosIcon />}
+            <Button variant="text"
                 onClick={goToNextStep}
-                sx={{ mt: 1, mr: 1 }}
+                sx={{ mt: 1, mr: 1 , fontSize: 'large' }}
             >
-                Next <ArrowForwardIosIcon />
+                Next&ensp;<ArrowForwardIosIcon fontSize='small' />
             </Button>
         )
     }
