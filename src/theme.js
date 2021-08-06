@@ -38,7 +38,7 @@ const theme = createTheme({
             playerTwo: '#ffea00',
             unclaimed: '#ffffff',
         },
-        background: '#81d4fa',
+        background: '#b3e5fc',
         white: '#FFFFFF',
     },
     components: {
