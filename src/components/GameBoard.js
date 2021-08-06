@@ -11,7 +11,7 @@ import { Box } from '@material-ui/core'
 
 
 
-export default function Board() {
+export default function GameBoard() {
 
     return (
         <Box>
