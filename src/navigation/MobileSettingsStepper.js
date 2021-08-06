@@ -93,7 +93,7 @@ export function MobileSettingsStepper(props) {
                 <SelectProblemTypeStep />
                 <EnterPlayerNamesStep />
             <MobileStepper activeStep={activeStep}
-                variant="progress"
+                variant="dots"
                 steps={6}
                 position="bottom"
                 sx={{  }}
