@@ -18,17 +18,16 @@ export default function Landing() {
             <Typography color="text.primary" variant="h2" gutterBottom >
                 Welcome to Math Fact Connect Four!
             </Typography>
-            <Typography color="text.primary" variant="h5" gutterBottom >
-                A production of the NOLA STEM Garden &copy;
+            
+            <Typography color="text.primary" variant="body1" gutterBottom >
+                Play Classic Connect Four with a twist! Select the column you'd like to drop a chip in 
+                and a math question will pop up. Answer correctly and your move goes through as planned, 
+                answer incorrectly and you lose your turn. The first player (or team) to get four 
+                consecutive chips in any row, column, or diagonal wins!
             </Typography>
             <Typography color="text.primary" variant="body1" gutterBottom >
-                Once you select which column you'd like to drop a chip in, a math question will pop up.
-                Answer correctly and your move goes through as planned, answer incorrectly and you lose your turn.
-                The first player (or team) to get four consecutive chips in any row, column, or diagonal wins!
-            </Typography>
-            <Typography color="text.primary" variant="body1" gutterBottom >
-                You can play in human vs. human mode on a shared device or play against a bot.
-                This game can be used to practice multiplication and division facts, rules of exponents, and basic algebra. 
+                This game can be used to practice multiplication and division facts, rules of exponents, 
+                and basic algebra. You can play in human vs. human mode on a shared device or play against a bot.
             </Typography>
             
             <Box sx={{ display: 'flex', justifyContent: 'center', py: '1rem' }} >
@@ -47,7 +46,9 @@ export default function Landing() {
                 The code for this project is open-source so if your are curious how it works behind the scenes just visit my GitHub page.
                 If you find a mistake or have an idea for how to improve this game, please open an issue.
             </Typography>
-            
+            <Typography color="text.primary" variant="body1" gutterBottom >
+                A production of the NOLA STEM Garden &copy;
+            </Typography>
         </Container>
     );
 }
