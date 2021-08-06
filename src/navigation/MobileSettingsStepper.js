@@ -259,7 +259,13 @@ export function MobileSettingsStepper(props) {
             <Button variant="text"
                 disabled={completedSteps < activeStep}
                 component={RouterLink}
-                to={(props.playMode === "human") ? '/play-vs-human' : '/play-vs-bot' }
+                to={{
+                    pathname: '/play',
+                    state: {
+                        playMode: playMode,
+                        questionType: questionType,
+                    }
+                }}
                 sx={{ mt: 1, mr: 1, fontSize: 'large', lineHeight: 1 }}
             >
                 Start<br/>Game &ensp;<ArrowForwardIosIcon fontSize='small' />
