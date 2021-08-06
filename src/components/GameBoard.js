@@ -14,8 +14,9 @@ import { Box } from '@material-ui/core'
 export default function GameBoard() {
 
     return (
-        <Box>
+        <Box sx={{ bgcolor: 'board.main', mt: 4, pt: '100%', width: '100%' }} >
 
+        
         </Box>
     );
 }

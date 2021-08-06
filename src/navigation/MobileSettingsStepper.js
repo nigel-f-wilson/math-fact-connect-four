@@ -257,6 +257,7 @@ export function MobileSettingsStepper(props) {
     function StartGameButton(props) {
         return (
             <Button variant="text"
+                disabled={completedSteps < activeStep}
                 component={RouterLink}
                 to={(props.playMode === "human") ? '/play-vs-human' : '/play-vs-bot' }
                 sx={{ mt: 1, mr: 1, fontSize: 'large', lineHeight: 1 }}
