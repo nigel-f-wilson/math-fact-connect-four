@@ -95,7 +95,7 @@ export function MobileSettingsStepper(props) {
             <MobileStepper activeStep={activeStep}
                 variant="progress"
                 steps={6}
-                position="static"
+                position="bottom"
                 sx={{  }}
                 nextButton={<NextButton />}
                 backButton={<BackButton />}
