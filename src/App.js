@@ -9,7 +9,6 @@ import './App.css';
 
 // PAGES
 import Landing from "./pages/Landing"
-import Rules from "./pages/Rules"
 import PlayVsHuman from "./pages/PlayVsHuman"
 import PlayVsBot from "./pages/PlayVsBot"
 
@@ -50,13 +49,6 @@ export default function App() {
                             <Route exact path="/">
                                 <Landing />
                             </Route>
-
-                            <Route path="/how-to-play">
-                                <Rules />
-                            </Route>
-
-
-
                             <Route path="/play-vs-human">
                                 <PlayVsHuman />
                             </Route>
