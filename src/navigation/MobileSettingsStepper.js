@@ -123,11 +123,11 @@ export function MobileSettingsStepper(props) {
             <MobileStepper 
                 activeStep={activeStep}
                 variant="dots"
-                steps={6}
+                steps={steps.length}
                 position="bottom"
-                sx={{  }}
                 nextButton={<NextButton />}
                 backButton={<BackButton />}
+                sx={{ }}
             >
                 
             </MobileStepper>
@@ -143,29 +143,123 @@ export function MobileSettingsStepper(props) {
     ///////////////////////////////////////////////////////////////////////////////////////
     // Selection Buttons
     ///////////////////////////////////////////////////////////////////////////////////////
-    function setPlayModeButtons(props) {
+    function SetPlayModeButtons(props) {
         return (
             <React.Fragment>
-                <Button 
-                    onClick={setPlayMode('human')}
+                <Button
+                    onClick={selectHuman}
                     variant={playMode === 'human' ? "contained" : "outlined"}
-                    startIcon={<ArrowBackIosIcon />}
-                    sx={{ mt: 1, mr: 1 }}
+                    startIcon={<i className="fas fa-user-friends"></i>}
+                    size='large'
+                    sx={{ m: 2, width: '60%'}}
                 >
-                    Play vs. Human
+                    &ensp;Play vs. Human
                 </Button>
                 <Button
-                    onClick={setPlayMode('bot')}
+                    onClick={selectBot}
                     variant={playMode === 'bot' ? "contained" : "outlined"}
-                    startIcon={<ArrowBackIosIcon />}
-                    sx={{ mt: 1, mr: 1 }}
+                    startIcon={<i className='fas fa-robot'></i>}
+                    sx={{ m: 2, width: '60%' }}
+
                 >
-                    Play vs. Bot
+                    &ensp;Play vs. Bot
+                </Button>
+            </React.Fragment>    
+
+        )
+    }
+
+    function SetQuestionTypeButtons(props) {
+        // TODO ADD common IconButton reusable component to generate this set with .map instead of manually
+        
+        return (
+            <React.Fragment>
+                <Button
+                    onClick={selectMultiplication}
+                    variant={questionType === 'multiplication' ? "contained" : "outlined"}
+                    startIcon={<i className="fas fa-times"></i>}
+                    sx={{ m: 2, width: '60%' }}
+                >
+                    &ensp;multiplication
+                </Button>
+                {/* <Button
+                    onClick={selectDivision}
+                    variant={questionType === 'division' ? "contained" : "outlined"}
+                    startIcon={<i className="fas fa-divide"></i>}
+                    sx={{ m: 2, width: '60%' }}
+                >
+                    &ensp;division
+                </Button> */}
+                <Button
+                    onClick={() => selectQuestionType('division')}
+                    variant={questionType === 'division' ? "contained" : "outlined"}
+                    startIcon={<i className="fas fa-divide"></i>}
+                    sx={{ m: 2, width: '60%' }}
+                >
+                    &ensp;division
+                </Button>
+                <Button
+                    onClick={selectExponents}
+                    variant={questionType === 'exponents' ? "contained" : "outlined"}
+                    startIcon={<i className="fas fa-superscript"></i>}
+                    sx={{ m: 2, width: '60%' }}
+                >
+                    &ensp;exponents
+                </Button>
+                <Button
+                    onClick={selectAlgebra}
+                    variant={questionType === 'algebra' ? "contained" : "outlined"}
+                    // startIcon={<i class="fal fa-function"></i>}
+                    startIcon={<i className="fas fa-calculator"></i>}
+                    sx={{ m: 2, width: '60%' }}
+                >
+                    &ensp;algebra
+                </Button>
+                <Button
+                    onClick={selectNone}
+                    variant={questionType === 'none' ? "contained" : "outlined"}
+                    startIcon={<i className="fas fa-ban"></i>}
+                    sx={{ m: 2, width: '60%' }}
+                >
+                    &ensp;none
                 </Button>
             </React.Fragment>
 
         )
     }
+
+
+                        // <SettingsStepperButton
+                        //     label="Division"
+                        //     onClick={() => {
+                        //         setQuestionType("Division")
+                        //         goToNextStep()
+                        //     }}
+                        // />
+                        // <SettingsStepperButton
+                        //     label="Exponents"
+                        //     onClick={() => {
+                        //         setQuestionType("Exponents")
+                        //         goToNextStep()
+                        //     }}
+                        // />
+                        // <SettingsStepperButton
+                        //     label="Algebra"
+                        //     onClick={() => {
+                        //         setQuestionType("Algebra")
+                        //         goToNextStep()
+                        //     }}
+                        // />
+                        // <SettingsStepperButton
+                        //     label="None"
+                        //     onClick={() => {
+                        //         setQuestionType("None")
+                        //         goToNextStep()
+                        //     }}
+                        // />
+                        // <BackButton />
+
+    
 
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -186,6 +280,7 @@ export function MobileSettingsStepper(props) {
             <Button variant="text"
                 onClick={goToNextStep}
                 sx={{ mt: 1, mr: 1 , fontSize: 'large' }}
+                disabled={completedSteps < activeStep}
             >
                 Next&ensp;<ArrowForwardIosIcon fontSize='small' />
             </Button>
@@ -295,47 +390,47 @@ export function MobileSettingsStepper(props) {
     }
 
 
-    function SelectProblemTypeStep(props) {
+    function SelectQuestionTypeStep(props) {
         return (
             <Step index={2} key={"Select Type of Math Problem"}>
                 <StepLabel>
                     <Typography variant="body1" >Select Type of Math Problem: </Typography>
-                    <Typography variant="body1" sx={{ fontWeight: 'bold' }} >{problemType.toUpperCase()}</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 'bold' }} >{questionType.toUpperCase()}</Typography>
                 </StepLabel>
                 <StepContent>
                     <Box sx={{ mb: 2 }} display='flex' flexDirection='column' >
                         <SettingsStepperButton
                             label="Multiplication"
                             onClick={() => {
-                                setProblemType("Multiplication")
+                                setQuestionType("Multiplication")
                                 goToNextStep()
                             }}
                         />
                         <SettingsStepperButton
                             label="Division"
                             onClick={() => {
-                                setProblemType("Division")
+                                setQuestionType("Division")
                                 goToNextStep()
                             }}
                         />
                         <SettingsStepperButton
                             label="Exponents"
                             onClick={() => {
-                                setProblemType("Exponents")
+                                setQuestionType("Exponents")
                                 goToNextStep()
                             }}
                         />
                         <SettingsStepperButton
                             label="Algebra"
                             onClick={() => {
-                                setProblemType("Algebra")
+                                setQuestionType("Algebra")
                                 goToNextStep()
                             }}
                         />
                         <SettingsStepperButton
                             label="None"
                             onClick={() => {
-                                setProblemType("None")
+                                setQuestionType("None")
                                 goToNextStep()
                             }}
                         />
@@ -369,42 +464,42 @@ export function MobileSettingsStepper(props) {
             <Step index={2} key={"Select Type of Math Problem"}>
                 <StepLabel>
                     <Typography variant="body1" >Select Type of Math Problem: </Typography>
-                    <Typography variant="body1" sx={{ fontWeight: 'bold' }} >{problemType.toUpperCase()}</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 'bold' }} >{questionType.toUpperCase()}</Typography>
                 </StepLabel>
                 <StepContent>
                     <Box sx={{ mb: 2 }} display='flex' flexDirection='column' >
                         <SettingsStepperButton
                             label="Multiplication"
                             onClick={() => {
-                                setProblemType("Multiplication")
+                                setQuestionType("Multiplication")
                                 goToNextStep()
                             }}
                         />
                         <SettingsStepperButton
                             label="Division"
                             onClick={() => {
-                                setProblemType("Division")
+                                setQuestionType("Division")
                                 goToNextStep()
                             }}
                         />
                         <SettingsStepperButton
                             label="Exponents"
                             onClick={() => {
-                                setProblemType("Exponents")
+                                setQuestionType("Exponents")
                                 goToNextStep()
                             }}
                         />
                         <SettingsStepperButton
                             label="Algebra"
                             onClick={() => {
-                                setProblemType("Algebra")
+                                setQuestionType("Algebra")
                                 goToNextStep()
                             }}
                         />
                         <SettingsStepperButton
                             label="None"
                             onClick={() => {
-                                setProblemType("None")
+                                setQuestionType("None")
                                 goToNextStep()
                             }}
                         />
