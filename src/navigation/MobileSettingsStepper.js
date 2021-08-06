@@ -40,18 +40,19 @@ export function MobileSettingsStepper(props) {
 
     const steps = [
         {
-            index: 0,
             label: 'Play vs. Human or Bot?',
-            buttons: setPlayModeButtons,
+            buttons: <SetPlayModeButtons/>,
         },
+        // {
+        //     label: 'How well should the Bot play?',
+        // },
+        // {
+        //     label: "What are the players' names?",
+        // },
         {
-            label: 'How well should the Bot play?',
-        },
-        {
-            label: "What are the players' names?",
-        },
-        {
-            label: 'What type of math questions should be asked?',
+            label: 'What type of math questions should we ask?',
+            buttons: <SetQuestionTypeButtons />,
+
         },
         {
             label: 'What type of math questions should be asked?',
