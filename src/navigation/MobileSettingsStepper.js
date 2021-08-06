@@ -28,6 +28,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 export function MobileSettingsStepper(props) {
     const [activeStep, setActiveStep] = React.useState(0);
+    const [completedSteps, setCompletedSteps] = React.useState(-1);
 
     const [playMode, setPlayMode] = React.useState("");
     const [botDifficulty, setBotDifficulty] = React.useState("");
