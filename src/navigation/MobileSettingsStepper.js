@@ -54,9 +54,10 @@ export function MobileSettingsStepper(props) {
             buttons: <SetQuestionTypeButtons />,
 
         },
-        {
-            label: 'What type of math questions should be asked?',
-        },
+        // {
+        //     label: 'What type of math questions should be asked?',
+        //     buttons: <Set
+        // },
     ];
     const maxSteps = steps.length;
 
@@ -125,7 +126,7 @@ export function MobileSettingsStepper(props) {
                 variant="dots"
                 steps={steps.length}
                 position="bottom"
-                nextButton={<NextButton />}
+                nextButton={activeStep === steps.length - 1 ? <StartGameButton /> : <NextButton />}
                 backButton={<BackButton />}
                 sx={{ }}
             >
@@ -229,39 +230,6 @@ export function MobileSettingsStepper(props) {
     }
 
 
-                        // <SettingsStepperButton
-                        //     label="Division"
-                        //     onClick={() => {
-                        //         setQuestionType("Division")
-                        //         goToNextStep()
-                        //     }}
-                        // />
-                        // <SettingsStepperButton
-                        //     label="Exponents"
-                        //     onClick={() => {
-                        //         setQuestionType("Exponents")
-                        //         goToNextStep()
-                        //     }}
-                        // />
-                        // <SettingsStepperButton
-                        //     label="Algebra"
-                        //     onClick={() => {
-                        //         setQuestionType("Algebra")
-                        //         goToNextStep()
-                        //     }}
-                        // />
-                        // <SettingsStepperButton
-                        //     label="None"
-                        //     onClick={() => {
-                        //         setQuestionType("None")
-                        //         goToNextStep()
-                        //     }}
-                        // />
-                        // <BackButton />
-
-    
-
-
     ///////////////////////////////////////////////////////////////////////////////////////
     // Navigation Buttons
     ///////////////////////////////////////////////////////////////////////////////////////    
@@ -288,14 +256,12 @@ export function MobileSettingsStepper(props) {
     }
     function StartGameButton(props) {
         return (
-            <Button variant="outlined"
-                startIcon={<ArrowBackIosIcon />}
+            <Button variant="text"
                 component={RouterLink}
-                to={(props.playMode === "human") ? 'play-vs-human' : 'play-vs-bot' }
-                onClick={goBackOneStep}
-                sx={{ mt: 1, mr: 1 }}
+                to={(props.playMode === "human") ? '/play-vs-human' : '/play-vs-bot' }
+                sx={{ mt: 1, mr: 1, fontSize: 'large', lineHeight: 1 }}
             >
-                Start Game!
+                Start<br/>Game &ensp;<ArrowForwardIosIcon fontSize='small' />
             </Button>
         )
     }
@@ -443,73 +409,10 @@ export function MobileSettingsStepper(props) {
     }
 
     
-    function EnterPlayerNamesStep(props) {
-        return (
-            <Step key={"Select Player Names"}>
-                <StepLabel>
-                    <Typography variant="caption">Enter Player Names</Typography>
-                </StepLabel>
-                <StepContent>
-                    <Box sx={{ mb: 2 }} display='flex' flexDirection='column' >
-                        <StartGameButton />
-                        <BackButton />
-                    </Box>
-                </StepContent>
-            </Step>
-        )
-    }
+    function EnterPlayerNamesStep(props) {}
 
-    function SetTimeLimitStep(props) {
-        return (
-            <Step index={2} key={"Select Type of Math Problem"}>
-                <StepLabel>
-                    <Typography variant="body1" >Select Type of Math Problem: </Typography>
-                    <Typography variant="body1" sx={{ fontWeight: 'bold' }} >{questionType.toUpperCase()}</Typography>
-                </StepLabel>
-                <StepContent>
-                    <Box sx={{ mb: 2 }} display='flex' flexDirection='column' >
-                        <SettingsStepperButton
-                            label="Multiplication"
-                            onClick={() => {
-                                setQuestionType("Multiplication")
-                                goToNextStep()
-                            }}
-                        />
-                        <SettingsStepperButton
-                            label="Division"
-                            onClick={() => {
-                                setQuestionType("Division")
-                                goToNextStep()
-                            }}
-                        />
-                        <SettingsStepperButton
-                            label="Exponents"
-                            onClick={() => {
-                                setQuestionType("Exponents")
-                                goToNextStep()
-                            }}
-                        />
-                        <SettingsStepperButton
-                            label="Algebra"
-                            onClick={() => {
-                                setQuestionType("Algebra")
-                                goToNextStep()
-                            }}
-                        />
-                        <SettingsStepperButton
-                            label="None"
-                            onClick={() => {
-                                setQuestionType("None")
-                                goToNextStep()
-                            }}
-                        />
-                        <BackButton />
-
-                    </Box>
-                </StepContent>
-            </Step>
-        )
-    }
+    function SetTimeLimitStep(props) {}
+        
 
 
     
