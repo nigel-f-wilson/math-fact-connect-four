@@ -62,11 +62,45 @@ export function MobileSettingsStepper(props) {
 
 
     const goToNextStep = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+    }
     const goBackOneStep = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
+        setActiveStep((prevActiveStep) => prevActiveStep - 1)
+    }
+    const selectHuman = () => {
+        setCompletedSteps(0)
+        setPlayMode('human')
+        console.log(`PlayMode set to HUMAN`)
+    }
+    const selectBot = () => {
+        setCompletedSteps(0)
+        setPlayMode('bot');
+        console.log(`PlayMode set to BOT`)
+    }
+    const selectMultiplication = () => {
+        setCompletedSteps(1)
+        setQuestionType('multiplication')
+    }
+    const selectDivision = () => {
+        setCompletedSteps(1)
+        setQuestionType('division')
+    }
+    const selectExponents = () => {
+        setCompletedSteps(1)
+        setQuestionType('exponents')
+    }
+    const selectAlgebra = () => {
+        setCompletedSteps(1)
+        setQuestionType('algebra')
+    }
+    const selectNone = () => {
+        setCompletedSteps(1)
+        setQuestionType('none')
+    }
+    const selectQuestionType = (questionType) => {
+        setCompletedSteps(1)
+        setQuestionType(questionType)
+    }
 
     
 
