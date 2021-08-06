@@ -24,11 +24,6 @@ import { useTheme } from '@material-ui/core/styles';
 //  MUI Icons
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-// import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'; 
-// import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-
-
-
 
 
 export function MobileSettingsStepper(props) {
