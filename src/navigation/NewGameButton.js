@@ -83,15 +83,15 @@ function SettingsDialog(props) {
                     What kind of game do you want to play?
                 </DialogTitle> */}
 
-                {/* <DialogContent sx={{ display: { xs: 'none', md: 'block' } }} >
+                <DialogContent sx={{ display: { xs: 'none', md: 'block' } }} >
                     <DesktopSettingsStepper />
                 </DialogContent>
                 <DialogContent sx={{ display: { xs: 'block', md: 'none' } }}>
                     <MobileSettingsStepper />
-                </DialogContent> */}
-                <DialogContent sx={{ display: { xs: 'block' } }} >
-                    <DesktopSettingsStepper />
                 </DialogContent>
+                {/* <DialogContent sx={{ display: { xs: 'block' } }} >
+                    <DesktopSettingsStepper />
+                </DialogContent> */}
             </Dialog>
         </Box>
     );
