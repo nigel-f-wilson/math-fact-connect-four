@@ -9,8 +9,7 @@ import './App.css';
 
 // PAGES
 import Landing from "./pages/Landing"
-import PlayVsHuman from "./pages/PlayVsHuman"
-import PlayVsBot from "./pages/PlayVsBot"
+import Play from "./pages/Play"
 
 
 // MUI  components
@@ -49,12 +48,8 @@ export default function App() {
                             <Route exact path="/">
                                 <Landing />
                             </Route>
-                            <Route path="/play-vs-human">
-                                <PlayVsHuman />
-                            </Route>
-
-                            <Route path="/play-vs-bot">
-                                <PlayVsBot />
+                            <Route path="/play" >
+                                <Play />
                             </Route>
 
 
