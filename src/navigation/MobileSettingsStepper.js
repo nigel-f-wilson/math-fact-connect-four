@@ -33,7 +33,7 @@ export function MobileSettingsStepper(props) {
     const [playMode, setPlayMode] = React.useState("");
     const [botDifficulty, setBotDifficulty] = React.useState("");
     // const [playWithTimeLimit, setPlayWithTimeLimit] = React.useState(false);  // only an option in human vs. human mod
-    const [problemType, setProblemType] = React.useState("none");  // none | multiplication | division | exponents | algebra
+    const [questionType, setQuestionType] = React.useState("");  // none | multiplication | division | exponents | algebra
     const [rowNumbers, setRowNumbers] = React.useState([1, 2, 3, 4, 5, 6]);
     const [colNumbers, setColNumbers] = React.useState([1, 2, 3, 4, 5, 6, 7]);
 
