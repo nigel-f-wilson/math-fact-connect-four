@@ -28,8 +28,34 @@ export function GameBoard(props) {
 
 
 
+function Column(props) {
+    return (
+        <Box sx={{ 
+            bgcolor: 'background', 
             width: squarePercentage,
             height: '100%',
+            display: 'flex',
+            flexDirection: 'column-reverse'
+            }} 
+            
+        >
+            {/* {
+                props.data.map(squareStatus => {
+                    <Square status={squareStatus} />
+                })
+            } */}
+            <Square status={props.data[0]} />
+            <Square status={props.data[1]} />
+            <Square status={props.data[2]} />
+            <Square status={props.data[3]} />
+            <Square status={props.data[4]} />
+            <Square status={props.data[5]} />
+            <Square transparent ></Square>
+
+
+        </Box>
+    );
+}
     return (
         <Box sx={{ bgcolor: 'board.main', mt: 4, pt: '100%', width: '100%' }} >
             height: squarePercentage,
