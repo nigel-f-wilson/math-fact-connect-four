@@ -56,10 +56,27 @@ function Column(props) {
         </Box>
     );
 }
+
+function Square(props) {
+    let bgcolor = props.transparent ? 'background' : 'board.main'
+    let chipColor = props.status ? props.status : 'unclaimed'
+    
     return (
-        <Box sx={{ bgcolor: 'board.main', mt: 4, pt: '100%', width: '100%' }} >
+        <Box sx={{ 
+            bgcolor: bgcolor,
             height: squarePercentage,
             width: '100%',
+            display: 'flex', 
+            justifyContent: 'center',
+            alignItems: 'center',
+
+            }} 
+        >
+            <Chip color={chipColor} />
+
+        </Box>
+    );
+}
             height: chipSizeRelativeToSquare,
             width: chipSizeRelativeToSquare,
 
