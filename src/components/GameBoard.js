@@ -7,6 +7,7 @@ import { Box } from '@material-ui/core'
 const squarePercentage = '14.287%'
 const chipSizeRelativeToSquare = '84%'
 
+export function GameBoard(props) {
     // const moveList = props.moveList // An Array of integers ranging -1 thru 41 of indeterminate length
     const moveList = [-1, 1,2,3,4,5,-1,-1,6,-1,8,9,-1,10,-1,11,-1,12] // Testing Only
     
@@ -26,7 +27,6 @@ const chipSizeRelativeToSquare = '84%'
 }
 
 
-export default function GameBoard() {
 
             width: squarePercentage,
             height: '100%',
