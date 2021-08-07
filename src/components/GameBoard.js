@@ -12,6 +12,18 @@ const chipSizeRelativeToSquare = '84%'
     
     let boardData = boardDataFromMoveList(moveList)
     
+    return (
+            <Box sx={{ display: 'flex', flexDirection: 'row', height: '375px' }} >
+                <Column data={boardData[0]} />
+                <Column data={boardData[1]} />
+                <Column data={boardData[2]} />
+                <Column data={boardData[3]} />
+                <Column data={boardData[4]} />
+                <Column data={boardData[5]} />
+                <Column data={boardData[6]} />
+            </Box>
+    );
+}
 
 
 export default function GameBoard() {
