@@ -9,6 +9,9 @@ const chipSizeRelativeToSquare = '84%'
 
     // const moveList = props.moveList // An Array of integers ranging -1 thru 41 of indeterminate length
     const moveList = [-1, 1,2,3,4,5,-1,-1,6,-1,8,9,-1,10,-1,11,-1,12] // Testing Only
+    
+    let boardData = boardDataFromMoveList(moveList)
+    
 
 
 export default function GameBoard() {
@@ -25,4 +28,17 @@ export default function GameBoard() {
         
         </Box>
     );
+}
+
+function boardDataFromMoveList(moveList) {
+    let boardData = Array(7).fill([])
+    moveList.forEach((squareId, turn) => {
+        if (squareId !== -1) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
+            let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
+            let columnIndex = squareId % 7
+            let columnData = boardData[columnIndex]
+            boardData[columnIndex] = columnData.concat(player)
+        }
+    })
+    return boardData
 }
