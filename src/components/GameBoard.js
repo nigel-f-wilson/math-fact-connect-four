@@ -77,10 +77,22 @@ function Square(props) {
         </Box>
     );
 }
+
+// Having a Chip be a separate component with a lower Z-index than the Square
+// should make adding a sliding transition animation easier. 
+function Chip(props) {
+    let bgcolor = `chip.${props.color}`
+
+    return (
+        <Box sx={{
+            bgcolor: bgcolor,
             height: chipSizeRelativeToSquare,
             width: chipSizeRelativeToSquare,
+            borderRadius: '50%'
+        }}
+        >
 
-        
+
         </Box>
     );
 }
