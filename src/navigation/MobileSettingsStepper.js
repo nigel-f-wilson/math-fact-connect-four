@@ -6,7 +6,6 @@ import { Link as RouterLink } from "react-router-dom";
 
 // MUI components
 import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
@@ -14,12 +13,6 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
-import SvgIcon from '@material-ui/core/SvgIcon';
-
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 
 //  MUI Icons
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';

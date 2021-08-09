@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 
 
 // MY components
-import { MobileSettingsStepper } from "./MobileSettingsStepper";
-import { DesktopSettingsStepper } from "./DesktopSettingsStepper";
+import { SettingsStepper } from "./SettingsStepper";
+// import { MobileSettingsStepper } from "./MobileSettingsStepper";
+// import { DesktopSettingsStepper } from "./DesktopSettingsStepper";
 
 // MUI components
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
@@ -56,7 +53,6 @@ export default function NewGameButton() {
 function SettingsDialog(props) {
     const { onClose, selectedValue, dialogOpen } = props;
     const theme = useTheme()
-    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const mobileDevice = useMediaQuery(theme.breakpoints.down('sm'));
 
     
@@ -72,30 +68,16 @@ function SettingsDialog(props) {
             <Dialog
                 onClose={onClose}
                 open={dialogOpen}
-                fullScreen={fullScreen}
+                fullScreen={mobileDevice}
             >
                 <CloseIcon
                     sx={{ margin: '1rem 1rem 0 auto' }}
                     onClick={() => onClose()}
                 />
-
-                {/* <DialogTitle sx={{ padding: '1rem' }}  >
-                    What kind of game do you want to play?
-                </DialogTitle> */}
-
-                <DialogContent sx={{ display: { xs: 'none', md: 'block' }, p: 0 }} >
-                    <DesktopSettingsStepper />
-                </DialogContent>
-                <DialogContent sx={{ display: { xs: 'block', md: 'none' }, p: 0 }}>
-                    <MobileSettingsStepper />
-                </DialogContent>
-                {/* <DialogContent sx={{ display: { xs: 'block' } }} >
-                    <DesktopSettingsStepper />
-                </DialogContent> */}
+                <SettingsStepper />
             </Dialog>
         </Box>
     );
 }
-
 
 

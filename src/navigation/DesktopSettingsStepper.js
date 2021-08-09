@@ -14,9 +14,31 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 
-
-
 // MUI icons
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
+// const steps = [
+//     {
+//         index: 1,
+//         label: 'Play vs. Human or Bot?',
+//         buttons: <SetPlayModeButtons />,
+//     },
+//     // {
+//     //     label: 'How well should the Bot play?',
+//     // },
+//     // {
+//     //     label: "What are the players' names?",
+//     // },
+//     {
+//         label: 'What type of math questions should we ask?',
+//         buttons: <SetQuestionTypeButtons />,
+
+//     },
+//     // {
+//     //     label: 'What type of math questions should be asked?',
+//     //     buttons: <Set
+//     // },
+// ];
 
 export function DesktopSettingsStepper(props) {
     const [activeStep, setActiveStep] = React.useState(0);
@@ -39,7 +61,10 @@ export function DesktopSettingsStepper(props) {
     
 
     return (
-        <Box sx={{ width: 550 }}>
+        <Box sx={{ width: 550, p: 3 }}>
+            <Typography variant='h5'  sx={{ mb: 3}} >
+                Select game settings:
+            </Typography>
             <Stepper
                 activeStep={activeStep}
                 orientation="vertical"
