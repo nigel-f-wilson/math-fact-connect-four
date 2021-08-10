@@ -21,7 +21,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 export function MobileSettingsStepper(props) {
     const [activeStep, setActiveStep] = React.useState(0);
-    const [completedSteps, setCompletedSteps] = React.useState(-1);
+    const [completedSteps, setCompletedSteps] = React.useState(0);
 
     const [playMode, setPlayMode] = React.useState("");
     const [botDifficulty, setBotDifficulty] = React.useState("");
@@ -103,12 +103,12 @@ export function MobileSettingsStepper(props) {
             <Typography variant='h4' textAlign="center" sx={{ mb: 6 }} >
                 {steps[activeStep].label}
             </Typography>
-            <Typography variant='h4' textAlign="center"   >
+            {/* <Typography variant='h4' textAlign="center"   >
                 {`Active: ${activeStep}`}
             </Typography>
             <Typography variant='h4' textAlign="center"   >
                 {`Completed: ${completedSteps}`}
-            </Typography>
+            </Typography> */}
 
             {steps[activeStep].buttons}
             
@@ -250,7 +250,7 @@ export function MobileSettingsStepper(props) {
     function StartGameButton(props) {
         return (
             <Button variant="text"
-                disabled={completedSteps < activeStep}
+                disabled={completedSteps < activeStep + 1}
                 component={RouterLink}
                 to={{
                     pathname: '/play',
