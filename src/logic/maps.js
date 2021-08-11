@@ -102,3 +102,20 @@ export const lineIdToSquareIdsMap = () => {
     return completeMap;
 }
 
+export const squareIdToLineIdsMap = () => {
+    let squaresToLinesMap = new Map();
+    for (let squareId = 0; squareId < totalSquares; squareId++) {
+        squaresToLinesMap.set(squareId, []);
+    }
+    lineIdToSquareIdsMap.forEach((squaresInLineList, lineId) => {
+        squaresInLineList.forEach(squareId => {
+            squaresToLinesMap.set(squareId, squaresToLinesMap.get(squareId).concat(lineId));
+        })
+    })
+    // CONFUSING point: For now I have just silenced the following console.log because it runs everytime handleColumnClick is called.  This means the map is being recreated from scratch each turn of the game unnecesarily. Perhaps I could solve this by moving the entire ClassicGame() inside a wrapper component that is strictly for holding complex CONSTANTS that ClassGame uses but only needs to compute once such as the Maps.
+    console.log(`Mapped each of the ${totalSquares} SquareIds to the set of all Lines that include it.`)
+    // squaresToLinesMap.forEach(logMapElement);
+    return squaresToLinesMap;
+}
+
+
