@@ -34,6 +34,8 @@ export const lineIdToSquareIdsMap = () => {
         // Vertical Lines are assigned Ids starting from Zero.
         let currentLineId = 0;
 
+        // for (let squareId = 0; squareId < totalSquares; squareId++) {
+        for (let squareId = 0; squareId < numberOfVerticalLines; squareId++) {
             if (isStartOfVerticalLine(squareId)) {
                 let first = squareId + 0;
                 let second = squareId + 1;
