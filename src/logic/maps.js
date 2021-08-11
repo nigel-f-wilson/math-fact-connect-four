@@ -119,3 +119,39 @@ export const squareIdToLineIdsMap = () => {
 }
 
 
+// FIRST level BOOLEAN LINE helpers             // Currently there is only a Square.js functional Component, however if I defined a Square Class I would think that I could turn these functions that take squareId as a parameter and turn them into something that 'reads better' like Square.isStartOfVerticalLine() written on the Square object so that it has built in access to the relevant squareId and can be used in a no-parameter fashion. ??? 
+function isStartOfVerticalLine(squareId) {
+    const rowNumber = getRowBySquareId(squareId);
+    return (squaresPerCol - rowNumber >= 4);
+}
+function isEndOfVerticalLine(squareId) {
+    // To check if a square is the end of a verticalLine we need its rowNumber.
+    // rowNumber has 0-based indexing. If we are in the 3rd row or above then return TRUE.
+    const rowNumber = getRowBySquareId(squareId);
+    return (rowNumber >= 3);
+}
+function isStartOfHorizontalLine(squareId) {
+    // If we are in the 0-th row then the minimum squaresPerCol that should return true is 4
+    const colNumber = getColBySquareId(squareId);
+    return (squaresPerRow - colNumber >= 4);
+}
+function isStartOfUpslashLine(squareId) {
+    // A square is the Start Of an Upslash Line IFF it is BOTH the "start" of a vertical line AND the "start" of a horizontal line.  
+    return (isStartOfVerticalLine(squareId) && isStartOfHorizontalLine(squareId));
+}
+function isStartOfDownslashLine(squareId) {
+    // A square is the Start Of an Downslash Line IFF it is BOTH the "end" of a vertical line AND the "start" of a horizontal line.  
+    return (isEndOfVerticalLine(squareId) && isStartOfHorizontalLine(squareId));
+}
+
+// LOWEST LEVEL SQUARE-ROW-COL HELPERS
+function getRowBySquareId(id) {
+    return (id % squaresPerCol);
+}
+function getColBySquareId(id) {
+    return (Math.floor(id / squaresPerCol))
+}
+function getSquareIdByRowCol(row, col) {
+    return (col * squaresPerCol + row);
+}
+
