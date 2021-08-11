@@ -4,8 +4,11 @@ import {
     useLocation,
 } from "react-router-dom"
 
-// MY components
+// MY UI components
 import { GameBoard } from "../components/GameBoard";
+
+// MY UI components
+import { lineIdToSquareIdsMap, squareIdToLineIdsMap } from '../logic/maps'   
 
 // MUI  components
 import { Typography, Container, Box } from '@material-ui/core'
@@ -13,8 +16,9 @@ import theme from '../theme';
 
 
 export default function Play(props) {
-    const location = useLocation()
+    const 
     
+    const location = useLocation()
     const { playMode, questionType} = location.state
 
     const [moveList, setMoveList] = React.useState([]);
