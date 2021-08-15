@@ -62,37 +62,37 @@ export function MobileSettingsStepper(props) {
         setActiveStep((prevActiveStep) => prevActiveStep - 1)
     }
     const selectHuman = () => {
-        setCompletedSteps(0)
+        setCompletedSteps(1)
         setPlayMode('human')
         console.log(`PlayMode set to HUMAN`)
     }
     const selectBot = () => {
-        setCompletedSteps(0)
+        setCompletedSteps(1)
         setPlayMode('bot');
         console.log(`PlayMode set to BOT`)
     }
     const selectMultiplication = () => {
-        setCompletedSteps(1)
+        setCompletedSteps(2)
         setQuestionType('multiplication')
     }
     const selectDivision = () => {
-        setCompletedSteps(1)
+        setCompletedSteps(2)
         setQuestionType('division')
     }
     const selectExponents = () => {
-        setCompletedSteps(1)
+        setCompletedSteps(2)
         setQuestionType('exponents')
     }
     const selectAlgebra = () => {
-        setCompletedSteps(1)
+        setCompletedSteps(2)
         setQuestionType('algebra')
     }
     const selectNone = () => {
-        setCompletedSteps(1)
+        setCompletedSteps(2)
         setQuestionType('none')
     }
     const selectQuestionType = (questionType) => {
-        setCompletedSteps(1)
+        setCompletedSteps(2)
         setQuestionType(questionType)
     }
 
@@ -103,12 +103,12 @@ export function MobileSettingsStepper(props) {
             <Typography variant='h4' textAlign="center" sx={{ mb: 6 }} >
                 {steps[activeStep].label}
             </Typography>
-            {/* <Typography variant='h4' textAlign="center"   >
+            <Typography variant='h4' textAlign="center"   >
                 {`Active: ${activeStep}`}
             </Typography>
             <Typography variant='h4' textAlign="center"   >
                 {`Completed: ${completedSteps}`}
-            </Typography> */}
+            </Typography>
 
             {steps[activeStep].buttons}
             
@@ -145,7 +145,7 @@ export function MobileSettingsStepper(props) {
                     variant={playMode === 'human' ? "contained" : "outlined"}
                     startIcon={<i className="fas fa-user-friends"></i>}
                     size='large'
-                    sx={{ m: 2, width: '60%'}}
+                    sx={{ m: 2 , width: '90%'}}
                 >
                     &ensp;Play vs. Human
                 </Button>
@@ -153,7 +153,7 @@ export function MobileSettingsStepper(props) {
                     onClick={selectBot}
                     variant={playMode === 'bot' ? "contained" : "outlined"}
                     startIcon={<i className='fas fa-robot'></i>}
-                    sx={{ m: 2, width: '60%' }}
+                    sx={{ m: 2 , width: '90%' }}
 
                 >
                     &ensp;Play vs. Bot
@@ -172,7 +172,7 @@ export function MobileSettingsStepper(props) {
                     onClick={selectMultiplication}
                     variant={questionType === 'multiplication' ? "contained" : "outlined"}
                     startIcon={<i className="fas fa-times"></i>}
-                    sx={{ m: 2, width: '60%' }}
+                    sx={{ m: 2 , width: '90%' }}
                 >
                     &ensp;multiplication
                 </Button>
@@ -180,7 +180,7 @@ export function MobileSettingsStepper(props) {
                     onClick={selectDivision}
                     variant={questionType === 'division' ? "contained" : "outlined"}
                     startIcon={<i className="fas fa-divide"></i>}
-                    sx={{ m: 2, width: '60%' }}
+                    sx={{ m: 2 , width: '90%' }}
                 >
                     &ensp;division
                 </Button> */}
@@ -188,7 +188,7 @@ export function MobileSettingsStepper(props) {
                     onClick={() => selectQuestionType('division')}
                     variant={questionType === 'division' ? "contained" : "outlined"}
                     startIcon={<i className="fas fa-divide"></i>}
-                    sx={{ m: 2, width: '60%' }}
+                    sx={{ m: 2 , width: '90%' }}
                 >
                     &ensp;division
                 </Button>
@@ -196,7 +196,7 @@ export function MobileSettingsStepper(props) {
                     onClick={selectExponents}
                     variant={questionType === 'exponents' ? "contained" : "outlined"}
                     startIcon={<i className="fas fa-superscript"></i>}
-                    sx={{ m: 2, width: '60%' }}
+                    sx={{ m: 2 , width: '90%' }}
                 >
                     &ensp;exponents
                 </Button>
@@ -205,7 +205,7 @@ export function MobileSettingsStepper(props) {
                     variant={questionType === 'algebra' ? "contained" : "outlined"}
                     // startIcon={<i class="fal fa-function"></i>}
                     startIcon={<i className="fas fa-calculator"></i>}
-                    sx={{ m: 2, width: '60%' }}
+                    sx={{ m: 2 , width: '90%' }}
                 >
                     &ensp;algebra
                 </Button>
@@ -213,7 +213,7 @@ export function MobileSettingsStepper(props) {
                     onClick={selectNone}
                     variant={questionType === 'none' ? "contained" : "outlined"}
                     startIcon={<i className="fas fa-ban"></i>}
-                    sx={{ m: 2, width: '60%' }}
+                    sx={{ m: 2 , width: '90%' }}
                 >
                     &ensp;none
                 </Button>
