@@ -91,13 +91,16 @@ export function SettingsStepper(props) {
     }
 
     
+    
     return (
         <Box sx={{ bgcolor: 'white', height: 'inherit' }}   >
             <DialogContent sx={{ display: { xs: 'none', sm: 'block' }, p: '3 0 0' }} >
-                <DesktopSettingsStepper />
+                <Box sx={{ width: 550, p: 3 }}>
+                    <MobileSettingsStepper activeStep={activeStep} completedSteps={completedSteps} mobileScreenSize={false} />
+                </Box>
             </DialogContent>
             <DialogContent sx={{ display: { xs: 'flex', sm: 'none' }, p: 0, height: 'inherit', justifyContent: 'center', alignContent: 'center' }}>
-                <MobileSettingsStepper />
+                <MobileSettingsStepper activeStep={activeStep} completedSteps={completedSteps} mobileScreenSize={true} />
             </DialogContent>
         </Box>
     );
@@ -138,6 +141,7 @@ export function SettingsStepper(props) {
 
         
         
+                    position={mobileScreenSize ? 'bottom' : 'static'}
     }
 
 
