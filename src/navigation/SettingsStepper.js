@@ -278,4 +278,63 @@ export function SettingsStepper(props) {
         )
     }
 
+    function SetQuestionTypeButtons(props) {
+        // TODO ADD common IconButton reusable component to generate this set with .map instead of manually
+
+        return (
+            <React.Fragment>
+                <Button
+                    onClick={selectMultiplication}
+                    variant={questionType === 'multiplication' ? "contained" : "outlined"}
+                    startIcon={<i className="fas fa-times"></i>}
+                    sx={{ m: 1, width: '90%' }}
+                >
+                    &ensp;multiplication
+                </Button>
+                {/* <Button
+                    onClick={selectDivision}
+                    variant={questionType === 'division' ? "contained" : "outlined"}
+                    startIcon={<i className="fas fa-divide"></i>}
+                    sx={{ m: 2 , width: '90%' }}
+                >
+                    &ensp;division
+                </Button> */}
+                <Button
+                    onClick={() => selectQuestionType('division')}
+                    variant={questionType === 'division' ? "contained" : "outlined"}
+                    startIcon={<i className="fas fa-divide"></i>}
+                    sx={{ m: 1, width: '90%' }}
+                >
+                    &ensp;division
+                </Button>
+                <Button
+                    onClick={selectExponents}
+                    variant={questionType === 'exponents' ? "contained" : "outlined"}
+                    startIcon={<i className="fas fa-superscript"></i>}
+                    sx={{ m: 1, width: '90%' }}
+                >
+                    &ensp;exponents
+                </Button>
+                <Button
+                    onClick={selectAlgebra}
+                    variant={questionType === 'algebra' ? "contained" : "outlined"}
+                    // startIcon={<i class="fal fa-function"></i>}
+                    startIcon={<i className="fas fa-calculator"></i>}
+                    sx={{ m: 1, width: '90%' }}
+                >
+                    &ensp;algebra
+                </Button>
+                <Button
+                    onClick={selectNone}
+                    variant={questionType === 'none' ? "contained" : "outlined"}
+                    startIcon={<i className="fas fa-ban"></i>}
+                    sx={{ m: 1, width: '90%' }}
+                >
+                    &ensp;none
+                </Button>
+            </React.Fragment>
+
+        )
+
+
 
