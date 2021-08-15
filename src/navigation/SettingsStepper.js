@@ -251,4 +251,31 @@ export function SettingsStepper(props) {
         )
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    // Selection Buttons
+    ///////////////////////////////////////////////////////////////////////////////////////
+    function SetPlayModeButtons(props) {
+        return (
+            <React.Fragment>
+                <Button
+                    onClick={() => selectPlayMode('human')}
+                    variant={playMode === 'human' ? "contained" : "outlined"}
+                    startIcon={<i className="fas fa-user-friends"></i>}
+                    size='large'
+                    sx={{ m: 2, width: '100%' }}
+                >
+                    &ensp;Play vs. Human
+                </Button>
+                <Button
+                    onClick={() => selectPlayMode('bot')}
+                    variant={playMode === 'bot' ? "contained" : "outlined"}
+                    startIcon={<i className='fas fa-robot'></i>}
+                    sx={{ m: 2, width: '100%' }}
+                >
+                    &ensp;Play vs. Bot
+                </Button>
+            </React.Fragment>
+        )
+    }
+
 
