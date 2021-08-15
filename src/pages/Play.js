@@ -24,7 +24,8 @@ export default function Play(props) {
     const location = useLocation()
     const { playMode, questionType} = location.state
 
-    const [moveList, setMoveList] = React.useState([]);
+    const [moveList, setMoveList] = React.useState([])
+    const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
 
     
     
