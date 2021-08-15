@@ -30,14 +30,14 @@ export function GameBoard(props) {
 
 function Column(props) {
     return (
-        <Box sx={{ 
-            bgcolor: 'background', 
-            width: squarePercentage,
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column-reverse'
-            }} 
-            
+        <Box onClick={num => handleColumnClick(num)}
+            sx={{ 
+                bgcolor: 'background', 
+                width: squarePercentage,
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column-reverse'
+                }} 
         >
             {/* {
                 props.data.map(squareStatus => {
