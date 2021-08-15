@@ -197,4 +197,58 @@ export function SettingsStepper(props) {
         
     }
 
+    function BackButton(props) {
+        let { activeStep, completedSteps, mobileScreenSize } = props
+
+        return (
+            <Button 
+                // variant={mobileScreenSize ? 'text' : 'outlined'}
+                variant='text'
+                onClick={goBackOneStep}
+                sx={{ color: 'primary.main', mt: 1, mr: 1, fontSize: 'large' }}
+            >
+                <ArrowBackIosIcon fontSize='small' />&ensp;Back
+            </Button>
+        )
+    }
+    function NextButton(props) {
+        let { activeStep, completedSteps, mobileScreenSize } = props
+
+        let disabled = !completedSteps.includes(activeStep)
+        return (
+            <Button 
+                // variant={mobileScreenSize ? 'text' : 'outlined'}
+                variant='text'
+                onClick={goToNextStep}
+                sx={{ mt: 1, mr: 1, fontSize: 'large' }}
+                disabled={disabled}
+            >
+                Next&ensp;<ArrowForwardIosIcon fontSize='small' />
+            </Button>
+        )
+    }
+    function StartGameButton(props) {
+        let { activeStep, completedSteps, mobileScreenSize, totalSteps } = props
+        let disabled = (completedSteps.length < totalSteps) 
+
+        return (
+            <Button 
+                // variant={mobileScreenSize ? 'text' : 'outlined'}
+                variant='text'
+                disabled={disabled}
+                component={RouterLink}
+                to={{
+                    pathname: '/play',
+                    state: {
+                        playMode: playMode,
+                        questionType: questionType,
+                    }
+                }}
+                sx={{ mt: 1, mr: 1, fontSize: 'large', lineHeight: 1 }}
+            >
+                Start<br />Game &ensp;<ArrowForwardIosIcon fontSize='small' />
+            </Button>
+        )
+    }
+
 
