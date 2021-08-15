@@ -3,7 +3,6 @@ import { Link as RouterLink } from "react-router-dom";
 
 
 // MY components
-import { DesktopSettingsStepper } from "./DesktopSettingsStepper";
 
 // MUI components
 import Box from '@material-ui/core/Box';
