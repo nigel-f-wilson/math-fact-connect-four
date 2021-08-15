@@ -37,12 +37,14 @@ export default function App() {
             <Box sx={{
                 bgcolor: 'background',
                 height: '100vh',
+                width: '100vw',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'flexStart',
+                justifyContent: 'start',
+                overflow: 'scroll'
             }}>
-                <Container maxWidth='sm' disableGutters >
+                <Container maxWidth='md' disableGutters >
                     <Router>
                         <Switch>
                             <Route exact path="/">
