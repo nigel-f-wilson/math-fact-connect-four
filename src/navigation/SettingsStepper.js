@@ -33,9 +33,7 @@ import { useTheme } from '@material-ui/core/styles';
 //     selectedValue: PropTypes.object.isRequired,
 // }
 export function SettingsStepper(props) {
-    const { onClose, selectedValue, dialogOpen } = props;
-    const theme = useTheme()
-    const mobileDevice = useMediaQuery(theme.breakpoints.down('sm'));
+    // const { onClose, selectedValue, dialogOpen } = props;
 
     return (
         <Box sx={{ bgcolor: 'white', height: 'inherit' }}   >
