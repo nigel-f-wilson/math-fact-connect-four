@@ -34,6 +34,15 @@ import { useTheme } from '@material-ui/core/styles';
 // }
 export function SettingsStepper(props) {
     // const { onClose, selectedValue, dialogOpen } = props;
+    const [activeStep, setActiveStep] = React.useState(0);
+    const [completedSteps, setCompletedSteps] = React.useState(new Array());
+
+    const [playMode, setPlayMode] = React.useState("unset");
+    const [botDifficulty, setBotDifficulty] = React.useState("unset");
+    // const [playWithTimeLimit, setPlayWithTimeLimit] = React.useState(false);  // only an option in human vs. human mod
+    const [questionType, setQuestionType] = React.useState("unset");  // none | multiplication | division | exponents | algebra
+    const [rowNumbers, setRowNumbers] = React.useState([1, 2, 3, 4, 5, 6]);
+    const [colNumbers, setColNumbers] = React.useState([1, 2, 3, 4, 5, 6, 7]);
 
     return (
         <Box sx={{ bgcolor: 'white', height: 'inherit' }}   >
