@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link as RouterLink } from "react-router-dom";
+
 
 // MY components
 import { MobileSettingsStepper } from "./MobileSettingsStepper";
@@ -6,8 +8,20 @@ import { DesktopSettingsStepper } from "./DesktopSettingsStepper";
 
 // MUI components
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
+
+import MobileStepper from '@material-ui/core/MobileStepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import StepContent from '@material-ui/core/StepContent';
+
+//  MUI Icons
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
