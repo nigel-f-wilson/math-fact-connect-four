@@ -50,6 +50,21 @@ export function SettingsStepper(props) {
     const goBackOneStep = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1)
     }
+    const selectPlayMode = (selection) => {
+        setCompletedSteps(completedSteps.concat(0))
+        setPlayMode(selection)   // ENUM: 'human' | 'bot'
+        console.log(`PlayMode set to ${selection}`)
+    }
+    // const selectHuman = () => {
+    //     setCompletedSteps(1)
+    //     setPlayMode('human')
+    //     console.log(`PlayMode set to HUMAN`)
+    // }
+    // const selectBot = () => {
+    //     setCompletedSteps(1)
+    //     setPlayMode('bot');
+    //     console.log(`PlayMode set to BOT`)
+    // }
     return (
         <Box sx={{ bgcolor: 'white', height: 'inherit' }}   >
             <DialogContent sx={{ display: { xs: 'none', sm: 'block' }, p: '3 0 0' }} >
