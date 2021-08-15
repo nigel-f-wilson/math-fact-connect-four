@@ -24,7 +24,7 @@ export default function Play(props) {
     const location = useLocation()
     const { playMode, questionType} = location.state
 
-    const [moveList, setMoveList] = React.useState([])
+    const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
 
     
