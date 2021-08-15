@@ -83,6 +83,19 @@ export default function Play(props) {
     // DATA FILTERS and CONVERTERS
     ///////////////////////////////////////////////////////
 
+    function boardDataFromMoveList(moveList) {
+        let boardData = Array(7).fill([])
+        moveList.forEach((move, turn) => {
+            if (move !== -1) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
+                let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
+                let columnIndex = move % 7
+                let columnData = boardData[columnIndex]
+                boardData[columnIndex] = columnData.concat(player)
+            }
+        })
+        return boardData
+    }
+
     function getColumnData(colNumber, ml = moveList) {
         let columnData = Array()
         ml.forEach((move, turn) => {
