@@ -44,6 +44,12 @@ export function SettingsStepper(props) {
     const [rowNumbers, setRowNumbers] = React.useState([1, 2, 3, 4, 5, 6]);
     const [colNumbers, setColNumbers] = React.useState([1, 2, 3, 4, 5, 6, 7]);
 
+    const goToNextStep = () => {  
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+    }
+    const goBackOneStep = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1)
+    }
     return (
         <Box sx={{ bgcolor: 'white', height: 'inherit' }}   >
             <DialogContent sx={{ display: { xs: 'none', sm: 'block' }, p: '3 0 0' }} >
