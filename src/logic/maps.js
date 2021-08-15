@@ -17,6 +17,7 @@ const numberOfUpslashLines = linesPerCol * linesPerRow;
 const numberOfDownslashLines = linesPerCol * linesPerRow;
 
 export const lineIdToSquareIdsMap = () => {
+    console.warn(`lineIdToSquareIdsMap was called.  This is a compute heavy function which should run once per game.`)
     let completeMap = new Map();
     let partialMaps = [verticalLineMap(), horizontalLineMap(), upslashLineMap(), downslashLineMap()]
 
@@ -103,6 +104,7 @@ export const lineIdToSquareIdsMap = () => {
 }
 
 export const squareIdToLineIdsMap = () => {
+    console.warn(`squareIdToLineIdsMap was called.  This is a compute heavy function which should run once per game.`)
     let squaresToLinesMap = new Map();
     for (let squareId = 0; squareId < totalSquares; squareId++) {
         squaresToLinesMap.set(squareId, []);
@@ -126,7 +128,7 @@ function isStartOfVerticalLine(squareId) {
 }
 function isEndOfVerticalLine(squareId) {
     // To check if a square is the end of a verticalLine we need its rowNumber.
-    // rowNumber has 0-based indexing. If we are in the 3rd row or above then return TRUE.
+    // rowNumber has 0-based indexing. If we are in row 3 or above then return TRUE.
     const rowNumber = getRowBySquareId(squareId);
     return (rowNumber >= 3);
 }
