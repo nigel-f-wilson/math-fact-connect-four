@@ -12,6 +12,7 @@ export function GameBoard(props) {
     // moveList = [-1, 1,2,3,4,5,-1,-1,6,-1,8,9,-1,10,-1,11,-1,12] // Testing Only
     
     let boardData = boardDataFromMoveList(moveList)
+    console.log(`boardDataFromMoveList: ${boardData}`);
     
     return (
             <Box sx={{ display: 'flex', flexDirection: 'row', height: '375px' }} >
@@ -29,6 +30,7 @@ export function GameBoard(props) {
 
 
 function Column(props) {
+    const { num, data, handleColumnClick } = props
     return (
         <Box onClick={num => handleColumnClick(num)}
             sx={{ 
@@ -44,12 +46,12 @@ function Column(props) {
                     <Square status={squareStatus} />
                 })
             } */}
-            <Square status={props.data[0]} />
-            <Square status={props.data[1]} />
-            <Square status={props.data[2]} />
-            <Square status={props.data[3]} />
-            <Square status={props.data[4]} />
-            <Square status={props.data[5]} />
+            <Square status={data[0]} />
+            <Square status={data[1]} />
+            <Square status={data[2]} />
+            <Square status={data[3]} />
+            <Square status={data[4]} />
+            <Square status={data[5]} />
             <Square transparent ></Square>
 
 
@@ -75,7 +77,10 @@ function Square(props) {
             <Chip color={chipColor} />
 
         </Box>
-    );
+    )
+
+
+
 }
 
 // Having a Chip be a separate component with a lower Z-index than the Square
