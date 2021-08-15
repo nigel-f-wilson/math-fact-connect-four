@@ -1,20 +1,14 @@
 import React from 'react'
-import {
-    Link as RouterLink,
-} from "react-router-dom"
 
 // MY components
 import NewGameButton from "../navigation/NewGameButton";
 
 // MUI  components
-import { Box } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import { Container } from '@material-ui/core'
+import { Box, Typography} from '@material-ui/core';
 
 export default function Landing() {
-
     return (
-        <Container maxWidth="md" sx={{ pt: '1rem' }}>
+        <Box sx={{ width: '100%', p: '1rem'}}>
             <Typography color="text.primary" variant="h2" gutterBottom >
                 Welcome to Math Fact Connect Four!
             </Typography>
@@ -49,7 +43,7 @@ export default function Landing() {
             <Typography color="text.primary" variant="body1" gutterBottom >
                 A production of the NOLA STEM Garden &copy;
             </Typography>
-        </Container>
+        </Box>
     );
 }
 
