@@ -78,6 +78,38 @@ export default function Play(props) {
         // This is where we Would find and make the Computer Move if in Play vs. Computer Mode
         return 0;
     }
+
+    ///////////////////////////////////////////////////////
+    // DATA FILTERS and CONVERTERS
+    ///////////////////////////////////////////////////////
+
+    function getColumnData(colNumber, ml = moveList) {
+        let playerOneMoves = 
+        
+        return ml.filter( )
+    } 
+
+    
+    // Higher Order functions call both of these first because these can only work with a raw moveList, pre-removal of -1's
+    function playerOneMoves(ml = moveList) {
+        return ml.filter((move, turn) => turn % 2 === 0)
+    }
+    function playerTwoMoves(ml = moveList) {
+        return ml.filter((move, turn) => turn % 2 === 1)
+    }
+    function removeSkippedTurns(moves) {
+        return moves.filter((move) => move === -1)
+    }
+
+    // function handleUndoButtonClick() {
+    //     setCurrentTurnNumber(--currentTurnNumber);
+    // }
+
+    // function handleNewGameButtonClick() {
+    //     setHistory([statusOnTurnZero]);
+    //     setCurrentTurnNumber(0);
+    //     console.log(`Starting a NEW GAME ***********`);
+    // }
     
     return (
         <Container maxWidth='sm' sx={{ bgcolor: 'background'}} disableGutters >
