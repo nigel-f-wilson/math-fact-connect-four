@@ -15,13 +15,13 @@ export function GameBoard(props) {
     
     return (
             <Box sx={{ display: 'flex', flexDirection: 'row', height: '375px' }} >
-                <Column data={boardData[0]} />
-                <Column data={boardData[1]} />
-                <Column data={boardData[2]} />
-                <Column data={boardData[3]} />
-                <Column data={boardData[4]} />
-                <Column data={boardData[5]} />
-                <Column data={boardData[6]} />
+                <Column num={0} data={boardData[0]} handleColumnClick={handleColumnClick} />
+                <Column num={1} data={boardData[1]} handleColumnClick={handleColumnClick} />
+                <Column num={2} data={boardData[2]} handleColumnClick={handleColumnClick} />
+                <Column num={3} data={boardData[3]} handleColumnClick={handleColumnClick} />
+                <Column num={4} data={boardData[4]} handleColumnClick={handleColumnClick} />
+                <Column num={5} data={boardData[5]} handleColumnClick={handleColumnClick} />
+                <Column num={6} data={boardData[6]} handleColumnClick={handleColumnClick} />
             </Box>
     );
 }
