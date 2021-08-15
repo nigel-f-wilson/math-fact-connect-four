@@ -140,8 +140,28 @@ export function SettingsStepper(props) {
         const maxSteps = steps.length;
 
         
+        const nextButton = <NextButton
+            activeStep={activeStep}
+            completedSteps={completedSteps}
+            mobileScreenSize={mobileScreenSize}
+        />
         
+        const backButton = <BackButton
+            // activeStep={activeStep}
+            // completedSteps={completedSteps}
+            mobileScreenSize={mobileScreenSize}
+        />
+
+        const startGameButton = <StartGameButton
+            activeStep={activeStep}
+            completedSteps={completedSteps}
+            mobileScreenSize={mobileScreenSize}
+            totalSteps={steps.length}
+        />
+
                     position={mobileScreenSize ? 'bottom' : 'static'}
+                    nextButton={activeStep === steps.length - 1 ? startGameButton : nextButton }
+                    backButton={backButton}
     }
 
 
