@@ -159,9 +159,42 @@ export function SettingsStepper(props) {
             totalSteps={steps.length}
         />
 
+        return (
+            <Box sx={{ height: '90%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <Typography variant='h4' textAlign="center" sx={{ mb: 4 }} >
+                    {steps[activeStep].label}
+                </Typography>
+                {/* <Typography variant='h4' textAlign="center"   >
+                    {`Active: ${activeStep}`}
+                </Typography>
+                <Typography variant='h4' textAlign="center"   >
+                    {`Completed: ${completedSteps}`}
+                </Typography> */}
+                {/* <Typography variant='h4' textAlign="center"   >
+                    {`MobileScreenSize: ${mobileScreenSize}`}
+                </Typography>  */}
+
+                {steps[activeStep].buttons}
+
+
+
+                <MobileStepper
+                    activeStep={activeStep}
+                    variant="dots"
+                    steps={steps.length}
                     position={mobileScreenSize ? 'bottom' : 'static'}
                     nextButton={activeStep === steps.length - 1 ? startGameButton : nextButton }
                     backButton={backButton}
+                    sx={{ width: '100%' }}
+                >
+
+                </MobileStepper>
+
+            </Box>
+        )
+
+        
+        
     }
 
 
