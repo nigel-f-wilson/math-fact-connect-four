@@ -3,7 +3,6 @@ import { Link as RouterLink } from "react-router-dom";
 
 
 // MY components
-import { MobileSettingsStepper } from "./MobileSettingsStepper";
 import { DesktopSettingsStepper } from "./DesktopSettingsStepper";
 
 // MUI components
@@ -50,5 +49,41 @@ export function SettingsStepper(props) {
     );
 }
 
+    
+
+    function MobileSettingsStepper(props) {
+        const { activeStep, completedSteps, mobileScreenSize } = props;
+
+        console.log(`activeStep set to ${activeStep}`)
+        console.log(`completedSteps set to ${completedSteps}`)
+        console.log(`mobileScreenSize set to ${mobileScreenSize}`)
+
+        
+        const steps = [
+            {
+                label: 'Play vs. Human or Bot?',
+                buttons: <SetPlayModeButtons />,
+            },
+            // {
+            //     label: 'How well should the Bot play?',
+            // },
+            // {
+            //     label: "What are the players' names?",
+            // },
+            {
+                label: 'What type of math questions should we ask?',
+                buttons: <SetQuestionTypeButtons />,
+
+            },
+            // {
+            //     label: 'What type of math questions should be asked?',
+            //     buttons: <Set
+            // },
+        ];
+        const maxSteps = steps.length;
+
+        
+        
+    }
 
 
