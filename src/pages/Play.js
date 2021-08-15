@@ -84,9 +84,14 @@ export default function Play(props) {
     ///////////////////////////////////////////////////////
 
     function getColumnData(colNumber, ml = moveList) {
-        let playerOneMoves = 
-        
-        return ml.filter( )
+        let columnData = Array()
+        ml.forEach((move, turn) => {
+            if (move !== -1 && move % 7 === colNumber) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
+                let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
+                columnData = columnData.concat(player)
+            }
+        })
+        return columnData
     } 
 
     
