@@ -12,22 +12,22 @@ export default function Landing() {
             <Typography color="text.primary" variant="h2" gutterBottom >
                 Welcome to Math Fact Connect Four!
             </Typography>
-            
             <Typography color="text.primary" variant="body1" gutterBottom >
-                Play Classic Connect Four with a twist! Select the column you'd like to drop a chip in 
-                and a math question will pop up. Answer correctly and your move goes through as planned, 
-                answer incorrectly and you lose your turn. The first player (or team) to get four 
+                Practice foundational math facts while playing Connect Four! 
+                Great for individual practice or for use with a whole class split into teams. 
+                Simply select the column you'd like to drop a chip in and a math question will pop up. 
+                Answer correctly and your move gets made as planned, 
+                answer incorrectly and your turn is skipped. The first player (or team) to get four 
                 consecutive chips in any row, column, or diagonal wins!
-            </Typography>
-            <Typography color="text.primary" variant="body1" gutterBottom >
-                This game can be used to practice multiplication and division facts, rules of exponents, 
-                and basic algebra. You can play in human vs. human mode on a shared device or play against a bot.
             </Typography>
             
             <Box sx={{ display: 'flex', justifyContent: 'center', py: '1rem' }} >
                 <NewGameButton />
             </Box>
 
+            <Typography color="text.primary" variant="h4" gutterBottom >
+                Thanks
+            </Typography>
             <Typography color="text.primary" variant="body1" gutterBottom >
                 I want to thank my students at College Track, the Waldorf School of New Orleans, and Bricolage Academy
                 for inspiring me to create this game and helping me to test and improve it. This game was originally played
