@@ -103,12 +103,20 @@ function Chip(props) {
 }
 
 function boardDataFromMoveList(moveList) {
-    let boardData = Array(7).fill([])
+    let boardData = Array(7).fill(Array())
     moveList.forEach((squareId, turn) => {
         if (squareId !== -1) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
             let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
             let columnIndex = squareId % 7
-            let columnData = boardData[columnIndex]
+            console.log(`columnIndex: ${columnIndex}`);
+
+            // let columnData = Array.from(boardData[columnIndex])
+            // console.log(`columnData: ${columnData}`);
+
+            let columnData = boardData[columnIndex].slice()
+            console.log(`columnData: ${columnData}`);
+
+            console.log(`typeof(columnData): ${typeof(columnData)}`);
             boardData[columnIndex] = columnData.concat(player)
         }
     })
