@@ -44,6 +44,10 @@ export function SettingsStepper(props) {
     const [rowNumbers, setRowNumbers] = React.useState([1, 2, 3, 4, 5, 6]);
     const [colNumbers, setColNumbers] = React.useState([1, 2, 3, 4, 5, 6, 7]);
 
+    console.log(`activeStep set to ${activeStep}`)
+    console.log(`completedSteps set to ${completedSteps}`)
+
+
     const goToNextStep = () => {  
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
     }
@@ -104,7 +108,6 @@ export function SettingsStepper(props) {
             </DialogContent>
         </Box>
     );
-}
 
     
 
