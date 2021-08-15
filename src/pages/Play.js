@@ -27,6 +27,8 @@ export default function Play(props) {
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
 
+
+    let currentTurnNumber = moveList.lenth
     
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
@@ -34,47 +36,26 @@ export default function Play(props) {
 
     function handleColumnClick(colNumber) {
         console.log(`handleColumnClick has been called with colNumber: ${colNumber} and currentTurnNumber: ${currentTurnNumber} `)
-
         let ml = moveList.slice()
-        // let currentTurnStatus = copyOfHistory[currentTurnNumber];
-        // let status = currentTurnStatus.gameStatus;
-        // console.log(`Game Status before Handling Click : ${status}`)
+        let gs = gameStatus.slice()
+        let columnData = getColumnData(colNumber)
         
         // Return Early w/o effect if ( gameAlreadyOver || clickedColumnFull )
-        let gameIsOver = (status === 'playerOneWins' || status === 'playerTwoWins' || status === 'gameDrawn')
-        let columnIsFull = (getColumnData(colNumber).length >= squaresPerCol)
+        let gameIsOver = (gs === 'playerOneWins' || gs === 'playerTwoWins' || gs === 'gameDrawn')
+        let columnIsFull = (columnData.length >= squaresPerCol)
         if (gameIsOver || columnIsFull) {
             console.log(`Returning Early from handleClick() since Game is already over OR column is full!`)
             return -1;
         }
-        // console.log(`Calling lowestEmptySquareInCol with colStatus: ${colStatus} and colNumber: ${colNumber}`)
-        let moveToAdd = lowestEmptySquareInCol(colStatus, colNumber);
-        console.log(`lowestEmptySquareInCol found square id: ${moveToAdd}`)
-        if (moveToAdd === -1) {
-            console.log(`Clicked column is already full!`)
-            return -1;
-        }
+        
+        let moveToAdd = columnData.length * 7 + colNumber  // AKA lowestEmptySquareInCol
+        console.log(`Clicked Column: ${colNumber} -- found lowestEmptySquareInCol: ${moveToAdd}.`)
 
-        let updatedMoveList = currentTurnStatus.moveList.concat(moveToAdd);
-        let updatedTurnNumber = updatedMoveList.length;
-        let updatedLineStatusMap = getLineStatusMap(updatedMoveList);
-        let updatedGameStatus = getGameStatus(updatedTurnNumber, updatedLineStatusMap)
-        let newTurnStatus = {
-            "turnNumber": updatedMoveList.length,
-            "moveList": updatedMoveList,
-            "boardStatus": getBoardStatus(updatedMoveList),
-            "lineStatusMap": updatedLineStatusMap,
-            "gameStatus": updatedGameStatus
-        }
-
-        console.log(`About to add newTurnStatus to the History array: `);
-        logTurnStatusObject(newTurnStatus);
-
-        setHistory(history.concat(newTurnStatus));
-        setCurrentTurnNumber(++currentTurnNumber);
-
-        console.log(`Done Handling Click. It is now Turn Number ${currentTurnNumber} and the Game Status is: ${newTurnStatus.gameStatus}`);   // 
-
+        let updatedMoveList = ml.concat(moveToAdd)
+        // Not explicitly updating currentTurnNumber to see if it responds automatically to changes in moveList state.
+        let updatedGameStatus = getGameStatus(updatedMoveList)
+        setMoveList(updatedMoveList)
+        setGameStatus(updatedGameStatus)
         // This is where we Would find and make the Computer Move if in Play vs. Computer Mode
         return 0;
     }
