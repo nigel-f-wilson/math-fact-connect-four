@@ -50,13 +50,16 @@ export default function App() {
                 bgcolor: 'background',
                 height: '100vh',
                 width: '100vw',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'start',
                 overflow: 'scroll'
             }}>
-                <Container maxWidth='md' disableGutters >
+                <Container id='appContainer' maxWidth='sm' disableGutters
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'start',
+                    }} 
+                >
                     <Router>
                         <Switch>
                             <Route exact path="/">
