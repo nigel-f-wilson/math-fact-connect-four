@@ -13,18 +13,28 @@ export function GameBoard(props) {
     
     let boardData = boardDataFromMoveList(moveList)
     console.log(`boardDataFromMoveList: ${boardData}`);
+
+    
     
     return (
-            <Box sx={{ display: 'flex', flexDirection: 'row', height: '375px' }} >
-                <Column num={0} data={boardData[0]} handleColumnClick={handleColumnClick} />
-                <Column num={1} data={boardData[1]} handleColumnClick={handleColumnClick} />
-                <Column num={2} data={boardData[2]} handleColumnClick={handleColumnClick} />
-                <Column num={3} data={boardData[3]} handleColumnClick={handleColumnClick} />
-                <Column num={4} data={boardData[4]} handleColumnClick={handleColumnClick} />
-                <Column num={5} data={boardData[5]} handleColumnClick={handleColumnClick} />
-                <Column num={6} data={boardData[6]} handleColumnClick={handleColumnClick} />
+        <Box id='max-height-box' sx={{ maxHeight: '90vh',  }} >
+            <Box id='square-box-outter' sx={{ height: 0, overflow: 'hidden', pt: '100%', position: 'relative' }} >
+                <Box id='square-box-inner' sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex' }} >
+                    {/* <Box id='columns' sx={{ display: 'flex' }} > */}
+                    <Column num={0} data={boardData[0]} handleColumnClick={handleColumnClick} />
+                    <Column num={1} data={boardData[1]} handleColumnClick={handleColumnClick} />
+                    <Column num={2} data={boardData[2]} handleColumnClick={handleColumnClick} />
+                    <Column num={3} data={boardData[3]} handleColumnClick={handleColumnClick} />
+                    <Column num={4} data={boardData[4]} handleColumnClick={handleColumnClick} />
+                    <Column num={5} data={boardData[5]} handleColumnClick={handleColumnClick} />
+                    <Column num={6} data={boardData[6]} handleColumnClick={handleColumnClick} />
+                    {/* </Box> */}
+                    {/* <p>{orientation}</p>; */}
+                </Box>
             </Box>
-    );
+        </Box>
+    )
+    
 }
 
 
