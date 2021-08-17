@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     HashRouter as Router,
     Route,
@@ -28,7 +28,19 @@ import {
 
 
 export default function App() {
-    // const classes = useStyles();
+    const orientation = useScreenOrientation();
+
+    function useScreenOrientation() {
+        const [orientation, setOrientation] = useState(window.screen.orientation.type);
+
+        useEffect(() => {
+            const handleOrientationChange = () => setOrientation(window.screen.orientation.type);
+            window.addEventListener('orientationchange', handleOrientationChange);
+            return () => window.removeEventListener('orientationchange', handleOrientationChange);
+        }, []);
+
+        return orientation;
+    }
 
     return (
         <React.Fragment>
@@ -51,7 +63,7 @@ export default function App() {
                                 <Landing />
                             </Route>
                             <Route path="/play" >
-                                <Play />
+                                <Play orientation={orientation} />
                             </Route>
 
 
