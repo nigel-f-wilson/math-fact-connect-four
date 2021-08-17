@@ -42,7 +42,7 @@ export function GameBoard(props) {
 function Column(props) {
     const { num, data, handleColumnClick } = props
     return (
-        <Box onClick={num => handleColumnClick(num)}
+        <Box onClick={() => handleColumnClick(num)}
             sx={{ 
                 bgcolor: 'background', 
                 width: squarePercentage,
