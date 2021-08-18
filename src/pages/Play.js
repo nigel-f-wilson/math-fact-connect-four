@@ -1,4 +1,5 @@
 import React from 'react'
+import { useLocation } from "react-router-dom"
 
 // MY UI components
 import { GameBoard } from "../components/GameBoard";
@@ -149,6 +150,8 @@ export default function Play(props) {
                 handleColumnClick={handleColumnClick} 
                 handleColumnHover={handleColumnHover}
             />
+            <InfoPanel orientation={props.orientation} />
+
         </Container>
 
         
