@@ -43,51 +43,39 @@ export function SettingsStepper(props) {
     const [rowNumbers, setRowNumbers] = React.useState([1, 2, 3, 4, 5, 6]);
     const [colNumbers, setColNumbers] = React.useState([1, 2, 3, 4, 5, 6, 7]);
 
-    console.log(`activeStep set to ${activeStep}`)
-    console.log(`completedSteps set to ${completedSteps}`)
-
-
     const goToNextStep = () => {  
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
     }
     const goBackOneStep = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1)
     }
+
     const selectPlayMode = (selection) => {
         setCompletedSteps(completedSteps.concat(0))
         setPlayMode(selection)   // ENUM: 'human' | 'bot'
         console.log(`PlayMode set to ${selection}`)
     }
-    // const selectHuman = () => {
-    //     setCompletedSteps(1)
-    //     setPlayMode('human')
-    //     console.log(`PlayMode set to HUMAN`)
+    
+    // const selectMultiplication = () => {
+    //     setCompletedSteps(2)
+    //     setQuestionType('multiplication')
     // }
-    // const selectBot = () => {
-    //     setCompletedSteps(1)
-    //     setPlayMode('bot');
-    //     console.log(`PlayMode set to BOT`)
+    // const selectDivision = () => {
+    //     setCompletedSteps(2)
+    //     setQuestionType('division')
     // }
-    const selectMultiplication = () => {
-        setCompletedSteps(2)
-        setQuestionType('multiplication')
-    }
-    const selectDivision = () => {
-        setCompletedSteps(2)
-        setQuestionType('division')
-    }
-    const selectExponents = () => {
-        setCompletedSteps(2)
-        setQuestionType('exponents')
-    }
-    const selectAlgebra = () => {
-        setCompletedSteps(2)
-        setQuestionType('algebra')
-    }
-    const selectNone = () => {
-        setCompletedSteps(2)
-        setQuestionType('none')
-    }
+    // const selectExponents = () => {
+    //     setCompletedSteps(2)
+    //     setQuestionType('exponents')
+    // }
+    // const selectAlgebra = () => {
+    //     setCompletedSteps(2)
+    //     setQuestionType('algebra')
+    // }
+    // const selectNone = () => {
+    //     setCompletedSteps(2)
+    //     setQuestionType('none')
+    // }
     const selectQuestionType = (questionType) => {
         setCompletedSteps(2)
         setQuestionType(questionType)
@@ -113,11 +101,6 @@ export function SettingsStepper(props) {
     function MobileSettingsStepper(props) {
         const { activeStep, completedSteps, mobileScreenSize } = props;
 
-        console.log(`activeStep set to ${activeStep}`)
-        console.log(`completedSteps set to ${completedSteps}`)
-        console.log(`mobileScreenSize set to ${mobileScreenSize}`)
-
-        
         const steps = [
             {
                 label: 'Play vs. Human or Bot?',
@@ -286,21 +269,13 @@ export function SettingsStepper(props) {
         return (
             <React.Fragment>
                 <Button
-                    onClick={selectMultiplication}
+                    onClick={() => selectQuestionType('multiplication')}
                     variant={questionType === 'multiplication' ? "contained" : "outlined"}
                     startIcon={<i className="fas fa-times"></i>}
                     sx={{ m: 1, width: '90%' }}
                 >
                     &ensp;multiplication
                 </Button>
-                {/* <Button
-                    onClick={selectDivision}
-                    variant={questionType === 'division' ? "contained" : "outlined"}
-                    startIcon={<i className="fas fa-divide"></i>}
-                    sx={{ m: 2 , width: '90%' }}
-                >
-                    &ensp;division
-                </Button> */}
                 <Button
                     onClick={() => selectQuestionType('division')}
                     variant={questionType === 'division' ? "contained" : "outlined"}
@@ -310,7 +285,7 @@ export function SettingsStepper(props) {
                     &ensp;division
                 </Button>
                 <Button
-                    onClick={selectExponents}
+                    onClick={() => selectQuestionType('exponents')}
                     variant={questionType === 'exponents' ? "contained" : "outlined"}
                     startIcon={<i className="fas fa-superscript"></i>}
                     sx={{ m: 1, width: '90%' }}
@@ -318,7 +293,7 @@ export function SettingsStepper(props) {
                     &ensp;exponents
                 </Button>
                 <Button
-                    onClick={selectAlgebra}
+                    onClick={() => selectQuestionType('algebra')}
                     variant={questionType === 'algebra' ? "contained" : "outlined"}
                     // startIcon={<i class="fal fa-function"></i>}
                     startIcon={<i className="fas fa-calculator"></i>}
@@ -327,7 +302,7 @@ export function SettingsStepper(props) {
                     &ensp;algebra
                 </Button>
                 <Button
-                    onClick={selectNone}
+                    onClick={() => selectQuestionType('none')}
                     variant={questionType === 'none' ? "contained" : "outlined"}
                     startIcon={<i className="fas fa-ban"></i>}
                     sx={{ m: 1, width: '90%' }}
