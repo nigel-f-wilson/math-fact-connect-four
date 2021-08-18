@@ -103,6 +103,23 @@ export default function Play(props) {
         return moves.filter((move) => move === -1)
     }
 
+    function nextPlayer(ml = moveList, gs = gameStatus) {
+        if (gs === "playerOneWins" || gs === "playerTwoWins" || gs === "draw") {
+            return "background"
+        }
+        else if (gs === "playerTwosTurn") {
+            return "playerTwo"
+        }
+        else if (gs === "playerOnesTurn") {
+            return "playerOne"
+        }
+        else {
+            console.error(`Invalid game status`)
+        }
+        
+        
+    }
+
     // function handleUndoButtonClick() {
     //     setCurrentTurnNumber(--currentTurnNumber);
     // }
