@@ -63,6 +63,10 @@ export default function Play(props) {
         return 0;
     }
 
+    function getGameStatus(moveList) {
+        return (moveList.length % 2 === 0) ? 'playerOne' : 'playerTwo'
+    }
+
     ///////////////////////////////////////////////////////
     // DATA FILTERS and CONVERTERS
     ///////////////////////////////////////////////////////
