@@ -17,9 +17,32 @@ export function GameBoard(props) {
     // moveList = [-1, 1,2,3,4,5,-1,-1,6,-1,8,9,-1,10,-1,11,-1,12] // Testing Only
     
     let boardData = boardDataFromMoveList(moveList)
-    console.log(`boardDataFromMoveList: ${boardData}`);
+    function boardDataFromMoveList(moveList) {
+        let boardData = Array(7).fill(Array(6).fill('unclaimed'))
+        console.log(`moveList: ${moveList}`);
 
-    
+
+
+        moveList.forEach((squareId, turn) => {
+            if (squareId !== -1) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
+                let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
+                let columnIndex = squareId % 7
+                let rowIndex = Math.floor(squareId / 7)
+                console.log(`squareId: ${squareId}`);
+                console.log(`squareId % 7: ${squareId % 7}`);
+                console.log(`columnIndex: ${columnIndex}`);
+                console.log(`boardData: ${boardData}`);
+                console.log(`columnData for col 1: ${boardData[1]}`);
+                let columnData = boardData[columnIndex].slice()
+                console.log(`columnData: ${columnData}`);
+                boardData[columnIndex] = columnData.splice()
+            }
+        })
+        return boardData
+    }
+    console.log(`boardDataFromMoveList: ${boardData}`)
+
+    let columnNumbers = [0,1,2,3,4,5,6]
     
     return (
         <Box id='max-height-box' sx={{ maxHeight: '90vh',  }} >
@@ -128,23 +151,3 @@ function Chip(props) {
     );
 }
 
-function boardDataFromMoveList(moveList) {
-    let boardData = Array(7).fill(Array())
-    moveList.forEach((squareId, turn) => {
-        if (squareId !== -1) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
-            let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
-            let columnIndex = squareId % 7
-            console.log(`columnIndex: ${columnIndex}`);
-
-            // let columnData = Array.from(boardData[columnIndex])
-            // console.log(`columnData: ${columnData}`);
-
-            let columnData = boardData[columnIndex].slice()
-            console.log(`columnData: ${columnData}`);
-
-            console.log(`typeof(columnData): ${typeof(columnData)}`);
-            boardData[columnIndex] = columnData.concat(player)
-        }
-    })
-    return boardData
-}
