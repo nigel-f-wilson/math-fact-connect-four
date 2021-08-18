@@ -93,13 +93,12 @@ function Column(props) {
                     <Square status={squareStatus} />
                 })
             } */}
-            <Square status={data[0]} />
-            <Square status={data[1]} />
-            <Square status={data[2]} />
-            <Square status={data[3]} />
-            <Square status={data[4]} />
-            <Square status={data[5]} />
-            <Square transparent ></Square>
+            <Square chipColor={data[0]} />
+            <Square chipColor={data[1]} />
+            <Square chipColor={data[2]} />
+            <Square chipColor={data[3]} />
+            <Square chipColor={data[4]} />
+            <Square chipColor={data[5]} />
             <Square transparent chipColor={isHovered ? nextPlayer : 'unclaimed'} > </Square>
 
 
@@ -115,7 +114,7 @@ Column.propTypes = {
 
 function Square(props) {
     let bgcolor = props.transparent ? 'background' : 'board.main'
-    let chipColor = props.status ? props.status : 'unclaimed'
+    let chipColor = props.chipColor ? props.chipColor : 'unclaimed'
     
     return (
         <Box sx={{ 
