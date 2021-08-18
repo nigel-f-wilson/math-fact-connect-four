@@ -2,6 +2,7 @@ import React from 'react'
 
 // MY UI components
 import { GameBoard } from "../components/GameBoard";
+import { InfoPanel } from "../components/InfoPanel";
 
 // MY UI components
 import { lineIdToSquareIdsMap, squareIdToLineIdsMap } from '../logic/maps'   
