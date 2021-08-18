@@ -1,8 +1,4 @@
 import React from 'react'
-import {
-    Link as RouterLink,
-    useLocation,
-} from "react-router-dom"
 
 // MY UI components
 import { GameBoard } from "../components/GameBoard";
