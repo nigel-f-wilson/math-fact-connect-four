@@ -128,11 +128,11 @@ export default function Play(props) {
     //     setCurrentTurnNumber(--currentTurnNumber);
     // }
 
-    // function handleNewGameButtonClick() {
-    //     setHistory([statusOnTurnZero]);
-    //     setCurrentTurnNumber(0);
-    //     console.log(`Starting a NEW GAME ***********`);
-    // }
+    function handleNewGameButtonClick() {
+        setMoveList([])
+        setGameStatus('playerOnesTurn')
+        console.log(`Starting a NEW GAME ***********`);
+    }
     
     return (
         <Container maxWidth='sm' sx={{ bgcolor: 'background'}} disableGutters >
