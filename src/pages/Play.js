@@ -135,7 +135,14 @@ export default function Play(props) {
     }
     
     return (
-        <Container maxWidth='sm' sx={{ bgcolor: 'background'}} disableGutters >
+        <Container id='playPageContainer'
+            maxWidth='sm' 
+            disableGutters 
+            sx={{ bgcolor: 'background',
+                // height: '100%',
+                display: 'flex',
+                flexDirection: 'column'
+            }}>
             <GameBoard 
                 moveList={moveList}
             />
