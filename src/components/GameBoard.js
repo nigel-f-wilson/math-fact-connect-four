@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
+// Custom Hooks
+import { useHover } from "../hooks/useHover";
 
 // MUI  components
 import { Box } from '@material-ui/core'
@@ -31,6 +33,7 @@ export function GameBoard(props) {
                     <Column num={4} data={boardData[4]} handleColumnClick={handleColumnClick} />
                     <Column num={5} data={boardData[5]} handleColumnClick={handleColumnClick} />
                     <Column num={6} data={boardData[6]} handleColumnClick={handleColumnClick} />
+                                nextPlayer={nextPlayer}
                     {/* </Box> */}
                     {/* <p>{orientation}</p>; */}
                 </Box>
@@ -43,9 +46,12 @@ export function GameBoard(props) {
 
 
 function Column(props) {
-    const { num, data, handleColumnClick } = props
+    const { columnId, data, handleColumnClick, nextPlayer } = props
+    
+    const [hoverRef, isHovered] = useHover();
+    
     return (
-        <Box onClick={() => handleColumnClick(num)}
+        <Box ref={hoverRef} onClick={() => handleColumnClick(columnId)}
             sx={{ 
                 bgcolor: 'background', 
                 width: squarePercentage,
@@ -66,6 +72,7 @@ function Column(props) {
             <Square status={data[4]} />
             <Square status={data[5]} />
             <Square transparent ></Square>
+            <Square transparent chipColor={isHovered ? nextPlayer : 'unclaimed'} > </Square>
 
 
         </Box>
