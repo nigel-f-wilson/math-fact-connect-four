@@ -145,6 +145,9 @@ export default function Play(props) {
             }}>
             <GameBoard 
                 moveList={moveList}
+                nextPlayer={nextPlayer()}
+                handleColumnClick={handleColumnClick} 
+                handleColumnHover={handleColumnHover}
             />
         </Container>
 
