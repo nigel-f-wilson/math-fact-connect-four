@@ -38,7 +38,7 @@ export default function Play(props) {
     }
 
     function handleColumnClick(colNumber) {
-        console.log(`handleColumnClick has been called with colNumber: ${colNumber} and currentTurnNumber: ${currentTurnNumber} `)
+        console.log(`You clicked column number: ${colNumber}`)
         let ml = moveList.slice()
         let gs = gameStatus.slice()
         let columnData = getColumnData(colNumber)
@@ -93,10 +93,10 @@ export default function Play(props) {
 
     
     // Higher Order functions call both of these first because these can only work with a raw moveList, pre-removal of -1's
-    function playerOneMoves(ml = moveList) {
+    function playerOnesMoves(ml = moveList) {
         return ml.filter((move, turn) => turn % 2 === 0)
     }
-    function playerTwoMoves(ml = moveList) {
+    function playerTwosMoves(ml = moveList) {
         return ml.filter((move, turn) => turn % 2 === 1)
     }
     function removeSkippedTurns(moves) {
