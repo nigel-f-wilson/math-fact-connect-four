@@ -31,6 +31,12 @@ export default function Play(props) {
     // CLICK HANDLERS
     ///////////////////////////////////////////////////////
 
+    function handleColumnHover(colNumber) {
+        console.log(`You hovered over column number: ${colNumber}`)
+        
+        return 0;
+    }
+
     function handleColumnClick(colNumber) {
         console.log(`handleColumnClick has been called with colNumber: ${colNumber} and currentTurnNumber: ${currentTurnNumber} `)
         let ml = moveList.slice()
