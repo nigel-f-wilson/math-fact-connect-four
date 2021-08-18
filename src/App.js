@@ -5,6 +5,10 @@ import {
     Switch
 } from "react-router-dom"
 
+
+// Custom Hooks
+import { useScreenOrientation } from "./hooks/useScreenOrientaton"
+
 import './App.css';
 
 // PAGES
@@ -30,17 +34,7 @@ import {
 export default function App() {
     const orientation = useScreenOrientation();
 
-    function useScreenOrientation() {
-        const [orientation, setOrientation] = useState(window.screen.orientation.type);
-
-        useEffect(() => {
-            const handleOrientationChange = () => setOrientation(window.screen.orientation.type);
-            window.addEventListener('orientationchange', handleOrientationChange);
-            return () => window.removeEventListener('orientationchange', handleOrientationChange);
-        }, []);
-
-        return orientation;
-    }
+    
 
     return (
         <React.Fragment>
