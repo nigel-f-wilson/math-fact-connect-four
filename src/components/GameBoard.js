@@ -74,9 +74,28 @@ export function GameBoard(props) {
 
 
 function Column(props) {
-    const { columnId, data, handleColumnClick, nextPlayer } = props
+    const { columnId, data, handleColumnClick, gameStatus } = props
+
+    let nextPlayer = (gameStatus) => {
+        if (gameStatus === "playerOneWins" || gameStatus === "playerTwoWins" || gameStatus === "gameOverDraw") {
+            return "background"
+        }
+        else if (gameStatus === "playerTwosTurn") {
+            return "playerTwo"
+        }
+        else if (gameStatus === "playerOnesTurn") {
+            return "playerOne"
+        }
+        else {
+            console.error(`Invalid game status`)
+        }
+
+
+    }
+
     
-    const [hoverRef, isHovered] = useHover();
+
+    const [hoverRef, isHovered] = useHover()
     
     return (
         <Box ref={hoverRef} onClick={() => handleColumnClick(columnId)}
