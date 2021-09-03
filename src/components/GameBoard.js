@@ -125,7 +125,7 @@ function Column(props) {
     );
 }
 Column.propTypes = {
-    num: PropTypes.number.isRequired, 
+    columnId: PropTypes.number.isRequired,
     data: PropTypes.arrayOf(PropTypes.oneOf(['playerOne', 'playerTwo', 'unclaimed'])), 
     handleColumnClick: PropTypes.func, 
     nextPlayer: PropTypes.oneOf(['playerOne', 'playerTwo', 'gameOver'])
