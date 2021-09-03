@@ -13,8 +13,6 @@ const squarePercentage = '14.287%'
 const chipSizeRelativeToSquare = '84%'
 
 export function GameBoard(props) {
-    let { moveList, handleColumnClick, nextPlayer } = props
-    // moveList = [-1, 1,2,3,4,5,-1,-1,6,-1,8,9,-1,10,-1,11,-1,12] // Testing Only
     
     // Add state that updates each time the ml prop changes
     // Design it so that only the colum where the last move was made re-renders
