@@ -65,25 +65,7 @@ function columnDataFromMoveList(columnId, moveList) {
     }
     return columnData
 }
-function boardDataFromMoveList(moveList) {
-    let boardData = Array(7).fill(Array(6).fill('unclaimed'))
-    moveList.forEach((squareId, turn) => {
-        if (squareId !== -1) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
-            let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
-            let columnIndex = squareId % 7
-            let rowIndex = Math.floor(squareId / 7)
-            // console.log(`squareId: ${squareId}`);
-            // console.log(`squareId % 7: ${squareId % 7}`);
-            // console.log(`columnIndex: ${columnIndex}`);
-            // console.log(`boardData: ${boardData}`);
-            // console.log(`columnData for col 1: ${boardData[1]}`);
-            let columnData = boardData[columnIndex].slice()
-            console.log(`columnData: ${columnData}`);
-            boardData[columnIndex] = columnData.splice()
-        }
-    })
-    return boardData
-}
+
 
 function Column(props) {
     const { columnId, data, handleColumnClick, gameStatus } = props
