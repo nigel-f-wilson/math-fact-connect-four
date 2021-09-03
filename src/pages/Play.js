@@ -1,5 +1,6 @@
 import React from 'react'
 import { useLocation } from "react-router-dom"
+import PropTypes from 'prop-types'
 
 // MY UI components
 import { GameBoard } from "../components/GameBoard";
@@ -60,10 +61,14 @@ export default function Play(props) {
         let updatedGameStatus = getGameStatus(updatedMoveList)
         setMoveList(updatedMoveList)
         setGameStatus(updatedGameStatus)
+
+        console.log(`updated GameStatus: ${updatedGameStatus}`)
         // This is where we Would find and make the Computer Move if in Play vs. Computer Mode
         return 0;
     }
 
+    
+    // Returns ENUM: 'playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw
     function getGameStatus(moveList) {
         return (moveList.length % 2 === 0) ? 'playerOne' : 'playerTwo'
     }
@@ -108,8 +113,8 @@ export default function Play(props) {
         return moves.filter((move) => move === -1)
     }
 
-    function nextPlayer(ml = moveList, gs = gameStatus) {
-        if (gs === "playerOneWins" || gs === "playerTwoWins" || gs === "draw") {
+    function nextPlayer( gs = gameStatus) {
+        if (gs === "playerOneWins" || gs === "playerTwoWins" || gs === "gameOverDraw") {
             return "background"
         }
         else if (gs === "playerTwosTurn") {
@@ -146,7 +151,7 @@ export default function Play(props) {
             }}>
             <GameBoard 
                 moveList={moveList}
-                nextPlayer={nextPlayer()}
+                gameStatus={gameStatus}
                 handleColumnClick={handleColumnClick} 
                 handleColumnHover={handleColumnHover}
             />
