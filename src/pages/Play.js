@@ -20,8 +20,10 @@ export default function Play(props) {
     const squaresPerRow = 7;
     let totalSquares = squaresPerCol * squaresPerRow;
     
-    const location = useLocation()
-    const { playMode, questionType} = location.state
+    // const location = useLocation()
+    // const { playMode, questionType} = location.state
+    const playMode = "human"
+    const questionType = "multiplication"
 
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
