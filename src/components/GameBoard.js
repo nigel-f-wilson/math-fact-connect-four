@@ -13,6 +13,8 @@ const squarePercentage = '14.287%'
 const chipSizeRelativeToSquare = '84%'
 
 export function GameBoard(props) {
+    let { handleColumnClick, gameStatus } = props // moveList,
+    let moveList = [-1, 1,2,3,4,5,-1,-1,6,-1,8,9,-1,10,-1,11,-1,12] // Testing Only
     
     // Add state that updates each time the ml prop changes
     // Design it so that only the colum where the last move was made re-renders
@@ -30,11 +32,11 @@ export function GameBoard(props) {
                 let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
                 let columnIndex = squareId % 7
                 let rowIndex = Math.floor(squareId / 7)
-                console.log(`squareId: ${squareId}`);
-                console.log(`squareId % 7: ${squareId % 7}`);
-                console.log(`columnIndex: ${columnIndex}`);
-                console.log(`boardData: ${boardData}`);
-                console.log(`columnData for col 1: ${boardData[1]}`);
+                // console.log(`squareId: ${squareId}`);
+                // console.log(`squareId % 7: ${squareId % 7}`);
+                // console.log(`columnIndex: ${columnIndex}`);
+                // console.log(`boardData: ${boardData}`);
+                // console.log(`columnData for col 1: ${boardData[1]}`);
                 let columnData = boardData[columnIndex].slice()
                 console.log(`columnData: ${columnData}`);
                 boardData[columnIndex] = columnData.splice()
@@ -42,7 +44,7 @@ export function GameBoard(props) {
         })
         return boardData
     }
-    console.log(`boardDataFromMoveList: ${boardData}`)
+    // console.log(`boardDataFromMoveList: ${boardData}`)
 
     let columnNumbers = [0,1,2,3,4,5,6]
     
@@ -51,12 +53,12 @@ export function GameBoard(props) {
             <Box id='square-box-outter' sx={{ height: 0, overflow: 'hidden', pt: '100%', position: 'relative' }} >
                 <Box id='square-box-inner' sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex' }} >
                     {/* <Box id='columns' sx={{ display: 'flex' }} > */}
-                    {columnNumbers.map(colunmIndex => {
+                    {columnNumbers.map(columnId => {
                         return (
-                            <Column key={colunmIndex} 
-                                num={colunmIndex} 
-                                data={boardData[colunmIndex]} 
-                                nextPlayer={nextPlayer}
+                            <Column key={columnId} 
+                                columnId={columnId}
+                                data={boardData[columnId]}
+                                gameStatus={gameStatus}
                                 handleColumnClick={handleColumnClick} 
                             />
                         )
