@@ -95,6 +95,12 @@ export default function Play(props) {
     function lookForHorizontalWins(params) {
 
     }
+    function playerOnesNumbers(moveList) {
+        return moveList.filter((cell, turn) => turn % 2 === 0).filter(cell => cell !== -1)
+    }
+    function playerTwosNumbers(moveList) {
+        return moveList.filter((cell, turn) => turn % 2 === 1).filter(cell => cell !== -1)
+    }
 
 
 
