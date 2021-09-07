@@ -43,11 +43,13 @@ export default function Play(props) {
 
     function handleColumnClick(columnNumber) {
         let columnData = getColumnData(columnNumber)
-        if (gameIsOver() || columnIsFull(columnData)) {
+        let columnIsFull = !columnData.includes("unclaimed")
+        if (gameIsOver() || columnIsFull) {
             console.log(`Returning Early from handleClick() since Game is already over OR column is full!`)
             return -1
         }
-        let lowestUnclaimedCell = getLowestUnclaimedCell(columnNumber, columnData)
+        // let lowestUnclaimedCell = getLowestUnclaimedCell(columnNumber, columnData)
+        let lowestUnclaimedCell = columnData.indexOf("unclaimed") * 7 + columnNumber
         console.log(`Clicked Column: ${columnNumber} -- found lowestEmptySquareInCol: ${lowestUnclaimedCell}.`)
         let updatedMoveList = moveList.concat(lowestUnclaimedCell)
         let updatedGameStatus = getGameStatus(updatedMoveList)
