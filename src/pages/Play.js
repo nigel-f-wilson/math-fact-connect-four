@@ -15,11 +15,6 @@ import theme from '../theme';
 
 
 export default function Play(props) {
-    // Game Constants
-    const squaresPerCol = 6;
-    const squaresPerRow = 7;
-    let totalSquares = squaresPerCol * squaresPerRow;
-    
     // const location = useLocation()
     // const { playMode, questionType} = location.state
     const playMode = "human"
