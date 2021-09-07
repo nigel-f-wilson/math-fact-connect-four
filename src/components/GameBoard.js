@@ -13,14 +13,13 @@ const squarePercentage = '14.287%'
 const chipSizeRelativeToSquare = '84%'
 
 export function GameBoard(props) {
-    let { handleColumnClick, gameStatus } = props // moveList,
-    let moveList = [-1, 1,2,3,4,5,-1,-1,6,-1,8,9,-1,10,-1,11,-1,12] // Testing Only
+    let { moveList, handleColumnClick, gameStatus } = props 
     
     // Add state that updates each time the ml prop changes
     // Design it so that only the colum where the last move was made re-renders
     // This should make the peice-drop transition animation easier. 
     // boardDataFromMoveList as is duplicates a lot of work 
-    let boardData = boardDataFromMoveList(moveList)
+    // let boardData = boardDataFromMoveList(moveList)
 
     // console.log(`boardDataFromMoveList: ${boardData}`)
 
