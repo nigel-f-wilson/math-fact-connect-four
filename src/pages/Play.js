@@ -41,30 +41,20 @@ export default function Play(props) {
         return 0;
     }
 
-    function handleColumnClick(colNumber) {
-        console.log(`You clicked column number: ${colNumber}`)
-        let ml = moveList.slice()
-        let gs = gameStatus.slice()
-        let columnData = getColumnData(colNumber)
-        
-        // Return Early w/o effect if ( gameAlreadyOver || clickedColumnFull )
-        let gameIsOver = (gs === 'playerOneWins' || gs === 'playerTwoWins' || gs === 'gameDrawn')
-        let columnIsFull = (columnData.length >= squaresPerCol)
-        if (gameIsOver || columnIsFull) {
+    function handleColumnClick(columnNumber) {
+        let columnData = getColumnData(columnNumber)
+        if (gameIsOver() || columnIsFull(columnData)) {
             console.log(`Returning Early from handleClick() since Game is already over OR column is full!`)
-            return -1;
+            return -1
         }
-        
-        let moveToAdd = columnData.length * 7 + colNumber  // AKA lowestEmptySquareInCol
-        console.log(`Clicked Column: ${colNumber} -- found lowestEmptySquareInCol: ${moveToAdd}.`)
-
-        let updatedMoveList = ml.concat(moveToAdd)
-        // Not explicitly updating currentTurnNumber to see if it responds automatically to changes in moveList state.
+        let lowestUnclaimedCell = getLowestUnclaimedCell(columnNumber, columnData)
+        console.log(`Clicked Column: ${columnNumber} -- found lowestEmptySquareInCol: ${lowestUnclaimedCell}.`)
+        let updatedMoveList = moveList.concat(lowestUnclaimedCell)
         let updatedGameStatus = getGameStatus(updatedMoveList)
         setMoveList(updatedMoveList)
         setGameStatus(updatedGameStatus)
-
         console.log(`updated GameStatus: ${updatedGameStatus}`)
+        
         // This is where we Would find and make the Computer Move if in Play vs. Computer Mode
         return 0;
     }
