@@ -126,6 +126,7 @@ export default function Play(props) {
         return boardData
     }
 
+    // Filter a movelist to contain only numbers 
     function getColumnData(colNumber, ml = moveList) {
         let columnData = Array()
         ml.forEach((move, turn) => {
@@ -134,6 +135,9 @@ export default function Play(props) {
                 columnData = columnData.concat(player)
             }
         })
+        while(columnData.length < 6) {
+            columnData.push("unclaimed")
+        }
         return columnData
     } 
 
