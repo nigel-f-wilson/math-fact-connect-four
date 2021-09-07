@@ -94,6 +94,21 @@ export default function Play(props) {
 
 
 
+
+    function playerWhoGoesNext() {
+        console.assert(!gameIsOver(), "playerWhoGoesNext was called BUT the game is already over!")
+        return (moveList.length % 2 === 0) ? 'playerOne' : 'playerTwo'
+    }
+    function gameIsOver() {
+        return (gameStatus === 'playerOneWins' || gameStatus === 'playerTwoWins' || gameStatus === 'gameDrawn')
+    } 
+    function columnIsFull(columnData) {
+        return (!columnData.includes("unclaimed"))
+    } 
+    function getLowestUnclaimedCell(columnNumber, columnData) {
+        return columnData.indexOf("unclaimed") * 7 + columnNumber
+    }
+
     ///////////////////////////////////////////////////////
     // DATA FILTERS and CONVERTERS
     ///////////////////////////////////////////////////////
