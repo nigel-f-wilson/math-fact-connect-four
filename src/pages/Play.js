@@ -7,7 +7,7 @@ import { GameBoard } from "../components/GameBoard";
 import { InfoPanel } from "../components/InfoPanel";
 
 // MY UI components
-import { lineIdToSquareIdsMap, squareIdToLineIdsMap } from '../logic/maps'   
+import { lineToCellsMap, cellToLinesMap } from '../logic/maps'   
 
 // MUI  components
 import { Typography, Container, Box } from '@material-ui/core'
