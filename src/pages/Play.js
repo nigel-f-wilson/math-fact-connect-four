@@ -60,10 +60,39 @@ export default function Play(props) {
     }
 
     
-    // Returns ENUM: 'playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw
+    // Returns ENUM: 'playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw'
+    // This function 
     function getGameStatus(moveList) {
+        let lastPlayerToMove = (moveList.length % 2 === 1) ? "playerOne" : "playerTwo"
+        let playerOnesNumbers = moveList.filter((cell, turn) => turn % 2 === 0).filter(cell => cell !== -1)
+        let playerTwosNumbers = moveList.filter((cell, turn) => turn % 2 === 1).filter(cell => cell !== -1)
+        console.log(`Last Player to Move: ${lastPlayerToMove}`)
+        console.log(`Player One's Numbers: ${playerOnesNumbers}`)
+        console.log(`Player Two's Numbers: ${playerTwosNumbers}`)
+
+
+
+        
         return (moveList.length % 2 === 0) ? 'playerOne' : 'playerTwo'
     }
+
+
+    function lookForHorizontalWins(params) {
+        
+        
+        alert("Found a Horizontal Win")
+    }
+    function lookForVerticalWins(params) {
+
+    } 
+    function lookForHorizontalWins(params) {
+
+    } 
+    function lookForHorizontalWins(params) {
+
+    }
+
+
 
     ///////////////////////////////////////////////////////
     // DATA FILTERS and CONVERTERS
