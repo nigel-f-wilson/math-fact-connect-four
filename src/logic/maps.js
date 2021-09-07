@@ -146,14 +146,14 @@ function isStartOfDownslashLine(squareId) {
     return (isEndOfVerticalLine(squareId) && isStartOfHorizontalLine(squareId));
 }
 
-// LOWEST LEVEL SQUARE-ROW-COL HELPERS
-function getRowBySquareId(id) {
-    return (id % squaresPerCol);
+// LOWEST LEVEL CELL-ROW-COL HELPERS
+function getRowByCellId(id) {
+    return (Math.floor(id / cellsPerRow))
 }
-function getColBySquareId(id) {
-    return (Math.floor(id / squaresPerCol))
+function getColByCellId(id) {
+    return (id % cellsPerRow)
 }
-function getSquareIdByRowCol(row, col) {
-    return (col * squaresPerCol + row);
+function getCellIdByRowCol(row, col) {
+    return (row * cellsPerRow + col);
 }
 
