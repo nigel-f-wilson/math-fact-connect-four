@@ -61,12 +61,19 @@ export default function Play(props) {
     // This function 
     function getGameStatus(moveList) {
         let lastPlayerToMove = (moveList.length % 2 === 1) ? "playerOne" : "playerTwo"
-        let playerOnesNumbers = moveList.filter((cell, turn) => turn % 2 === 0).filter(cell => cell !== -1)
-        let playerTwosNumbers = moveList.filter((cell, turn) => turn % 2 === 1).filter(cell => cell !== -1)
-        console.log(`Last Player to Move: ${lastPlayerToMove}`)
-        console.log(`Player One's Numbers: ${playerOnesNumbers}`)
-        console.log(`Player Two's Numbers: ${playerTwosNumbers}`)
+        let lastPlayersNumbers = (lastPlayerToMove === "playerOne") ? playerOnesNumbers(moveList) : playerTwosNumbers(moveList) 
+        let lastMoveMade = lastPlayersNumbers.slice(-1) 
+        // console.log(`lastPlayersNumbers: ${lastPlayersNumbers}`)
+        // console.log(`lastMoveMade: ${lastMoveMade}`)
 
+        // console.log(`lineIdToSquareIdsMap: ${lineIdToSquareIdsMap}`)
+        // console.log([...lineIdToSquareIdsMap.entries()])
+
+        // console.log(`squareIdToLineIdsMap: ${squareIdToLineIdsMap}`)
+        // console.log([...squareIdToLineIdsMap.entries()])
+        
+        // let lineIdsToCheck = squareIdToLineIdsMap.get(lastMoveMade)
+        // console.log(`lineIdsToCheck: ${lineIdsToCheck}`)
 
 
         
