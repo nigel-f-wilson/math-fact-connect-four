@@ -165,7 +165,9 @@ export default function Play(props) {
                 handleColumnClick={handleColumnClick} 
                 handleColumnHover={handleColumnHover}
             />
-            <InfoPanel orientation={props.orientation} />
+            <InfoPanel gameStatus={gameStatus}
+                orientation={props.orientation} 
+            />
 
         </Container>
 
