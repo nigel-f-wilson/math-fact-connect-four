@@ -62,37 +62,9 @@ export default function Play(props) {
     function getGameStatus(moveList) {
         let lastPlayerToMove = (moveList.length % 2 === 1) ? "playerOne" : "playerTwo"
         let lastPlayersNumbers = (lastPlayerToMove === "playerOne") ? playerOnesNumbers(moveList) : playerTwosNumbers(moveList) 
-        let lastMoveMade = lastPlayersNumbers.slice(-1) 
-        // console.log(`lastPlayersNumbers: ${lastPlayersNumbers}`)
-        // console.log(`lastMoveMade: ${lastMoveMade}`)
-
-        // console.log(`lineIdToSquareIdsMap: ${lineIdToSquareIdsMap}`)
-        // console.log([...lineIdToSquareIdsMap.entries()])
-
-        // console.log(`squareIdToLineIdsMap: ${squareIdToLineIdsMap}`)
-        // console.log([...squareIdToLineIdsMap.entries()])
-        
-        // let lineIdsToCheck = squareIdToLineIdsMap.get(lastMoveMade)
-        // console.log(`lineIdsToCheck: ${lineIdsToCheck}`)
-
-
         
         return (moveList.length % 2 === 0) ? 'playerOne' : 'playerTwo'
     }
-
-
-    function lookForHorizontalWins(params) {
-        
-        
-        alert("Found a Horizontal Win")
-    }
-    function lookForVerticalWins(params) {
-
-    } 
-    function lookForHorizontalWins(params) {
-
-    } 
-    function lookForHorizontalWins(params) {
 
     }
     function playerOnesNumbers(moveList) {
@@ -150,18 +122,6 @@ export default function Play(props) {
         }
         return columnData
     } 
-
-    
-    // Higher Order functions call both of these first because these can only work with a raw moveList, pre-removal of -1's
-    function playerOnesMoves(ml = moveList) {
-        return ml.filter((move, turn) => turn % 2 === 0)
-    }
-    function playerTwosMoves(ml = moveList) {
-        return ml.filter((move, turn) => turn % 2 === 1)
-    }
-    function removeSkippedTurns(moves) {
-        return moves.filter((move) => move === -1)
-    }
 
     function nextPlayer( gs = gameStatus) {
         if (gs === "playerOneWins" || gs === "playerTwoWins" || gs === "gameOverDraw") {
