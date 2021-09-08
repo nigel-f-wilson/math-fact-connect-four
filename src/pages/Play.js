@@ -78,7 +78,7 @@ export default function Play(props) {
                 return (lastPlayerToMove === 'playerOne') ? 'playerOneWins' : 'playerTwoWins'
             }
         }
-        return (moveList.length % 2 === 0) ? 'playerOne' : 'playerTwo'
+        return (moveList.length % 2 === 0) ? 'playerOnesTurn' : 'playerTwosTurn'
     }
 
     // This function could be made more efficient through using sorted arrays and pointers that 
