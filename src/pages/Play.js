@@ -62,9 +62,12 @@ export default function Play(props) {
     function getGameStatus(moveList) {
         let lastPlayerToMove = (moveList.length % 2 === 1) ? "playerOne" : "playerTwo"
         let lastPlayersNumbers = (lastPlayerToMove === "playerOne") ? playerOnesNumbers(moveList) : playerTwosNumbers(moveList) 
+        let lastMoveMade = Number(lastPlayersNumbers.slice(-1) )
+        let linesAffectedByLastMove = cellToLinesMap.get(lastMoveMade)
         for (let i = 0; i < linesAffectedByLastMove.length; i++) {
             let line = linesAffectedByLastMove[i]
             let cellsInLine = lineToCellsMap.get(line)
+            // For added efficiency I could at this point remove the lastMoveMade from cells in line and in the next line look for intersections of length 3.
             if (intersect(cellsInLine, lastPlayersNumbers).length === 4) {
                 return (lastPlayerToMove === 'playerOne') ? 'playerOneWins' : 'playerTwoWins'
             }
