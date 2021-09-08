@@ -12,7 +12,6 @@ import { Box } from '@material-ui/core'
 // Style & Layout Constants
 
 export function InfoPanel(props) {
-    let { moveList, orientation, gameStatus } = props
     let { moveList, orientation, gameStatus, handleNewGameClick } = props
     const [hoverRef, isHovered] = useHover();
     
