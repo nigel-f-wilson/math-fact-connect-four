@@ -55,6 +55,12 @@ export default function Play(props) {
         // This is where we Would find and make the Computer Move if in Play vs. Computer Mode
         return 0;
     }
+    function handleNewGameClick() {
+        setMoveList([])
+        setGameStatus('playerOnesTurn')
+        console.log(`NEW GAME !!!`)
+        return 0;
+    }
 
     
     // Returns ENUM: 'playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw'
@@ -185,6 +191,7 @@ export default function Play(props) {
             />
             <InfoPanel gameStatus={gameStatus}
                 orientation={props.orientation} 
+                handleNewGameClick={handleNewGameClick}
             />
 
         </Container>
