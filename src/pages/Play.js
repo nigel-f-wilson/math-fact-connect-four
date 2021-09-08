@@ -58,32 +58,15 @@ export default function Play(props) {
 
     
     // Returns ENUM: 'playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw'
-    // This function 
+    // This function efficiently checks to see if the last move created a win for the player who made it.
     function getGameStatus(moveList) {
         let lastPlayerToMove = (moveList.length % 2 === 1) ? "playerOne" : "playerTwo"
         let lastPlayersNumbers = (lastPlayerToMove === "playerOne") ? playerOnesNumbers(moveList) : playerTwosNumbers(moveList) 
-        
-        // linesAffectedByLastMove.forEach(line => {
-        //     let cellsInLine = lineToCellsMap.get(line)
-        //     // console.log(`Cells in Line ${line}: ${cellsInLine} `)
-        //     console.log(`Cells in Line ${line} had by last player: ${intersect(cellsInLine, lastPlayersNumbers)} `)
-
-        //     if (intersect(cellsInLine, lastPlayersNumbers).length === 4) {
-        //         let ret = (lastPlayerToMove === 'playerOne') ? 'playerOneWins' : 'playerTwoWins'
-        //         console.log(`Found a complete line! Cells in Line ${line}: ${cellsInLine} return: ${ret}`)
-        //         return ret
-        //     }
-        // })
         for (let i = 0; i < linesAffectedByLastMove.length; i++) {
             let line = linesAffectedByLastMove[i]
             let cellsInLine = lineToCellsMap.get(line)
-            // console.log(`Cells in Line ${line}: ${cellsInLine} `)
-            console.log(`Cells in Line ${line} had by last player: ${intersect(cellsInLine, lastPlayersNumbers)} `)
-
             if (intersect(cellsInLine, lastPlayersNumbers).length === 4) {
-                let ret = (lastPlayerToMove === 'playerOne') ? 'playerOneWins' : 'playerTwoWins'
-                console.log(`Found a complete line! Cells in Line ${line}: ${cellsInLine} return: ${ret}`)
-                return ret
+                return (lastPlayerToMove === 'playerOne') ? 'playerOneWins' : 'playerTwoWins'
             }
         }
         return (moveList.length % 2 === 0) ? 'playerOne' : 'playerTwo'
