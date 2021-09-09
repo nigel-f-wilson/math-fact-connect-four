@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { GameBoard } from "../components/GameBoard";
 import { InfoPanel } from "../components/InfoPanel";
 
-// MY UI components
+// MY Logical components
 import { lineToCellsMap, cellToLinesMap } from '../logic/maps'   
 import { gameIsOver } from '../logic/helpers'
 
@@ -192,6 +192,8 @@ export default function Play(props) {
                 handleColumnHover={handleColumnHover}
             />
             <InfoPanel gameStatus={gameStatus}
+                playMode={playMode}
+                questionType={questionType}
                 orientation={props.orientation} 
                 handleNewGameClick={handleNewGameClick}
             />

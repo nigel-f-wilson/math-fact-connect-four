@@ -12,20 +12,20 @@ import { Box } from '@material-ui/core'
 // Style & Layout Constants
 
 export function InfoPanel(props) {
-    let { moveList, orientation, gameStatus, handleNewGameClick } = props
+    let { moveList, orientation, gameStatus, handleNewGameClick, playMode, questionType } = props
     const [hoverRef, isHovered] = useHover();
     
     return (
         <Box id='info-panel' sx={{  }} >
-            The Info Panel: {gameStatus} <br/>
-            <p>{orientation}</p>
-
+            The Info Panel:  <br/>
+            
+            <p>Game Status: {gameStatus}</p>
+            <p>Orientation: {orientation}</p>
+            <p>Play Mode: {playMode}</p>
+            <p>Question Type: {questionType}</p>
             <NewGameButton 
                 handleClick={handleNewGameClick}
             />
-            
-            <div ref={hoverRef}>{isHovered ? "😁" : "☹️"}</div>;
-
         </Box>
     );
 }
