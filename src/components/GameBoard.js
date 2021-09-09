@@ -55,10 +55,7 @@ function columnDataFromMoveList(columnId, moveList) {
     moveList.forEach((squareId, turn) => {
         if (squareId !== -1 && squareId % 7 === columnId) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
             let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
-            // let colIndex = squareId % 7
-            // let rowIndex = Math.floor(squareId / 7)
             columnData.push(player)
-            
         }
     })
     while (columnData.length < 6) {
@@ -71,24 +68,6 @@ function columnDataFromMoveList(columnId, moveList) {
 function Column(props) {
     const { columnId, data, handleColumnClick, gameStatus } = props
 
-    let nextPlayer = (gameStatus) => {
-        if (gameStatus === "playerOneWins" || gameStatus === "playerTwoWins" || gameStatus === "gameOverDraw") {
-            return "background"
-        }
-        else if (gameStatus === "playerTwosTurn") {
-            return "playerTwo"
-        }
-        else if (gameStatus === "playerOnesTurn") {
-            return "playerOne"
-        }
-        else {
-            console.error(`Invalid game status`)
-        }
-
-
-    }
-
-    
     let nextPlayer = gameIsOver(gameStatus) ? "background" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
 
     const [hoverRef, isHovered] = useHover()
@@ -114,7 +93,7 @@ function Column(props) {
             <Square chipColor={data[3]} />
             <Square chipColor={data[4]} />
             <Square chipColor={data[5]} />
-            <Square transparent chipColor={isHovered ? nextPlayer : 'unclaimed'} > </Square>
+            <Square transparent chipColor={isHovered ? nextPlayer : 'background'} > </Square>
 
 
         </Box>
