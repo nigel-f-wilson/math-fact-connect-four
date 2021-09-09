@@ -103,7 +103,7 @@ Column.propTypes = {
     columnId: PropTypes.number.isRequired,
     data: PropTypes.arrayOf(PropTypes.oneOf(['playerOne', 'playerTwo', 'unclaimed'])), 
     handleColumnClick: PropTypes.func, 
-    nextPlayer: PropTypes.oneOf(['playerOne', 'playerTwo', 'gameOver'])
+    gameStatus: PropTypes.oneOf(['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw'])
 }
 
 function Square(props) {
