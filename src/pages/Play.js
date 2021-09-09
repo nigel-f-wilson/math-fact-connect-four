@@ -8,6 +8,8 @@ import { InfoPanel } from "../components/InfoPanel";
 
 // MY UI components
 import { lineToCellsMap, cellToLinesMap } from '../logic/maps'   
+import { gameIsOver } from '../logic/helpers'
+
 
 // MUI  components
 import { Typography, Container, Box } from '@material-ui/core'
@@ -39,7 +41,7 @@ export default function Play(props) {
     function handleColumnClick(columnNumber) {
         let columnData = getColumnData(columnNumber)
         let columnIsFull = !columnData.includes("unclaimed")
-        if (gameIsOver() || columnIsFull) {
+        if (gameIsOver(gameStatus) || columnIsFull) {
             console.log(`Returning Early from handleClick() since Game is already over OR column is full!`)
             return -1
         }
@@ -102,7 +104,7 @@ export default function Play(props) {
 
 
     function playerWhoGoesNext() {
-        console.assert(!gameIsOver(), "playerWhoGoesNext was called BUT the game is already over!")
+        console.assert(!gameIsOver(gameStatus), "playerWhoGoesNext was called BUT the game is already over!")
         return (moveList.length % 2 === 0) ? 'playerOne' : 'playerTwo'
     }
     function gameIsOver() {

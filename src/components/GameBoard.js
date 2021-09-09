@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// Logic
+import { gameIsOver } from '../logic/helpers'
 
 // Custom Hooks
 import { useHover } from "../hooks/useHover";
@@ -87,6 +89,7 @@ function Column(props) {
     }
 
     
+    let nextPlayer = gameIsOver(gameStatus) ? "background" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
 
     const [hoverRef, isHovered] = useHover()
     
