@@ -45,9 +45,11 @@ export default function Play(props) {
             console.log(`Returning Early from handleClick() since Game is already over OR column is full!`)
             return -1
         }
-        // let lowestUnclaimedCell = getLowestUnclaimedCell(columnNumber, columnData)
         let lowestUnclaimedCell = columnData.indexOf("unclaimed") * 7 + columnNumber
-        console.log(`Clicked Column: ${columnNumber} -- found lowestEmptySquareInCol: ${lowestUnclaimedCell}.`)
+        
+        // This is where the Math Question Pop Up determines whether or not the move is made. 
+        
+        
         let updatedMoveList = moveList.concat(lowestUnclaimedCell)
         let updatedGameStatus = getGameStatus(updatedMoveList)
         setMoveList(updatedMoveList)
@@ -183,6 +185,9 @@ export default function Play(props) {
                 display: 'flex',
                 flexDirection: 'column'
             }}>
+
+            {/* ADD Math Question Popup */}
+
             <GameBoard 
                 moveList={moveList}
                 gameStatus={gameStatus}
