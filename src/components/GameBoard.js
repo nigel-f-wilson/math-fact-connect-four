@@ -8,7 +8,7 @@ import { gameIsOver } from '../logic/helpers'
 import { useHover } from "../hooks/useHover";
 
 // MUI  components
-import { Box } from '@material-ui/core'
+import { Box, Switch, Paper, Slide, FormControlLabel } from '@material-ui/core'
 
 // Style & Layout Constants
 const squarePercentage = '14.287%'
@@ -82,11 +82,7 @@ function Column(props) {
                 flexDirection: 'column-reverse'
                 }} 
         >
-            {/* {
-                props.data.map(squareStatus => {
-                    <Square status={squareStatus} />
-                })
-            } */}
+            
             <Square chipColor={data[0]} />
             <Square chipColor={data[1]} />
             <Square chipColor={data[2]} />
@@ -94,6 +90,10 @@ function Column(props) {
             <Square chipColor={data[4]} />
             <Square chipColor={data[5]} />
             <Square transparent chipColor={isHovered ? nextPlayer : 'background'} > </Square>
+            
+            {/* <SlidingChipContainer chipColor={nextPlayer} >
+                
+            </SlidingChipContainer> */}
 
 
         </Box>
@@ -126,12 +126,42 @@ function Square(props) {
         </Box>
     )
 
-
-
 }
 
 // Having a Chip be a separate component with a lower Z-index than the Square
 // should make adding a sliding transition animation easier. 
+function SlidingChipContainer(props) {
+    let bgcolor = `chip.${props.color}`
+
+    return (
+        <Box sx={{
+            bgcolor: bgcolor,
+            height: chipSizeRelativeToSquare,
+            width: chipSizeRelativeToSquare,
+            borderRadius: '50%'
+        }}
+        >
+
+
+        </Box>
+    );
+}
+function SlidingChip(props) {
+    let bgcolor = `chip.${props.color}`
+
+    return (
+        <Box sx={{
+            bgcolor: bgcolor,
+            height: chipSizeRelativeToSquare,
+            width: chipSizeRelativeToSquare,
+            borderRadius: '50%'
+        }}
+        >
+
+
+        </Box>
+    );
+}
 function Chip(props) {
     let bgcolor = `chip.${props.color}`
 
@@ -149,3 +179,75 @@ function Chip(props) {
     );
 }
 
+const icon = (
+    <Paper sx={{ m: 1, width: 100, height: 100 }} elevation={4}>
+        <Box component="svg" sx={{ width: 100, height: 100 }}>
+            <Box
+                component="polygon"
+                sx={{
+                    fill: (theme) => theme.palette.common.white,
+                    stroke: (theme) => theme.palette.divider,
+                    strokeWidth: 1,
+                }}
+                points="0,100 50,00, 100,100"
+            />
+        </Box>
+    </Paper>
+);
+
+function SimpleSlide() {
+    const [checked, setChecked] = React.useState(false);
+
+    const handleChange = () => {
+        setChecked((prev) => !prev);
+    };
+
+    return (
+        <Box sx={{ height: 180 }}>
+            <Box sx={{ width: `calc(100px + 16px)` }}>
+                <FormControlLabel
+                    control={<Switch checked={checked} onChange={handleChange} />}
+                    label="Show"
+                />
+                <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
+                    {icon}
+                </Slide>
+            </Box>
+        </Box>
+    );
+}
+
+function SlideFromContainer() {
+    const [checked, setChecked] = React.useState(false);
+    const containerRef = React.useRef(null);
+
+    const handleChange = () => {
+        setChecked((prev) => !prev);
+    };
+
+    return (
+        <Box
+            sx={{
+                height: 180,
+                width: 240,
+                display: 'flex',
+                padding: 2,
+                borderRadius: 1,
+                bgcolor: (theme) =>
+                    theme.palette.mode === 'light' ? 'grey.100' : 'grey.900',
+                overflow: 'hidden',
+            }}
+            ref={containerRef}
+        >
+            <Box sx={{ width: 200 }}>
+                <FormControlLabel
+                    control={<Switch checked={checked} onChange={handleChange} />}
+                    label="Show from target"
+                />
+                <Slide direction="up" in={checked} container={containerRef.current}>
+                    {icon}
+                </Slide>
+            </Box>
+        </Box>
+    );
+}
