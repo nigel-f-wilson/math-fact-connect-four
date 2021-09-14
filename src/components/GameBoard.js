@@ -127,8 +127,7 @@ function Column(props) {
                 <Chip id={columnId + 3} color={data[3]} />
                 <Chip id={columnId + 4} color={data[4]} />
                 <Chip id={columnId + 5} color={data[5]} />
-                <Chip id={columnId + 6} color={data[6]} />
-                <Chip id={columnId + 7} transparent chip={isHovered ? nextPlayer : 'background'} > </Chip>
+                <Chip id={columnId + 6} color={isHovered ? nextPlayer : 'background'} > </Chip>
             </Box> 
 
 
