@@ -40,6 +40,7 @@ const theme = createTheme({
         },
         background: '#b3e5fc',
         white: '#FFFFFF',
+        transparent: 'rgba(0, 0, 0, 0)',
     },
     components: {
         MuiPaper: {
