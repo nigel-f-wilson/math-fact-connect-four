@@ -89,7 +89,7 @@ function Column(props) {
     return (
         <Box id="column" ref={hoverRef} onClick={() => handleColumnClick(columnId)}
             sx={{ 
-                bgcolor: 'background', 
+                bgcolor: 'transparent', 
                 width: squarePercentage,
                 height: '100%',
                 // display: 'flex',
@@ -155,7 +155,7 @@ function ColumnOfSquaresWithHoles(props) {
     return (
         <Box id="columnOfSquaresWithHoles"
             sx={{
-                bgcolor: 'background',
+                bgcolor: 'transparent',
                 width: '100%',
                 height: '100%',
                 display: 'flex',
