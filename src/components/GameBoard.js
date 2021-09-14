@@ -62,10 +62,9 @@ function columnChipColorsFromMoveList(columnId, moveList) {
             columnChipColors.push(player)
         }
     })
-    while (columnData.length < 6) {
-        columnData.push("unclaimed")
-    }
-    return columnData
+    // while (columnData.length < 6) {
+    //     columnData.push("unclaimed")
+    // }
     return columnChipColors
 }
 
