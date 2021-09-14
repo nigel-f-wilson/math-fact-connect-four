@@ -55,6 +55,8 @@ export default function Play(props) {
         setMoveList(updatedMoveList)
         setGameStatus(updatedGameStatus)
         console.log(`updated GameStatus: ${updatedGameStatus}`)
+        console.log(`YOU CLICKED COLUMN: ${columnNumber}`)
+
         
         // This is where we Would find and make the Computer Move if in Play vs. Computer Mode
         return 0;

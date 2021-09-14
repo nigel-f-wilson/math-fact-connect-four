@@ -96,17 +96,45 @@ function Column(props) {
                 flexDirection: 'column-reverse'
                 }} 
         >
-            
-            <Square chipColor={data[0]} />
-            <Square chipColor={data[1]} />
-            <Square chipColor={data[2]} />
-            <Square chipColor={data[3]} />
-            <Square chipColor={data[4]} />
-            <Square chipColor={data[5]} />
-            <Square transparent chipColor={isHovered ? nextPlayer : 'background'} > </Square>
-            
-            {/* <SlidingChipContainer chipColor={nextPlayer} >
             <Box id="chipContainer" 
+                sx={{
+                    // bgcolor: 'background',
+                    bgcolor: 'primary.main',
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column-reverse',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    // zIndex: 
+                }}
+            >
+                {/* <Slide enterOnMount={true} direction="down" in={true} >
+                    <Chip color={data[0]} />  
+                </Slide> */}
+                <Chip id={columnId + 0} color={data[0]} />
+                <Chip id={columnId + 1} color={data[1]} />
+                <Chip id={columnId + 2} color={data[2]} />
+                <Chip id={columnId + 3} color={data[3]} />
+                <Chip id={columnId + 4} color={data[4]} />
+                <Chip id={columnId + 5} color={data[5]} />
+                <Chip id={columnId + 6} color={data[6]} />
+                <Chip id={columnId + 7} transparent chip={isHovered ? nextPlayer : 'background'} > </Chip>
+            </Box> 
+
+
+            <ColumnOfSquaresWithHoles />
+
+                {/* <Square chipColor={data[0]} />
+                <Square chipColor={data[1]} />
+                <Square chipColor={data[2]} />
+                <Square chipColor={data[3]} />
+                <Square chipColor={data[4]} />
+                <Square chipColor={data[5]} />
+                <Square transparent chipColor={isHovered ? nextPlayer : 'background'} > </Square> */}
+
+                {/* <SlidingChipContainer chipColor={nextPlayer} >
                 
             </SlidingChipContainer> */}
 
@@ -186,7 +214,8 @@ function Square(props) {
 
             }} 
         >
-            <Chip color={chipColor} />
+            {/* <Chip color={chipColor} /> */}
+            {/* <SlidingChip color={chipColor} /> */}
 
         </Box>
     )
