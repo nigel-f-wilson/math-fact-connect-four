@@ -87,7 +87,7 @@ function Column(props) {
     const [hoverRef, isHovered] = useHover()
     
     return (
-        <Box ref={hoverRef} onClick={() => handleColumnClick(columnId)}
+        <Box id="column" ref={hoverRef} onClick={() => handleColumnClick(columnId)}
             sx={{ 
                 bgcolor: 'background', 
                 width: squarePercentage,
@@ -106,6 +106,7 @@ function Column(props) {
             <Square transparent chipColor={isHovered ? nextPlayer : 'background'} > </Square>
             
             {/* <SlidingChipContainer chipColor={nextPlayer} >
+            <Box id="chipContainer" 
                 
             </SlidingChipContainer> */}
 
@@ -119,6 +120,56 @@ Column.propTypes = {
     handleColumnClick: PropTypes.func, 
     gameStatus: PropTypes.oneOf(['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw'])
 }
+
+function ColumnOfSquaresWithHoles(props) {
+    return (
+        <Box id="columnOfSquaresWithHoles"
+            sx={{
+                bgcolor: 'background',
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column-reverse',
+                position: 'absolute',
+                top: 0,
+                left: 0
+            }}
+        >
+            {rowNumbers.map((item, index) => {
+                return (
+                    <Box id="square"
+                        key={index}
+                        sx={{
+                            // bgcolor default transparent,
+                            overflow: 'hidden',
+                            width: '100%',
+                            height: squarePercentage,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Box id="hole"
+                            sx={{
+                                boxShadow: "0 0 0 99px #0039cb",
+                                // boxShadow: "0 0 0 9999px rgba(0, 0, 'board.main', 1)",
+                                border: 'solid red 1px',
+                                borderRadius: '50%',
+                                bgcolor: 'transparent',
+                                width: chipSizeRelativeToSquare,
+                                height: chipSizeRelativeToSquare,
+                            }}
+                        >
+
+                        </Box>
+                    </Box>
+                )
+            })}
+
+        </Box>
+    )
+}
+
 
 function Square(props) {
     let bgcolor = props.transparent ? 'background' : 'board.main'
