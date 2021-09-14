@@ -104,16 +104,34 @@ function Column(props) {
                 
             }} 
         >
-            <Box id="chipContainer" 
+            <Box id="hoverChipContainer"
                 sx={{
                     // bgcolor: 'background',
+                    // bgcolor: 'primary.main', 
+                    width: '100%',
+                    height: squarePercentage,
+                    display: 'flex',
+                    // flexDirection: 'column-reverse',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    // zIndex: 
+                }}
+            >
+                {/* <Slide enterOnMount={true} direction="down" in={true} >
+                    <Chip color={data[0]} />  
+                </Slide> */}
+                <Chip id={columnId + 6} chipColor={isHovered ? nextPlayer : 'background'} > </Chip>
+            </Box>
+            <Box id="slidingChipContainer"
+                sx={{
                     // bgcolor: 'primary.main',
                     width: '100%',
-                    height: '100%',
+                    height: '93%',
                     display: 'flex',
                     flexDirection: 'column-reverse',
                     position: 'absolute',
-                    top: 0,
+                    top: '7%',
                     left: 0,
                     // zIndex: 
                 }}
