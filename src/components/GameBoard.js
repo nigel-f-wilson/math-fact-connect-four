@@ -92,9 +92,11 @@ function Column(props) {
                 bgcolor: 'background', 
                 width: squarePercentage,
                 height: '100%',
-                display: 'flex',
-                flexDirection: 'column-reverse'
-                }} 
+                // display: 'flex',
+                // flexDirection: 'column-reverse',
+                position: 'relative',
+                
+            }} 
         >
             <Box id="chipContainer" 
                 sx={{
