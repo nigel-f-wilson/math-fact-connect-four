@@ -85,7 +85,8 @@ function columnWhereLastMoveWasMade(moveList) {
 function Column(props) {
     const { columnId, data, lastMoveWasMadeHere, handleColumnClick, gameStatus } = props
 
-    console.log(`COLUMN ${columnId} CHIP COLORS: ${chipColors} LAST MOVE WAS HERE: ${lastMoveWasMadeHere}`)
+    // const chipColors = data.slice(0, data.indexOf("unclaimed")) // not needed since "unclaimed" not being appended anymore
+    // console.log(`COLUMN ${columnId} CHIP COLORS: ${chipColors} LAST MOVE WAS HERE: ${lastMoveWasMadeHere}`)
     
     let nextPlayer = gameIsOver(gameStatus) ? "background" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
 
@@ -106,7 +107,7 @@ function Column(props) {
             <Box id="chipContainer" 
                 sx={{
                     // bgcolor: 'background',
-                    bgcolor: 'primary.main',
+                    // bgcolor: 'primary.main',
                     width: '100%',
                     height: '100%',
                     display: 'flex',
@@ -144,7 +145,6 @@ function Column(props) {
                 {/* <SlidingChipContainer chipColor={nextPlayer} >
                 
             </SlidingChipContainer> */}
-
 
         </Box>
     );
@@ -188,7 +188,7 @@ function ColumnOfSquaresWithHoles(props) {
                             sx={{
                                 boxShadow: "0 0 0 99px #0039cb",
                                 // boxShadow: "0 0 0 9999px rgba(0, 0, 'board.main', 1)",
-                                border: 'solid red 1px',
+                                // border: 'solid red 1px',
                                 borderRadius: '50%',
                                 bgcolor: 'transparent',
                                 width: chipSizeRelativeToSquare,
@@ -255,8 +255,10 @@ function Chip(props) {
         <Slide enterOnMount={false} direction="down" in={true} >
             <Box sx={{
                 bgcolor: bgcolor,
-                height: chipSizeRelativeToSquare,
-                width: chipSizeRelativeToSquare,
+                // height: chipSizeRelativeToSquare,
+                // width: chipSizeRelativeToSquare,
+                height: "100%",
+                width: "100%",
                 borderRadius: '50%'
             }}
             >
