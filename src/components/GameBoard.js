@@ -41,6 +41,7 @@ export function GameBoard(props) {
                             <Column key={columnId} 
                                 columnId={columnId}
                                 data={columnChipColorsFromMoveList(columnId, moveList)}
+                                lastMoveWasMadeHere={columnWhereLastMoveWasMade(moveList) === columnId}
                                 gameStatus={gameStatus}
                                 handleColumnClick={handleColumnClick} 
                             />
@@ -67,11 +68,20 @@ function columnChipColorsFromMoveList(columnId, moveList) {
     // }
     return columnChipColors
 }
+function columnWhereLastMoveWasMade(moveList) {
+    // let mostRecentMoveWasHere = 
+
+    let lastMove = moveList[moveList.length - 1] 
+    let columnId = lastMove % 7
+    return columnId
+}
 
 
 function Column(props) {
-    const { columnId, data, handleColumnClick, gameStatus } = props
+    const { columnId, data, lastMoveWasMadeHere, handleColumnClick, gameStatus } = props
 
+    console.log(`COLUMN ${columnId} CHIP COLORS: ${chipColors} LAST MOVE WAS HERE: ${lastMoveWasMadeHere}`)
+    
     let nextPlayer = gameIsOver(gameStatus) ? "background" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
 
     const [hoverRef, isHovered] = useHover()
