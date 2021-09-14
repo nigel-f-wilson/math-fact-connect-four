@@ -211,37 +211,25 @@ function SlidingChipContainer(props) {
         </Box>
     );
 }
-function SlidingChip(props) {
-    let bgcolor = `chip.${props.color}`
 
-    return (
-        <Box sx={{
-            bgcolor: bgcolor,
-            height: chipSizeRelativeToSquare,
-            width: chipSizeRelativeToSquare,
-            borderRadius: '50%'
-        }}
-        >
-
-
-        </Box>
-    );
-}
 function Chip(props) {
     let bgcolor = `chip.${props.color}`
 
     return (
-        <Box sx={{
-            bgcolor: bgcolor,
-            height: chipSizeRelativeToSquare,
-            width: chipSizeRelativeToSquare,
-            borderRadius: '50%'
-        }}
-        >
+        <Slide enterOnMount={false} direction="down" in={true} >
+            <Box sx={{
+                bgcolor: bgcolor,
+                height: chipSizeRelativeToSquare,
+                width: chipSizeRelativeToSquare,
+                borderRadius: '50%'
+            }}
+            >
 
 
-        </Box>
-    );
+            </Box>
+        </Slide>
+        
+    )
 }
 
 const icon = (
