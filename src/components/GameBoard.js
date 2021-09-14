@@ -32,7 +32,7 @@ export function GameBoard(props) {
 
     
     return (
-        <Box id='max-height-box' sx={{ maxHeight: '90vh',  }} >
+        <Box id='max-height-box' sx={{ maxHeight: '90vh' }} >
             <Box id='square-box-outter' sx={{ height: 0, overflow: 'hidden', pt: '100%', position: 'relative' }} >
                 <Box id='square-box-inner' sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex' }} >
                     {/* <Box id='columns' sx={{ display: 'flex' }} > */}
@@ -40,7 +40,7 @@ export function GameBoard(props) {
                         return (
                             <Column key={columnId} 
                                 columnId={columnId}
-                                data={columnDataFromMoveList(columnId, moveList)}
+                                data={columnChipColorsFromMoveList(columnId, moveList)}
                                 gameStatus={gameStatus}
                                 handleColumnClick={handleColumnClick} 
                             />
@@ -54,18 +54,19 @@ export function GameBoard(props) {
     
 }
 
-function columnDataFromMoveList(columnId, moveList) {
-    let columnData = new Array()
+function columnChipColorsFromMoveList(columnId, moveList) {
+    let columnChipColors = new Array()
     moveList.forEach((squareId, turn) => {
         if (squareId !== -1 && squareId % 7 === columnId) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
             let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
-            columnData.push(player)
+            columnChipColors.push(player)
         }
     })
     while (columnData.length < 6) {
         columnData.push("unclaimed")
     }
     return columnData
+    return columnChipColors
 }
 
 
