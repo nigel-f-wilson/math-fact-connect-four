@@ -45,7 +45,7 @@ export function GameBoard(props) {
                         return (
                             <Column key={columnId} 
                                 columnId={columnId}
-                                data={columnChipColorsFromMoveList(columnId, moveList)}
+                                chipColors={columnChipColorsFromMoveList(columnId, moveList)}
                                 lastMoveWasMadeHere={columnWhereLastMoveWasMade(moveList) === columnId}
                                 gameStatus={gameStatus}
                                 handleColumnClick={handleColumnClick} 
@@ -83,7 +83,7 @@ function columnWhereLastMoveWasMade(moveList) {
 
 
 function Column(props) {
-    const { columnId, data, lastMoveWasMadeHere, handleColumnClick, gameStatus } = props
+    const { columnId, chipColors, lastMoveWasMadeHere, handleColumnClick, gameStatus } = props
 
     // const chipColors = data.slice(0, data.indexOf("unclaimed")) // not needed since "unclaimed" not being appended anymore
     // console.log(`COLUMN ${columnId} CHIP COLORS: ${chipColors} LAST MOVE WAS HERE: ${lastMoveWasMadeHere}`)
@@ -121,13 +121,13 @@ function Column(props) {
                 {/* <Slide enterOnMount={true} direction="down" in={true} >
                     <Chip color={data[0]} />  
                 </Slide> */}
-                <Chip id={columnId + 0} color={data[0]} />
-                <Chip id={columnId + 1} color={data[1]} />
-                <Chip id={columnId + 2} color={data[2]} />
-                <Chip id={columnId + 3} color={data[3]} />
-                <Chip id={columnId + 4} color={data[4]} />
-                <Chip id={columnId + 5} color={data[5]} />
-                <Chip id={columnId + 6} color={isHovered ? nextPlayer : 'background'} > </Chip>
+                <Chip id={columnId + 0 * columnNumbers.length} color={chipColors[0]} />
+                <Chip id={columnId + 1 * columnNumbers.length} color={chipColors[1]} />
+                <Chip id={columnId + 2 * columnNumbers.length} color={chipColors[2]} />
+                <Chip id={columnId + 3 * columnNumbers.length} color={chipColors[3]} />
+                <Chip id={columnId + 4 * columnNumbers.length} color={chipColors[4]} />
+                <Chip id={columnId + 5 * columnNumbers.length} color={chipColors[5]} />
+                <Chip id={columnId + 6 * columnNumbers.length} color='transparent' > </Chip>
             </Box> 
 
 
