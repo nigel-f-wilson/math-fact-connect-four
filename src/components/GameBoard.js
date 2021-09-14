@@ -14,6 +14,11 @@ import { Box, Switch, Paper, Slide, FormControlLabel } from '@material-ui/core'
 const squarePercentage = '14.287%'
 const chipSizeRelativeToSquare = '84%'
 
+let rowNumbers = [0, 1, 2, 3, 4, 5]
+let columnNumbers = [0, 1, 2, 3, 4, 5, 6]
+
+
+
 export function GameBoard(props) {
     let { moveList, handleColumnClick, gameStatus } = props 
     
@@ -25,7 +30,6 @@ export function GameBoard(props) {
 
     // console.log(`boardDataFromMoveList: ${boardData}`)
 
-    let columnNumbers = [0,1,2,3,4,5,6]
     
     return (
         <Box id='max-height-box' sx={{ maxHeight: '90vh',  }} >
