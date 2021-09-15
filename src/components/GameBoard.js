@@ -41,7 +41,7 @@ export function GameBoard(props) {
             <Box id='square-box-outter' sx={{ height: 0, overflow: 'hidden', pt: '100%', position: 'relative' }} >
                 <Box id='square-box-inner' sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex' }} >
                     {/* <Box id='columns' sx={{ display: 'flex' }} > */}
-                    {columnNumbers.map(columnId => {
+                    {/* {columnNumbers.map(columnId => {
                         return (
                             <Column key={columnId} 
                                 columnId={columnId}
@@ -51,8 +51,16 @@ export function GameBoard(props) {
                                 handleColumnClick={handleColumnClick} 
                             />
                         )
-                    })}
+                    })} */}
                     {/* </Box> */}
+                    
+                    <ColumnsWithHoverAndClickHandler 
+                        handleColumnClick={handleColumnClick}
+                        gameStatus={gameStatus}
+                    />
+                    {/* <GridOfChips /> */}
+
+                    <GridOfSquaresWithHoles />
                 </Box>
             </Box>
         </Box>
@@ -81,88 +89,50 @@ function columnWhereLastMoveWasMade(moveList) {
     return columnId
 }
 
+function ColumnsWithHoverAndClickHandler(props) {
+    const { handleColumnClick, gameStatus } = props
+    let nextPlayer = gameIsOver(gameStatus) ? "background" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
+
+    return (
+        <Box id="container" 
+            sx={{
+                // bgcolor: 'primary.main',
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+            }}
+        >
+            {columnNumbers.map((item, index) => {
+                return (
+                    <Column key={index} id="column" columnId={index} nextPlayer={nextPlayer} handleColumnClick={handleColumnClick} />
+                )
+            })}
+
+        </Box>
+    );
+
+}
 
 function Column(props) {
-    const { columnId, chipColors, lastMoveWasMadeHere, handleColumnClick, gameStatus } = props
+    const { columnId, nextPlayer, handleColumnClick } = props
 
     // const chipColors = data.slice(0, data.indexOf("unclaimed")) // not needed since "unclaimed" not being appended anymore
     // console.log(`COLUMN ${columnId} CHIP COLORS: ${chipColors} LAST MOVE WAS HERE: ${lastMoveWasMadeHere}`)
     
-    let nextPlayer = gameIsOver(gameStatus) ? "background" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
 
     const [hoverRef, isHovered] = useHover()
-    
+    // let hoverChipColor = 
+
     return (
         <Box id="column" ref={hoverRef} onClick={() => handleColumnClick(columnId)}
             sx={{ 
-                bgcolor: 'transparent', 
                 width: squarePercentage,
                 height: '100%',
-                // display: 'flex',
-                // flexDirection: 'column-reverse',
-                position: 'relative',
-                
+                zIndex: 9900
             }} 
         >
-            <Box id="hoverChipContainer"
-                sx={{
-                    // bgcolor: 'background',
-                    // bgcolor: 'primary.main', 
-                    width: '100%',
-                    height: squarePercentage,
-                    display: 'flex',
-                    // flexDirection: 'column-reverse',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    // zIndex: 
-                }}
-            >
-                {/* <Slide enterOnMount={true} direction="down" in={true} >
-                    <Chip color={data[0]} />  
-                </Slide> */}
-                <Chip id={columnId + 6} chipColor={isHovered ? nextPlayer : 'background'} > </Chip>
-            </Box>
-            <Box id="slidingChipContainer"
-                sx={{
-                    // bgcolor: 'primary.main',
-                    width: '100%',
-                    height: '93%',
-                    display: 'flex',
-                    flexDirection: 'column-reverse',
-                    position: 'absolute',
-                    top: '7%',
-                    left: 0,
-                    // zIndex: 
-                }}
-            >
-                {/* <Slide enterOnMount={true} direction="down" in={true} >
-                    <Chip color={data[0]} />  
-                </Slide> */}
-                <Chip id={columnId + 0 * columnNumbers.length} color={chipColors[0]} />
-                <Chip id={columnId + 1 * columnNumbers.length} color={chipColors[1]} />
-                <Chip id={columnId + 2 * columnNumbers.length} color={chipColors[2]} />
-                <Chip id={columnId + 3 * columnNumbers.length} color={chipColors[3]} />
-                <Chip id={columnId + 4 * columnNumbers.length} color={chipColors[4]} />
-                <Chip id={columnId + 5 * columnNumbers.length} color={chipColors[5]} />
-                <Chip id={columnId + 6 * columnNumbers.length} color='transparent' > </Chip>
-            </Box> 
-
-
-            <ColumnOfSquaresWithHoles />
-
-                {/* <Square chipColor={data[0]} />
-                <Square chipColor={data[1]} />
-                <Square chipColor={data[2]} />
-                <Square chipColor={data[3]} />
-                <Square chipColor={data[4]} />
-                <Square chipColor={data[5]} />
-                <Square transparent chipColor={isHovered ? nextPlayer : 'background'} > </Square> */}
-
-                {/* <SlidingChipContainer chipColor={nextPlayer} >
+            <HoverChip color={hoverRef ? nextPlayer : 'background'} />
                 
-            </SlidingChipContainer> */}
-
         </Box>
     );
 }
@@ -173,54 +143,9 @@ Column.propTypes = {
     gameStatus: PropTypes.oneOf(['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw'])
 }
 
-function ColumnOfSquaresWithHoles(props) {
-    return (
-        <Box id="columnOfSquaresWithHoles"
-            sx={{
-                bgcolor: 'transparent',
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column-reverse',
-                position: 'absolute',
-                top: 0,
-                left: 0
-            }}
-        >
-            {rowNumbers.map((item, index) => {
-                return (
-                    <Box id="square"
-                        key={index}
-                        sx={{
-                            // bgcolor default transparent,
-                            overflow: 'hidden',
-                            width: '100%',
-                            height: squarePercentage,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Box id="hole"
-                            sx={{
-                                boxShadow: "0 0 0 99px #0039cb",
-                                // boxShadow: "0 0 0 9999px rgba(0, 0, 'board.main', 1)",
-                                // border: 'solid red 1px',
-                                borderRadius: '50%',
-                                bgcolor: 'transparent',
-                                width: chipSizeRelativeToSquare,
-                                height: chipSizeRelativeToSquare,
-                            }}
-                        >
 
-                        </Box>
-                    </Box>
-                )
-            })}
 
-        </Box>
-    )
-}
+
 
 
 function Square(props) {
@@ -284,6 +209,21 @@ function Chip(props) {
             </Box>
         </Slide>
         
+    )
+}
+function HoverChip(props) {
+    let bgcolor = `chip.${props.color}`
+
+    return (
+        <Box sx={{
+            bgcolor: bgcolor,
+            // height: chipSizeRelativeToSquare,
+            width: chipSizeRelativeToSquare,
+            height: squarePercentage,
+            // width: "100%",
+            borderRadius: '50%'
+        }}
+        />
     )
 }
 
@@ -358,4 +298,68 @@ function SlideFromContainer() {
             </Box>
         </Box>
     );
+}
+
+function GridOfSquaresWithHoles(props) {
+    let columns = Array(7)
+    return (
+        <Box id="gridOfSquaresWithHoles"
+            sx={{
+                width: '100%',
+                height: '100%',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                display: 'flex',
+            }}
+        >
+            {columnNumbers.map((item, index) => {
+                return (<ColumnOfSquaresWithHoles key={index} />)
+            })}
+        </Box>
+    )
+}
+
+function ColumnOfSquaresWithHoles(props) {
+    return (
+        <Box id="columnOfSquaresWithHoles"
+            sx={{
+                bgcolor: 'transparent',
+                width: squarePercentage,
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column-reverse',
+            }}
+        >
+            {rowNumbers.map((item, index) => {
+                return (<SquareWithHole key={index} />)
+            })}
+        </Box>
+    )
+}
+
+function SquareWithHole(props) {
+    return (
+        <Box id="squareWithHole"
+            // key={props.index}
+            sx={{
+                overflow: 'hidden',
+                width: '100%',
+                height: squarePercentage,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+        >
+            <Box id="hole"
+                sx={{
+                    boxShadow: "0 0 0 99px #0039cb",
+                    borderRadius: '50%',
+                    bgcolor: 'transparent',
+                    width: chipSizeRelativeToSquare,
+                    height: chipSizeRelativeToSquare,
+                }}
+            />
+        </Box>
+    )
 }
