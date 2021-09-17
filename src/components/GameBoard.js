@@ -58,8 +58,8 @@ export function GameBoard(props) {
                         handleColumnClick={handleColumnClick}
                         gameStatus={gameStatus}
                     />
-                    {/* <GridOfChips /> */}
-
+                    <GridOfChips moveList={moveList} />
+                    <SlideFromDemo />
                     <GridOfSquaresWithHoles />
                 </Box>
             </Box>
@@ -89,147 +89,83 @@ function columnWhereLastMoveWasMade(moveList) {
     return columnId
 }
 
-function ColumnsWithHoverAndClickHandler(props) {
-    const { handleColumnClick, gameStatus } = props
-    let nextPlayer = gameIsOver(gameStatus) ? "background" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
 
+function SlideFromDemo(props) {
     return (
-        <Box id="container" 
+        <Box id="demo"
             sx={{
-                // bgcolor: 'primary.main',
+                bgcolor: 'primary.main',
                 width: '100%',
                 height: '100%',
+                position: 'absolute',
+                top: "10%",
+                left: 0,
                 display: 'flex',
+                flexDirection: 'row'
             }}
         >
-            {columnNumbers.map((item, index) => {
-                return (
-                    <Column key={index} id="column" columnId={index} nextPlayer={nextPlayer} handleColumnClick={handleColumnClick} />
-                )
-            })}
-
+            <SlideFromContainer />
+           
         </Box>
     );
-
 }
 
-function Column(props) {
-    const { columnId, nextPlayer, handleColumnClick } = props
+// Chip Data is an array of 42 cells each containing an object with keys: "id", "color", "slideIn", ""
+function GridOfChips(props) {
+    const { moveList  } = props
 
-    // const chipColors = data.slice(0, data.indexOf("unclaimed")) // not needed since "unclaimed" not being appended anymore
-    // console.log(`COLUMN ${columnId} CHIP COLORS: ${chipColors} LAST MOVE WAS HERE: ${lastMoveWasMadeHere}`)
-    
+    // const chipData = getChipData(moveList)
+    // const chipData = {
+    //     lastDrop: 0,
+    //     list: [1,2,1,2,,1,2]
+    // }
 
-    const [hoverRef, isHovered] = useHover()
-    // let hoverChipColor = 
 
     return (
-        <Box id="column" ref={hoverRef} onClick={() => handleColumnClick(columnId)}
-            sx={{ 
-                width: squarePercentage,
+        <Box id="chipGrid"
+            sx={{
+                bgcolor: 'primary.main',
+                width: '100%',
                 height: '100%',
-                zIndex: 9900
-            }} 
-        >
-            <HoverChip color={hoverRef ? nextPlayer : 'background'} />
-                
-        </Box>
-    );
-}
-Column.propTypes = {
-    columnId: PropTypes.number.isRequired,
-    data: PropTypes.arrayOf(PropTypes.oneOf(['playerOne', 'playerTwo', 'unclaimed'])), 
-    handleColumnClick: PropTypes.func, 
-    gameStatus: PropTypes.oneOf(['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw'])
-}
-
-
-
-
-
-
-function Square(props) {
-    let bgcolor = props.transparent ? 'background' : 'board.main'
-    let chipColor = props.chipColor ? props.chipColor : 'unclaimed'
-    
-    return (
-        <Box sx={{ 
-            bgcolor: bgcolor,
-            height: squarePercentage,
-            width: '100%',
-            display: 'flex', 
-            justifyContent: 'center',
-            alignItems: 'center',
-
-            }} 
-        >
-            {/* <Chip color={chipColor} /> */}
-            {/* <SlidingChip color={chipColor} /> */}
-
-        </Box>
-    )
-
-}
-
-// Having a Chip be a separate component with a lower Z-index than the Square
-// should make adding a sliding transition animation easier. 
-function SlidingChipContainer(props) {
-    let bgcolor = `chip.${props.color}`
-
-    return (
-        <Box sx={{
-            bgcolor: bgcolor,
-            height: chipSizeRelativeToSquare,
-            width: chipSizeRelativeToSquare,
-            borderRadius: '50%'
-        }}
-        >
-
-
-        </Box>
-    );
-}
-
-function Chip(props) {
-    let bgcolor = `chip.${props.color}`
-
-    return (
-        <Slide enterOnMount={false} direction="down" in={true} >
-            <Box sx={{
-                bgcolor: bgcolor,
-                // height: chipSizeRelativeToSquare,
-                // width: chipSizeRelativeToSquare,
-                height: "100%",
-                width: "100%",
-                borderRadius: '50%'
+                position: 'absolute',
+                top: "10%",
+                left: 0,
+                display: 'flex',
+                flexDirection: 'row'
             }}
-            >
+        >
+            {/* {chipData.list.map((data, index) => {
+                const chipColor = `chip.${data.list[index]}`
+                return (
+                    <Chip key={index} color={chipColor} />
+                )
+            })} */}
+            {/* <Box id="chipColumn"
+                sx={{
+                    width: squarePercentage,
+                    height: '100%',
+                    position: 'absolute',
+                    top: "10%",
+                    left: 0,
+                    display: 'flex',
+                    flexDirection: 'column-reverse'
+                }}>
 
+            </Box> */}
+{/* 
+            <SlideInChip key={1} color={'playerOne'} appear={false} in={false} />
+            <Chip key={1} color={'playerOne'} />
+             */}
 
-            </Box>
-        </Slide>
-        
-    )
+        </Box>
+    );
 }
-function HoverChip(props) {
-    let bgcolor = `chip.${props.color}`
 
-    return (
-        <Box sx={{
-            bgcolor: bgcolor,
-            // height: chipSizeRelativeToSquare,
-            width: chipSizeRelativeToSquare,
-            height: squarePercentage,
-            // width: "100%",
-            borderRadius: '50%'
-        }}
-        />
-    )
-}
+
 
 const icon = (
     <Paper sx={{ m: 1, width: 100, height: 100 }} elevation={4}>
-        <Box component="svg" sx={{ width: 100, height: 100 }}>
+        {/* <Box component="svg" sx={{ width: 100, height: 100 }}>
             <Box
                 component="polygon"
                 sx={{
@@ -239,7 +175,8 @@ const icon = (
                 }}
                 points="0,100 50,00, 100,100"
             />
-        </Box>
+        </Box> */}
+        <Chip color="playerOne" />
     </Paper>
 );
 
@@ -257,7 +194,7 @@ function SimpleSlide() {
                     control={<Switch checked={checked} onChange={handleChange} />}
                     label="Show"
                 />
-                <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
+                <Slide direction="down" in={checked} mountOnEnter unmountOnExit>
                     {icon}
                 </Slide>
             </Box>
@@ -276,7 +213,7 @@ function SlideFromContainer() {
     return (
         <Box
             sx={{
-                height: 180,
+                height: '100%',
                 width: 240,
                 display: 'flex',
                 padding: 2,
@@ -284,6 +221,7 @@ function SlideFromContainer() {
                 bgcolor: (theme) =>
                     theme.palette.mode === 'light' ? 'grey.100' : 'grey.900',
                 overflow: 'hidden',
+                zIndex: 9999
             }}
             ref={containerRef}
         >
@@ -292,13 +230,162 @@ function SlideFromContainer() {
                     control={<Switch checked={checked} onChange={handleChange} />}
                     label="Show from target"
                 />
-                <Slide direction="up" in={checked} container={containerRef.current}>
+                <Slide direction="down" in={checked} container={containerRef.current} mountOnEnter >
                     {icon}
                 </Slide>
             </Box>
         </Box>
     );
 }
+
+
+
+function ColumnsWithHoverAndClickHandler(props) {
+    const { handleColumnClick, gameStatus } = props
+    let nextPlayerColor = gameIsOver(gameStatus) ? "background" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
+
+    return (
+        <Box id="columnContainer"
+            sx={{
+                // bgcolor: 'primary.main',
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+            }}
+        >
+            {columnNumbers.map((item, index) => {
+                return (
+                    <Column key={index} id="column" columnId={index} nextPlayerColor={nextPlayerColor} handleColumnClick={handleColumnClick} />
+                )
+            })}
+
+        </Box>
+    );
+}
+ColumnsWithHoverAndClickHandler.propTypes = {
+    handleColumnClick: PropTypes.func,
+    gameStatus: PropTypes.oneOf(['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw'])
+}
+
+function Column(props) {
+    const { columnId, nextPlayerColor, handleColumnClick } = props
+    const [hoverRef, isHovered] = useHover()
+    // console.log(`You ${isHovered ? "ARE" : "are NOT"} hovering on column: ${columnId}`)
+
+    return (
+        <Box id="column" ref={hoverRef} onClick={() => handleColumnClick(columnId)}
+            sx={{ 
+                width: squarePercentage,
+                height: '100%',
+                zIndex: 9900
+            }} 
+        >
+            {isHovered ? <HoverChip color={nextPlayerColor} /> : null }
+                
+        </Box>
+    );
+}
+Column.propTypes = {
+    columnId: PropTypes.number.isRequired,
+    nextPlayerColor: PropTypes.oneOf(['playerOne', 'playerTwo', 'unclaimed']), 
+    handleColumnClick: PropTypes.func, 
+}
+
+
+function HoverChip(props) {
+    const { columnId, color } = props
+    let bgcolor = `chip.${color}`
+    return (
+        <Box id="transparentSquareFrame"
+            sx={{
+                // overflow: 'hidden',
+                // bgcolor: '#FFF',
+                width: '100%',
+                height: squarePercentage,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+        >
+            <Box id="hole"
+                sx={{
+                    borderRadius: '50%',
+                    bgcolor: bgcolor,
+                    width: chipSizeRelativeToSquare,
+                    height: chipSizeRelativeToSquare,
+                }}
+            />
+        </Box>
+    )
+}
+function Chip(props) {
+    const { id, color, transition,  } = props
+
+    
+    let bgcolor = `chip.${props.color}`
+ 
+    return (
+        <Slide  direction="down" in={true} >
+            <Box id="transparentSquareFrame"
+                sx={{
+                    // overflow: 'hidden',
+                    bgcolor: '#FFF',
+
+                    width: squarePercentage,
+                    height: squarePercentage,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                <Box id="hole"
+                    sx={{
+                        borderRadius: '50%',
+                        bgcolor: bgcolor,
+                        width: chipSizeRelativeToSquare,
+                        height: chipSizeRelativeToSquare,
+                    }}
+                />
+            </Box>
+        </Slide>
+
+    )
+}
+function SlideInChip(props) {
+    const { id, color, transition, } = props
+
+
+    let bgcolor = `chip.${props.color}`
+
+    return (
+        <Slide enterOnMount={false} direction="down" in={true} >
+            <Box id="transparentSquareFrame"
+                sx={{
+                    // overflow: 'hidden',
+                    bgcolor: '#FFF',
+
+                    width: squarePercentage,
+                    height: squarePercentage,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                <Box id="hole"
+                    sx={{
+                        borderRadius: '50%',
+                        bgcolor: bgcolor,
+                        width: chipSizeRelativeToSquare,
+                        height: chipSizeRelativeToSquare,
+                    }}
+                />
+            </Box>
+        </Slide>
+
+    )
+}
+
+
 
 function GridOfSquaresWithHoles(props) {
     let columns = Array(7)
