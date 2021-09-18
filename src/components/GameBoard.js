@@ -29,6 +29,7 @@ export function GameBoard(props) {
 
     let { moveList, handleColumnClick, gameStatus } = props 
     let boardData = getBoardDataFromMoveList(moveList)  // board data is an array of 7 arrays of varying length. 
+    let lastChipDropped = getLastChipDropped(moveList)  // id of Chip. May want to change this to column id. 
 
     
     return (
@@ -83,6 +84,12 @@ function getBoardDataFromMoveList(moveList) {  // board data is an array of 7 ar
     console.log(`BOARD DATA: ${boardData}`)
     return boardData
 }  
+function getLastChipDropped(moveList) {
+    let removeSkippedTurns = moveList.filter(move => move !== -1)
+    let lastChipDropped = removeSkippedTurns[removeSkippedTurns.length - 1]
+    return lastChipDropped
+}
+
 function columnChipColorsFromMoveList(columnId, moveList) {
     let columnChipColors = new Array()
     moveList.forEach((squareId, turn) => {
