@@ -46,7 +46,7 @@ export default function App() {
                 width: '100vw',
                 overflow: 'scroll'
             }}>
-                <Container id='appContainer' maxWidth='sm' disableGutters
+                <Container id='appContainer' maxWidth='lg' disableGutters
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',

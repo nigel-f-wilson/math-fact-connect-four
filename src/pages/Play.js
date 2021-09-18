@@ -165,7 +165,7 @@ export default function Play(props) {
     
     return (
         <Container id='playPageContainer'
-            maxWidth='sm' 
+            maxWidth='lg' 
             disableGutters 
             sx={{ bgcolor: 'background',
                 // height: '100%',
