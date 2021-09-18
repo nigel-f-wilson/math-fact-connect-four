@@ -61,7 +61,10 @@ export function GameBoard(props) {
                         gameStatus={gameStatus}
                     />
                     <GridOfChips moveList={moveList} />
-                    <SlideFromDemo />
+                    <Columns 
+                        handleColumnClick={handleColumnClick}
+                        gameStatus={gameStatus}
+                    />
                     <GridOfSquaresWithHoles />
                 </Box>
             </Box>
