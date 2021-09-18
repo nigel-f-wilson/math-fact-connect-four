@@ -7,7 +7,9 @@ import {
 
 
 // Custom Hooks
-import { useScreenOrientation } from "./hooks/useScreenOrientaton"
+// import { useScreenOrientation } from "./hooks/useScreenOrientaton"
+// import { useScreenWidth } from "./hooks/useScreenWidth"
+// import { useScreenHeight } from "./hooks/useScreenHeight"
 
 import './App.css';
 
@@ -32,8 +34,7 @@ import {
 
 
 export default function App() {
-    const orientation = useScreenOrientation();
-
+    
     
 
     return (
@@ -60,7 +61,7 @@ export default function App() {
                                 <Landing />
                             </Route>
                             <Route path="/play" >
-                                <Play orientation={orientation} />
+                                <Play />
                             </Route>
 
 

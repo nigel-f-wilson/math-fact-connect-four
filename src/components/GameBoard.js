@@ -6,6 +6,7 @@ import { gameIsOver } from '../logic/helpers'
 
 // Custom Hooks
 import { useHover } from "../hooks/useHover";
+import { useScreenOrientation } from "../hooks/useScreenOrientaton"
 
 // MUI  components
 import { Box, Switch, Paper, Slide, FormControlLabel } from '@material-ui/core'
@@ -27,6 +28,7 @@ export function GameBoard(props) {
     // This should make the peice-drop transition animation easier. 
     // boardDataFromMoveList as is duplicates a lot of work 
     // let boardData = boardDataFromMoveList(moveList)
+    const orientation = useScreenOrientation()
 
     // console.log(`boardDataFromMoveList: ${boardData}`)
 

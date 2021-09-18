@@ -2,6 +2,7 @@ import React from 'react'
 
 // Custom Hooks
 import { useHover } from "../hooks/useHover";
+import { useScreenOrientation } from "../hooks/useScreenOrientaton"
 
 // MY  components
 import NewGameButton from '../components/buttons/NewGameButton'
@@ -13,6 +14,7 @@ import { Box } from '@material-ui/core'
 
 export function InfoPanel(props) {
     let { moveList, orientation, gameStatus, handleNewGameClick, playMode, questionType } = props
+    const orientation = useScreenOrientation()
     const [hoverRef, isHovered] = useHover();
     
     return (

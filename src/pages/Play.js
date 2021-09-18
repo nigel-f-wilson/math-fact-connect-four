@@ -175,16 +175,16 @@ export default function Play(props) {
 
             {/* ADD Math Question Popup */}
 
-            <GameBoard 
+            <GameBoard
                 moveList={moveList}
                 gameStatus={gameStatus}
                 handleColumnClick={handleColumnClick} 
                 handleColumnHover={handleColumnHover}
             />
-            <InfoPanel gameStatus={gameStatus}
+            <InfoPanel 
+                gameStatus={gameStatus}
                 playMode={playMode}
                 questionType={questionType}
-                orientation={props.orientation} 
                 handleNewGameClick={handleNewGameClick}
             />
 
