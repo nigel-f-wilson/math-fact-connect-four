@@ -39,27 +39,28 @@ export default function Play(props) {
     }
 
     function handleColumnClick(columnNumber) {
-        let columnData = getColumnData(columnNumber)
-        let columnIsFull = !columnData.includes("unclaimed")
-        if (gameIsOver(gameStatus) || columnIsFull) {
-            console.log(`Returning Early from handleClick() since Game is already over OR column is full!`)
-            return -1
-        }
-        let lowestUnclaimedCell = columnData.indexOf("unclaimed") * 7 + columnNumber
+        console.log(`You clicked column: ${columnNummber}`)
+        // let columnData = getColumnData(columnNumber)
+        // let columnIsFull = !columnData.includes("unclaimed")
+        // if (gameIsOver(gameStatus) || columnIsFull) {
+        //     console.log(`Returning Early from handleClick() since Game is already over OR column is full!`)
+        //     return -1
+        // }
+        // let lowestUnclaimedCell = columnData.indexOf("unclaimed") * 7 + columnNumber
         
-        // This is where the Math Question Pop Up determines whether or not the move is made. 
+        // // This is where the Math Question Pop Up determines whether or not the move is made. 
         
         
-        let updatedMoveList = moveList.concat(lowestUnclaimedCell)
-        let updatedGameStatus = getGameStatus(updatedMoveList)
-        setMoveList(updatedMoveList)
-        setGameStatus(updatedGameStatus)
-        console.log(`updated GameStatus: ${updatedGameStatus}`)
-        console.log(`YOU CLICKED COLUMN: ${columnNumber}`)
+        // let updatedMoveList = moveList.concat(lowestUnclaimedCell)
+        // let updatedGameStatus = getGameStatus(updatedMoveList)
+        // setMoveList(updatedMoveList)
+        // setGameStatus(updatedGameStatus)
+        // console.log(`updated GameStatus: ${updatedGameStatus}`)
+        // console.log(`YOU CLICKED COLUMN: ${columnNumber}`)
 
         
-        // This is where we Would find and make the Computer Move if in Play vs. Computer Mode
-        return 0;
+        // // This is where we Would find and make the Computer Move if in Play vs. Computer Mode
+        // return 0;
     }
     function handleNewGameClick() {
         setMoveList([])

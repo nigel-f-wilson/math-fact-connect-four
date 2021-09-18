@@ -7,6 +7,8 @@ import { gameIsOver } from '../logic/helpers'
 // Custom Hooks
 import { useHover } from "../hooks/useHover";
 import { useScreenOrientation } from "../hooks/useScreenOrientaton"
+import { useScreenWidth } from "../hooks/useScreenWidth"
+import { useScreenHeight } from "../hooks/useScreenHeight"
 
 // MUI  components
 import { Box, Switch, Paper, Slide, FormControlLabel } from '@material-ui/core'
@@ -29,6 +31,8 @@ export function GameBoard(props) {
     // boardDataFromMoveList as is duplicates a lot of work 
     // let boardData = boardDataFromMoveList(moveList)
     const orientation = useScreenOrientation()
+    const height = useScreenHeight()
+    const width = useScreenWidth()
 
     // console.log(`boardDataFromMoveList: ${boardData}`)
 
