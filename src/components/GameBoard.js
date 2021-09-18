@@ -23,18 +23,12 @@ let columnNumbers = [0, 1, 2, 3, 4, 5, 6]
 
 
 export function GameBoard(props) {
-    let { moveList, handleColumnClick, gameStatus } = props 
-    
-    // Add state that updates each time the ml prop changes
-    // Design it so that only the colum where the last move was made re-renders
-    // This should make the peice-drop transition animation easier. 
-    // boardDataFromMoveList as is duplicates a lot of work 
-    // let boardData = boardDataFromMoveList(moveList)
     const orientation = useScreenOrientation()
     const height = useScreenHeight()
     const width = useScreenWidth()
 
-    // console.log(`boardDataFromMoveList: ${boardData}`)
+    let { moveList, handleColumnClick, gameStatus } = props 
+    let boardData = getBoardDataFromMoveList(moveList)  // board data is an array of 7 arrays of varying length. 
 
     
     return (
@@ -74,6 +68,21 @@ export function GameBoard(props) {
     
 }
 
+
+function getBoardDataFromMoveList(moveList) {  // board data is an array of 7 arrays of varying length.
+    let boardData = new Array(7)
+    moveList.forEach((squareId, turn) => {
+        if (squareId !== -1) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
+            let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
+            let columnId = squareId % 7
+            let columnData = boardData[columnId]
+            columnData.push(player)
+            boardData[columnId] = columnData
+        }
+    })
+    console.log(`BOARD DATA: ${boardData}`)
+    return boardData
+}  
 function columnChipColorsFromMoveList(columnId, moveList) {
     let columnChipColors = new Array()
     moveList.forEach((squareId, turn) => {
