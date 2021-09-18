@@ -16,10 +16,10 @@ import { height, width } from '@material-ui/system'
 // Style & Layout Constants
 
 export function InfoPanel(props) {
-    let { moveList, orientation, gameStatus, handleNewGameClick, playMode, questionType } = props
     const orientation = useScreenOrientation()
     const height = useScreenHeight()
     const width = useScreenWidth()
+    let { moveList, gameStatus, handleNewGameClick, playMode, questionType } = props
     const [hoverRef, isHovered] = useHover();
     
     return (
