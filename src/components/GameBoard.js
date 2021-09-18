@@ -113,21 +113,40 @@ function columnWhereLastMoveWasMade(moveList) {
 }
 
 
-function SlideFromDemo(props) {
+function Columns(props) {
+    const { handleColumnClick, gameStatus } = props
+    const topOffsetPercent = 10
+    const heightPercent = 100 - topOffsetPercent
+
     return (
         <Box id="demo"
             sx={{
                 bgcolor: 'primary.main',
                 width: '100%',
-                height: '100%',
+                height: `${heightPercent}%`,
                 position: 'absolute',
-                top: "10%",
+                top: `${topOffsetPercent}%`,
                 left: 0,
                 display: 'flex',
                 flexDirection: 'row'
             }}
         >
-            <SlideFromContainer />
+            <SlideFromContainer 
+                handleColumnClick={handleColumnClick}
+                gameStatus={gameStatus}
+            />
+            <SlideFromContainer
+                handleColumnClick={handleColumnClick}
+                gameStatus={gameStatus}
+            />
+            <SlideFromContainer
+                handleColumnClick={handleColumnClick}
+                gameStatus={gameStatus}
+            />
+            <SlideFromContainer
+                handleColumnClick={handleColumnClick}
+                gameStatus={gameStatus}
+            />
            
         </Box>
     );
@@ -226,18 +245,22 @@ function SimpleSlide() {
 }
 
 function SlideFromContainer() {
+    const [chipData, setChipData] = React.useState(false);
+
     const [checked, setChecked] = React.useState(false);
     const containerRef = React.useRef(null);
 
     const handleChange = () => {
-        setChecked((prev) => !prev);
+        setChecked((prev) => !prev)
+        // setChipData
     };
 
     return (
         <Box
             sx={{
+                border: 'solid red 2px',
                 height: '100%',
-                width: 240,
+                width: squarePercentage,
                 display: 'flex',
                 padding: 2,
                 borderRadius: 1,
@@ -246,13 +269,14 @@ function SlideFromContainer() {
                 overflow: 'hidden',
                 zIndex: 9999
             }}
+            onClick={handleChange}
             ref={containerRef}
         >
             <Box sx={{ width: 200 }}>
-                <FormControlLabel
+                {/* <FormControlLabel
                     control={<Switch checked={checked} onChange={handleChange} />}
                     label="Show from target"
-                />
+                /> */}
                 <Slide direction="down" in={checked} container={containerRef.current} mountOnEnter >
                     {icon}
                 </Slide>
