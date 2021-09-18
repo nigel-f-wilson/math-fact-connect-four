@@ -34,10 +34,11 @@ export function GameBoard(props) {
     
     return (
         <Box id='max-height-box' 
-            sx={{ maxHeight: '90vh',
+            sx={{ maxHeight: '120vh',
                 border: "1rem solid ",
                 borderColor: "board.main",
-                borderRadius: "1rem"
+                borderRadius: "1rem",
+                borderTop: 0
             }} >
             <Box id='square-box-outter' sx={{ height: 0, overflow: 'hidden', pt: '100%', position: 'relative' }} >
                 <Box id='square-box-inner' sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex' }} >
