@@ -165,14 +165,15 @@ export default function Play(props) {
     }
     
     return (
-        <Container id='playPageContainer'
-            maxWidth='lg' 
-            disableGutters 
-            sx={{ bgcolor: 'background',
-                // height: '100%',
-                display: 'flex',
-                flexDirection: 'column'
-            }}>
+        <Container 
+            // maxWidth='lg' 
+            // disableGutters 
+            // sx={{ bgcolor: 'background',
+            //     // height: '100%',
+            //     display: 'flex',
+            //     flexDirection: 'column'
+            // }}
+        >
 
             {/* ADD Math Question Popup */}
 
