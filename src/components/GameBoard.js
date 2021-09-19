@@ -75,7 +75,7 @@ export function GameBoard(props) {
 
 
 function getBoardDataFromMoveList(moveList) {  // board data is an array of 7 arrays of varying length.
-    let boardData = new Array(7)
+    let boardData = new Array(7).fill(new Array(0))
     moveList.forEach((squareId, turn) => {
         if (squareId !== -1) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
             let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
