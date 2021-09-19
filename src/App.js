@@ -45,29 +45,25 @@ export default function App() {
                 bgcolor: 'background',
                 height: '100vh',
                 width: '100vw',
-                overflow: 'scroll'
+                overflow: 'scroll',
+                // overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'start',
             }}>
-                <Container id='appContainer' maxWidth='lg' disableGutters
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'start',
-                    }} 
-                >
-                    <Router>
-                        <Switch>
-                            <Route exact path="/">
-                                <Landing />
-                            </Route>
-                            <Route path="/play" >
-                                <Play />
-                            </Route>
+                <Router>
+                    <Switch>
+                        <Route exact path="/">
+                            <Landing />
+                        </Route>
+                        <Route path="/play" >
+                            <Play />
+                        </Route>
 
 
-                        </Switch>
-                    </Router>
-                </Container>
+                    </Switch>
+                </Router>
             </Box>
         </ThemeProvider>
         </React.Fragment>
