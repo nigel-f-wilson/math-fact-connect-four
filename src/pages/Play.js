@@ -39,7 +39,7 @@ export default function Play(props) {
     }
 
     function handleColumnClick(columnNumber) {
-        console.log(`You clicked column: ${columnNummber}`)
+        console.log(`You clicked column: ${columnNumber}`)
         // let columnData = getColumnData(columnNumber)
         // let columnIsFull = !columnData.includes("unclaimed")
         // if (gameIsOver(gameStatus) || columnIsFull) {
