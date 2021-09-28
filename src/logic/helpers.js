@@ -18,3 +18,14 @@ export function playerOnesNumbers(moveList) {
 export function playerTwosNumbers(moveList) {
     return moveList.filter((cell, turn) => turn % 2 === 1).filter(cell => cell !== -1)
 }
+
+export function getBoardData(moveList) {
+    let data = new Array(42).fill("unclaimed")
+    moveList.forEach((move, turn) => {
+        if (move !== -1) {
+            let player = turn % 2 === 0 ? "playerOne" : "playerTwo"
+            data[move] = player
+        }
+    })
+    return data
+}

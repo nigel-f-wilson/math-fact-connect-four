@@ -8,7 +8,7 @@ import { InfoPanel } from "../components/InfoPanel";
 
 // MY Logical components
 import { lineToCellsMap, cellToLinesMap } from '../logic/maps'   
-import { intersect, gameIsOver, playerOnesNumbers, playerTwosNumbers } from '../logic/helpers'
+import { intersect, gameIsOver, playerOnesNumbers, playerTwosNumbers, getBoardData } from '../logic/helpers'
 
 
 // MUI  components
@@ -25,17 +25,12 @@ export default function Play(props) {
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
 
+    
 
     let currentTurnNumber = moveList.lenth
     
     
-    function getBoardData(moveList) {
-        let data = new Array(42).fill("unclaimed")
-        moveList.forEach((move, turn) => {
-            player = 
-        })
     }
-    
     
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
