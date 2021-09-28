@@ -30,6 +30,12 @@ export default function Play(props) {
     let currentTurnNumber = moveList.lenth
     
     
+    // function getColumnData(columnIndex, boardData) {
+    //     let columnData = boardData.filter((claimStatus, cellId) => cellId % 7 === columnIndex)
+    // }
+    function getColumnData(columnIndex) {
+        let boardData = getBoardData(moveList)
+        return boardData.filter((claimStatus, cellId) => cellId % 7 === columnIndex)
     }
     
     ///////////////////////////////////////////////////////
