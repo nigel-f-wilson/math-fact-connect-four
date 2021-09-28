@@ -188,7 +188,6 @@ export default function Play(props) {
                 gameStatus={gameStatus}
                 boardData={getBoardData(moveList)}
                 handleColumnClick={handleColumnClick} 
-                handleColumnHover={handleColumnHover}
             />
             <InfoPanel 
                 gameStatus={gameStatus}
