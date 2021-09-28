@@ -68,6 +68,11 @@ export default function Play(props) {
         console.log(`NEW GAME !!!`)
         return 0;
     }
+    function handleUndoClick() {
+        setMoveList(moveList.slice(0, -1))
+        console.log(`UNDO !!!`)
+        return 0;
+    }
 
     
     // Returns ENUM: 'playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw'
