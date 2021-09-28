@@ -186,7 +186,7 @@ export default function Play(props) {
             <GameBoard
                 moveList={moveList}
                 gameStatus={gameStatus}
-                boardData={getBoardData(moveList)}
+                // boardData={getBoardData(moveList)}
                 handleColumnClick={handleColumnClick} 
             />
             <InfoPanel 
