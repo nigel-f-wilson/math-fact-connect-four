@@ -28,6 +28,15 @@ export default function Play(props) {
 
     let currentTurnNumber = moveList.lenth
     
+    
+    function getBoardData(moveList) {
+        let data = new Array(42).fill("unclaimed")
+        moveList.forEach((move, turn) => {
+            player = 
+        })
+    }
+    
+    
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
     ///////////////////////////////////////////////////////
@@ -113,19 +122,7 @@ export default function Play(props) {
     ///////////////////////////////////////////////////////
     // DATA FILTERS and CONVERTERS
     ///////////////////////////////////////////////////////
-
-    function boardDataFromMoveList(moveList) {
-        let boardData = Array(7).fill([])
-        moveList.forEach((move, turn) => {
-            if (move !== -1) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
-                let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
-                let columnIndex = move % 7
-                let columnData = boardData[columnIndex]
-                boardData[columnIndex] = columnData.concat(player)
-            }
-        })
-        return boardData
-    }
+    
 
     // Filter a movelist to contain only numbers 
     function getColumnData(colNumber, ml = moveList) {
@@ -185,6 +182,7 @@ export default function Play(props) {
             <GameBoard
                 moveList={moveList}
                 gameStatus={gameStatus}
+                boardData={getBoardData(moveList)}
                 handleColumnClick={handleColumnClick} 
                 handleColumnHover={handleColumnHover}
             />
