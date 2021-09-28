@@ -41,36 +41,39 @@ export default function Play(props) {
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
     ///////////////////////////////////////////////////////
+    function handleColumnClick(columnIndex) {
+        let columnData = getColumnData(columnIndex)
+        let lowestUnclaimedRow = columnData.indexOf("unclaimed")
+        let columnIsFull = (lowestUnclaimedRow === -1)
+        if (gameIsOver(gameStatus) || columnIsFull) {
+            console.log(`Returning Early from handleClick() since Game is already over OR column is full!`)
+            return -1
+        }
+        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
+        console.log(`Cell where a move WOULD be made: ${lowestUnclaimedCell}`)
 
-    function handleColumnHover(colNumber) {
-        console.log(`You hovered over column number: ${colNumber}`)
+        // This is where the Math Question Pop Up determines whether or not the move is made. 
+        if (questionType !== "none") {
+            // Transition to Elevate and Expand Lowest Unclaimed Cell to center over the board
+
+        }
         
+        let MATH_QUESTION_CORRECT = true
+        let PLAY_VS_BOT = false
+
+        let moveToAdd = MATH_QUESTION_CORRECT ? lowestUnclaimedCell : -1
+        let updatedMoveList = moveList.concat(moveToAdd)
+        let updatedGameStatus = getGameStatus(updatedMoveList)
+        setMoveList(updatedMoveList)
+        setGameStatus(updatedGameStatus)
+
+        if (PLAY_VS_BOT) {
+            // This is where we Would find and make the Computer Move if in Play vs. Computer Mode
+            // getBotMove
+        }
+        console.log(`updated moveList: ${updatedMoveList}`)
+        // console.log(`YOU CLICKED COLUMN: ${columnIndex} Data: ${columnData}`)
         return 0;
-    }
-
-    function handleColumnClick(columnNumber) {
-        console.log(`You clicked column: ${columnNumber}`)
-        // let columnData = getColumnData(columnNumber)
-        // let columnIsFull = !columnData.includes("unclaimed")
-        // if (gameIsOver(gameStatus) || columnIsFull) {
-        //     console.log(`Returning Early from handleClick() since Game is already over OR column is full!`)
-        //     return -1
-        // }
-        // let lowestUnclaimedCell = columnData.indexOf("unclaimed") * 7 + columnNumber
-        
-        // // This is where the Math Question Pop Up determines whether or not the move is made. 
-        
-        
-        // let updatedMoveList = moveList.concat(lowestUnclaimedCell)
-        // let updatedGameStatus = getGameStatus(updatedMoveList)
-        // setMoveList(updatedMoveList)
-        // setGameStatus(updatedGameStatus)
-        // console.log(`updated GameStatus: ${updatedGameStatus}`)
-        // console.log(`YOU CLICKED COLUMN: ${columnNumber}`)
-
-        
-        // // This is where we Would find and make the Computer Move if in Play vs. Computer Mode
-        // return 0;
     }
     function handleNewGameClick() {
         setMoveList([])
