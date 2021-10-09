@@ -58,7 +58,7 @@ export function GameBoard(props) {
                         lastMoveWasHere={lastChipDropped % 7 === columnIndex}
                         nextPlayerColor={nextPlayerColor(gameStatus)}
                         handleColumnClick={handleColumnClick}
-                        // onClick={handleColumnClick}
+                        onClick={handleColumnClick}
                     />)
                 })}
 
