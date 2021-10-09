@@ -24,7 +24,7 @@ export default function Play(props) {
 
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
-    const [questionModalOpen, setQuestionModalOpen] React.useState(false)
+    const [questionModalOpen, setQuestionModalOpen] = React.useState(false)
     
 
     let currentTurnNumber = moveList.lenth
@@ -123,68 +123,6 @@ export default function Play(props) {
     }
 
     
-
-
-
-
-    function playerWhoGoesNext() {
-        console.assert(!gameIsOver(gameStatus), "playerWhoGoesNext was called BUT the game is already over!")
-        return (moveList.length % 2 === 0) ? 'playerOne' : 'playerTwo'
-    }
-    
-    function columnIsFull(columnData) {
-        return (!columnData.includes("unclaimed"))
-    } 
-    function getLowestUnclaimedCell(columnNumber, columnData) {
-        return columnData.indexOf("unclaimed") * 7 + columnNumber
-    }
-
-    ///////////////////////////////////////////////////////
-    // DATA FILTERS and CONVERTERS
-    ///////////////////////////////////////////////////////
-    
-
-    // Filter a movelist to contain only numbers 
-    // function getColumnData(colNumber, ml = moveList) {
-    //     let columnData = Array()
-    //     ml.forEach((move, turn) => {
-    //         if (move !== -1 && move % 7 === colNumber) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
-    //             let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
-    //             columnData = columnData.concat(player)
-    //         }
-    //     })
-    //     while(columnData.length < 6) {
-    //         columnData.push("unclaimed")
-    //     }
-    //     return columnData
-    // } 
-
-    function nextPlayer( gs = gameStatus) {
-        if (gs === "playerOneWins" || gs === "playerTwoWins" || gs === "gameOverDraw") {
-            return "background"
-        }
-        else if (gs === "playerTwosTurn") {
-            return "playerTwo"
-        }
-        else if (gs === "playerOnesTurn") {
-            return "playerOne"
-        }
-        else {
-            console.error(`Invalid game status`)
-        }
-        
-        
-    }
-
-    // function handleUndoButtonClick() {
-    //     setCurrentTurnNumber(--currentTurnNumber);
-    // }
-
-    function handleNewGameButtonClick() {
-        setMoveList([])
-        setGameStatus('playerOnesTurn')
-        console.log(`Starting a NEW GAME ***********`);
-    }
     
     return (
         <Container 
@@ -204,16 +142,13 @@ export default function Play(props) {
                 gameStatus={gameStatus}
                 handleColumnClick={handleColumnClick} 
             />
-            <InfoPanel 
+            {/* <InfoPanel 
                 gameStatus={gameStatus}
                 playMode={playMode}
                 questionType={questionType}
                 handleNewGameClick={handleNewGameClick}
-            />
+            /> */}
 
         </Container>
-
-        
-
     );
 }
