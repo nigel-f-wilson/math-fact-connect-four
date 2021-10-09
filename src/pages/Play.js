@@ -24,7 +24,7 @@ export default function Play(props) {
 
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
-
+    const [questionModalOpen, setQuestionModalOpen] React.useState(false)
     
 
     let currentTurnNumber = moveList.lenth
@@ -41,7 +41,21 @@ export default function Play(props) {
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
     ///////////////////////////////////////////////////////
+    
+    
+    
     function handleColumnClick(columnIndex) {
+        // Break into subroutines
+        // 1 Get Cell (and expand)
+        // 2 Generate Math Question
+        // 3 Call ____ to set var questionAnsweredCorrectly
+        // 4 
+        
+        
+        
+        // How do I make this "await"
+        
+        
         let columnData = getColumnData(columnIndex)
         let lowestUnclaimedRow = columnData.indexOf("unclaimed")
         let columnIsFull = (lowestUnclaimedRow === -1)
@@ -55,6 +69,8 @@ export default function Play(props) {
         // This is where the Math Question Pop Up determines whether or not the move is made. 
         if (questionType !== "none") {
             // Transition to Elevate and Expand Lowest Unclaimed Cell to center over the board
+            setQuestionModalOpen(true)
+
 
         }
         
@@ -186,7 +202,6 @@ export default function Play(props) {
             <GameBoard
                 moveList={moveList}
                 gameStatus={gameStatus}
-                // boardData={getBoardData(moveList)}
                 handleColumnClick={handleColumnClick} 
             />
             <InfoPanel 
