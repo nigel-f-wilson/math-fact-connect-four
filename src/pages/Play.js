@@ -145,19 +145,19 @@ export default function Play(props) {
     
 
     // Filter a movelist to contain only numbers 
-    function getColumnData(colNumber, ml = moveList) {
-        let columnData = Array()
-        ml.forEach((move, turn) => {
-            if (move !== -1 && move % 7 === colNumber) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
-                let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
-                columnData = columnData.concat(player)
-            }
-        })
-        while(columnData.length < 6) {
-            columnData.push("unclaimed")
-        }
-        return columnData
-    } 
+    // function getColumnData(colNumber, ml = moveList) {
+    //     let columnData = Array()
+    //     ml.forEach((move, turn) => {
+    //         if (move !== -1 && move % 7 === colNumber) {              // -1 in moveList indicates a turn skipped due to wrong answer to math question
+    //             let player = (turn % 2 === 0) ? "playerOne" : "playerTwo"  // Player One's moves are at Even indices in the moveList
+    //             columnData = columnData.concat(player)
+    //         }
+    //     })
+    //     while(columnData.length < 6) {
+    //         columnData.push("unclaimed")
+    //     }
+    //     return columnData
+    // } 
 
     function nextPlayer( gs = gameStatus) {
         if (gs === "playerOneWins" || gs === "playerTwoWins" || gs === "gameOverDraw") {
