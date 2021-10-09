@@ -29,3 +29,8 @@ export function getBoardData(moveList) {
     })
     return data
 }
+
+export function nextPlayerColor(gameStatus) {
+    return gameIsOver(gameStatus) ? "unclaimed" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
+}
+

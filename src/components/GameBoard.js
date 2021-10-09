@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // Logic
-import { gameIsOver } from '../logic/helpers'
-
+import { gameIsOver, nextPlayerColor } from '../logic/helpers'
 // Custom Hooks
 import { useHover } from "../hooks/useHover";
 import { useScreenOrientation } from "../hooks/useScreenOrientaton"
@@ -249,9 +248,6 @@ function getLastChipDropped(moveList) {
 }
 
 
-function nextPlayerColor(gameStatus) {
-    return gameIsOver(gameStatus) ? "unclaimed" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
-}
 
 
 
