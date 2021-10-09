@@ -33,12 +33,12 @@ export function GameBoard(props) {
     const width = useScreenWidth()
     const squareSideLength = (height <= width) ? height * 0.8 : width * 0.8
 
-    let { moveList, handleColumnClick, gameStatus } = props 
     let boardData = getBoardDataFromMoveList(moveList)  // board data is an array of 7 arrays of varying length. 
     let lastChipDropped = getLastChipDropped(moveList)  // id of Chip. May want to change this to column id. 
 
 
-    const nextPlayerColor = gameIsOver(gameStatus) ? "background" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
+    console.log(`Rendering Board with data: ${boardData}`)
+    console.log(`Last Chip dropped: ${lastChipDropped}`)
 
     
     return (
@@ -56,7 +56,7 @@ export function GameBoard(props) {
                         index={columnIndex}
                         data={columnDataArray}
                         lastMoveWasHere={lastChipDropped % 7 === columnIndex}
-                        nextPlayerColor={nextPlayerColor}
+                        nextPlayerColor={nextPlayerColor(gameStatus)}
                         handleColumnClick={handleColumnClick}
                         // onClick={handleColumnClick}
                     />)
@@ -176,7 +176,6 @@ function getBoardDataFromMoveList(moveList) {  // board data is an array of 7 ar
             boardData[columnId] = columnData
         }
     })
-    console.log(`BOARD DATA: ${boardData}`)
     return boardData
 }  
 function getLastChipDropped(moveList) {
@@ -186,6 +185,9 @@ function getLastChipDropped(moveList) {
 }
 
 
+function nextPlayerColor(gameStatus) {
+    return gameIsOver(gameStatus) ? "background" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
+}
 
 
 
