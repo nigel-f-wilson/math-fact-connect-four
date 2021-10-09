@@ -34,3 +34,12 @@ export function nextPlayerColor(gameStatus) {
     return gameIsOver(gameStatus) ? "unclaimed" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
 }
 
+
+function getLastChipDropped(moveList) {
+    let ml = moveList.slice()
+    let lastCellId
+    do {
+        lastCellId = ml.pop()
+    } while (lastCellId === -1)
+    return lastCellId
+}
