@@ -36,7 +36,7 @@ const theme = createTheme({
         chip: {
             playerOne: '#d50000',
             playerTwo: '#ffea00',
-            unclaimed: '#ffffff',
+            unclaimed: '#b3e5fc',
         },
         background: '#b3e5fc',
         white: '#FFFFFF',
@@ -66,6 +66,16 @@ const theme = createTheme({
         borderRadius: 8,
     },
     spacing: 8,
+    transitions: {
+        easing: {
+            bounce: "cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+            parabolicAcceleration: "cubic-bezier(0.5, 0.0, 1.0, 0.5)"
+        }
+    },
+    zIndex: {
+        chip: 10,
+        board: 20
+    }
 
 });
 
