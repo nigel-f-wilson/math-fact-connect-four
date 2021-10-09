@@ -27,19 +27,20 @@ let columnNumbers = [0, 1, 2, 3, 4, 5, 6]
 
 export function GameBoard(props) {
     const { moveList, handleColumnClick, gameStatus } = props
+    
     const orientation = useScreenOrientation()
     const height = useScreenHeight()
     const width = useScreenWidth()
+    const squareSideLength = (height <= width) ? height * 0.8 : width * 0.8
 
     let { moveList, handleColumnClick, gameStatus } = props 
     let boardData = getBoardDataFromMoveList(moveList)  // board data is an array of 7 arrays of varying length. 
     let lastChipDropped = getLastChipDropped(moveList)  // id of Chip. May want to change this to column id. 
 
-    // const squareSideLength = (height <= width) ? height * 0.9 : width * 0.9
-    const squareSideLength = (height <= width) ? height * 0.8 : width * 0.8
 
     const nextPlayerColor = gameIsOver(gameStatus) ? "background" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
 
+    
     return (
         <Container disableGutters
             sx={{
@@ -183,7 +184,6 @@ function getLastChipDropped(moveList) {
     let lastChipDropped = removeSkippedTurns[removeSkippedTurns.length - 1]
     return lastChipDropped
 }
-
 
 
 
