@@ -4,10 +4,7 @@ import PropTypes from 'prop-types'
 // Logic
 import { gameIsOver, nextPlayerColor } from '../logic/helpers'
 // Custom Hooks
-import { useHover } from "../hooks/useHover";
-import { useScreenOrientation } from "../hooks/useScreenOrientaton"
-import { useScreenWidth } from "../hooks/useScreenWidth"
-import { useScreenHeight } from "../hooks/useScreenHeight"
+import { useScreenWidth, useScreenHeight } from "../hooks"
 
 // MUI  components
 import { Box, Container, Switch, Paper, Slide, FormControlLabel } from '@material-ui/core'
