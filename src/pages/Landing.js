@@ -4,11 +4,11 @@ import React from 'react'
 import NewGameButton from "../navigation/NewGameButton";
 
 // MUI  components
-import { Box, Typography} from '@material-ui/core';
+import { Box, Typography, Container } from '@material-ui/core';
 
 export default function Landing() {
     return (
-        <Box sx={{ width: '100%', p: '1rem'}}>
+        <Container maxWidth='md' sx={{ width: '100%', p: '1rem'}}>
             <Typography color="text.primary" variant="h2" gutterBottom >
                 Welcome to Math Fact Connect Four!
             </Typography>
@@ -43,7 +43,7 @@ export default function Landing() {
             <Typography color="text.primary" variant="body1" gutterBottom >
                 A production of the NOLA STEM Garden &copy;
             </Typography>
-        </Box>
+        </Container>
     );
 }
 

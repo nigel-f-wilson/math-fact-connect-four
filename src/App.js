@@ -7,7 +7,9 @@ import {
 
 
 // Custom Hooks
-import { useScreenOrientation } from "./hooks/useScreenOrientaton"
+// import { useScreenOrientation } from "./hooks/useScreenOrientaton"
+// import { useScreenWidth } from "./hooks/useScreenWidth"
+// import { useScreenHeight } from "./hooks/useScreenHeight"
 
 import './App.css';
 
@@ -32,8 +34,7 @@ import {
 
 
 export default function App() {
-    const orientation = useScreenOrientation();
-
+    
     
 
     return (
@@ -44,29 +45,25 @@ export default function App() {
                 bgcolor: 'background',
                 height: '100vh',
                 width: '100vw',
-                overflow: 'scroll'
+                overflow: 'scroll',
+                // overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'start',
             }}>
-                <Container id='appContainer' maxWidth='sm' disableGutters
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'start',
-                    }} 
-                >
-                    <Router>
-                        <Switch>
-                            <Route exact path="/">
-                                <Landing />
-                            </Route>
-                            <Route path="/play" >
-                                <Play orientation={orientation} />
-                            </Route>
+                <Router>
+                    <Switch>
+                        <Route exact path="/">
+                            <Landing />
+                        </Route>
+                        <Route path="/play" >
+                            <Play />
+                        </Route>
 
 
-                        </Switch>
-                    </Router>
-                </Container>
+                    </Switch>
+                </Router>
             </Box>
         </ThemeProvider>
         </React.Fragment>
