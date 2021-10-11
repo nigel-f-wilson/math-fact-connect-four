@@ -3,6 +3,13 @@ import {
     responsiveFontSizes,
 } from '@material-ui/core/styles';
 
+import { useScreenWidth, useScreenHeight } from "./hooks"
+import { height, width } from '@material-ui/system'
+
+// const height = useScreenHeight()
+// const width = useScreenWidth()
+// const boardSideLength = (height <= width) ? height * 0.95 : width * 0.95
+
 
 const theme = createTheme({
     palette: {
@@ -43,19 +50,18 @@ const theme = createTheme({
         transparent: 'rgba(0, 0, 0, 0)',
     },
     components: {
-        // MuiPaper: {
-        //     styleOverrides: {
-        //         // Name of the slot
-        //         root: {
-        //             // Some CSS
-        //             backgroundColor: '#fff',
-        //             borderRadius: '50%',
-        //             height: '80%',
-        //             width: '80%',
-
-        //         },
-        //     },
-        // },
+        MuiPaper: {
+            styleOverrides: {  // Name of the slot
+                root: {        // Some CSS
+                    backgroundColor: '#fff',
+                    borderRadius: '50%',
+                    height: '80%',
+                    width: '80%',
+                    transform: 'translate(0, 15%)'
+                    
+                },
+            },
+        },
     },
     typography: {
         button: {
