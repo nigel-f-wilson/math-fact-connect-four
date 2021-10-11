@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 // MY UI components
 import { GameBoard } from "../components/GameBoard";
 import { InfoPanel } from "../components/InfoPanel";
+import { MathQuestionModal } from "../components/MathQuestionModal";
 
 // MY Logical components
 import { lineToCellsMap, cellToLinesMap } from '../logic/maps'   
