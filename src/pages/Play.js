@@ -11,27 +11,24 @@ import { MathQuestionModal } from "../components/MathQuestionModal";
 import { gameIsOver, getBoardData, getColumnata, getGameStatus } from '../logic/helpers'
 
 // MUI  components
-import { Typography, Container, Box } from '@material-ui/core'
-import theme from '../theme';
-
+import { Container } from '@material-ui/core'
 
 export default function Play(props) {
+    // For Development don't useLocation until the different question modes are actually built. 
     // const location = useLocation()
-    // const { playMode, questionType} = location.state
+    // const { playMode, questionType } = location.state
     const playMode = "human"
     const questionType = "multiplication"
 
-    const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
+    // GAME STATE
+    // MOVELIST --> An Array of integers ranging -1 thru 41 of indeterminate length
+    // GAMESTATUS --> Enum ['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw']
+    const [moveList, setMoveList] = React.useState([])  
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
     const [questionModalOpen, setQuestionModalOpen] = React.useState(false)
     
-
-    let currentTurnNumber = moveList.lenth
     
     
-    // function getColumnData(columnIndex, boardData) {
-    //     let columnData = boardData.filter((claimStatus, cellId) => cellId % 7 === columnIndex)
-    // }
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
     ///////////////////////////////////////////////////////
