@@ -4,11 +4,15 @@ import React from 'react'
 import { useHover, useScreenOrientation, useScreenWidth, useScreenHeight } from "../hooks"
 
 // MY  components
-import NewGameButton from '../components/buttons/NewGameButton'
+// import NewGameButton from '../components/buttons/NewGameButton'
 
 // MUI  components
 import { Box } from '@material-ui/core'
 import { height, width } from '@material-ui/system'
+import { Button } from "@material-ui/core";
+
+// Icons
+import ReplayIcon from "@material-ui/icons/Replay";
 
 // Style & Layout Constants
 
@@ -29,10 +33,24 @@ export function InfoPanel(props) {
             <p>Width: {width}</p>
             <p>Play Mode: {playMode}</p>
             <p>Question Type: {questionType}</p>
-            <NewGameButton 
+            {/* <NewGameButton 
                 handleClick={handleNewGameClick}
-            />
+            /> */}
         </Box>
-    );
+    )
 }
 
+
+
+export default function NewGameButton(props) {
+    let { handleClick } = props
+    return (
+        <Button
+            variant="outlined"
+            startIcon={<ReplayIcon />}
+            onClick={() => handleClick()}
+        >
+            New&nbsp;Game
+        </Button>
+    )
+}
