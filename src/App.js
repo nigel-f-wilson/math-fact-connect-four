@@ -41,11 +41,11 @@ export default function App() {
         <React.Fragment>
             <CssBaseline />
             <ThemeProvider theme={theme}>
-                // overflow: 'hidden',
                 <Box sx={{
                     bgcolor: 'background',
                     height: '100vh',
                     width: '100vw',
+                    // overflow: 'scroll',
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
