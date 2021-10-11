@@ -16,7 +16,7 @@ import './App.css';
 // PAGES
 import Landing from "./pages/Landing"
 import Play from "./pages/Play"
-
+import Info from "./pages/Info"
 
 // MUI  components
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -41,17 +41,20 @@ export default function App() {
         <React.Fragment>
             <CssBaseline />
             <ThemeProvider theme={theme}>
-                <Box sx={{
-                    bgcolor: 'background',
-                    height: '100vh',
-                    width: '100vw',
-                    // overflow: 'scroll',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
+                <Box id='root'
+                    sx={{
+                        // border: 'solid red 5px',
+                        bgcolor: 'background',
+                        height: '100vh',
+                        width: '100vw',
+                        // overflow: 'scroll',
+                        overflow: 'hidden',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
                     <Router>
                         <Switch>
                             <Route exact path="/">
@@ -60,7 +63,9 @@ export default function App() {
                             <Route path="/play" >
                                 <Play />
                             </Route>
-
+                            <Route path="/info" >
+                                <Info />
+                            </Route>
 
                         </Switch>
                     </Router>
