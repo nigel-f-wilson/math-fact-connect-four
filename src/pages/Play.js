@@ -25,7 +25,7 @@ export default function Play(props) {
     // GAMESTATUS --> Enum ['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw']
     const [moveList, setMoveList] = React.useState([])  
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
-    const [questionModalOpen, setQuestionModalOpen] = React.useState(false)
+    const [questionModalIsOpen, setQuestionModalIsOpen] = React.useState(false)
     
     
     
@@ -57,7 +57,7 @@ export default function Play(props) {
         // This is where the Math Question Pop Up determines whether or not the move is made. 
         if (questionType !== "none") {
             // Transition to Elevate and Expand Lowest Unclaimed Cell to center over the board
-            setQuestionModalOpen(true)
+            setQuestionModalIsOpen(true)
 
 
         }
@@ -91,20 +91,26 @@ export default function Play(props) {
         return 0;
     }
 
+
+    function closeQuestionModal() {
+        let timeout = 800
+        
+        // /determine if answer correct
+        
+        // DO SOME OTHER STUFF
+        setTimeout(() => {
+            setQuestionModalIsOpen(false)
+        }, timeout)
+
+        
+    }
     
     return (
-        <Container 
-            // maxWidth='lg' 
-            // disableGutters 
-            // sx={{ bgcolor: 'background',
-            //     // height: '100%',
-            //     display: 'flex',
-            //     flexDirection: 'column'
-            // }}
-        >
-
-            {/* ADD Math Question Popup */}
-
+        <Container>
+            <MathQuestionModal 
+                open={questionModalIsOpen}
+                closeQuestionModal={closeQuestionModal}
+            />
             <GameBoard
                 moveList={moveList}
                 gameStatus={gameStatus}
@@ -116,7 +122,6 @@ export default function Play(props) {
                 questionType={questionType}
                 handleNewGameClick={handleNewGameClick}
             /> */}
-
         </Container>
     );
 }
