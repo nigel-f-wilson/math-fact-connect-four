@@ -255,10 +255,9 @@ function Chip(props) {
 
     )
 }
-Column.propTypes = {
-    index: PropTypes.number.isRequired,
-    nextPlayerColor: PropTypes.oneOf(['playerOne', 'playerTwo', 'unclaimed']),
-    handleColumnClick: PropTypes.func,
+Chip.propTypes = {
+    id: PropTypes.number.isRequired,
+    color: PropTypes.oneOf(['playerOne', 'playerTwo', 'unclaimed']),
 }
 
 
