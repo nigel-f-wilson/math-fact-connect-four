@@ -276,6 +276,7 @@ function ColumnOfSquaresWithHoles(props) {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    boxShadow: '0px 1px 1px 1px #0039cb',
                 }}
             >
                 <Box id="hole"
