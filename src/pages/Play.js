@@ -106,13 +106,16 @@ export default function Play(props) {
     
     return (
         <Box id='play-page' sx={{
-            height: '100%', width: '100%', display: 'flex',
+            height: boardAreaSideLength,
+            width: boardAreaSideLength, 
+            display: 'flex',
             flexDirection: 'column',
             alignItems: 'center', }}>
 
             <MathQuestionModal 
                 open={questionModalIsOpen}
                 closeQuestionModal={closeQuestionModal}
+                boardAreaSideLength={boardAreaSideLength}
             />
             <GameBoard
                 moveList={moveList}
