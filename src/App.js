@@ -41,31 +41,31 @@ export default function App() {
         <React.Fragment>
             <CssBaseline />
             <ThemeProvider theme={theme}>
-            <Box sx={{
-                bgcolor: 'background',
-                height: '100vh',
-                width: '100vw',
-                overflow: 'scroll',
                 // overflow: 'hidden',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'start',
-            }}>
-                <Router>
-                    <Switch>
-                        <Route exact path="/">
-                            <Landing />
-                        </Route>
-                        <Route path="/play" >
-                            <Play />
-                        </Route>
+                <Box sx={{
+                    bgcolor: 'background',
+                    height: '100vh',
+                    width: '100vw',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'start',
+                }}>
+                    <Router>
+                        <Switch>
+                            <Route exact path="/">
+                                <Landing />
+                            </Route>
+                            <Route path="/play" >
+                                <Play />
+                            </Route>
 
 
-                    </Switch>
-                </Router>
-            </Box>
-        </ThemeProvider>
+                        </Switch>
+                    </Router>
+                </Box>
+            </ThemeProvider>
         </React.Fragment>
     );
 }
