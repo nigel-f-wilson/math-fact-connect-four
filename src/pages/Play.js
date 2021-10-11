@@ -11,7 +11,7 @@ import { MathQuestionModal } from "../components/MathQuestionModal";
 import { gameIsOver, getBoardData, getColumnData, getGameStatus } from '../gameLogic'
 
 // MUI  components
-import { Container } from '@material-ui/core'
+import { Box, Container } from '@material-ui/core'
 
 export default function Play(props) {
     // For Development don't useLocation until the different question modes are actually built. 
@@ -33,17 +33,6 @@ export default function Play(props) {
     // CLICK HANDLERS
     ///////////////////////////////////////////////////////
     function handleColumnClick(columnIndex) {
-        // Break into subroutines
-        // 1 Get Cell (and expand)
-        // 2 Generate Math Question
-        // 3 Call ____ to set var questionAnsweredCorrectly
-        // 4 
-        
-        
-        
-        // How do I make this "await"
-        
-        
         let columnData = getColumnData(columnIndex, moveList)
         let lowestUnclaimedRow = columnData.indexOf("unclaimed")
         let columnIsFull = (lowestUnclaimedRow === -1)
@@ -106,7 +95,8 @@ export default function Play(props) {
     }
     
     return (
-        <Container>
+        <Box id='play-page' sx={{ height: '100%', width: '100%'}}>
+
             <MathQuestionModal 
                 open={questionModalIsOpen}
                 closeQuestionModal={closeQuestionModal}
@@ -122,6 +112,7 @@ export default function Play(props) {
                 questionType={questionType}
                 handleNewGameClick={handleNewGameClick}
             /> */}
-        </Container>
+        </Box>
+
     );
 }
