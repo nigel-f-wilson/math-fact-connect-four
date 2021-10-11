@@ -32,7 +32,7 @@ export function GameBoard(props) {
 
     function getColumnChipColors(columnIndex) {
         let chipColors = boardChipColors().filter((player, cellId) => cellId % 7 === columnIndex)
-        console.log(`CHIP COLORS for Column ${columnIndex}: ${chipColors}`)
+        // console.log(`CHIP COLORS for Column ${columnIndex}: ${chipColors}`)
         return chipColors
     }
     function boardChipColors() {
@@ -63,7 +63,7 @@ export function GameBoard(props) {
 
             {columnNumbers.map((columnIndex) => {
                 let chipColors = getColumnChipColors(columnIndex)
-                console.log(`Column Chip Colors for column ${columnIndex}: ${chipColors}`)
+                {/* console.log(`Column Chip Colors for column ${columnIndex}: ${chipColors}`) */}
                 return (
                     <Column 
                         key={columnIndex}
