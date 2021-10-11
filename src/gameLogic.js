@@ -1,5 +1,5 @@
 // MY Logical components
-import { lineToCellsMap, cellToLinesMap } from '../logic/maps'
+import { lineToCellsMap, cellToLinesMap } from './winningLineMaps'
 
 
 export function gameIsOver(gameStatus) {
@@ -33,7 +33,7 @@ export function getBoardData(moveList) {
     })
     return data
 }
-export function getColumnData(columnIndex) {
+export function getColumnData(columnIndex, moveList) {
     let boardData = getBoardData(moveList)
     return boardData.filter((claimStatus, cellId) => cellId % 7 === columnIndex)
 }

@@ -8,7 +8,7 @@ import { InfoPanel } from "../components/InfoPanel";
 import { MathQuestionModal } from "../components/MathQuestionModal";
 
 // MY Logical helpers
-import { gameIsOver, getBoardData, getColumnata, getGameStatus } from '../logic/helpers'
+import { gameIsOver, getBoardData, getColumnData, getGameStatus } from '../gameLogic'
 
 // MUI  components
 import { Container } from '@material-ui/core'

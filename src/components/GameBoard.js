@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // Logic
-import { gameIsOver, nextPlayerColor } from '../logic/helpers'
+import { gameIsOver, nextPlayerColor } from '../gameLogic'
 // Custom Hooks
 import { useScreenWidth, useScreenHeight } from "../hooks"
 
