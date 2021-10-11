@@ -44,7 +44,7 @@ export default function Play(props) {
         // How do I make this "await"
         
         
-        let columnData = getColumnData(columnIndex)
+        let columnData = getColumnData(columnIndex, moveList)
         let lowestUnclaimedRow = columnData.indexOf("unclaimed")
         let columnIsFull = (lowestUnclaimedRow === -1)
         if (gameIsOver(gameStatus) || columnIsFull) {
