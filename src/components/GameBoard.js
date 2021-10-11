@@ -28,7 +28,7 @@ export function GameBoard(props) {
 
     const height = useScreenHeight()
     const width = useScreenWidth()
-    const squareSideLength = (height <= width) ? height * 0.95 : width * 0.95
+    const squareSideLength = (height <= width) ? height * 0.9 : width * 0.9
 
     function getColumnChipColors(columnIndex) {
         let chipColors = boardChipColors().filter((player, cellId) => cellId % 7 === columnIndex)
