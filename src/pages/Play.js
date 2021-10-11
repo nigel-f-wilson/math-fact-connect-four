@@ -25,6 +25,7 @@ export default function Play(props) {
     // LAYOUT
     const height = useScreenHeight()
     const width = useScreenWidth()
+    const boardAreaSideLength = (height <= width) ? height : width
 
     // GAME STATE
     // MOVELIST --> An Array of integers ranging -1 thru 41 of indeterminate length
