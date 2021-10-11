@@ -11,8 +11,6 @@ import { SettingsStepper } from "./SettingsStepper";
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -35,7 +33,7 @@ export default function NewGameButton() {
     return (
         <React.Fragment >
             <Button variant="contained" onClick={handleOpenDialog}>
-                New Game
+                Play Now!
             </Button>
             <SettingsDialog
                 dialogOpen={dialogOpen}
@@ -45,17 +43,10 @@ export default function NewGameButton() {
     );
 }
 
-// SettingsDialog.propTypes = {
-//     onClose: PropTypes.func.isRequired,
-//     open: PropTypes.bool.isRequired,
-//     selectedValue: PropTypes.object.isRequired,
-// }
 function SettingsDialog(props) {
     const { onClose, selectedValue, dialogOpen } = props;
     const theme = useTheme()
     const mobileDevice = useMediaQuery(theme.breakpoints.down('sm'));
-
-    
 
     const handleListItemClick = (value) => {
         onClose(value);
@@ -79,5 +70,9 @@ function SettingsDialog(props) {
         </Box>
     );
 }
-
+// SettingsDialog.propTypes = {
+//     onClose: PropTypes.func.isRequired,
+//     open: PropTypes.bool.isRequired,
+//     selectedValue: PropTypes.object.isRequired,
+// }
 
