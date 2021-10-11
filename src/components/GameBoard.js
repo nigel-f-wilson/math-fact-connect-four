@@ -146,7 +146,6 @@ function Column(props) {
             sx={{
                 // border: 'solid red 1px',
                 position: 'relative',
-                // bgcolor: 'primary.main',
                 width: squarePercentage,
                 height: '100%',
                 zIndex: 9,
@@ -158,7 +157,7 @@ function Column(props) {
         >
             <Box id="hoverChipContainer" 
                 sx={{
-                    // bgcolor: 'primary.main',
+                    // border: 'solid red 1px',
                     width: '100%',
                     height: squarePercentage,
                     zIndex: 8,
@@ -174,8 +173,6 @@ function Column(props) {
                         height: chipSizeRelativeToSquare,
                         borderRadius: '50%',
                         zIndex: 8,
-                        
-                        
                     }}
                 />
             </Box>
@@ -183,17 +180,10 @@ function Column(props) {
                 sx={{
                     bgcolor: 'primary.main',
                     width: '100%',
-                    // height: 'calc(6/7*100%)',
                     height: '100%',
-                    // zIndex: 7,
-                    // display: 'flex',
-                    // flexDirection: 'column-reverse',
-                    // alignItems: 'center',
-                    // justifyContent: 'flex-start',
                     position: 'absolute',
                     top: squarePercentage,
                     bgcolor: 'transparent',
-                    width: '100%',
                     height: heightOfSixSquares,
                     zIndex: 8,
                     display: 'flex',
