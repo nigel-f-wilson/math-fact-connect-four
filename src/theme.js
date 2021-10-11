@@ -43,19 +43,19 @@ const theme = createTheme({
         transparent: 'rgba(0, 0, 0, 0)',
     },
     components: {
-        MuiPaper: {
-            styleOverrides: {
-                // Name of the slot
-                root: {
-                    // Some CSS
-                    backgroundColor: '#fff',
-                    borderRadius: '50%',
-                    height: '80%',
-                    width: '80%',
+        // MuiPaper: {
+        //     styleOverrides: {
+        //         // Name of the slot
+        //         root: {
+        //             // Some CSS
+        //             backgroundColor: '#fff',
+        //             borderRadius: '50%',
+        //             height: '80%',
+        //             width: '80%',
 
-                },
-            },
-        },
+        //         },
+        //     },
+        // },
     },
     typography: {
         button: {
