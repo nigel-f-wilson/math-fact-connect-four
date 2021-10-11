@@ -1,3 +1,7 @@
+// MY Logical components
+import { lineToCellsMap, cellToLinesMap } from '../logic/maps'
+
+
 export function gameIsOver(gameStatus) {
     return (gameStatus === 'playerOneWins' || gameStatus === 'playerTwoWins' || gameStatus === 'gameDrawn')
 }
@@ -29,6 +33,10 @@ export function getBoardData(moveList) {
     })
     return data
 }
+export function getColumnData(columnIndex) {
+    let boardData = getBoardData(moveList)
+    return boardData.filter((claimStatus, cellId) => cellId % 7 === columnIndex)
+}
 
 export function nextPlayerColor(gameStatus) {
     return gameIsOver(gameStatus) ? "unclaimed" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
@@ -42,4 +50,28 @@ function getLastChipDropped(moveList) {
         lastCellId = ml.pop()
     } while (lastCellId === -1)
     return lastCellId
+}
+
+// Returns ENUM: 'playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw'
+// This function efficiently checks to see if the last move created a win for the player who made it.
+export function getGameStatus(moveList) {
+    let lastPlayerToMove = (moveList.length % 2 === 1) ? "playerOne" : "playerTwo"
+    let lastPlayersNumbers = (lastPlayerToMove === "playerOne") ? playerOnesNumbers(moveList) : playerTwosNumbers(moveList)
+    let lastMoveMade = Number(lastPlayersNumbers.slice(-1))
+    let linesAffectedByLastMove = cellToLinesMap.get(lastMoveMade)
+    for (let i = 0; i < linesAffectedByLastMove.length; i++) {
+        let line = linesAffectedByLastMove[i]
+        let cellsInLine = lineToCellsMap.get(line)
+        // For added efficiency I could at this point remove the lastMoveMade from cells in line and in the next line look for intersections of length 3.
+        if (intersect(cellsInLine, lastPlayersNumbers).length === 4) {
+            return (lastPlayerToMove === 'playerOne') ? 'playerOneWins' : 'playerTwoWins'
+        }
+    }
+    let nonSkippedTurns = moveList.filter(cellId => cellId !== -1)
+    if (nonSkippedTurns.length >= 42) {
+        return 'gameOverDraw'
+    }
+    else {
+        return (moveList.length % 2 === 0) ? 'playerOnesTurn' : 'playerTwosTurn'
+    }
 }
