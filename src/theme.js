@@ -55,10 +55,13 @@ const theme = createTheme({
                 root: {        // Some CSS
                     backgroundColor: '#fff',
                     borderRadius: '50%',
-                    height: '80%',
-                    width: '80%',
-                    transform: 'translate(0, 15%)'
-                    
+                    // borderRadius: '5%',
+                    height: 'min(85vh, 85vw)',
+                    width: 'min(85vh, 85vw)',
+                    transform: 'translate(0, 27vh)',
+                    // display: 'flex',
+                    // justifyContent: 'center',
+
                 },
             },
         },
