@@ -33,6 +33,7 @@ export function getBoardData(moveList) {
     })
     return data
 }
+// const boardData = getBoardData(moveList)  I don't like that getColumnData is called 7 times and each time it calls getBoardData rather than caching this result and reusing it, updating it automatically only when the moveList updates. useEffect could help?
 export function getColumnData(columnIndex, moveList) {
     let boardData = getBoardData(moveList)
     return boardData.filter((claimStatus, cellId) => cellId % 7 === columnIndex)
