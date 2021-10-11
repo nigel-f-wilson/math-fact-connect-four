@@ -56,26 +56,6 @@ export function SettingsStepper(props) {
         console.log(`PlayMode set to ${selection}`)
     }
     
-    // const selectMultiplication = () => {
-    //     setCompletedSteps(2)
-    //     setQuestionType('multiplication')
-    // }
-    // const selectDivision = () => {
-    //     setCompletedSteps(2)
-    //     setQuestionType('division')
-    // }
-    // const selectExponents = () => {
-    //     setCompletedSteps(2)
-    //     setQuestionType('exponents')
-    // }
-    // const selectAlgebra = () => {
-    //     setCompletedSteps(2)
-    //     setQuestionType('algebra')
-    // }
-    // const selectNone = () => {
-    //     setCompletedSteps(2)
-    //     setQuestionType('none')
-    // }
     const selectQuestionType = (questionType) => {
         setCompletedSteps(2)
         setQuestionType(questionType)
