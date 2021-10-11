@@ -8,7 +8,7 @@ import { InfoPanel } from "../components/InfoPanel";
 import { MathQuestionModal } from "../components/MathQuestionModal";
 
 // MY Logical helpers
-import { gameIsOver, getBoardData, getColumnData, getGameStatus } from '../gameLogic'
+import { gameIsOver, getColumnData, getGameStatus } from '../gameLogic'
 
 // MUI  components
 import { Box, Container } from '@material-ui/core'
@@ -27,8 +27,6 @@ export default function Play(props) {
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
     const [questionModalIsOpen, setQuestionModalIsOpen] = React.useState(false)
     
-    
-    
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
     ///////////////////////////////////////////////////////
@@ -46,8 +44,10 @@ export default function Play(props) {
         // This is where the Math Question Pop Up determines whether or not the move is made. 
         if (questionType !== "none") {
             // Transition to Elevate and Expand Lowest Unclaimed Cell to center over the board
+            let question = generateQuestion(questionType)
+            
             setQuestionModalIsOpen(true)
-
+            
 
         }
         
@@ -84,7 +84,7 @@ export default function Play(props) {
     function closeQuestionModal() {
         let timeout = 800
         
-        // /determine if answer correct
+        // /determine if answer correct and display 
         
         // DO SOME OTHER STUFF
         setTimeout(() => {
@@ -113,6 +113,5 @@ export default function Play(props) {
                 handleNewGameClick={handleNewGameClick}
             /> */}
         </Box>
-
-    );
+    )
 }
