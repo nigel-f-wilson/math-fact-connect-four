@@ -7,7 +7,7 @@ import '../App.css';
 import { CompareButtons } from "./buttons/CompareButtons";
 
 // MUI  components
-import { Box, Button, Dialog, DialogContent, DialogActions, DialogContentText, DialogTitle, Zoom, TextField } from '@material-ui/core'
+import { Box, Button, Dialog, DialogContent, DialogActions, DialogContentText, DialogTitle, Zoom, TextField, Typography } from '@material-ui/core'
 import { height, width } from '@material-ui/system'
 
 // Style & Layout Constants
@@ -17,7 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 })
 
 export function MathQuestionModal(props) {
-    let { playMode, questionType, open, closeQuestionModal, inputType,  } = props
+    let { playMode, questionType, open, closeQuestionModal, inputType, boardAreaSideLength  } = props
 
     let input = null
     switch (inputType) {
@@ -34,24 +34,46 @@ export function MathQuestionModal(props) {
             console.error(`MathQuestionModal called with invalid questionType`);
     }
     
+    function DialogHeader(props) {
+        return (
+            <Box>
+                <Typography 
+                    variant='h3'
+                    align='center' 
+                >
+                    Compare
+                </Typography>
+            </Box>
+        )
+    }
+    
+    
+    
     return (
         <Dialog keepMounted
+            disableEscapeKeyDown
             open={open}
             onClose={closeQuestionModal}  // Callback fired when the component requests to be closed.
+            onBackdropClick={() => {}}
             aria-describedby="alert-dialog-slide-description"
             // PaperComponent="RoundPaper"
             TransitionComponent={Transition}
             sx={{
-                height: '80%'
+                height: boardAreaSideLength,
+                width: boardAreaSideLength,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
             }}
+            
         >
-            <DialogTitle>{"Use Google's location service?"}</DialogTitle>
-            <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                    Let Google help apps determine location. This means sending anonymous
-                    location data to Google, even when no apps are running.
-                </DialogContentText>
-            </DialogContent>
+            <DialogHeader />
+
+            {/* <MathQuestion /> */}
+            {/* <AnswerInput /> */}
+            
+            
             <DialogActions>
                 
                 {input}
