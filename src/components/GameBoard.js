@@ -87,12 +87,12 @@ function RoundedBoardFrame(props) {
                 boxSizing: 'content-box',
                 position: 'absolute',
                 top: squarePercentage,
-                left: '-0.8rem',
-                width: '100%',
+                left: '-9px',
+                width: 'calc(100% - 2px)',
                 height: heightOfSixSquares,
-                border: "0.8rem solid",
+                border: "10px solid",
                 borderColor: "board.main",
-                borderRadius: "0.8rem",
+                borderRadius: "10px",
                 borderTop: 0
             }}
         />
