@@ -1,32 +1,43 @@
 import React from 'react'
 
-// Custom Hooks
-// import { useHover } from "../hooks/useHover"
-// import { useScreenOrientation } from "../hooks/useScreenOrientaton"
-// import { useScreenWidth } from "../hooks/useScreenWidth"
-// import { useScreenHeight } from "../hooks/useScreenHeight"
+
+import '../App.css';
 
 // MY  components
-// import NewGameButton from '../components/buttons/NewGameButton'
 
 // MUI  components
-import { Box } from '@material-ui/core'
+import { Box, Button, Dialog, DialogContent, DialogActions, DialogContentText, DialogTitle, Zoom } from '@material-ui/core'
 import { height, width } from '@material-ui/system'
 
 // Style & Layout Constants
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Zoom ref={ref} {...props} />;
+})
+
 export function MathQuestionModal(props) {
-    // const orientation = useScreenOrientation()
-    // const height = useScreenHeight()
-    // const width = useScreenWidth()
-    let { moveList, gameStatus, handleNewGameClick, playMode, questionType } = props
-    
-    
+    let { playMode, questionType, open, closeQuestionModal } = props
+
     
     return (
-        <Box id='info-panel' sx={{  }} >
-            
-        </Box>
-    );
+        <Dialog keepMounted
+            open={open}
+            onClose={closeQuestionModal}  // Callback fired when the component requests to be closed.
+            aria-describedby="alert-dialog-slide-description"
+            // PaperComponent="RoundPaper"
+            TransitionComponent={Transition}
+        >
+            <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                    Let Google help apps determine location. This means sending anonymous
+                    location data to Google, even when no apps are running.
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={closeQuestionModal}>Disagree</Button>
+                <Button onClick={closeQuestionModal}>Agree</Button>
+            </DialogActions>
+        </Dialog>
+    )
 }
-
