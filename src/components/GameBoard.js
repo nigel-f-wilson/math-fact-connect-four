@@ -28,11 +28,11 @@ export function GameBoard(props) {
 
     const height = useScreenHeight()
     const width = useScreenWidth()
-    const squareSideLength = (height <= width) ? height * 0.95 : width * 0.95
+    const squareSideLength = (height <= width) ? height * 0.9 : width * 0.9
 
     function getColumnChipColors(columnIndex) {
         let chipColors = boardChipColors().filter((player, cellId) => cellId % 7 === columnIndex)
-        console.log(`CHIP COLORS for Column ${columnIndex}: ${chipColors}`)
+        // console.log(`CHIP COLORS for Column ${columnIndex}: ${chipColors}`)
         return chipColors
     }
     function boardChipColors() {
@@ -63,7 +63,7 @@ export function GameBoard(props) {
 
             {columnNumbers.map((columnIndex) => {
                 let chipColors = getColumnChipColors(columnIndex)
-                console.log(`Column Chip Colors for column ${columnIndex}: ${chipColors}`)
+                {/* console.log(`Column Chip Colors for column ${columnIndex}: ${chipColors}`) */}
                 return (
                     <Column 
                         key={columnIndex}
@@ -87,12 +87,12 @@ function RoundedBoardFrame(props) {
                 boxSizing: 'content-box',
                 position: 'absolute',
                 top: squarePercentage,
-                left: '-0.8rem',
-                width: '100%',
+                left: '-9px',
+                width: 'calc(100% - 2px)',
                 height: heightOfSixSquares,
-                border: "0.8rem solid",
+                border: "10px solid",
                 borderColor: "board.main",
-                borderRadius: "0.8rem",
+                borderRadius: "10px",
                 borderTop: 0
             }}
         />
@@ -255,10 +255,9 @@ function Chip(props) {
 
     )
 }
-Column.propTypes = {
-    index: PropTypes.number.isRequired,
-    nextPlayerColor: PropTypes.oneOf(['playerOne', 'playerTwo', 'unclaimed']),
-    handleColumnClick: PropTypes.func,
+Chip.propTypes = {
+    id: PropTypes.number.isRequired,
+    color: PropTypes.oneOf(['playerOne', 'playerTwo', 'unclaimed']),
 }
 
 
@@ -277,6 +276,7 @@ function ColumnOfSquaresWithHoles(props) {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    boxShadow: '0px 1px 1px 1px #0039cb',
                 }}
             >
                 <Box id="hole"

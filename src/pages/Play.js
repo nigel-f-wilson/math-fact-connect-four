@@ -5,45 +5,33 @@ import PropTypes from 'prop-types'
 // MY UI components
 import { GameBoard } from "../components/GameBoard";
 import { InfoPanel } from "../components/InfoPanel";
+import { MathQuestionModal } from "../components/MathQuestionModal";
 
-// MY Logical components
-import { lineToCellsMap, cellToLinesMap } from '../logic/maps'   
-import { intersect, gameIsOver, playerOnesNumbers, playerTwosNumbers, getBoardData } from '../logic/helpers'
-
+// MY Logical helpers
+import { gameIsOver, getBoardData, getColumnata, getGameStatus } from '../logic/helpers'
 
 // MUI  components
-import { Typography, Container, Box } from '@material-ui/core'
-import theme from '../theme';
-
+import { Container } from '@material-ui/core'
 
 export default function Play(props) {
+    // For Development don't useLocation until the different question modes are actually built. 
     // const location = useLocation()
-    // const { playMode, questionType} = location.state
+    // const { playMode, questionType } = location.state
     const playMode = "human"
     const questionType = "multiplication"
 
-    const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
+    // GAME STATE
+    // MOVELIST --> An Array of integers ranging -1 thru 41 of indeterminate length
+    // GAMESTATUS --> Enum ['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw']
+    const [moveList, setMoveList] = React.useState([])  
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
     const [questionModalOpen, setQuestionModalOpen] = React.useState(false)
     
-
-    let currentTurnNumber = moveList.lenth
     
-    
-    // function getColumnData(columnIndex, boardData) {
-    //     let columnData = boardData.filter((claimStatus, cellId) => cellId % 7 === columnIndex)
-    // }
-    function getColumnData(columnIndex) {
-        let boardData = getBoardData(moveList)
-        return boardData.filter((claimStatus, cellId) => cellId % 7 === columnIndex)
-    }
     
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
     ///////////////////////////////////////////////////////
-    
-    
-    
     function handleColumnClick(columnIndex) {
         // Break into subroutines
         // 1 Get Cell (and expand)
@@ -103,26 +91,6 @@ export default function Play(props) {
         return 0;
     }
 
-    
-    // Returns ENUM: 'playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw'
-    // This function efficiently checks to see if the last move created a win for the player who made it.
-    function getGameStatus(moveList) {
-        let lastPlayerToMove = (moveList.length % 2 === 1) ? "playerOne" : "playerTwo"
-        let lastPlayersNumbers = (lastPlayerToMove === "playerOne") ? playerOnesNumbers(moveList) : playerTwosNumbers(moveList) 
-        let lastMoveMade = Number(lastPlayersNumbers.slice(-1) )
-        let linesAffectedByLastMove = cellToLinesMap.get(lastMoveMade)
-        for (let i = 0; i < linesAffectedByLastMove.length; i++) {
-            let line = linesAffectedByLastMove[i]
-            let cellsInLine = lineToCellsMap.get(line)
-            // For added efficiency I could at this point remove the lastMoveMade from cells in line and in the next line look for intersections of length 3.
-            if (intersect(cellsInLine, lastPlayersNumbers).length === 4) {
-                return (lastPlayerToMove === 'playerOne') ? 'playerOneWins' : 'playerTwoWins'
-            }
-        }
-        return (moveList.length % 2 === 0) ? 'playerOnesTurn' : 'playerTwosTurn'
-    }
-
-    
     
     return (
         <Container 
