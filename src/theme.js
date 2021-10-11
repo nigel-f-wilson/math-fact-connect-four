@@ -49,6 +49,10 @@ const theme = createTheme({
                 root: {
                     // Some CSS
                     backgroundColor: '#fff',
+                    borderRadius: '50%',
+                    height: '80%',
+                    width: '80%',
+
                 },
             },
         },

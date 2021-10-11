@@ -50,7 +50,7 @@ export default function App() {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'start',
+                    justifyContent: 'center',
                 }}>
                     <Router>
                         <Switch>
