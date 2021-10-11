@@ -28,7 +28,9 @@ export function GameBoard(props) {
 
     const height = useScreenHeight()
     const width = useScreenWidth()
-    const squareSideLength = (height <= width) ? height * 0.9 : width * 0.9
+    const boardSideLength = (height <= width) ? height * 0.95 : width * 0.95
+    // const boardSideLength = (height <= width) ? height : width
+
 
     function getColumnChipColors(columnIndex) {
         let chipColors = boardChipColors().filter((player, cellId) => cellId % 7 === columnIndex)
@@ -51,9 +53,10 @@ export function GameBoard(props) {
         <Container id="gameBoard"
             disableGutters
             sx={{
+                border: 'solid red 5px',
                 position: 'relative',
-                height: squareSideLength,
-                width: squareSideLength,
+                height: boardSideLength,
+                width: boardSideLength,
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'flex-end'
