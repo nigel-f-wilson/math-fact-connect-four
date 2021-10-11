@@ -1,10 +1,7 @@
 import React from 'react'
 
 // Custom Hooks
-import { useHover } from "../hooks/useHover"
-import { useScreenOrientation } from "../hooks/useScreenOrientaton"
-import { useScreenWidth } from "../hooks/useScreenWidth"
-import { useScreenHeight } from "../hooks/useScreenHeight"
+import { useHover, useScreenOrientation, useScreenWidth, useScreenHeight } from "../hooks"
 
 // MY  components
 import NewGameButton from '../components/buttons/NewGameButton'
