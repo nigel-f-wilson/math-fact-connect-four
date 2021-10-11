@@ -2,13 +2,15 @@ import React from 'react'
 import { useLocation } from "react-router-dom"
 import PropTypes from 'prop-types'
 
-// MY UI components
+// MY components
 import { GameBoard } from "../components/GameBoard";
 import { InfoPanel } from "../components/InfoPanel";
 import { MathQuestionModal } from "../components/MathQuestionModal";
 
-// MY Logical helpers
+// Game Logic
 import { gameIsOver, getColumnData, getGameStatus } from '../gameLogic'
+// Custom Hooks
+import { useScreenWidth, useScreenHeight } from "../hooks"
 
 // MUI  components
 import { Box, Container } from '@material-ui/core'
@@ -19,6 +21,10 @@ export default function Play(props) {
     // const { playMode, questionType } = location.state
     const playMode = "human"
     const questionType = "multiplication"
+
+    // LAYOUT
+    const height = useScreenHeight()
+    const width = useScreenWidth()
 
     // GAME STATE
     // MOVELIST --> An Array of integers ranging -1 thru 41 of indeterminate length
@@ -47,7 +53,7 @@ export default function Play(props) {
             let question = generateQuestion(questionType)
             
             setQuestionModalIsOpen(true)
-            
+
 
         }
         
@@ -93,9 +99,16 @@ export default function Play(props) {
 
         
     }
+
+    function generateQuestion(questionType) {
+        
+    }
     
     return (
-        <Box id='play-page' sx={{ height: '100%', width: '100%'}}>
+        <Box id='play-page' sx={{
+            height: '100%', width: '100%', display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center', }}>
 
             <MathQuestionModal 
                 open={questionModalIsOpen}
