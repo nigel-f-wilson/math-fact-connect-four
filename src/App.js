@@ -1,17 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {
     HashRouter as Router,
     Route,
     Switch
 } from "react-router-dom"
-
-
-// Custom Hooks
-// import { useScreenOrientation } from "./hooks/useScreenOrientaton"
-// import { useScreenWidth } from "./hooks/useScreenWidth"
-// import { useScreenHeight } from "./hooks/useScreenHeight"
-
-import './App.css';
 
 // PAGES
 import Landing from "./pages/Landing"
@@ -24,19 +16,15 @@ import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 
 
-// THEMING
+// CSS & THEMING
+import './App.css';
 import theme from "./theme"
 import {
     // makeStyles,
     ThemeProvider,
 } from '@material-ui/core/styles'
 
-
-
 export default function App() {
-    
-    
-
     return (
         <React.Fragment>
             <CssBaseline />
