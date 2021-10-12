@@ -6,9 +6,10 @@ import {
 } from "react-router-dom"
 
 // PAGES
-import Welcome from "./pages/Welcome"
-import Play from "./pages/Play"
-import Info from "./pages/Info"
+import WelcomePage from "./pages/Welcome"
+import SettingsPage from "./pages/SettingsPage"
+import PlayPage from "./pages/Play"
+import InfoPage from "./pages/Info"
 
 // MUI  components
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -46,16 +47,16 @@ export default function App() {
                     <Router>
                         <Switch>
                             <Route exact path="/">
-                                <Welcome />
+                                <WelcomePage />
                             </Route>
                             <Route exact path="/settings">
-                                <Settings />
+                                <SettingsPage />
                             </Route>
                             <Route path="/play" >
-                                <Play />
+                                <PlayPage />
                             </Route>
                             <Route path="/info" >
-                                <Info />
+                                <InfoPage />
                             </Route>
 
                         </Switch>

@@ -6,7 +6,7 @@ import NewGameButton from "../navigation/NewGameButton";
 // MUI  components
 import { Box, Typography, Container } from '@material-ui/core';
 
-export default function Welcome() {
+export default function WelcomePage() {
     return (
         <Container maxWidth='md' sx={{ 
             width: '100%', 

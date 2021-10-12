@@ -6,7 +6,7 @@ import NewGameButton from "../navigation/NewGameButton";
 // MUI  components
 import { Box, Typography, Container } from '@material-ui/core';
 
-export default function Landing() {
+export default function InfoPage() {
     return (
         <Container maxWidth='md' sx={{ width: '100%', p: '1rem' }}>
             <Typography color="text.primary" variant="h2" gutterBottom >
