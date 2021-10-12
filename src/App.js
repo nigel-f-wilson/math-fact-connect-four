@@ -6,7 +6,7 @@ import {
 } from "react-router-dom"
 
 // PAGES
-import Landing from "./pages/Landing"
+import Welcome from "./pages/Welcome"
 import Play from "./pages/Play"
 import Info from "./pages/Info"
 
@@ -46,7 +46,10 @@ export default function App() {
                     <Router>
                         <Switch>
                             <Route exact path="/">
-                                <Landing />
+                                <Welcome />
+                            </Route>
+                            <Route exact path="/settings">
+                                <Settings />
                             </Route>
                             <Route path="/play" >
                                 <Play />

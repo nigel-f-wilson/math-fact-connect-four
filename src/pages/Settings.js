@@ -42,7 +42,7 @@ export function SettingsStepper(props) {
     const [rowNumbers, setRowNumbers] = React.useState([1, 2, 3, 4, 5, 6]);
     const [colNumbers, setColNumbers] = React.useState([1, 2, 3, 4, 5, 6, 7]);
 
-    const goToNextStep = () => {  
+    const goToNextStep = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
     }
     const goBackOneStep = () => {
@@ -54,14 +54,14 @@ export function SettingsStepper(props) {
         setPlayMode(selection)   // ENUM: 'human' | 'bot'
         console.log(`PlayMode set to ${selection}`)
     }
-    
+
     const selectQuestionType = (questionType) => {
         setCompletedSteps(2)
         setQuestionType(questionType)
     }
 
-    
-    
+
+
     return (
         <Box sx={{ bgcolor: 'white', height: 'inherit' }}   >
             <DialogContent sx={{ display: { xs: 'none', sm: 'block' }, p: '3 0 0' }} >
@@ -75,7 +75,7 @@ export function SettingsStepper(props) {
         </Box>
     );
 
-    
+
 
     function MobileSettingsStepper(props) {
         const { activeStep, completedSteps, mobileScreenSize } = props;
@@ -103,13 +103,13 @@ export function SettingsStepper(props) {
         ];
         const maxSteps = steps.length;
 
-        
+
         const nextButton = <NextButton
             activeStep={activeStep}
             completedSteps={completedSteps}
             mobileScreenSize={mobileScreenSize}
         />
-        
+
         const backButton = <BackButton
             // activeStep={activeStep}
             // completedSteps={completedSteps}
@@ -147,7 +147,7 @@ export function SettingsStepper(props) {
                     variant="dots"
                     steps={steps.length}
                     position={mobileScreenSize ? 'bottom' : 'static'}
-                    nextButton={activeStep === steps.length - 1 ? startGameButton : nextButton }
+                    nextButton={activeStep === steps.length - 1 ? startGameButton : nextButton}
                     backButton={backButton}
                     sx={{ width: '100%' }}
                 >
@@ -157,15 +157,15 @@ export function SettingsStepper(props) {
             </Box>
         )
 
-        
-        
+
+
     }
 
     function BackButton(props) {
         let { activeStep, completedSteps, mobileScreenSize } = props
 
         return (
-            <Button 
+            <Button
                 // variant={mobileScreenSize ? 'text' : 'outlined'}
                 variant='text'
                 onClick={goBackOneStep}
@@ -180,7 +180,7 @@ export function SettingsStepper(props) {
 
         let disabled = !completedSteps.includes(activeStep)
         return (
-            <Button 
+            <Button
                 // variant={mobileScreenSize ? 'text' : 'outlined'}
                 variant='text'
                 onClick={goToNextStep}
@@ -193,10 +193,10 @@ export function SettingsStepper(props) {
     }
     function StartGameButton(props) {
         let { activeStep, completedSteps, mobileScreenSize, totalSteps } = props
-        let disabled = (completedSteps.length < totalSteps) 
+        let disabled = (completedSteps.length < totalSteps)
 
         return (
-            <Button 
+            <Button
                 // variant={mobileScreenSize ? 'text' : 'outlined'}
                 variant='text'
                 disabled={disabled}
