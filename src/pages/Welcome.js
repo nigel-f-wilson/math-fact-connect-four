@@ -6,9 +6,15 @@ import NewGameButton from "../navigation/NewGameButton";
 // MUI  components
 import { Box, Typography, Container } from '@material-ui/core';
 
-export default function Landing() {
+export default function Welcome() {
     return (
-        <Container maxWidth='md' sx={{ width: '100%', p: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center'}} >
+        <Container maxWidth='md' sx={{ 
+            width: '100%', 
+            p: '1rem', 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center'}} 
+        >
             <Typography color="text.primary" variant="h5" gutterBottom align='center' >
                 Welcome to
             </Typography>
