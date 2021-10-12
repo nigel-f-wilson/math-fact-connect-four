@@ -46,8 +46,7 @@ export default function Play(props) {
             return -1
         }
         let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
-        console.log(`Cell where a move WOULD be made: ${lowestUnclaimedCell}`)
-
+        // console.log(`Cell where a move WOULD be made: ${lowestUnclaimedCell}`)
         // This is where the Math Question Pop Up determines whether or not the move is made. 
         if (questionType !== "none") {
             // Transition to Elevate and Expand Lowest Unclaimed Cell to center over the board
@@ -75,6 +74,14 @@ export default function Play(props) {
         // console.log(`YOU CLICKED COLUMN: ${columnIndex} Data: ${columnData}`)
         return 0;
     }
+    function handleAnswerSubmit(answer) {
+
+
+
+    }
+    
+
+
     function handleNewGameClick() {
         setMoveList([])
         setGameStatus('playerOnesTurn')
@@ -86,7 +93,7 @@ export default function Play(props) {
         console.log(`UNDO !!!`)
         return 0;
     }
-
+   
 
     function closeQuestionModal() {
         let timeout = 800
@@ -115,6 +122,7 @@ export default function Play(props) {
 
             <MathQuestionModal 
                 open={questionModalIsOpen}
+                handleAnswerSubmit={handleAnswerSubmit}
                 closeQuestionModal={closeQuestionModal}
                 boardAreaSideLength={boardAreaSideLength}
             />
