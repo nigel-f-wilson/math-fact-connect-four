@@ -82,24 +82,7 @@ export function GameBoard(props) {
     )
 }
 
-function RoundedBoardFrame(props) {
-    return (
-        <Box id='roundedGameBorder'
-            sx={{
-                boxSizing: 'content-box',
-                position: 'absolute',
-                top: squarePercentage,
-                left: '-9px',
-                width: 'calc(100% - 2px)',
-                height: heightOfSixSquares,
-                border: "10px solid",
-                borderColor: "board.main",
-                borderRadius: "10px",
-                borderTop: 0
-            }}
-        />
-    )
-}
+
 function InfoHeaderRow(props) {
     let { gameStatus } = props
     let gameOver = gameIsOver(gameStatus)
@@ -132,7 +115,24 @@ function InfoHeaderRow(props) {
         </Box>
     )
 }
-
+function RoundedBoardFrame(props) {
+    return (
+        <Box id='roundedGameBorder'
+            sx={{
+                boxSizing: 'content-box',
+                position: 'absolute',
+                top: squarePercentage,
+                left: '-9px',
+                width: 'calc(100% - 2px)',
+                height: heightOfSixSquares,
+                border: "10px solid",
+                borderColor: "board.main",
+                borderRadius: "10px",
+                borderTop: 0
+            }}
+        />
+    )
+}
 function Column(props) {
     const { index, chipColors, lastMoveWasHere, nextPlayerColor, handleColumnClick } = props
     // const [hoverRef, isHovered] = useHover()
