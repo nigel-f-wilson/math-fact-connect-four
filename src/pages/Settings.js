@@ -100,12 +100,6 @@ export default function SettingsPage() {
                         'timeLimit': timeLimit,
                     }
                 }}
-                // onClick={() => {
-                //     console.log(`START GAME`);
-                //     console.log(`Opponent: ${opponent}`);
-                //     console.log(`MathTopics: ${Object.keys(mathTopics).filter(key => mathTopics[key] === true)}`);
-                //     console.log(`TimeLimit: ${timeLimit}`);
-                // }}
                 sx={{ m: 1 }}
             >
                 Start Game!
