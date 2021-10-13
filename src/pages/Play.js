@@ -8,7 +8,9 @@ import { InfoPanel } from "../components/InfoPanel";
 import { MathQuestionModal } from "../components/MathQuestionModal";
 
 // Game Logic
-import { gameIsOver, getColumnData, getGameStatus } from '../gameLogic'
+import { gameIsOver, getColumnData, getGameStatus, } from '../gameLogic'
+import { getQuestion } from '../questionGenerator'
+
 // Custom Hooks
 import { useScreenWidth, useScreenHeight } from "../hooks"
 
