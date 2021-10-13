@@ -21,11 +21,11 @@ export default function PlayPage(props) {
     // For Development don't useLocation until the different question modes are actually built. 
     const location = useLocation()
     const { opponent, mathTopics, timeLimit } = location.state
-    console.log(`PLAY PAGE`);
-    console.log(`Opponent: ${opponent}`);
+    // console.log(`PLAY PAGE`);
+    // console.log(`Opponent: ${opponent}`);
     let mathTopicsArray = Object.keys(mathTopics).filter(key => mathTopics[key] === true)
-    console.log(`MathTopics: ${mathTopicsArray}`);
-    console.log(`TimeLimit: ${timeLimit}`);
+    // console.log(`MathTopics: ${mathTopicsArray}`);
+    // console.log(`TimeLimit: ${timeLimit}`);
 
     // LAYOUT
     const height = useScreenHeight()
@@ -37,8 +37,11 @@ export default function PlayPage(props) {
     // GAMESTATUS --> Enum ['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw']
     const [moveList, setMoveList] = React.useState([])  
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
-    const [questionModalIsOpen, setQuestionModalIsOpen] = React.useState(false)
     
+    const [questionModalIsOpen, setQuestionModalIsOpen] = React.useState(false)
+    const [question, setQuestion] = React.useState(false)
+    const [activeColumn, setActiveColumn] = React.useState(false)
+
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
     ///////////////////////////////////////////////////////
@@ -50,19 +53,25 @@ export default function PlayPage(props) {
             console.log(`Returning Early from handleClick() since Game is already over OR column is full!`)
             return -1
         }
-        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
         
         let question = getQuestion(mathTopics, columnIndex)
-
         console.log(`QUESTION: ${JSON.stringify(question)}`);
+        
+        setActiveColumn(columnIndex)
+        setQuestion(question)
 
-            
-        // setQuestionModalIsOpen(true)
-
+        setQuestionModalIsOpen(true)
 
         
+    }
+    function handleAnswerSubmit(answer) {
+        let columnData = getColumnData(activeColumn, moveList)
+        let lowestUnclaimedRow = columnData.indexOf("unclaimed")
+        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + activeColumn
+
+
+
         let MATH_QUESTION_CORRECT = true
-        let PLAY_VS_BOT = false
 
         let moveToAdd = MATH_QUESTION_CORRECT ? lowestUnclaimedCell : -1
         let updatedMoveList = moveList.concat(moveToAdd)
@@ -70,16 +79,13 @@ export default function PlayPage(props) {
         setMoveList(updatedMoveList)
         setGameStatus(updatedGameStatus)
 
-        if (PLAY_VS_BOT) {
-            // This is where we Would find and make the Computer Move if in Play vs. Computer Mode
-            // getBotMove
-        }
+        // if (PLAY_VS_BOT) {
+        //     // This is where we Would find and make the Computer Move if in Play vs. Computer Mode
+        //     // getBotMove
+        // }
         console.log(`updated moveList: ${updatedMoveList}`)
         // console.log(`YOU CLICKED COLUMN: ${columnIndex} Data: ${columnData}`)
         return 0;
-    }
-    function handleAnswerSubmit(answer) {
-
 
 
     }
