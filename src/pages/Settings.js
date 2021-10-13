@@ -84,33 +84,34 @@ export default function SettingsPage() {
             >
                 Next&ensp;<ArrowForwardIosIcon fontSize='small' />
             </Button>
-
         )
-
     }
     const StartGameButton = (props) => {
-        
-
         return (
             <Button
                 disabled={props.disabled}
                 variant="outlined"
                 component={RouterLink}
-                to='/play'
-                onClick={() => {
-                    console.log(`START GAME`);
-                    console.log(`Opponent: ${opponent}`);
-                    console.log(`MathTopics: ${JSON.stringify(mathTopics)}`);
-                    console.log(`TimeLimit: ${timeLimit}`);
+                to={{
+                    pathname: '/play',
+                    state: { 
+                        'opponent': opponent,
+                        'mathTopics': mathTopics,
+                        'timeLimit': timeLimit,
+                    }
                 }}
+                // onClick={() => {
+                //     console.log(`START GAME`);
+                //     console.log(`Opponent: ${opponent}`);
+                //     console.log(`MathTopics: ${Object.keys(mathTopics).filter(key => mathTopics[key] === true)}`);
+                //     console.log(`TimeLimit: ${timeLimit}`);
+                // }}
                 sx={{ m: 1 }}
             >
                 Start Game!
             </Button>
         )
-
     }
-
     
     function OpponentSelector() {
         return (
@@ -191,7 +192,7 @@ export default function SettingsPage() {
                     <NextButton disabled={noneSelectedError} />
                 </Box>
             </Box>
-        );
+        )
     }
 
     function TimeLimitSelector() {
@@ -227,7 +228,6 @@ export default function SettingsPage() {
     return (
         <Box sx={{ bgcolor: 'background', height: '100%', width: '100%', mt: '1rem' }}  >
             <Container sx={{ height: '100%'}} maxWidth='sm' >
-                {/* <SettingsStepper /> */}
                 <Stepper activeStep={activeStep}
                     orientation='vertical' 
                 >
@@ -252,9 +252,7 @@ export default function SettingsPage() {
     )
 }
 
-
 // function EnterPlayerNamesStep(props) { }
-
 // function SetTimeLimitStep(props) { }
 
 
