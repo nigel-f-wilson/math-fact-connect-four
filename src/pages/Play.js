@@ -51,16 +51,15 @@ export default function PlayPage(props) {
             return -1
         }
         let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
-        // console.log(`Cell where a move WOULD be made: ${lowestUnclaimedCell}`)
-        // This is where the Math Question Pop Up determines whether or not the move is made. 
-        if (questionType !== "none") {
-            // Transition to Elevate and Expand Lowest Unclaimed Cell to center over the board
-            let question = generateQuestion(questionType)
+        
+        let question = getQuestion(mathTopics, columnIndex)
+
+        console.log(`QUESTION: ${JSON.stringify(question)}`);
+
             
-            setQuestionModalIsOpen(true)
+        // setQuestionModalIsOpen(true)
 
 
-        }
         
         let MATH_QUESTION_CORRECT = true
         let PLAY_VS_BOT = false
