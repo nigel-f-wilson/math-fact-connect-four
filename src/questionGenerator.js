@@ -55,16 +55,34 @@ function getDifficultyLevel(columnIndex) {
 }
 
 function getCombiningQuestion(difficultyLevel) {
-    let question
+    let question = {
+        'inputFormat': 'text-field',
+        'answer': null,
+        'a': null,
+        'b': null,
+        'c': null,
+        'd': null,
+    }
     if (difficultyLevel === 0) {
-        let sum = Math.random(100) 
-        
+        question.a = randomInt(1, 100)
+        question.b = randomInt(1, 100)
+        question.c = question.a + question.b
+        question.blank = 'c'
+        question.answer = question.c 
     }
     else if (difficultyLevel === 1) {
-        return 2
+        question.a = randomInt(1, 100)
+        question.b = randomInt(1, 100)
+        question.c = question.a + question.b
+        question.blank = 'c'
+        question.answer = question.c
     }
     else if (difficultyLevel === 2) {
-        return 1
+        question.a = randomInt(1, 100)
+        question.b = randomInt(1, 100)
+        question.c = question.a + question.b
+        question.blank = 'c'
+        question.answer = question.c
     } else if (difficultyLevel === 3) {
         return 0
     } else {
