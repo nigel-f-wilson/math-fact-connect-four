@@ -53,10 +53,7 @@ export function GameBoard(props) {
         <Container id="gameBoard"
             disableGutters
             sx={{
-                border: 'solid red 2px',
                 position: 'relative',
-                // height: boardSideLength,
-                // width: boardSideLength,
                 height: '100%',
                 width: '100%',
                 display: 'flex',
