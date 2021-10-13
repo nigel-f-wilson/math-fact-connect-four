@@ -140,7 +140,34 @@ function Column(props) {
     const { index, chipColors, lastMoveWasHere, nextPlayerColor, handleColumnClick } = props
     // const [hoverRef, isHovered] = useHover()
     // console.log(`You ${isHovered ? "ARE" : "are NOT"} hovering on column: ${columnId}`)
-
+    let columnLetter = ''
+    switch (index) {
+        case 0:
+            columnLetter = 'A'
+            break;
+        case 1:
+            columnLetter = 'B'
+            break; 
+        case 2:
+            columnLetter = 'C'
+            break; 
+        case 3:
+            columnLetter = 'D'
+            break; 
+        case 4:
+            columnLetter = 'E'
+            break; 
+        case 5:
+            columnLetter = 'F'
+            break;
+        case 6:
+            columnLetter = 'G'
+            break;
+        default:
+            columnLetter = 'error'
+            break;
+    }
+    
     return (
         <Box id="column" 
             // ref={hoverRef} 
@@ -175,8 +202,13 @@ function Column(props) {
                         height: chipSizeRelativeToSquare,
                         borderRadius: '50%',
                         zIndex: 8,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
                     }}
-                />
+                >
+                    {columnLetter}
+                </Box>
             </Box>
             <Box id="chipContainer"
                 sx={{
