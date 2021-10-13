@@ -7,7 +7,7 @@ import {
 
 // PAGES
 import WelcomePage from "./pages/Welcome"
-import SettingsPage from "./pages/SettingsPage"
+import SettingsPage from "./pages/Settings"
 import PlayPage from "./pages/Play"
 import InfoPage from "./pages/Info"
 
