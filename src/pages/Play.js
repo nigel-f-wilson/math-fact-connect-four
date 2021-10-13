@@ -19,10 +19,13 @@ import { Box, Container } from '@material-ui/core'
 
 export default function PlayPage(props) {
     // For Development don't useLocation until the different question modes are actually built. 
-    // const location = useLocation()
-    // const { playMode, questionType } = location.state
-    const playMode = "human"
-    const questionType = "multiplication"
+    const location = useLocation()
+    const { opponent, mathTopics, timeLimit } = location.state
+    console.log(`PLAY PAGE`);
+    console.log(`Opponent: ${opponent}`);
+    let mathTopicsArray = Object.keys(mathTopics).filter(key => mathTopics[key] === true)
+    console.log(`MathTopics: ${mathTopicsArray}`);
+    console.log(`TimeLimit: ${timeLimit}`);
 
     // LAYOUT
     const height = useScreenHeight()
