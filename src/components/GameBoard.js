@@ -71,6 +71,7 @@ export function GameBoard(props) {
                         key={columnIndex}
                         index={columnIndex}
                         chipColors={chipColors}
+                        gameStatus={gameStatus}
                         nextPlayerColor={nextPlayerColor(gameStatus)}
                         handleColumnClick={handleColumnClick}
                     />
@@ -134,37 +135,36 @@ function RoundedBoardFrame(props) {
     )
 }
 function Column(props) {
-    const { index, chipColors, lastMoveWasHere, nextPlayerColor, handleColumnClick } = props
-    // const [hoverRef, isHovered] = useHover()
-    // console.log(`You ${isHovered ? "ARE" : "are NOT"} hovering on column: ${columnId}`)
+    const { index, chipColors, gameStatus, nextPlayerColor, handleColumnClick } = props
     let columnLetter = ''
-    switch (index) {
-        case 0:
-            columnLetter = 'A'
-            break;
-        case 1:
-            columnLetter = 'B'
-            break; 
-        case 2:
-            columnLetter = 'C'
-            break; 
-        case 3:
-            columnLetter = 'D'
-            break; 
-        case 4:
-            columnLetter = 'E'
-            break; 
-        case 5:
-            columnLetter = 'F'
-            break;
-        case 6:
-            columnLetter = 'G'
-            break;
-        default:
-            columnLetter = 'error'
-            break;
+    if (!gameIsOver(gameStatus)) {
+        switch (index) {
+            case 0:
+                columnLetter = 'A'
+                break;
+            case 1:
+                columnLetter = 'B'
+                break;
+            case 2:
+                columnLetter = 'C'
+                break;
+            case 3:
+                columnLetter = 'D'
+                break;
+            case 4:
+                columnLetter = 'E'
+                break;
+            case 5:
+                columnLetter = 'F'
+                break;
+            case 6:
+                columnLetter = 'G'
+                break;
+            default:
+                columnLetter = 'error'
+                break;
+        }
     }
-    
     return (
         <Box id="column" 
             // ref={hoverRef} 
