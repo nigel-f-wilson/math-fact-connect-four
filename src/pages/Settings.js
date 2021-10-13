@@ -4,491 +4,260 @@ import { Link as RouterLink } from "react-router-dom";
 // MY components
 
 // MUI components
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-
-import MobileStepper from '@material-ui/core/MobileStepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
+import { Box, Button, Typography, Container } from '@material-ui/core';
+import { Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
+import { FormControlLabel, FormHelperText, FormGroup, FormControl } from '@material-ui/core';
+import { Radio, RadioGroup, Checkbox, Slider, Switch } from '@material-ui/core';
 
 //  MUI Icons
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
-
-// SettingsDialog.propTypes = {
-//     onClose: PropTypes.func.isRequired,
-//     open: PropTypes.bool.isRequired,
-//     selectedValue: PropTypes.object.isRequired,
-// }
-export function SettingsStepper(props) {
-    // const { onClose, selectedValue, dialogOpen } = props;
+export default function SettingsPage() {
     const [activeStep, setActiveStep] = React.useState(0);
-    const [completedSteps, setCompletedSteps] = React.useState(new Array());
+    
+    // Step 0: select opponent: vs human or vs bot
+    const [opponent, setOpponent] = React.useState('human') // Select 'human' or 'bot' .
+    // Step 1: math topics included. 
+    const [mathTopics, setMathTopics] = React.useState({
+        'combining': true,     
+        'multiplying': true,   
+        'fractions': false,
+        'exponents': false,
+        'algebra': false,
+    })
+    // Step 2: answer input types. Select from 'text field', 'compare buttons',  
+    // const [answerInputFormats, setAnswerInputFormats] = React.useState(['text field', 'compare buttons'])
+    // step 3: set time limit (optional)
+    const [timeLimit, setTimeLimit] = React.useState(30)  // "Off" or a number of seconds up to 180 
 
-    const [playMode, setPlayMode] = React.useState("unset");
-    const [botDifficulty, setBotDifficulty] = React.useState("unset");
-    // const [playWithTimeLimit, setPlayWithTimeLimit] = React.useState(false);  // only an option in human vs. human mod
-    const [questionType, setQuestionType] = React.useState("unset");  // none | multiplication | division | exponents | algebra
-    const [rowNumbers, setRowNumbers] = React.useState([1, 2, 3, 4, 5, 6]);
-    const [colNumbers, setColNumbers] = React.useState([1, 2, 3, 4, 5, 6, 7]);
-
-    const goToNextStep = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
-    }
-    const goBackOneStep = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1)
-    }
-
-    const selectPlayMode = (selection) => {
-        setCompletedSteps(completedSteps.concat(0))
-        setPlayMode(selection)   // ENUM: 'human' | 'bot'
-        console.log(`PlayMode set to ${selection}`)
-    }
-
-    const selectQuestionType = (questionType) => {
-        setCompletedSteps(2)
-        setQuestionType(questionType)
-    }
-
-
-
-    return (
-        <Box sx={{ bgcolor: 'white', height: 'inherit' }}   >
-            <DialogContent sx={{ display: { xs: 'none', sm: 'block' }, p: '3 0 0' }} >
-                <Box sx={{ width: 550, p: 3 }}>
-                    <MobileSettingsStepper activeStep={activeStep} completedSteps={completedSteps} mobileScreenSize={false} />
-                </Box>
-            </DialogContent>
-            <DialogContent sx={{ display: { xs: 'flex', sm: 'none' }, p: 0, height: 'inherit', justifyContent: 'center', alignContent: 'center' }}>
-                <MobileSettingsStepper activeStep={activeStep} completedSteps={completedSteps} mobileScreenSize={true} />
-            </DialogContent>
-        </Box>
-    );
-
-
-
-    function MobileSettingsStepper(props) {
-        const { activeStep, completedSteps, mobileScreenSize } = props;
-
-        const steps = [
-            {
-                label: 'Play vs. Human or Bot?',
-                buttons: <SetPlayModeButtons />,
-            },
-            // {
-            //     label: 'How well should the Bot play?',
-            // },
-            // {
-            //     label: "What are the players' names?",
-            // },
-            {
-                label: 'What type of math questions should we ask?',
-                buttons: <SetQuestionTypeButtons />,
-
-            },
-            // {
-            //     label: 'What type of math questions should be asked?',
-            //     buttons: <Set
-            // },
-        ];
-        const maxSteps = steps.length;
-
-
-        const nextButton = <NextButton
-            activeStep={activeStep}
-            completedSteps={completedSteps}
-            mobileScreenSize={mobileScreenSize}
-        />
-
-        const backButton = <BackButton
-            // activeStep={activeStep}
-            // completedSteps={completedSteps}
-            mobileScreenSize={mobileScreenSize}
-        />
-
-        const startGameButton = <StartGameButton
-            activeStep={activeStep}
-            completedSteps={completedSteps}
-            mobileScreenSize={mobileScreenSize}
-            totalSteps={steps.length}
-        />
-
-        return (
-            <Box sx={{ height: '90%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <Typography variant='h4' textAlign="center" sx={{ mb: 4 }} >
-                    {steps[activeStep].label}
-                </Typography>
-                {/* <Typography variant='h4' textAlign="center"   >
-                    {`Active: ${activeStep}`}
-                </Typography>
-                <Typography variant='h4' textAlign="center"   >
-                    {`Completed: ${completedSteps}`}
-                </Typography> */}
-                {/* <Typography variant='h4' textAlign="center"   >
-                    {`MobileScreenSize: ${mobileScreenSize}`}
-                </Typography>  */}
-
-                {steps[activeStep].buttons}
-
-
-
-                <MobileStepper
-                    activeStep={activeStep}
-                    variant="dots"
-                    steps={steps.length}
-                    position={mobileScreenSize ? 'bottom' : 'static'}
-                    nextButton={activeStep === steps.length - 1 ? startGameButton : nextButton}
-                    backButton={backButton}
-                    sx={{ width: '100%' }}
-                >
-
-                </MobileStepper>
-
-            </Box>
-        )
-
-
-
-    }
-
-    function BackButton(props) {
-        let { activeStep, completedSteps, mobileScreenSize } = props
-
+    
+    const steps = [
+        {
+            label: "Select Opponent",
+            description: "You can play either in Human vs. Human mode on a shared device or play against the Bot.",
+            content: <OpponentSelector />
+        },
+        {
+            label: "Select Math Topics to Practice",
+            // description: "Select the math topics you would like to practice with.",
+            content: <MathTopicSelector />
+        },
+        // {
+        //     label: "Select Question Formats",
+        //     description: "By default, some questions will have a text field to input your answer and others will simply have you click a button. You can disable one type or the other here. ",
+        //     content: <CheckboxesGroup />
+        // },
+        {
+            label: "Set Time Limit",
+            description: "You can set a time limit for answering math question in 10 second increments. Setting this to zero will disable the timer.",
+            content: <TimeLimitSelector />
+        },
+    ]
+    
+    const BackButton = (props) => {
         return (
             <Button
-                // variant={mobileScreenSize ? 'text' : 'outlined'}
-                variant='text'
-                onClick={goBackOneStep}
-                sx={{ color: 'primary.main', mt: 1, mr: 1, fontSize: 'large' }}
+                disabled={props.disabled}
+                variant="outlined"
+                onClick={() => { 
+                    setActiveStep((prevActiveStep) => prevActiveStep - 1)}}
+                sx={{ m: 1 }}
             >
                 <ArrowBackIosIcon fontSize='small' />&ensp;Back
             </Button>
         )
+        
     }
-    function NextButton(props) {
-        let { activeStep, completedSteps, mobileScreenSize } = props
-
-        let disabled = !completedSteps.includes(activeStep)
+    const NextButton = (props) => {
+        const { index } = props
         return (
             <Button
-                // variant={mobileScreenSize ? 'text' : 'outlined'}
-                variant='text'
-                onClick={goToNextStep}
-                sx={{ mt: 1, mr: 1, fontSize: 'large' }}
-                disabled={disabled}
+                disabled={props.disabled}
+                variant="outlined"
+                onClick={() => { 
+                    setActiveStep((prev) => prev + 1) }}
+                sx={{ m: 1 }}
             >
                 Next&ensp;<ArrowForwardIosIcon fontSize='small' />
             </Button>
+
         )
+
     }
-    function StartGameButton(props) {
-        let { activeStep, completedSteps, mobileScreenSize, totalSteps } = props
-        let disabled = (completedSteps.length < totalSteps)
+    const StartGameButton = (props) => {
+        
 
         return (
             <Button
-                // variant={mobileScreenSize ? 'text' : 'outlined'}
-                variant='text'
-                disabled={disabled}
+                disabled={props.disabled}
+                variant="outlined"
                 component={RouterLink}
-                to={{
-                    pathname: '/play',
-                    state: {
-                        playMode: playMode,
-                        questionType: questionType,
-                    }
+                to='/play'
+                onClick={() => {
+                    console.log(`START GAME`);
+                    console.log(`Opponent: ${opponent}`);
+                    console.log(`MathTopics: ${JSON.stringify(mathTopics)}`);
+                    console.log(`TimeLimit: ${timeLimit}`);
                 }}
-                sx={{ mt: 1, mr: 1, fontSize: 'large', lineHeight: 1 }}
+                sx={{ m: 1 }}
             >
-                Start<br />Game &ensp;<ArrowForwardIosIcon fontSize='small' />
+                Start Game!
             </Button>
         )
+
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    // Selection Buttons
-    ///////////////////////////////////////////////////////////////////////////////////////
-    function SetPlayModeButtons(props) {
+    
+    function OpponentSelector() {
         return (
-            <React.Fragment>
-                <Button
-                    onClick={() => selectPlayMode('human')}
-                    variant={playMode === 'human' ? "contained" : "outlined"}
-                    startIcon={<i className="fas fa-user-friends"></i>}
-                    size='large'
-                    sx={{ m: 2, width: '100%' }}
-                >
-                    &ensp;Play vs. Human
-                </Button>
-                <Button
-                    onClick={() => selectPlayMode('bot')}
-                    variant={playMode === 'bot' ? "contained" : "outlined"}
-                    startIcon={<i className='fas fa-robot'></i>}
-                    sx={{ m: 2, width: '100%' }}
-                >
-                    &ensp;Play vs. Bot
-                </Button>
-            </React.Fragment>
-        )
+            <Box sx={{ display: 'flex', flexDirection: 'column' }} >
+                <FormControl component="fieldset">
+                    <RadioGroup
+                        aria-label="opponent"
+                        defaultValue="human"
+                        name="radio-buttons-group"
+                        value={opponent}
+                        onChange={(event, value) => { setOpponent(value) }}
+                    >
+                        <FormControlLabel control={<Radio />} value="human" label="Human vs. Human Mode" />
+                        <FormControlLabel control={<Radio />} value="bot" label="Human vs. Bot Mode " />
+                    </RadioGroup>
+                </FormControl>
+                <Box sx={{ mt: 1, display: 'flex', justifyContent: 'space-between' }}>
+                    <BackButton disabled  />
+                    <NextButton  />
+                </Box>
+            </Box>
+        );
     }
-
-    function SetQuestionTypeButtons(props) {
-        // TODO ADD common IconButton reusable component to generate this set with .map instead of manually
-
+    
+    function MathTopicSelector() {
+        const noneSelectedError = Object.values(mathTopics).filter((v) => v).length === 0;
+        function getSwitchLabel(key) {
+            // console.log(`getSwitchLabel called with key: ${key} `);
+            if (key === "combining") {
+                return "Addition & Subtraction"
+            }
+            else if (key === "multiplying") {
+                return "Multiplication & Division"
+            }
+            else if (key === "fractions") {
+                return "Fractions"
+            }
+            else if (key === "exponents") {
+                return "Exponents"
+            }
+            else if (key === "algebra") {
+                return "Algebra"
+            }
+            else {
+                return "error"
+            }
+        }
         return (
-            <React.Fragment>
-                <Button
-                    onClick={() => selectQuestionType('multiplication')}
-                    variant={questionType === 'multiplication' ? "contained" : "outlined"}
-                    startIcon={<i className="fas fa-times"></i>}
-                    sx={{ m: 1, width: '90%' }}
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <FormControl
+                    error={noneSelectedError}
+                    component="fieldset"
+                    sx={{ m: 1 }}
+                    variant="standard"
                 >
-                    &ensp;multiplication
-                </Button>
-                <Button
-                    onClick={() => selectQuestionType('division')}
-                    variant={questionType === 'division' ? "contained" : "outlined"}
-                    startIcon={<i className="fas fa-divide"></i>}
-                    sx={{ m: 1, width: '90%' }}
-                >
-                    &ensp;division
-                </Button>
-                <Button
-                    onClick={() => selectQuestionType('exponents')}
-                    variant={questionType === 'exponents' ? "contained" : "outlined"}
-                    startIcon={<i className="fas fa-superscript"></i>}
-                    sx={{ m: 1, width: '90%' }}
-                >
-                    &ensp;exponents
-                </Button>
-                <Button
-                    onClick={() => selectQuestionType('algebra')}
-                    variant={questionType === 'algebra' ? "contained" : "outlined"}
-                    // startIcon={<i class="fal fa-function"></i>}
-                    startIcon={<i className="fas fa-calculator"></i>}
-                    sx={{ m: 1, width: '90%' }}
-                >
-                    &ensp;algebra
-                </Button>
-                <Button
-                    onClick={() => selectQuestionType('none')}
-                    variant={questionType === 'none' ? "contained" : "outlined"}
-                    startIcon={<i className="fas fa-ban"></i>}
-                    sx={{ m: 1, width: '90%' }}
-                >
-                    &ensp;none
-                </Button>
-            </React.Fragment>
-
-        )
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////
-        // Navigation Buttons
-        ///////////////////////////////////////////////////////////////////////////////////////    
-        function BackButton(props) {
-            return (
-                <Button variant="text"
-                    onClick={goBackOneStep}
-                    sx={{ color: 'primary.main', mt: 1, mr: 1, fontSize: 'large' }}
-                >
-                    <ArrowBackIosIcon fontSize='small' />&ensp;Back
-                </Button>
-            )
-        }
-        function NextButton(props) {
-            return (
-                <Button variant="text"
-                    onClick={goToNextStep}
-                    sx={{ mt: 1, mr: 1, fontSize: 'large' }}
-                    disabled={completedSteps < activeStep}
-                >
-                    Next&ensp;<ArrowForwardIosIcon fontSize='small' />
-                </Button>
-            )
-        }
-        function StartGameButton(props) {
-            return (
-                <Button variant="text"
-                    disabled={completedSteps < activeStep + 1}
-                    component={RouterLink}
-                    to={{
-                        pathname: '/play',
-                        state: {
-                            playMode: playMode,
-                            questionType: questionType,
-                        }
-                    }}
-                    sx={{ mt: 1, mr: 1, fontSize: 'large', lineHeight: 1 }}
-                >
-                    Start<br />Game &ensp;<ArrowForwardIosIcon fontSize='small' />
-                </Button>
-            )
-        }
-
-        function SettingsStepperButton(props) {
-            return (
-                <Button
-                    variant="contained"
-                    onClick={props.setStateFunction(props.setting)}
-                    sx={{ mt: 1, mr: 1 }}
-                >
-                    {props.startIcon}{props.label}
-                </Button>
-            )
-        }
-
-
-
-
-        function SelectPlayModeStep(props) {
-            return (
-                <Step index={0} key={"Select Human Or Bot"}>
-                    <StepLabel>
-                        <Typography variant="body1" >Select Human or Bot: </Typography>
-                        <Typography sx={{ fontWeight: 'bold' }} >{playMode.toUpperCase()}</Typography>
-                    </StepLabel>
-                    <StepContent>
-                        <Box sx={{ mb: 2 }} display='flex' flexDirection='column' >
-                            <SettingsStepperButton
-                                label="Play vs. Bot"
-                                startIcon={"<i class='fas fa-robot'></i>"}
-                                onClick={() => {
-                                    setPlayMode("bot")
-                                    goToNextStep()
-                                }}
-                            />
-                            <SettingsStepperButton
-                                label="Play vs. Human"
-                                onClick={() => {
-                                    setPlayMode("human")
-                                    goToNextStep()
-                                }}
-                            />
-                            {/* <BackButton disabled /> */}
-                        </Box>
-                    </StepContent>
-                </Step>
-            )
-        }
-
-        function SelectBotDifficultyStep(props) {
-            return (
-                <Step index={1}
-                    key={"Select Bot Difficulty"}
-                    disabled={(playMode === "human")}
-                >
-                    <StepLabel>
-                        <Typography variant="body1" >Select Bot Difficulty: </Typography>
-                        <Typography sx={{ fontWeight: 'bold' }} >{botDifficulty.toUpperCase()}</Typography>
-                    </StepLabel>
-                    <StepContent>
-                        <Typography>
-
-                        </Typography>
-                        <Box sx={{ mb: 2 }} display='flex' flexDirection='column' >
-                            <SettingsStepperButton
-                                label="Easy"
-                                onClick={() => {
-                                    setBotDifficulty("Easy")
-                                    goToNextStep()
-                                }}
-                            />
-                            <SettingsStepperButton
-                                label="Medium"
-                                onClick={() => {
-                                    setBotDifficulty("Medium")
-                                    goToNextStep()
-                                }}
-                            />
-                            <SettingsStepperButton
-                                label="Hard"
-                                onClick={() => {
-                                    setBotDifficulty("Hard")
-                                    goToNextStep()
-                                }}
-                            />
-                            <BackButton />
-                        </Box>
-                    </StepContent>
-                </Step>
-            )
-        }
-
-
-        function SelectQuestionTypeStep(props) {
-            return (
-                <Step index={2} key={"Select Type of Math Problem"}>
-                    <StepLabel>
-                        <Typography variant="body1" >Select Type of Math Problem: </Typography>
-                        <Typography variant="body1" sx={{ fontWeight: 'bold' }} >{questionType.toUpperCase()}</Typography>
-                    </StepLabel>
-                    <StepContent>
-                        <Box sx={{ mb: 2 }} display='flex' flexDirection='column' >
-                            <SettingsStepperButton
-                                label="Multiplication"
-                                onClick={() => {
-                                    setQuestionType("Multiplication")
-                                    goToNextStep()
-                                }}
-                            />
-                            <SettingsStepperButton
-                                label="Division"
-                                onClick={() => {
-                                    setQuestionType("Division")
-                                    goToNextStep()
-                                }}
-                            />
-                            <SettingsStepperButton
-                                label="Exponents"
-                                onClick={() => {
-                                    setQuestionType("Exponents")
-                                    goToNextStep()
-                                }}
-                            />
-                            <SettingsStepperButton
-                                label="Algebra"
-                                onClick={() => {
-                                    setQuestionType("Algebra")
-                                    goToNextStep()
-                                }}
-                            />
-                            <SettingsStepperButton
-                                label="None"
-                                onClick={() => {
-                                    setQuestionType("None")
-                                    goToNextStep()
-                                }}
-                            />
-                            <BackButton />
-
-                        </Box>
-                    </StepContent>
-                </Step>
-            )
-        }
-
-
-        function EnterPlayerNamesStep(props) { }
-
-        function SetTimeLimitStep(props) { }
-
-
-
-
-
-
+                    <FormGroup>
+                        {Object.entries(mathTopics).map(keyValuePair => {
+                            let key = keyValuePair[0]
+                            let value = keyValuePair[1]
+                            return (
+                                <FormControlLabel
+                                    key={key}
+                                    control={
+                                        <Checkbox name={key}
+                                            checked={value} 
+                                            onChange={(event) => setMathTopics({ ...mathTopics, [event.target.name]: event.target.checked })}
+                                        />
+                                    }
+                                    label={getSwitchLabel(key)}
+                                />
+                            )
+                        })}
+                    </FormGroup>
+                    <FormHelperText>Select at least one topic.</FormHelperText>
+                </FormControl>
+                <Box sx={{ mt: 1, display: 'flex', justifyContent: 'space-between' }}>
+                    <BackButton />
+                    <NextButton disabled={noneSelectedError} />
+                </Box>
+            </Box>
+        );
     }
 
+    function TimeLimitSelector() {
+        // let localValue = timeLimit
+        function valuetext(timeLimit) {
+            return (timeLimit === 0) ? 'Off' : `${timeLimit} seconds`;
+        }
+        return (
+            <Box sx={{ display: 'flex', flexDirection: 'column' }} >
+                <Box sx={{ width: '100%', mt: 5 }}>
+                    <Slider
+                        value={timeLimit}
+                        name="Time limit selector"
+                        aria-label="Time limit selector"
+                        getAriaValueText={valuetext}
+                        valueLabelDisplay="on"
+                        step={10}
+                        marks
+                        min={0}
+                        max={180}
+                        valueLabelFormat={(value) => (value === 0) ? 'Off' : `${value} seconds`}
+                        onChangeCommitted={(event, value) => { setTimeLimit(value) }}
+                    />
+                </Box>
+                <Box sx={{ mt: 1, display: 'flex', justifyContent: 'space-between' }}>
+                    <BackButton />
+                    <StartGameButton />
+                </Box>
+            </Box>
+        );
+    }
+    
+    return (
+        <Box sx={{ bgcolor: 'background', height: '100%', width: '100%', mt: '1rem' }}  >
+            <Container sx={{ height: '100%'}} maxWidth='sm' >
+                {/* <SettingsStepper /> */}
+                <Stepper activeStep={activeStep}
+                    orientation='vertical' 
+                >
+                    {steps.map((step, index) => (
+                        <Step key={step.label}>
+                            <StepLabel>
+                                <Typography variant='h6' >
+                                    {step.label}
+                                </Typography>
+                            </StepLabel>
+                            <StepContent>
+                                <Typography>
+                                    {step.description}
+                                </Typography>
+                                {step.content}
+                            </StepContent>
+                        </Step>
+                    ))}
+                </Stepper>
+            </Container>
+        </Box>
+    )
 }
+
+
+// function EnterPlayerNamesStep(props) { }
+
+// function SetTimeLimitStep(props) { }
+
+
+
+
 

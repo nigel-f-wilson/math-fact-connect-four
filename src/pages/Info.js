@@ -1,7 +1,6 @@
 import React from 'react'
 
 // MY components
-import NewGameButton from "../navigation/NewGameButton";
 
 // MUI  components
 import { Box, Typography, Container } from '@material-ui/core';
@@ -21,9 +20,7 @@ export default function InfoPage() {
                 consecutive chips in any row, column, or diagonal wins!
             </Typography>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', py: '1rem' }} >
-                <NewGameButton />
-            </Box>
+            
 
             <Typography color="text.primary" variant="h4" gutterBottom >
                 Thanks
