@@ -8,20 +8,7 @@ import { Box, Typography, Container } from '@material-ui/core';
 export default function InfoPage() {
     return (
         <Container maxWidth='md' sx={{ width: '100%', p: '1rem' }}>
-            <Typography color="text.primary" variant="h2" gutterBottom >
-                Welcome to Math Fact Connect Four!
-            </Typography>
-            <Typography color="text.primary" variant="body1" gutterBottom >
-                Practice foundational math facts while playing Connect Four!
-                Great for individual practice or for use with a whole class split into teams.
-                Simply select the column you'd like to drop a chip in and a math question will pop up.
-                Answer correctly and your move gets made as planned,
-                answer incorrectly and your turn is skipped. The first player (or team) to get four
-                consecutive chips in any row, column, or diagonal wins!
-            </Typography>
-
             
-
             <Typography color="text.primary" variant="h4" gutterBottom >
                 Thanks
             </Typography>
