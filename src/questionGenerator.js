@@ -6,7 +6,14 @@ export function getQuestion(mathTopics, columnIndex) {
     console.log(`difficultyLevel: ${difficultyLevel}`);
 
 
-    let question
+    let question = {
+        'inputFormat': 'text-field',  // 'text-field' or 'button'
+        'answer': null,
+        'a': null,
+        'b': null,
+        'c': null,
+        'd': null,
+    }
     if (topic === "combining") {
         question = getCombiningQuestion(difficultyLevel)
     }
