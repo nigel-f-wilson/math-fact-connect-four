@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom"
 import PropTypes from 'prop-types'
 
 // MY components
+import { Menu } from "../components/Menu";
 import { GameBoard } from "../components/GameBoard";
 import { InfoPanel } from "../components/InfoPanel";
 import { MathQuestionModal } from "../components/MathQuestionModal";
@@ -38,9 +39,14 @@ export default function PlayPage(props) {
     const [moveList, setMoveList] = React.useState([])  
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
     
-    const [questionModalIsOpen, setQuestionModalIsOpen] = React.useState(false)
-    const [question, setQuestion] = React.useState(false)
-    const [activeColumn, setActiveColumn] = React.useState(false)
+    const [modalState, setModalState] = React.useState({
+        isOpen: false,
+        activeColumn: null,
+        topic: null,   // 'combining',
+        questionFormatString: null,  // 'a+b=c',
+        vars: [1,2,3]
+    })
+
 
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
@@ -48,49 +54,51 @@ export default function PlayPage(props) {
     function handleColumnClick(columnIndex) {
         let columnData = getColumnData(columnIndex, moveList)
         let lowestUnclaimedRow = columnData.indexOf("unclaimed")
+        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
         let columnIsFull = (lowestUnclaimedRow === -1)
         if (gameIsOver(gameStatus) || columnIsFull) {
             console.log(`Returning Early from handleClick() since Game is already over OR column is full!`)
             return -1
         }
-        
         let question = getQuestion(mathTopics, columnIndex)
         console.log(`QUESTION: ${JSON.stringify(question)}`);
         
-        setActiveColumn(columnIndex)
-        setQuestion(question)
-
-        setQuestionModalIsOpen(true)
-
-        
+        setModalState({
+            isOpen: true,
+            activeCell: lowestUnclaimedCell,
+            activeColumn: columnIndex,
+            question: {
+                topic: 'combining',
+                formatString: 'a+b=c',
+                missingVar: 'c',
+                vars: [1, 2, 3],
+            }
+        })
     }
     function handleAnswerSubmit(answer) {
-        let columnData = getColumnData(activeColumn, moveList)
-        let lowestUnclaimedRow = columnData.indexOf("unclaimed")
-        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + activeColumn
+        const { isOpen, activeCell, activeColumn, question } = modalState
+        const { topic, formatString, missingVar, vars } = question
 
 
 
         let MATH_QUESTION_CORRECT = true
 
-        let moveToAdd = MATH_QUESTION_CORRECT ? lowestUnclaimedCell : -1
+        let moveToAdd = MATH_QUESTION_CORRECT ? activeCell : -1
         let updatedMoveList = moveList.concat(moveToAdd)
         let updatedGameStatus = getGameStatus(updatedMoveList)
         setMoveList(updatedMoveList)
         setGameStatus(updatedGameStatus)
 
-        // if (PLAY_VS_BOT) {
-        //     // This is where we Would find and make the Computer Move if in Play vs. Computer Mode
-        //     // getBotMove
-        // }
-        console.log(`updated moveList: ${updatedMoveList}`)
-        // console.log(`YOU CLICKED COLUMN: ${columnIndex} Data: ${columnData}`)
-        return 0;
-
-
+        if (opponent === "bot") {
+            console.error(`IT IS THE BOT'S TURN BUT GETBOTMOVE HAS NOT BEEN DEFINED`)
+            // let botsUpdatedMoveList = moveList.concat(getBotMove(updatedMoveList))
+            // let botsUpdatedGameStatus = getGameStatus(botsUpdatedMoveList)
+            // setMoveList(botsUpdatedMoveList)
+            // setGameStatus(botsUpdatedGameStatus)
+            // console.log(`moveList after BOT's move: ${botsUpdatedMoveList}`)
+        }
+        return 0
     }
-    
-
 
     function handleNewGameClick() {
         setMoveList([])
@@ -105,18 +113,18 @@ export default function PlayPage(props) {
     }
    
 
-    function closeQuestionModal() {
-        let timeout = 800
+    // function closeQuestionModal() {
+    //     let timeout = 800
         
-        // /determine if answer correct and display 
+    //     // /determine if answer correct and display 
         
-        // DO SOME OTHER STUFF
-        setTimeout(() => {
-            setQuestionModalIsOpen(false)
-        }, timeout)
+    //     // DO SOME OTHER STUFF
+    //     setTimeout(() => {
+    //         setQuestionModalIsOpen(false)
+    //     }, timeout)
 
         
-    }
+    // }
 
     function generateQuestion(questionType) {
         
@@ -128,12 +136,32 @@ export default function PlayPage(props) {
             width: boardAreaSideLength, 
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center', }}>
+            alignItems: 'center', 
+            position: 'relative' }}>
 
+            <Menu 
+                handleNewGameClick={handleNewGameClick}
+                sx={{
+                    // height: boardAreaSideLength,
+                    width: boardAreaSideLength,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    position: 'absolute',
+                    right: 0,
+                    
+                }}
+
+            />
+
+            
+            
             <MathQuestionModal 
-                open={questionModalIsOpen}
+                modalState={modalState}
+                open={modalState.isOpen}
+                // open={questionModalIsOpen}
                 handleAnswerSubmit={handleAnswerSubmit}
-                closeQuestionModal={closeQuestionModal}
+                // closeQuestionModal={closeQuestionModal}
                 boardAreaSideLength={boardAreaSideLength}
             />
             <GameBoard
