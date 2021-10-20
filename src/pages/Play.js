@@ -139,7 +139,6 @@ export default function PlayPage(props) {
             alignItems: 'center', 
             position: 'relative' 
         }}>
-            <AccountMenu />
             <InGameMenu
                 handleNewGameClick={handleNewGameClick}
                 handleUndoClick={handleUndoClick}
