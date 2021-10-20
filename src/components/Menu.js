@@ -174,3 +174,16 @@ function NewGameButton(props) {
         </Button>
     )
 }
+
+function UndoButton(props) {
+    let { handleClick } = props
+    return (
+        <Button
+            variant="outlined"
+            startIcon={<ReplayIcon />}
+            onClick={() => handleClick()}
+        >
+            New&nbsp;Game
+        </Button>
+    )
+}
