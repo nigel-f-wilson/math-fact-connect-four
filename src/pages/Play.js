@@ -137,18 +137,17 @@ export default function PlayPage(props) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center', 
-            position: 'relative' }}>
+            position: 'relative' 
+        }}>
 
             <Menu 
                 handleNewGameClick={handleNewGameClick}
                 sx={{
-                    // height: boardAreaSideLength,
-                    width: boardAreaSideLength,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
+                    height: '5%',
+                    width: '5%',
                     position: 'absolute',
                     right: 0,
+                    top: 0,
                     
                 }}
 
@@ -168,6 +167,7 @@ export default function PlayPage(props) {
                 moveList={moveList}
                 gameStatus={gameStatus}
                 handleColumnClick={handleColumnClick} 
+                
             />
             {/* <InfoPanel 
                 gameStatus={gameStatus}
