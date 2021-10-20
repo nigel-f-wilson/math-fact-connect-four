@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom"
 import PropTypes from 'prop-types'
 
 // MY components
-import { Menu } from "../components/Menu";
+import { InGameMenu, AccountMenu } from "../components/Menu";
 import { GameBoard } from "../components/GameBoard";
 import { InfoPanel } from "../components/InfoPanel";
 import { MathQuestionModal } from "../components/MathQuestionModal";
@@ -139,17 +139,11 @@ export default function PlayPage(props) {
             alignItems: 'center', 
             position: 'relative' 
         }}>
-
-            <Menu 
+            <AccountMenu />
+            <InGameMenu
                 handleNewGameClick={handleNewGameClick}
-                sx={{
-                    height: '5%',
-                    width: '5%',
-                    position: 'absolute',
-                    right: 0,
-                    top: 0,
-                    
-                }}
+                handleUndoClick={handleUndoClick}
+               
 
             />
 
