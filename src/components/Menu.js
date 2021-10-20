@@ -28,6 +28,12 @@ export function Menu(props) {
                 sx={{
                     color: 'common.black',
                     bgcolor: 'background',
+                    position: 'absolute',
+                    top: '1%',
+                    right: '1%',
+                    zIndex: 9999,
+                    padding: 0,
+                    minWidth: '10px',
                 }}
             >
                 <MenuIcon />
