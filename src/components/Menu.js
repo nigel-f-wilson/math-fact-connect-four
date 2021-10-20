@@ -19,7 +19,8 @@ import ReplayIcon from "@material-ui/icons/Replay";
 import MenuIcon from '@material-ui/icons/Menu';
 import PersonAdd from '@material-ui/icons/PersonAdd';
 import Settings from '@material-ui/icons/Settings';
-import Logout from '@material-ui/icons/Logout';
+// import Logout from '@material-ui/icons/Logout';
+
 
 
 
@@ -72,7 +73,70 @@ export function InGameMenu(props) {
                     horizontal: 'right', 
                 }}
             >
-                <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+                <Menu
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={closeMenu}
+                    onClick={closeMenu}
+                    PaperProps={{
+                        elevation: 0,
+                        sx: {
+                            overflow: 'visible',
+                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                            mt: 1.5,
+                            '& .MuiAvatar-root': {
+                                width: 32,
+                                height: 32,
+                                ml: -0.5,
+                                mr: 1,
+                            },
+                            '&:before': {
+                                content: '""',
+                                display: 'block',
+                                position: 'absolute',
+                                top: 0,
+                                right: 14,
+                                width: 10,
+                                height: 10,
+                                bgcolor: 'background.paper',
+                                transform: 'translateY(-50%) rotate(45deg)',
+                                zIndex: 0,
+                            },
+                        },
+                    }}
+                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                >
+                    <MenuItem>
+                        <NewGameButton 
+                            handleClick={handleNewGameClick}
+                        />
+                    </MenuItem>
+                    <MenuItem>
+                        <UndoButton 
+                            handleClick={handleUndoClick}
+                        />
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem>
+                        <ListItemIcon>
+                            <PersonAdd fontSize="small" />
+                        </ListItemIcon>
+                        Add another account
+                    </MenuItem>
+                    <MenuItem>
+                        <ListItemIcon sx={{ color: '#000', pr: 2 }} >
+                            <Settings fontSize="medium" />
+                        </ListItemIcon>
+                        Settings
+                    </MenuItem>
+                    <MenuItem>
+                        <ListItemIcon sx={{ color: '#000', fontSize: '1.2rem', pr: 2 }} >
+                            <i class="fas fa-robot"></i>
+                        </ListItemIcon>
+                        Logout
+                    </MenuItem>
+                </Menu>
             </Popover>
         </React.Fragment>
     );
