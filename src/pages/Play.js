@@ -87,8 +87,9 @@ export default function PlayPage(props) {
                 inputType: 'textField',
                 instruction: null,
                 formatString: 'a+b=c',  // Change this to use Latex
-                missingVar: 'c',
                 vars: [1, 2, 3],
+                missingVar: 2,      // Thin index in the vars array of the term to leave blank. 
+
             }
         })
     }
