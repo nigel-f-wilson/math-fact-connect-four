@@ -1,10 +1,7 @@
 import React from 'react'
 
-// MY  components
-
 // MUI  components
 import { Box, Button, Dialog, DialogContent, DialogActions, DialogContentText, DialogTitle, Zoom, TextField, Typography } from '@material-ui/core'
-// import { height, width } from '@material-ui/system'
 
 // Style & Layout Constants
 
@@ -75,44 +72,52 @@ export function MathQuestionModal(props) {
             
         >
             <DialogTitle id="Instructions"
-                sx={{ border: 'solid red 1px', height: '30%' }}
-            >
-                {/* {instruction} */}
-                <Typography
-                    variant='h6'
-                    align='center'
-                >
-                    {instruction}
-                </Typography>
-            </DialogTitle>
-
-            
-            <DialogContent id="Equation" dividers
-                sx={{ width: '100%', 
-                border: 'solid red 1px',
-                flex: '0 0 40%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-
+                sx={{ 
+                    border: 'solid red 1px', 
+                    height: '30%',
+                    width: '80%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    fontSize: '4vmin',
 
                 }}
             >
-                <Typography
-                    variant='h1'
-                    align='center'
-                >
-                    {formatString}
-                </Typography>
+                {instruction}
+            </DialogTitle>
+
+            
+            <DialogContent id="Equation" 
+                dividers
+                sx={{ width: '100%', 
+                    border: 'solid red 1px',
+                    flex: '0 0 40%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontSize: '18vmin',
+                    overflow: 'hidden'
+
+                }}
+            >
+                {formatString}
             </DialogContent>
 
 
             <DialogActions id="AnswerInput"
-                sx={{ border: 'solid red 1px', height: '30%' }}
+                sx={{ 
+                    border: 'solid red 1px', 
+                    height: '30%' 
+                }}
             >
                 
                 {input}
-                <Button onClick={closeQuestionModal}>Agree</Button>
+                <Button 
+                    onClick={closeQuestionModal}
+                    variant='contained'
+                    sx={{ ml: 4}}
+                >
+                    Submit
+                </Button>
                 
             </DialogActions>
         </Dialog>
