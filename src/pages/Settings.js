@@ -77,7 +77,7 @@ export default function SettingsPage() {
         return (
             <Button
                 disabled={props.disabled}
-                variant="outlined"
+                variant="contained"
                 onClick={() => { 
                     setActiveStep((prev) => prev + 1) }}
                 sx={{ m: 1 }}
@@ -90,7 +90,7 @@ export default function SettingsPage() {
         return (
             <Button
                 disabled={props.disabled}
-                variant="outlined"
+                variant="contained"
                 component={RouterLink}
                 to={{
                     pathname: '/play',
