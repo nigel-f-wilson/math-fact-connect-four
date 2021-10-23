@@ -96,14 +96,12 @@ export default function PlayPage(props) {
     
     
     function handleAnswerSubmit(answer) {
-        const { isOpen, activeCell, activeColumn, question } = modalState
-        const { topic, formatString, missingVar, vars } = question
+        const { isOpen, activeCell, question } = modalState
+        const { vars, missingVar } = question
 
-
-
-        let MATH_QUESTION_CORRECT = true
-
-        let moveToAdd = MATH_QUESTION_CORRECT ? activeCell : -1
+        // let answer = answer.trim whitespace and remove commas
+        console.log(`Answer submitted was ${(answer === vars[missingVar]) ? 'CORRECT' : 'WRONG'}`)
+        let moveToAdd = (answer === vars[missingVar]) ? activeCell : -1 // Check if answer is correct
         let updatedMoveList = moveList.concat(moveToAdd)
         let updatedGameStatus = getGameStatus(updatedMoveList)
         setMoveList(updatedMoveList)
