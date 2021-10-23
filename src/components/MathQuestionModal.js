@@ -1,14 +1,10 @@
 import React from 'react'
 
-
-import '../App.css';
-
 // MY  components
-import { CompareButtons } from "./buttons/CompareButtons";
 
 // MUI  components
 import { Box, Button, Dialog, DialogContent, DialogActions, DialogContentText, DialogTitle, Zoom, TextField, Typography } from '@material-ui/core'
-import { height, width } from '@material-ui/system'
+// import { height, width } from '@material-ui/system'
 
 // Style & Layout Constants
 
