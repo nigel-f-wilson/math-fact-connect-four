@@ -16,6 +16,7 @@ import {
 
 // Icons
 import ReplayIcon from "@material-ui/icons/Replay";
+import UndoIcon from "@material-ui/icons/Undo";
 import MenuIcon from '@material-ui/icons/Menu';
 import PersonAdd from '@material-ui/icons/PersonAdd';
 import Settings from '@material-ui/icons/Settings';
@@ -150,6 +151,9 @@ function NewGameButton(props) {
             variant="outlined"
             startIcon={<ReplayIcon />}
             onClick={() => handleClick()}
+            sx={{
+                width: '100%'
+            }}
         >
             New&nbsp;Game
         </Button>
@@ -161,10 +165,13 @@ function UndoButton(props) {
     return (
         <Button
             variant="outlined"
-            startIcon={<ReplayIcon />}
+            startIcon={<UndoIcon />}
             onClick={() => handleClick()}
+            sx={{
+                width: '100%'
+            }}
         >
-            New&nbsp;Game
+            Undo&nbsp;Move
         </Button>
     )
 }
