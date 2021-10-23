@@ -118,3 +118,26 @@ export function MathQuestionModal(props) {
         </Dialog>
     )
 }
+
+
+function CompareButtons(props) {
+    let { handleAnswerSubmit, closeQuestionModal } = props
+
+    
+    return (
+        <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+
+        >
+            <Button />
+            <Button />
+
+            <Button />
+
+        </Box>
+    )
+}
