@@ -40,12 +40,28 @@ export default function PlayPage(props) {
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
     
     const [modalState, setModalState] = React.useState({
-        isOpen: false,
-        activeColumn: null,
-        topic: null,   // 'combining',
-        questionFormatString: null,  // 'a+b=c',
-        vars: [1,2,3]
+        isOpen: true,
+        activeCell: 5,
+        question: {
+            topic: 'combining',
+            inputType: 'textField',
+            instruction: "What number makes this equation true?",
+            formatString: 'a+b=c',  // Change this to use Latex
+            missingVar: 'c',
+            vars: [1, 2, 3],
+        }
     })
+    // const [modalState, setModalState] = React.useState({
+    //     isOpen: false,
+    //     activeCell: null,
+    //     question: {
+    //         topic: null,
+    //         instruction: null,
+    //         formatString: null,
+    //         vars: [1, 2, 3],
+    //         missingVar: null,
+    //     }
+    // })
 
 
     ///////////////////////////////////////////////////////
@@ -66,13 +82,21 @@ export default function PlayPage(props) {
         setModalState({
             isOpen: true,
             activeCell: lowestUnclaimedCell,
-            activeColumn: columnIndex,
             question: {
                 topic: 'combining',
-                formatString: 'a+b=c',
+                inputType: 'textField',
+                instruction: null,
+                formatString: 'a+b=c',  // Change this to use Latex
                 missingVar: 'c',
                 vars: [1, 2, 3],
             }
+        })
+    }
+    function closeQuestionModal() {
+        setModalState({
+            isOpen: false,
+            activeCell: null,
+            question: null
         })
     }
     function handleAnswerSubmit(answer) {
@@ -103,13 +127,28 @@ export default function PlayPage(props) {
     function handleNewGameClick() {
         setMoveList([])
         setGameStatus('playerOnesTurn')
+        setModalState({
+            isOpen: false,
+            activeCell: null,
+            topic: null,   // 'combining',
+            questionFormatString: null,  // 'a+b=c',
+            vars: [1, 2, 3]
+        })
         console.log(`NEW GAME !!!`)
-        return 0;
     }
     function handleUndoClick() {
-        setMoveList(moveList.slice(0, -1))
+        let shortenedMoveList = moveList.slice(0, -1)
+        setMoveList(shortenedMoveList)
+        setGameStatus(getGameStatus(shortenedMoveList))
+        setModalState({
+            isOpen: false,
+            activeCell: null,
+            topic: null,   // 'combining',
+            answerFormat: "textField", // "textField" or "compareButtons"
+            questionFormatString: null,  // 'a+b=c',
+            vars: [1, 2, 3]
+        })
         console.log(`UNDO !!!`)
-        return 0;
     }
    
 
@@ -142,19 +181,14 @@ export default function PlayPage(props) {
             <InGameMenu
                 handleNewGameClick={handleNewGameClick}
                 handleUndoClick={handleUndoClick}
-               
-
             />
 
-            
-            
             <MathQuestionModal 
                 modalState={modalState}
-                open={modalState.isOpen}
-                // open={questionModalIsOpen}
+                // open={modalState.isOpen}
                 handleAnswerSubmit={handleAnswerSubmit}
-                // closeQuestionModal={closeQuestionModal}
                 boardAreaSideLength={boardAreaSideLength}
+                closeQuestionModal={closeQuestionModal}
             />
             <GameBoard
                 moveList={moveList}
