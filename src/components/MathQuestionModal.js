@@ -10,7 +10,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 })
 
 export function MathQuestionModal(props) {
-    let { modalState, boardAreaSideLength, handleAnswerSubmit, closeQuestionModal } = props
+    let { modalState, boardAreaSideLength, handleAnswerSubmit } = props
     let { isOpen, activeCell, question } = modalState
     let { topic, inputType, instruction, formatString, vars, missingVar, } = question
 
@@ -112,7 +112,7 @@ export function MathQuestionModal(props) {
                 
                 {input}
                 <Button 
-                    onClick={closeQuestionModal}
+                    onClick={handleAnswerSubmit}
                     variant='contained'
                     sx={{ ml: 4}}
                 >
@@ -126,7 +126,7 @@ export function MathQuestionModal(props) {
 
 
 function CompareButtons(props) {
-    let { handleAnswerSubmit, closeQuestionModal } = props
+    let { handleAnswerSubmit } = props
 
     
     return (

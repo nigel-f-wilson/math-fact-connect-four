@@ -92,13 +92,8 @@ export default function PlayPage(props) {
             }
         })
     }
-    function closeQuestionModal() {
-        setModalState({
-            isOpen: false,
-            activeCell: null,
-            question: null
-        })
-    }
+    
+    
     function handleAnswerSubmit(answer) {
         const { isOpen, activeCell, activeColumn, question } = modalState
         const { topic, formatString, missingVar, vars } = question
@@ -188,7 +183,6 @@ export default function PlayPage(props) {
                 // open={modalState.isOpen}
                 handleAnswerSubmit={handleAnswerSubmit}
                 boardAreaSideLength={boardAreaSideLength}
-                closeQuestionModal={closeQuestionModal}
             />
             <GameBoard
                 moveList={moveList}
