@@ -132,7 +132,7 @@ export function InGameMenu(props) {
                     </MenuItem>
                     <MenuItem>
                         <ListItemIcon sx={{ color: '#000', fontSize: '1.2rem', pr: 2 }} >
-                            <i class="fas fa-robot"></i>
+                            <i className="fas fa-robot"></i>
                         </ListItemIcon>
                         Logout
                     </MenuItem>
