@@ -40,7 +40,7 @@ export default function PlayPage(props) {
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
     
     const [modalState, setModalState] = React.useState({
-        isOpen: true,
+        isOpen: false,
         activeCell: 5,
         question: {
             topic: 'combining',
