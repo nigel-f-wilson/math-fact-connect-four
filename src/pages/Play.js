@@ -15,7 +15,7 @@ import { getQuestion } from '../questionGenerator'
 import { useScreenWidth, useScreenHeight } from "../hooks"
 
 // MUI  components
-import { Box, Container } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 
 export default function PlayPage(props) {
     // For Development don't useLocation until the different question modes are actually built. 
