@@ -38,30 +38,18 @@ export default function PlayPage(props) {
     const [moveList, setMoveList] = React.useState([])  
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
     
-    const [modalState, setModalState] = React.useState({
+    const [modalState, setModalState] = React.useState({  // INITIALIZE  STATE
         isOpen: false,
-        activeCell: 5,
+        activeCell: null,
         question: {
-            topic: 'combining',
-            inputType: 'textField',
-            instruction: "What number makes this equation true?",
-            formatString: 'a+b=c',  // Change this to use Latex
-            missingVar: 'c',
-            vars: [1, 2, 3],
+            topic: null,
+            inputType: null,
+            instruction: null,
+            formatString: null,  // Change this to use Latex
+            vars: [],
+            missingVar: null,
         }
     })
-    // const [modalState, setModalState] = React.useState({
-    //     isOpen: false,
-    //     activeCell: null,
-    //     question: {
-    //         topic: null,
-    //         instruction: null,
-    //         formatString: null,
-    //         vars: [1, 2, 3],
-    //         missingVar: null,
-    //     }
-    // })
-
 
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
