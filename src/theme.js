@@ -21,7 +21,7 @@ const theme = createTheme({
         },
         secondary: {
             light: '#FFFFF',
-            main: '#669944',  // washed out shade of primary.main
+            main: 'rgba(46, 107, 18, 0.8)',  // washed out shade of primary.main
             dark: '#004000',  // Color applied on Button Hover
             contrastText: '#FFFFFF'
         },
