@@ -14,16 +14,11 @@ import InfoPage from "./pages/Info"
 // MUI  components
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Box from '@material-ui/core/Box'
-import Container from '@material-ui/core/Container'
 
 
-// CSS & THEMING
-import './App.css';
+// THEME
 import theme from "./theme"
-import {
-    // makeStyles,
-    ThemeProvider,
-} from '@material-ui/core/styles'
+import { ThemeProvider, } from '@material-ui/core/styles'
 
 export default function App() {
     return (
