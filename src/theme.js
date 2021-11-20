@@ -16,13 +16,13 @@ const theme = createTheme({
         primary: {
             light: '#669944',
             main: '#2e6b12',
-            dark: '#004000',
+            dark: '#004000',  // Color applied on Button Hover
             contrastText: '#FFFFFF'
         },
         secondary: {
             light: '#FFFFF',
-            main: '#669944',
-            dark: '#777777',
+            main: '#669944',  // washed out shade of primary.main
+            dark: '#004000',  // Color applied on Button Hover
             contrastText: '#FFFFFF'
         },
         text: {
@@ -41,13 +41,15 @@ const theme = createTheme({
             dark: '#001399',
         },
         chip: {
-            playerOne: '#d50000',
-            playerTwo: '#ffea00',
-            unclaimed: '#b3e5fc',
+            playerOne: '#d50000',  // red
+            playerTwo: '#ffea00',  // yellow
+            unclaimed: '#b3e5fc',  // light blue
         },
         background: '#b3e5fc',
         white: '#FFFFFF',
         transparent: 'rgba(0, 0, 0, 0)',
+        selectedButton: 'rgba(46, 107, 18, 1.0)',     // Same as primary.main
+        unselectedButton: 'rgba(46, 107, 18, 0.65)',
     },
     components: {
         MuiPaper: {

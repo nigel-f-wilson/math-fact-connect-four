@@ -1,8 +1,8 @@
 import React from 'react'
 import {
     HashRouter as Router,
+    Routes,
     Route,
-    Switch
 } from "react-router-dom"
 
 // PAGES
@@ -45,21 +45,12 @@ export default function App() {
                     }}
                 >
                     <Router>
-                        <Switch>
-                            <Route exact path="/">
-                                <WelcomePage />
-                            </Route>
-                            <Route exact path="/settings">
-                                <SettingsPage />
-                            </Route>
-                            <Route path="/play" >
-                                <PlayPage />
-                            </Route>
-                            <Route path="/info" >
-                                <InfoPage />
-                            </Route>
-
-                        </Switch>
+                        <Routes>
+                            <Route exact path="/" element={<WelcomePage />} />
+                            <Route exact path="/settings" element={<SettingsPage />} />
+                            <Route exact path="/play" element={<PlayPage />} />
+                            <Route exact path="/info" element={<InfoPage />} />
+                        </Routes>
                     </Router>
                 </Box>
             </ThemeProvider>
