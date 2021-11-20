@@ -53,10 +53,10 @@ export function GameBoard(props) {
         <Container id="gameBoard"
             disableGutters
             sx={{
-                border: 'solid red 5px',
-                position: 'relative',
-                height: boardSideLength,
-                width: boardSideLength,
+                position: 'absolute',
+                top: 0,
+                height: '95%',
+                width: '95%',
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'flex-end'
@@ -72,6 +72,7 @@ export function GameBoard(props) {
                         key={columnIndex}
                         index={columnIndex}
                         chipColors={chipColors}
+                        gameStatus={gameStatus}
                         nextPlayerColor={nextPlayerColor(gameStatus)}
                         handleColumnClick={handleColumnClick}
                     />
@@ -83,24 +84,7 @@ export function GameBoard(props) {
     )
 }
 
-function RoundedBoardFrame(props) {
-    return (
-        <Box id='roundedGameBorder'
-            sx={{
-                boxSizing: 'content-box',
-                position: 'absolute',
-                top: squarePercentage,
-                left: '-9px',
-                width: 'calc(100% - 2px)',
-                height: heightOfSixSquares,
-                border: "10px solid",
-                borderColor: "board.main",
-                borderRadius: "10px",
-                borderTop: 0
-            }}
-        />
-    )
-}
+
 function InfoHeaderRow(props) {
     let { gameStatus } = props
     let gameOver = gameIsOver(gameStatus)
@@ -133,18 +117,60 @@ function InfoHeaderRow(props) {
         </Box>
     )
 }
-
+function RoundedBoardFrame(props) {
+    return (
+        <Box id='roundedGameBorder'
+            sx={{
+                boxSizing: 'content-box',
+                position: 'absolute',
+                top: squarePercentage,
+                left: '-9px',
+                width: 'calc(100% - 2px)',
+                height: heightOfSixSquares,
+                border: "10px solid",
+                borderColor: "board.main",
+                borderRadius: "10px",
+                borderTop: 0
+            }}
+        />
+    )
+}
 function Column(props) {
-    const { index, chipColors, lastMoveWasHere, nextPlayerColor, handleColumnClick } = props
-    // const [hoverRef, isHovered] = useHover()
-    // console.log(`You ${isHovered ? "ARE" : "are NOT"} hovering on column: ${columnId}`)
-
+    const { index, chipColors, gameStatus, nextPlayerColor, handleColumnClick } = props
+    let columnLetter = ''
+    if (!gameIsOver(gameStatus)) {
+        switch (index) {
+            case 0:
+                columnLetter = 'A'
+                break;
+            case 1:
+                columnLetter = 'B'
+                break;
+            case 2:
+                columnLetter = 'C'
+                break;
+            case 3:
+                columnLetter = 'D'
+                break;
+            case 4:
+                columnLetter = 'E'
+                break;
+            case 5:
+                columnLetter = 'F'
+                break;
+            case 6:
+                columnLetter = 'G'
+                break;
+            default:
+                columnLetter = 'error'
+                break;
+        }
+    }
     return (
         <Box id="column" 
             // ref={hoverRef} 
             onClick={() => handleColumnClick(index)}
             sx={{
-                // border: 'solid red 1px',
                 position: 'relative',
                 width: squarePercentage,
                 height: '100%',
@@ -155,52 +181,9 @@ function Column(props) {
                 },
             }}
         >
-            <Box id="hoverChipContainer" 
-                sx={{
-                    // border: 'solid red 1px',
-                    width: '100%',
-                    height: squarePercentage,
-                    zIndex: 8,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}
-            >
-                <Box id="hoverChip"
-                    sx={{
-                        bgcolor: 'background',
-                        width: chipSizeRelativeToSquare,
-                        height: chipSizeRelativeToSquare,
-                        borderRadius: '50%',
-                        zIndex: 8,
-                    }}
-                />
-            </Box>
-            <Box id="chipContainer"
-                sx={{
-                    bgcolor: 'primary.main',
-                    width: '100%',
-                    height: '100%',
-                    position: 'absolute',
-                    top: squarePercentage,
-                    bgcolor: 'transparent',
-                    height: heightOfSixSquares,
-                    zIndex: 8,
-                    display: 'flex',
-                    flexDirection: 'column-reverse',
-                }}
-            >
-                {chipColors.map((color,index) => {
-                    return <Chip
-                        key={index}
-                        id={index}
-                        color={color}
-                        // transition={false}
-                    />
-                })}
-            </Box>
+            <HoverChipArea columnLetter={columnLetter} />
+            <ChipContainer chipColors={chipColors} />
             <ColumnOfSquaresWithHoles />
-
         </Box>
     );
 }
@@ -214,7 +197,6 @@ function Chip(props) {
     const { id, color } = props
     let claimed = (color !== "unclaimed")
     let bgcolor = `chip.${color}`
-
     return (
         <Slide in={claimed} 
             direction="down"
@@ -225,9 +207,6 @@ function Chip(props) {
                 sx={{
                     width: '100%',
                     height: rowHeightPercentage,
-                    // zIndex: 8,
-                    // zIndex: 'zIndex.chip',
-                    // zIndex: 'chip',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -236,7 +215,6 @@ function Chip(props) {
                 <Box id="chip"
                     sx={{
                         borderRadius: '50%',
-                        // zIndex: 'zIndex.chip',
                         zIndex: 'chip',
                         bgcolor: bgcolor,
                         width: chipSizeRelativeToSquare,
@@ -253,10 +231,63 @@ Chip.propTypes = {
     color: PropTypes.oneOf(['playerOne', 'playerTwo', 'unclaimed']),
 }
 
-
-
-
-
+function HoverChipArea(props) {
+    return (
+        <Box id="hoverChipContainer"
+            sx={{
+                // border: 'solid red 1px',
+                width: '100%',
+                height: squarePercentage,
+                zIndex: 8,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
+        >
+            <Box id="hoverChip"
+                sx={{
+                    bgcolor: 'background',
+                    width: chipSizeRelativeToSquare,
+                    height: chipSizeRelativeToSquare,
+                    borderRadius: '50%',
+                    zIndex: 8,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'flex-end'
+                }}
+            >
+                {props.columnLetter}
+            </Box>
+        </Box>
+    )
+}
+function ChipContainer(props) {
+    return (
+        <Box id="chipContainer"
+            sx={{
+                bgcolor: 'primary.main',
+                width: '100%',
+                height: '100%',
+                position: 'absolute',
+                top: squarePercentage,
+                bgcolor: 'transparent',
+                height: heightOfSixSquares,
+                zIndex: 8,
+                display: 'flex',
+                flexDirection: 'column-reverse',
+            }}
+        >
+            {props.chipColors.map((color, index) => {
+                return <Chip
+                    key={index}
+                    id={index}
+                    color={color}
+                // transition={false}
+                />
+            })}
+        </Box>
+    )
+}
 function ColumnOfSquaresWithHoles(props) {
     function SquareWithHole(props) {
         return (

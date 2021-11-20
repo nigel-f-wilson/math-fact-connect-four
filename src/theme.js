@@ -54,14 +54,24 @@ const theme = createTheme({
             styleOverrides: {  // Name of the slot
                 root: {        // Some CSS
                     backgroundColor: '#fff',
-                    borderRadius: '50%',
-                    height: '80%',
-                    width: '80%',
-                    transform: 'translate(0, 15%)'
-                    
                 },
             },
         },
+        // MuiPaper: {
+        //     styleOverrides: {  // Name of the slot
+        //         root: {        // Some CSS
+        //             backgroundColor: '#fff',
+        //             borderRadius: '50%',
+        //             // borderRadius: '5%',
+        //             height: 'min(85vh, 85vw)',
+        //             width: 'min(85vh, 85vw)',
+        //             transform: 'translate(0, 27vh)',
+        //             // display: 'flex',
+        //             // justifyContent: 'center',
+
+        //         },
+        //     },
+        // },
     },
     typography: {
         button: {
