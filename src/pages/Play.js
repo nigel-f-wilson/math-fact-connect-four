@@ -3,7 +3,6 @@ import { useLocation, useParams } from "react-router-dom"
 import PropTypes from 'prop-types'
 
 // ICONS
-import { HomeIcon } from "../icons";
 
 // MY components
 import { InGameMenu, AccountMenu } from "../components/Menu";
