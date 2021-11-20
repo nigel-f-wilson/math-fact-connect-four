@@ -5,13 +5,21 @@ import { useScreenWidth } from "../hooks";
 
 // MY components
 
-// MY icons
-import { HomeIcon, RobotIcon, CoffeeIcon, UserIcon, UserFriendsIcon } from "../icons";
-// import SettingsIcon from '@mui/icons-material/Settings';
-
+// ICONS
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRobot, faUser, faPlus, faTimes, faDivide, faSuperscript } from '@fortawesome/free-solid-svg-icons'
 
 // MUI  components
 import { Box, Button, Typography, Container, Divider,  Stack } from '@material-ui/core';
+
+
+const RobotIcon = () => { return <FontAwesomeIcon icon={faRobot} /> }
+const UserIcon = () => { return <FontAwesomeIcon icon={faUser} /> }
+const PlusIcon = () => { return <FontAwesomeIcon icon={faPlus} /> }
+const TimesIcon = () => { return <FontAwesomeIcon icon={faTimes} /> }
+const DivideIcon = () => { return <FontAwesomeIcon icon={faDivide} /> }
+const SuperscriptIcon = () => { return <FontAwesomeIcon icon={faSuperscript} /> }
+
 
 
 export default function WelcomePage() {
