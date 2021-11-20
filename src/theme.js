@@ -41,9 +41,9 @@ const theme = createTheme({
             dark: '#001399',
         },
         chip: {
-            playerOne: '#d50000',
-            playerTwo: '#ffea00',
-            unclaimed: '#b3e5fc',
+            playerOne: '#d50000',  // red
+            playerTwo: '#ffea00',  // yellow
+            unclaimed: '#b3e5fc',  // light blue
         },
         background: '#b3e5fc',
         white: '#FFFFFF',
