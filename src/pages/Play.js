@@ -32,6 +32,18 @@ export default function PlayPage(props) {
     const width = useScreenWidth()
     const boardAreaSideLength = (height <= width) ? height : width
 
+    // QUESTION INTERFACE
+    // interface Question {
+    //     topic: string,
+    //     inputType: string,
+    //     instruction: string,
+    //     formatString: string,  // Change this to use Latex
+    //     vars: Array<number>,
+    //     missingVar: number,
+    // }
+    // const unsetQuestion = 
+    
+    
     // GAME STATE
     // MOVELIST --> An Array of integers ranging -1 thru 41 of indeterminate length
     // GAMESTATUS --> Enum ['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw']
@@ -40,10 +52,10 @@ export default function PlayPage(props) {
     
     const [modalState, setModalState] = React.useState({  // INITIALIZE  STATE
         isOpen: false,
-        activeCell: null,
+        activeCell: -1,
         question: {
-            topic: null,
-            inputType: null,
+            topic: "",
+            inputType: "",      
             instruction: null,
             formatString: null,  // Change this to use Latex
             vars: [],
@@ -64,7 +76,7 @@ export default function PlayPage(props) {
             return -1
         }
         let question = getQuestion(mathTopics, columnIndex)
-        console.log(`QUESTION: ${JSON.stringify(question)}`);
+        console.log(`QUESTION: ${JSON.stringify(question)}`)
         
         setModalState({
             isOpen: true,
