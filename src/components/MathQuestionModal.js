@@ -26,7 +26,7 @@ export function MathQuestionModal(props) {
         />
     
     
-    console.log(`board area side length: ${boardAreaSideLength}`);
+    // console.log(`board area side length: ${boardAreaSideLength}`);
     
     return (
         <Dialog keepMounted

@@ -2,6 +2,9 @@ import React from 'react'
 import { useLocation } from "react-router-dom"
 import PropTypes from 'prop-types'
 
+// ICONS
+import { HomeIcon } from "../icons";
+
 // MY components
 import { InGameMenu, AccountMenu } from "../components/Menu";
 import { GameBoard } from "../components/GameBoard";
@@ -15,7 +18,7 @@ import { getQuestion } from '../questionGenerator'
 import { useScreenWidth, useScreenHeight } from "../hooks"
 
 // MUI  components
-import { Box } from '@material-ui/core'
+import { Box, AppBar, Toolbar, IconButton } from '@material-ui/core'
 
 export default function PlayPage(props) {
     // For Development don't useLocation until the different question modes are actually built. 
@@ -194,6 +197,20 @@ export default function PlayPage(props) {
                 questionType={questionType}
                 handleNewGameClick={handleNewGameClick}
             /> */}
+            {/* <AppBar position="fixed" color="primary" sx={{ top: 'auto', bottom: 0 }}>
+                <Toolbar>
+                    <IconButton color="inherit" aria-label="open drawer">
+                        <HomeIcon />
+                    </IconButton>
+                    <IconButton color="inherit" aria-label="open drawer">
+                        <HomeIcon />
+                    </IconButton><IconButton color="inherit" aria-label="open drawer">
+                        <HomeIcon />
+                    </IconButton><IconButton color="inherit" aria-label="open drawer">
+                        <HomeIcon />
+                    </IconButton>
+                </Toolbar>
+            </AppBar> */}
         </Box>
     )
 }

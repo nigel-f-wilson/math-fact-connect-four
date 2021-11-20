@@ -1,13 +1,17 @@
 import React from 'react'
 import { Link as RouterLink } from "react-router-dom";
 
+import { useScreenWidth } from "../hooks";
+
 // MY components
 
 // MY icons
-import { HomeIcon, RobotIcon } from "../icons";
+import { HomeIcon, RobotIcon, CoffeeIcon, UserIcon, UserFriendsIcon } from "../icons";
+// import SettingsIcon from '@mui/icons-material/Settings';
+
 
 // MUI  components
-import { Box, Button, Typography, Container, SvgIcon } from '@material-ui/core';
+import { Box, Button, Typography, Container, Divider,  Stack } from '@material-ui/core';
 
 
 export default function WelcomePage() {
@@ -37,7 +41,8 @@ export default function WelcomePage() {
             p: '1rem', 
             display: 'flex', 
             flexDirection: 'column', 
-            alignItems: 'center'}} 
+            alignItems: 'center',
+            }} 
         >
             {/* <Typography color="text.primary" variant="h5" gutterBottom align='center' >
                 Welcome to
@@ -78,54 +83,46 @@ export default function WelcomePage() {
 }
 
 function OpponentSelector(props) {
+    let width = useScreenWidth()
+    const buttonWidth = '47%'
+
     const { opponent, clickHandler } = props
     
     return (
         <Box 
-            sx={{ 
-                border: 'solid red 1px', 
-                display: 'flex', 
-                flexDirection: 'column', 
-                flex: '0 1 15%', 
-                width: '100%' }} 
+            sx={{
+                width: '100%',
+                padding: '1rem 0', 
+                display: 'flex',
+                justifyContent: 'space-around',
+                borderBottom: 'solid #333 1px'
+            }}
         >
             <Button
-                // className={`${classes.button} ${props.difficultyMode === "easy" ? classes.selectedButton : classes.unselectedButton} `}
+                startIcon={<UserIcon />}
                 variant={'contained'}
                 onClick={() => clickHandler("human")}
                 color={opponent === "human" ? 'primary' : 'secondary'}
-
+                children={width <= 600 ? 'vs. Human' : 'Play vs. Human'}
+                sx={{
+                    width: buttonWidth,
+                }}
             >
-                <HomeIcon />
-
-                <RobotIcon />
-                Easy
             </Button>
             <Button
-                // className={`${classes.button} ${props.difficultyMode === "medium" ? classes.selectedButton : classes.unselectedButton} `}
+                startIcon={<RobotIcon />}
                 variant={'contained'}
                 onClick={() => clickHandler("bot")}
                 color={opponent === "bot" ? 'primary' : 'secondary'}
+                sx={{
+                    width: buttonWidth,
+                }}
+                children={width <= 600 ? 'vs. Bot' : 'Play vs. Bot'}
             >
-                Medium
+                
             </Button>
-
-            {/* <FormControl component="fieldset">
-                <RadioGroup
-                    aria-label="opponent"
-                    defaultValue="human"
-                    name="radio-buttons-group"
-                    value={opponent}
-                    onChange={(event, value) => { setOpponent(value) }}
-                >
-                    <FormControlLabel control={<Radio />} value="human" label="Human vs. Human Mode" />
-                    <FormControlLabel control={<Radio />} value="bot" label="Human vs. Bot Mode " />
-                </RadioGroup>
-            </FormControl>
-            <Box sx={{ mt: 1, display: 'flex', justifyContent: 'space-between' }}>
-                <BackButton disabled />
-                <NextButton />
-            </Box> */}
         </Box>
+        
+
     );
 }
