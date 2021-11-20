@@ -2,6 +2,9 @@ import React from 'react'
 import { useLocation } from "react-router-dom"
 import PropTypes from 'prop-types'
 
+// ICONS
+import { HomeIcon } from "../icons";
+
 // MY components
 import { InGameMenu, AccountMenu } from "../components/Menu";
 import { GameBoard } from "../components/GameBoard";
@@ -194,6 +197,10 @@ export default function PlayPage(props) {
                 questionType={questionType}
                 handleNewGameClick={handleNewGameClick}
             /> */}
+                        <HomeIcon />
+                        <HomeIcon />
+                        <HomeIcon />
+                        <HomeIcon />
         </Box>
     )
 }

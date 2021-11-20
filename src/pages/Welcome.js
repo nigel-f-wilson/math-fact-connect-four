@@ -4,7 +4,9 @@ import { Link as RouterLink } from "react-router-dom";
 // MY components
 
 // MY icons
-import { HomeIcon, RobotIcon } from "../icons";
+import { HomeIcon, RobotIcon, CoffeeIcon, UserIcon, UserFriendsIcon } from "../icons";
+// import SettingsIcon from '@mui/icons-material/Settings';
+
 
 // MUI  components
 import { Box, Button, Typography, Container, SvgIcon } from '@material-ui/core';
@@ -94,15 +96,10 @@ function OpponentSelector(props) {
                 variant={'contained'}
                 onClick={() => clickHandler("human")}
                 color={opponent === "human" ? 'primary' : 'secondary'}
-
             >
-                <HomeIcon />
-
-                <RobotIcon />
-                Easy
             </Button>
             <Button
-                // className={`${classes.button} ${props.difficultyMode === "medium" ? classes.selectedButton : classes.unselectedButton} `}
+                startIcon={<RobotIcon />}
                 variant={'contained'}
                 onClick={() => clickHandler("bot")}
                 color={opponent === "bot" ? 'primary' : 'secondary'}
