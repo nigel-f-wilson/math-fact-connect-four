@@ -118,25 +118,6 @@ export function InGameMenu(props) {
                             handleClick={handleUndoClick}
                         />
                     </MenuItem>
-                    <Divider />
-                    <MenuItem>
-                        <ListItemIcon>
-                            <PersonAdd fontSize="small" />
-                        </ListItemIcon>
-                        Add another account
-                    </MenuItem>
-                    <MenuItem>
-                        <ListItemIcon sx={{ color: '#000', pr: 2 }} >
-                            <Settings fontSize="medium" />
-                        </ListItemIcon>
-                        Settings
-                    </MenuItem>
-                    <MenuItem>
-                        <ListItemIcon sx={{ color: '#000', fontSize: '1.2rem', pr: 2 }} >
-                            <i className="fas fa-robot"></i>
-                        </ListItemIcon>
-                        Logout
-                    </MenuItem>
                 </Menu>
             </Popover>
         </React.Fragment>
