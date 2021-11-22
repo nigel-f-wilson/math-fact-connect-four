@@ -8,7 +8,7 @@ import {
 
 // PAGES
 import WelcomePage from "./pages/Welcome"
-import SettingsPage from "./pages/Settings"
+// import SettingsPage from "./pages/Settings"
 import PlayPage from "./pages/Play"
 import InfoPage from "./pages/Info"
 
@@ -43,9 +43,22 @@ export default function App() {
                     <Router>
                         <Routes>
                             <Route exact path="/" element={<WelcomePage />} />
-                            <Route exact path="/settings" element={<SettingsPage />} />
-                            <Route exact path="/play" element={<PlayPage />} />
+                            {/* <Route exact path="/settings" element={<SettingsPage />} /> */}
+                            <Route exact path="/play" element={<PlayPage />} >
+                                <Route exact path=":opponent" element={<PlayPage />} />
+
+                            </Route>
+
+
                             <Route exact path="/info" element={<InfoPage />} />
+                            <Route
+                                path="*"
+                                element={
+                                    <main style={{ padding: "1rem" }}>
+                                        <p>This is a catcher for when no route matches!</p>
+                                    </main>
+                                }
+                            />
                         </Routes>
                     </Router>
                 </Box>
