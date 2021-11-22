@@ -1,14 +1,15 @@
 import React from 'react'
-import { useLocation } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import PropTypes from 'prop-types'
 
 // ICONS
-import { HomeIcon } from "../icons";
 
 // MY components
 import { InGameMenu, AccountMenu } from "../components/Menu";
 import { GameBoard } from "../components/GameBoard";
 import { MathQuestionModal } from "../components/MathQuestionModal";
+// import { GameSettingsModal } from "../components/GameSettingsModal";
+
 
 // Game Logic
 import { gameIsOver, getColumnData, getGameStatus, } from '../gameLogic'
@@ -18,12 +19,18 @@ import { getQuestion } from '../questionGenerator'
 import { useScreenWidth, useScreenHeight } from "../hooks"
 
 // MUI  components
-import { Box, AppBar, Toolbar, IconButton } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 
 export default function PlayPage(props) {
     // For Development don't useLocation until the different question modes are actually built. 
-    const location = useLocation()
-    const { opponent, mathTopics, timeLimit } = location.state
+    
+    // const location = useLocation()
+    // const { opponent, mathTopics, timeLimit } = location.state
+    let opponent = "human"
+    let mathTopics = ["combining"]
+    let timeLimit = 30
+
+    
     // console.log(`PLAY PAGE`);
     // console.log(`Opponent: ${opponent}`);
     let mathTopicsArray = Object.keys(mathTopics).filter(key => mathTopics[key] === true)

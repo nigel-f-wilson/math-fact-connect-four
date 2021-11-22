@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+    // BrowserRouter as Router,
     HashRouter as Router,
     Routes,
     Route,
@@ -7,23 +8,18 @@ import {
 
 // PAGES
 import WelcomePage from "./pages/Welcome"
-import SettingsPage from "./pages/Settings"
+// import SettingsPage from "./pages/Settings"
 import PlayPage from "./pages/Play"
 import InfoPage from "./pages/Info"
 
 // MUI  components
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Box from '@material-ui/core/Box'
-import Container from '@material-ui/core/Container'
 
 
-// CSS & THEMING
-import './App.css';
+// THEME
 import theme from "./theme"
-import {
-    // makeStyles,
-    ThemeProvider,
-} from '@material-ui/core/styles'
+import { ThemeProvider, } from '@material-ui/core/styles'
 
 export default function App() {
     return (
@@ -47,9 +43,22 @@ export default function App() {
                     <Router>
                         <Routes>
                             <Route exact path="/" element={<WelcomePage />} />
-                            <Route exact path="/settings" element={<SettingsPage />} />
-                            <Route exact path="/play" element={<PlayPage />} />
+                            {/* <Route exact path="/settings" element={<SettingsPage />} /> */}
+                            <Route exact path="/play" element={<PlayPage />} >
+                                <Route exact path=":opponent" element={<PlayPage />} />
+
+                            </Route>
+
+
                             <Route exact path="/info" element={<InfoPage />} />
+                            <Route
+                                path="*"
+                                element={
+                                    <main style={{ padding: "1rem" }}>
+                                        <p>This is a catcher for when no route matches!</p>
+                                    </main>
+                                }
+                            />
                         </Routes>
                     </Router>
                 </Box>
