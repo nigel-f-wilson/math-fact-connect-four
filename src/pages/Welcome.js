@@ -57,19 +57,16 @@ export default function WelcomePage() {
         <Container maxWidth='sm' sx={{ 
             width: '100%', 
             height: '100vh',
-            p: '0.5rem', 
+            p: '0.8rem', 
             display: 'flex', 
             flexDirection: 'column', 
             alignItems: 'center',
             }} 
         >
-            {/* <Typography color="text.primary" variant="h5" gutterBottom align='center' >
-                Welcome to
-            </Typography> */}
             <Typography color="text.primary" variant="h2" gutterBottom align='center' >
                 Math Fact<br/>Connect Four
             </Typography>
-            <Typography color="text.primary" variant="body1" gutterBottom align='justify' >
+            <Typography color="text.primary" variant="body2" gutterBottom align='justify' >
                 Two players (or teams) take turns dropping chips. 
                 Get four consecutive chips in any row, column, or diagonal to win!  
                 If you answer the math question that pops-up incorrectly your turn will be skipped.
@@ -78,42 +75,82 @@ export default function WelcomePage() {
             <OpponentSelector opponent={opponent} clickHandler={handleOpponentClick} />
             
             <MathTopicSelector mathTopics={mathTopics} clickHandler={handleMathTopicClick} />
-
             
+            <PlayNowButton />
             
-            <Button variant="contained" 
-                component={RouterLink}
-                // to='/play/:opponent'
-                to='/play'
-                sx={{ 
-                    width: '100%',
-                    margin: '1rem',
-                }}
-            >
-                Play Now!
-            </Button>
-            
-            
-            {/* <Box sx={{ display: 'flex', justifyContent: 'center', py: '1rem' }} >
-                <NewGameButton />
-            </Box> */}
-
-            
-            {/* <Typography color="text.primary" variant="body1" >
-                A production of the NOLA STEM Garden &copy;
-            </Typography> */}
         </Container>
     );
+
+    function PlayNowButton(props) {
+        return (
+            <Box
+                sx={{
+                    width: '100%',
+                    padding: 2,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    borderBottom: 'solid #333 1px'
+                }}
+            >
+                <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
+                    <Grid item xs={12} sm={6} >
+                        <Button
+                            component={RouterLink}
+                            to='/play/${opponent}'
+                            // to='/play/:opponent'
+                            variant={'contained'}
+                            color='primary'
+                            children={'Play Now'}
+                            sx={{
+                                width: '100%',
+                            }}
+                        />
+                    </Grid>
+                </Grid>
+            </Box>
+        )
+    }
+
+}
+
+function PlayNowButton(props) {
+    return (
+        <Box
+            sx={{
+                width: '100%',
+                padding: 2,
+                display: 'flex',
+                justifyContent: 'center',
+                borderBottom: 'solid #333 1px'
+            }}
+        >
+            <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
+                <Grid item xs={12} sm={6} >
+                    <Button
+                        component={RouterLink}
+                        to='/play/${}'
+                        // to='/play/:opponent'
+                        variant={'contained'}
+                        color='primary'
+                        children={'Play Now'}
+                        sx={{
+                            width: '100%',
+                        }}
+                    />
+                </Grid>
+            </Grid>
+        </Box>
+    )
 }
 
 function OpponentSelector(props) {
-    let width = useScreenWidth()
+    // let width = useScreenWidth()
     const { opponent, clickHandler } = props
     return (
         <Box 
             sx={{
                 width: '100%',
-                padding: '1rem', 
+                padding: 2, 
                 display: 'flex',
                 justifyContent: 'space-around',
                 borderBottom: 'solid #333 1px'
@@ -159,7 +196,7 @@ function MathTopicSelector(props) {
         <Box
             sx={{
                 width: '100%',
-                padding: '1rem',
+                padding: 2,
                 display: 'flex',
                 justifyContent: 'space-around',
                 borderBottom: 'solid #333 1px'
