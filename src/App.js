@@ -29,46 +29,46 @@ import theme from "./theme"
 import { ThemeProvider, } from '@material-ui/core/styles'
 
 export default function App() {
-    // Hard Coded Game Settings
-    let opponent = "human"
-    let mathTopics = ["combining"]
-    let timeLimit = 30
+    // GAME SETTINGS
+    const [opponent, setOpponent] = React.useState("human")
+    const [mathTopics, setMathTopics] = React.useState(["combining"])  // An array of all types player wants
+    // const [timeLimit, setTimeLimit] = React.useState(30)
 
+    // GAME STATUS
+    const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
+    const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')  // Enum ['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw']
+    const [activeCell, setActiveCell] = React.useState(false)
+    const [openModal, setOpenModal] = React.useState("none") // Enum: "none", "question", "abandonGame", "newGameSettings", 
+
+    
+    // 
+    // const [questionModalIsOpen, setQuestionModalIsOpen] = React.useState(false)
+    // const [gameSettingsModalIsOpen, setGameSettingsModalIsOpen] = React.useState(false)
+    // const [inGameMenuIsOpen, setInGameMenuIsOpen] = React.useState(false)
+    // const [abandonGameWarningModalIsOpen, setAbandonGameWarningModalIsOpen] = React.useState(false)
+    // const [newGameSettingsModalIsOpen, setNewGameSettingsModalIsOpen] = React.useState(false)
+
+
+    const [question, setQuestion] = React.useState({
+        topic: "",
+        inputType: "",
+        instruction: "",
+        formatString: null,  // Change this to use Latex
+        vars: [],
+        missingVar: null,
+    })
+
+    
+    
+    
+    
     // LAYOUT
     const height = useScreenHeight()
     const width = useScreenWidth()
-    const boardAreaSideLength = (height <= width) ? height : width
+    const  maxSquareSideLength = (height <= width) ? height : width
 
-    // QUESTION INTERFACE
-    // interface Question {
-    //     topic: string,
-    //     inputType: string,
-    //     instruction: string,
-    //     formatString: string,  // Change this to use Latex
-    //     vars: Array<number>,
-    //     missingVar: number,
-    // }
-    // const unsetQuestion = 
     
-    // GAME STATE
-    // DISPLAY --> Enum ['gameBoard', 'settingsModal', 'questionModal', 'infoModal']
-    // MOVELIST --> An Array of integers ranging -1 thru 41 of indeterminate length
-    // GAMESTATUS --> Enum ['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw']
-    const [display, setDisplay] = React.useState('settingsModal')
-    const [moveList, setMoveList] = React.useState([])
-    const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
-    const [modalState, setModalState] = React.useState({  // INITIALIZE  STATE
-        isOpen: false,
-        activeCell: -1,
-        question: {
-            topic: "",
-            inputType: "",
-            instruction: null,
-            formatString: null,  // Change this to use Latex
-            vars: [],
-            missingVar: null,
-        }
-    })
+    
     
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
@@ -77,37 +77,42 @@ export default function App() {
         let columnData = getColumnData(columnIndex, moveList)
         let lowestUnclaimedRow = columnData.indexOf("unclaimed")
         let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
-        let columnIsFull = (lowestUnclaimedRow === -1)
-        if (gameIsOver(gameStatus) || columnIsFull) {
-            console.log(`Returning Early from handleClick() since Game is already over OR column is full!`)
-            return -1
+        if (gameIsOver(gameStatus)) {
+            console.log(`handleColumnClick() had NO EFFECT since game is already over!`)
+            return 
         }
+        if (lowestUnclaimedRow === -1) {
+            console.log(`handleColumnClick() had NO EFFECT since column is full!`)
+            return
+        }
+
         let question = getQuestion(mathTopics, columnIndex)
         console.log(`QUESTION: ${JSON.stringify(question)}`)
 
-        setModalState({
-            isOpen: true,
-            activeCell: lowestUnclaimedCell,
-            question: {
-                topic: 'combining',
-                inputType: 'textField',
-                instruction: null,
-                formatString: 'a+b=c',  // Change this to use Latex
-                vars: [1, 2, 3],
-                missingVar: 2,      // Thin index in the vars array of the term to leave blank. 
-
-            }
+        setOpenModal("question")
+        setActiveCell(lowestUnclaimedCell)
+        setQuestion({
+            topic: 'combining',
+            inputType: 'textField',
+            instruction: null,
+            formatString: 'a+b=c',  // Change this to use Latex
+            vars: [1, 2, 3],
+            missingVar: 2,      // index in the vars array of the term to leave blank. 
         })
     }
 
 
     function handleAnswerSubmit(answer) {
-        const { isOpen, activeCell, question } = modalState
         const { vars, missingVar } = question
 
         // let answer = answer.trim whitespace and remove commas
-        console.log(`Answer submitted was ${(answer === vars[missingVar]) ? 'CORRECT' : 'WRONG'}`)
-        let moveToAdd = (answer === vars[missingVar]) ? activeCell : -1 // Check if answer is correct
+        
+        let answerIsCorrect = true // DEV only
+        // let answerIsCorrect = answer === vars[missingVar]
+        // console.log(`Answer submitted was ${(answer === vars[missingVar]) ? 'CORRECT' : 'WRONG'}`)
+
+
+        let moveToAdd = (answerIsCorrect) ? activeCell : -1 // Check if answer is correct
         let updatedMoveList = moveList.concat(moveToAdd)
         let updatedGameStatus = getGameStatus(updatedMoveList)
         setMoveList(updatedMoveList)
@@ -124,31 +129,29 @@ export default function App() {
         return 0
     }
 
-    function handleNewGameClick() {
+
+    
+    function openAbandonGameModal() {
+        setOpenModal("abandonGame")
+        
+    }
+    function openSettingsModal() {
         setMoveList([])
         setGameStatus('playerOnesTurn')
-        setModalState({
-            isOpen: false,
-            activeCell: null,
-            topic: null,   // 'combining',
-            questionFormatString: null,  // 'a+b=c',
-            vars: [1, 2, 3]
-        })
-        console.log(`NEW GAME !!!`)
+        setOpenModal("newGameSettings")
     }
+    function handlePlayNowClick() {
+        setMoveList([])
+        setGameStatus('playerOnesTurn')
+        setOpenModal("question")
+        setActiveCell(null)
+    }
+
     function handleUndoClick() {
         let shortenedMoveList = moveList.slice(0, -1)
         setMoveList(shortenedMoveList)
         setGameStatus(getGameStatus(shortenedMoveList))
-        setModalState({
-            isOpen: false,
-            activeCell: null,
-            topic: null,   // 'combining',
-            answerFormat: "textField", // "textField" or "compareButtons"
-            questionFormatString: null,  // 'a+b=c',
-            vars: [1, 2, 3]
-        })
-        console.log(`UNDO !!!`)
+        setOpenModal("none")
     }
 
     // function closeQuestionModal() {
@@ -167,7 +170,16 @@ export default function App() {
     function generateQuestion(questionType) {
 
     }
-
+    // QUESTION INTERFACE
+    // interface Question {
+    //     topic: string,
+    //     inputType: string,
+    //     instruction: string,
+    //     formatString: string,  // Change this to use Latex
+    //     vars: Array<number>,
+    //     missingVar: number,
+    // }
+    // const unsetQuestion = 
 
 
     return (
@@ -191,24 +203,24 @@ export default function App() {
                     {/* <PlayPage /> */}
                     {/* <InfoPage /> */}
                     <Box id='play-page' sx={{
-                        height: boardAreaSideLength,
-                        width: boardAreaSideLength,
+                        height:  maxSquareSideLength,
+                        width:  maxSquareSideLength,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         position: 'relative'
                     }}>
                         <InGameMenu
-                            handleNewGameClick={handleNewGameClick}
+                            handleNewGameClick={openAbandonGameModal}
+                            handleAbandonGameClick={openSettingsModal}
                             handleUndoClick={handleUndoClick}
                         />
 
-                        <MathQuestionModal
-                            modalState={modalState}
-                            // open={modalState.isOpen}
+                        {/* <MathQuestionModal
+                            modalState={(openModal === "question")}
                             handleAnswerSubmit={handleAnswerSubmit}
-                            boardAreaSideLength={boardAreaSideLength}
-                        />
+                             maxSquareSideLength={ maxSquareSideLength}
+                        /> */}
                         <GameBoard
                             moveList={moveList}
                             gameStatus={gameStatus}
