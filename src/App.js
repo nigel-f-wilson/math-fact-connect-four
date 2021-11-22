@@ -1,10 +1,4 @@
 import React from 'react'
-import {
-    // BrowserRouter as Router,
-    HashRouter as Router,
-    Routes,
-    Route,
-} from "react-router-dom"
 
 // PAGES
 import WelcomePage from "./pages/Welcome"
@@ -22,6 +16,15 @@ import theme from "./theme"
 import { ThemeProvider, } from '@material-ui/core/styles'
 
 export default function App() {
+    // GAME STATE
+    // DISPLAY --> Enum ['gameBoard', 'settingsModal', 'questionModal', 'infoModal']
+    // MOVELIST --> An Array of integers ranging -1 thru 41 of indeterminate length
+    // GAMESTATUS --> Enum ['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw']
+    const [display, setDisplay] = React.useState('settingsModal')
+    const [moveList, setMoveList] = React.useState([])
+    const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')
+    
+    
     return (
         <React.Fragment>
             <CssBaseline />
@@ -32,7 +35,6 @@ export default function App() {
                         bgcolor: 'background',
                         height: '100vh',
                         width: '100vw',
-                        // overflow: 'scroll',
                         overflow: 'hidden',
                         display: 'flex',
                         flexDirection: 'column',
@@ -40,27 +42,10 @@ export default function App() {
                         justifyContent: 'center',
                     }}
                 >
-                    <Router>
-                        <Routes>
-                            <Route exact path="/" element={<WelcomePage />} />
-                            {/* <Route exact path="/settings" element={<SettingsPage />} /> */}
-                            <Route exact path="/play" element={<PlayPage />} >
-                                <Route exact path=":opponent" element={<PlayPage />} />
-
-                            </Route>
-
-
-                            <Route exact path="/info" element={<InfoPage />} />
-                            <Route
-                                path="*"
-                                element={
-                                    <main style={{ padding: "1rem" }}>
-                                        <p>This is a catcher for when no route matches!</p>
-                                    </main>
-                                }
-                            />
-                        </Routes>
-                    </Router>
+                    {/* <WelcomePage /> */}
+                    <PlayPage />
+                    {/* <InfoPage /> */}
+                    
                 </Box>
             </ThemeProvider>
         </React.Fragment>

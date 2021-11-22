@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link as RouterLink } from "react-router-dom";
 
 import { useScreenWidth } from "../hooks";
 
@@ -95,9 +94,6 @@ export default function WelcomePage() {
                 <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
                     <Grid item xs={12} sm={6} >
                         <Button
-                            component={RouterLink}
-                            to='/play/${opponent}'
-                            // to='/play/:opponent'
                             variant={'contained'}
                             color='primary'
                             children={'Play Now'}
@@ -113,35 +109,7 @@ export default function WelcomePage() {
 
 }
 
-function PlayNowButton(props) {
-    return (
-        <Box
-            sx={{
-                width: '100%',
-                padding: 2,
-                display: 'flex',
-                justifyContent: 'center',
-                borderBottom: 'solid #333 1px'
-            }}
-        >
-            <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
-                <Grid item xs={12} sm={6} >
-                    <Button
-                        component={RouterLink}
-                        to='/play/${}'
-                        // to='/play/:opponent'
-                        variant={'contained'}
-                        color='primary'
-                        children={'Play Now'}
-                        sx={{
-                            width: '100%',
-                        }}
-                    />
-                </Grid>
-            </Grid>
-        </Box>
-    )
-}
+
 
 function OpponentSelector(props) {
     // let width = useScreenWidth()

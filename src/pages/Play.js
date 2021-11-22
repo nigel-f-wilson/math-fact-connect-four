@@ -1,5 +1,4 @@
 import React from 'react'
-import { useLocation, useParams } from "react-router-dom"
 import PropTypes from 'prop-types'
 
 // ICONS
@@ -22,20 +21,10 @@ import { useScreenWidth, useScreenHeight } from "../hooks"
 import { Box } from '@material-ui/core'
 
 export default function PlayPage(props) {
-    // For Development don't useLocation until the different question modes are actually built. 
-    
-    // const location = useLocation()
-    // const { opponent, mathTopics, timeLimit } = location.state
+    // Hard Coded Game Settings
     let opponent = "human"
     let mathTopics = ["combining"]
     let timeLimit = 30
-
-    
-    // console.log(`PLAY PAGE`);
-    // console.log(`Opponent: ${opponent}`);
-    let mathTopicsArray = Object.keys(mathTopics).filter(key => mathTopics[key] === true)
-    // console.log(`MathTopics: ${mathTopicsArray}`);
-    // console.log(`TimeLimit: ${timeLimit}`);
 
     // LAYOUT
     const height = useScreenHeight()

@@ -8,7 +8,6 @@ import { useScreenWidth, useScreenHeight } from "../hooks"
 
 // MUI  components
 import { Box, Container, Switch, Paper, Slide, FormControlLabel, Typography, Zoom } from '@material-ui/core'
-import { InfoPanel } from './InfoPanel';
 
 // Style & Layout Constants
 const oneSixth = '16.666%'
