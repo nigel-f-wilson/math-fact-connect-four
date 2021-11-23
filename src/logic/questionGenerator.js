@@ -1,4 +1,3 @@
-export function getQuestion(mathTopics, columnIndex) {
     const mathTopicsArray = Object.keys(mathTopics).filter(key => mathTopics[key] === true)
     const topic = chooseRandomFromArray(mathTopicsArray)
     const difficultyLevel = getDifficultyLevel(columnIndex)
@@ -14,6 +13,7 @@ export function getQuestion(mathTopics, columnIndex) {
         'c': null,
         'd': null,
     }
+export function generateQuestion(topic, difficulty) {
     if (topic === "combining") {
         question = getCombiningQuestion(difficultyLevel)
     }
@@ -44,24 +44,10 @@ function randomInt(min, max) { //The maximum is exclusive and the minimum is inc
     max = Math.floor(max)
     return Math.floor(Math.random() * (max - min) + min)
 }
-function getDifficultyLevel(columnIndex) {
-    if (columnIndex < 4) {
-        return columnIndex
-    }
-    else if (columnIndex === 4) {
-        return 2
-    }
-    else if (columnIndex === 5) {
-        return 1
-    } 
-    else if (columnIndex === 6) {
-        return 0
-    } else {
-        return "error"
-    }
-}
 
 function getCombiningQuestion(difficultyLevel) {
+    console.log(`getCombiningQuestion called!!!`);
+
     let question = {
         'inputFormat': 'text-field',
         'answer': null,

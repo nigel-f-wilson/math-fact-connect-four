@@ -13,7 +13,7 @@ import { MathQuestionModal } from "./modals/MathQuestionModal";
 
 // Game Logic
 import { gameIsOver, getColumnData, getGameStatus, } from './logic/connectFourLogic'
-import { getQuestion } from './logic/questionGenerator'
+import { generateQuestion } from './logic/questionGenerator'
 
 // Custom Hooks
 import { useScreenWidth, useScreenHeight } from "./hooks"
@@ -52,7 +52,7 @@ export default function App() {
     const [question, setQuestion] = React.useState({
         topic: "",
         inputType: "",
-        instruction: "",
+        instructions: "",
         formatString: null,  // Change this to use Latex
         vars: [],
         missingVar: null,
@@ -86,25 +86,28 @@ export default function App() {
             return
         }
 
-        let topic = pickTopic()
-        console.log(`Selected ${topic} from topics array: ${mathTopics}}`)
+        const topic = chooseRandomFromArray(mathTopics)
+        console.log(`Selected "${topic}" from topics array: "${mathTopics}"`)
         
         let difficulty = pickDifficulty(columnIndex)
         console.log(`Selected difficulty "${difficulty}"`)
         
-        let question = getQuestion(topic, difficulty)
-        console.log(`QUESTION: ${JSON.stringify(question)}`)
+        let newQuestion = generateQuestion(topic, difficulty)
+        console.log(`QUESTION generated: ${JSON.stringify(question)}`)
 
         setOpenModal("question")
         setActiveCell(lowestUnclaimedCell)
-        setQuestion({
-            topic: 'combining',
-            inputType: 'textField',
-            instruction: null,
-            formatString: 'a+b=c',  // Change this to use Latex
-            vars: [1, 2, 3],
-            missingVar: 2,      // index in the vars array of the term to leave blank. 
-        })
+        setQuestion(newQuestion)
+        console.log(`QUESTION updated state: ${JSON.stringify(newQuestion)}`)
+
+        // setQuestion({
+        //     topic: 'combining',
+        //     answerInputType: 'textField',
+        //     instructions: "What's missing?",
+        //     formatString: 'a + b = c',  // Change this to use Latex
+        //     vars: [1, 2, 3],
+        //     missingVar: 2,      // index in the vars array of the term to leave blank. 
+        // })
     }
 
 
@@ -154,6 +157,12 @@ export default function App() {
             return "error"
         }
     }
+    function chooseRandomFromArray(array) {
+        let randomIndex = Math.floor((Math.random() * array.length))
+        return array[randomIndex]
+    }
+
+
     
     function openAbandonGameModal() {
         setOpenModal("abandonGame")
@@ -191,14 +200,14 @@ export default function App() {
 
     // }
 
-    function generateQuestion(questionType) {
+    // function generateQuestion(questionType) {
 
-    }
+    // }
     // QUESTION INTERFACE
     // interface Question {
     //     topic: string,
     //     inputType: string,
-    //     instruction: string,
+    //     instructions: string,
     //     formatString: string,  // Change this to use Latex
     //     vars: Array<number>,
     //     missingVar: number,
@@ -240,11 +249,12 @@ export default function App() {
                             handleUndoClick={handleUndoClick}
                         />
 
-                        {/* <MathQuestionModal
-                            modalState={(openModal === "question")}
+                        <MathQuestionModal
+                            open={(openModal === "question")}
+                            question={question}
                             handleAnswerSubmit={handleAnswerSubmit}
-                             maxSquareSideLength={ maxSquareSideLength}
-                        /> */}
+                            maxSquareSideLength={maxSquareSideLength}
+                        />
                         <GameBoard
                             moveList={moveList}
                             gameStatus={gameStatus}
