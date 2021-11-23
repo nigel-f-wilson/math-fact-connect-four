@@ -86,7 +86,13 @@ export default function App() {
             return
         }
 
-        let question = getQuestion(mathTopics, columnIndex)
+        let topic = pickTopic()
+        console.log(`Selected ${topic} from topics array: ${mathTopics}}`)
+        
+        let difficulty = pickDifficulty(columnIndex)
+        console.log(`Selected difficulty "${difficulty}"`)
+        
+        let question = getQuestion(topic, difficulty)
         console.log(`QUESTION: ${JSON.stringify(question)}`)
 
         setOpenModal("question")
@@ -129,7 +135,25 @@ export default function App() {
         return 0
     }
 
-
+    function pickTopic() {
+        return mathTopics[(Math.random() * mathTopics.length)]
+    }
+    function pickDifficulty(columnIndex) {  // Harder questions near the center of the board.
+        if (columnIndex < 4) {
+            return columnIndex
+        }
+        else if (columnIndex === 4) {
+            return 2
+        }
+        else if (columnIndex === 5) {
+            return 1
+        }
+        else if (columnIndex === 6) {
+            return 0
+        } else {
+            return "error"
+        }
+    }
     
     function openAbandonGameModal() {
         setOpenModal("abandonGame")
