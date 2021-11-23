@@ -6,14 +6,14 @@ import WelcomePage from "./pages/Welcome"
 // import PlayPage from "./pages/Play"
 import InfoPage from "./pages/Info"
 // MY components
-import { InGameMenu, AccountMenu } from "./components/Menu";
-import { GameBoard } from "./components/GameBoard";
-import { MathQuestionModal } from "./components/MathQuestionModal";
+import { InGameMenu, AccountMenu } from "./modals/Menu";
+import { GameBoard } from "./pages/GameBoard";
+import { MathQuestionModal } from "./modals/MathQuestionModal";
 // import { GameSettingsModal } from "./components/GameSettingsModal";
 
 // Game Logic
-import { gameIsOver, getColumnData, getGameStatus, } from './gameLogic'
-import { getQuestion } from './questionGenerator'
+import { gameIsOver, getColumnData, getGameStatus, } from './logic/connectFourLogic'
+import { getQuestion } from './logic/questionGenerator'
 
 // Custom Hooks
 import { useScreenWidth, useScreenHeight } from "./hooks"
