@@ -10,30 +10,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 })
 
 export function MathQuestionModal(props) {
-    let { modalState, boardAreaSideLength, handleAnswerSubmit } = props
-    let { isOpen, activeCell, question } = modalState
-    let { topic, inputType, instruction, formatString, vars, missingVar, } = question
+    console.log(`QUESTION MODAL PROPS: ${JSON.stringify(props)}`)
 
-    let input = (inputType === "textField") ? 
-        <TextField 
-            id="answer"
-            variant="outlined"
-            handleAnswerSubmit={handleAnswerSubmit}
+    let { open, activeCell, question, handleAnswerSubmit, maxSquareSideLength,  } = props
+    let { topic, answerInputType, instructions, formatString, vars, missingVar, } = question
 
-        /> : 
-        <CompareButtons 
-            handleAnswerSubmit={handleAnswerSubmit}
-        />
-    
-    
-    // console.log(`board area side length: ${boardAreaSideLength}`);
+    const answerInputComponent = getInputComponent(answerInputType, handleAnswerSubmit)
     
     return (
-        <Dialog keepMounted
+        <Dialog 
+            // keepMounted
             disableEscapeKeyDown
-            open={isOpen}
+            open={open}
             // onClose={closeQuestionModal}  // Callback fired when the component requests to be closed.
-            onBackdropClick={() => {}}
+            onBackdropClick={() => {}}  // disable close on bg click
             aria-describedby="math-question-dialog"
             TransitionComponent={Transition}
             fullWidth={true}
@@ -47,81 +37,86 @@ export function MathQuestionModal(props) {
                 justifyContent: 'center',
 
             }}
-            BackdropProps={{
-                style: {
-                    // backgroundColor: 'red',
-                    height: '100vh',
-                    width: '100vw',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }
-            }}
             PaperProps={{
                 style: {
                     // backgroundColor: 'red',
-                    height: `${0.9 * boardAreaSideLength}px`,
-                    width: `${0.9 * boardAreaSideLength}px`,
+                    height: `${0.9 * maxSquareSideLength}px`,
+                    width: `${0.9 * maxSquareSideLength}px`,
                     borderRadius: '50%',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    padding: '3rem'
+                    padding: '2rem'
                 }
             }}
             
         >
             <DialogTitle id="Instructions"
                 sx={{ 
-                    border: 'solid red 1px', 
+                    // border: 'solid red 1px', 
                     height: '30%',
                     width: '80%',
                     display: 'flex',
+                    justifyContent: 'center',
                     alignItems: 'center',
-                    fontSize: '4vmin',
-
+                    fontSize: '1.4rem', 
                 }}
             >
-                {instruction}
+                {instructions}
             </DialogTitle>
 
             
             <DialogContent id="Equation" 
                 dividers
                 sx={{ width: '100%', 
-                    border: 'solid red 1px',
+                    // border: 'solid red 1px',
                     flex: '0 0 40%',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    fontSize: '18vmin',
+                    fontSize: '3rem',
                     overflow: 'hidden'
-
                 }}
             >
                 {formatString}
             </DialogContent>
 
-
-            <DialogActions id="AnswerInput"
-                sx={{ 
-                    border: 'solid red 1px', 
-                    height: '30%' 
-                }}
-            >
-                
-                {input}
-                <Button 
-                    onClick={handleAnswerSubmit}
-                    variant='contained'
-                    sx={{ ml: 4}}
-                >
-                    Submit
-                </Button>
-                
-            </DialogActions>
+            {answerInputComponent}
+            
         </Dialog>
     )
+}
+
+function getInputComponent(answerInputType, handleAnswerSubmit) {
+    let height = "30%"
+    if (answerInputType === "textField") {
+        return (
+            <DialogActions sx={{ height: height }} >
+                <TextField
+                    variant="outlined"
+                    handleAnswerSubmit={handleAnswerSubmit}
+                />
+                <Button
+                    onClick={handleAnswerSubmit}
+                    variant='contained'
+                    sx={{ ml: 4 }}
+                    children="Submit"
+                />
+            </DialogActions>
+        )
+    }
+    else if (answerInputType === "compareButtons") {
+        return (
+            <DialogActions sx={{ height: height }} >
+                <CompareButtons
+                    handleAnswerSubmit={handleAnswerSubmit}
+                />
+            </DialogActions>
+        )
+    }
+    else {
+        console.error(`getInputComponent failed. Invalid answerInputType: ${answerInputType}`)
+    }
 }
 
 
