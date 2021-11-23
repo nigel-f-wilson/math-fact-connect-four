@@ -1,40 +1,32 @@
-    const mathTopicsArray = Object.keys(mathTopics).filter(key => mathTopics[key] === true)
-    const topic = chooseRandomFromArray(mathTopicsArray)
-    const difficultyLevel = getDifficultyLevel(columnIndex)
-    console.log(`Topic: ${topic}`);
-    console.log(`difficultyLevel: ${difficultyLevel}`);
-
-
-    let question = {
-        'inputFormat': 'text-field',  // 'text-field' or 'button'
-        'answer': null,
-        'a': null,
-        'b': null,
-        'c': null,
-        'd': null,
-    }
 export function generateQuestion(topic, difficulty) {
+    let question
     if (topic === "combining") {
-        question = getCombiningQuestion(difficultyLevel)
+        question = getCombiningQuestion(difficulty)
+        console.log(`QUESTION: ${JSON.stringify(question)}`)
+
     }
     else if (topic === "multiplying") {
-        question = getMultiplyingQuestion(difficultyLevel)
+        question = getMultiplyingQuestion(difficulty)
+        console.log(`QUESTION: ${JSON.stringify(question)}`)
+
     }
-    else if (topic === "fractions") {
-        question = getFractionsQuestion(difficultyLevel)
-    }
-    else if (topic === "exponents") {
-        question = getExponentsQuestion(difficultyLevel)
-    }
-    else if (topic === "algebra") {
-        question = getAlgebraQuestion(difficultyLevel)
-    }
+    // else if (topic === "fractions") {
+    //     question = getFractionsQuestion(difficultyLevel)
+    // }
+    // else if (topic === "exponents") {
+    //     question = getExponentsQuestion(difficultyLevel)
+    // }
+    // else if (topic === "algebra") {
+    //     question = getAlgebraQuestion(difficultyLevel)
+    // }
     else {
         console.error(`FAILED TO GET QUESTION!!!`)
     }
-    console.log(`QUESTION: ${JSON.stringify(question)}`)
     return question
+
 }
+
+
 function chooseRandomFromArray(array) {
     let randomIndex = Math.floor((Math.random() * array.length))
     return array[randomIndex]
@@ -49,38 +41,38 @@ function getCombiningQuestion(difficultyLevel) {
     console.log(`getCombiningQuestion called!!!`);
 
     let question = {
-        'inputFormat': 'text-field',
-        'answer': null,
-        'a': null,
-        'b': null,
-        'c': null,
-        'd': null,
+        topic: 'combining',
+        answerInputType: 'textField',
+        instructions: "What's missing?",
+        formatString: 'a + b = c',  // Change this to use Latex
+        vars: [1, 2, 3],
+        missingVar: 2,
     }
-    if (difficultyLevel === 0) {
-        question.a = randomInt(1, 100)
-        question.b = randomInt(1, 100)
-        question.c = question.a + question.b
-        question.blank = 'c'
-        question.answer = question.c 
-    }
-    else if (difficultyLevel === 1) {
-        question.a = randomInt(1, 100)
-        question.b = randomInt(1, 100)
-        question.c = question.a + question.b
-        question.blank = 'c'
-        question.answer = question.c
-    }
-    else if (difficultyLevel === 2) {
-        question.a = randomInt(1, 100)
-        question.b = randomInt(1, 100)
-        question.c = question.a + question.b
-        question.blank = 'c'
-        question.answer = question.c
-    } else if (difficultyLevel === 3) {
-        return 0
-    } else {
-        return "error"
-    }
+    // if (difficultyLevel === 0) {
+    //     question.a = randomInt(1, 100)
+    //     question.b = randomInt(1, 100)
+    //     question.c = question.a + question.b
+    //     question.blank = 'c'
+    //     question.answer = question.c 
+    // }
+    // else if (difficultyLevel === 1) {
+    //     question.a = randomInt(1, 100)
+    //     question.b = randomInt(1, 100)
+    //     question.c = question.a + question.b
+    //     question.blank = 'c'
+    //     question.answer = question.c
+    // }
+    // else if (difficultyLevel === 2) {
+    //     question.a = randomInt(1, 100)
+    //     question.b = randomInt(1, 100)
+    //     question.c = question.a + question.b
+    //     question.blank = 'c'
+    //     question.answer = question.c
+    // } else if (difficultyLevel === 3) {
+    //     return 0
+    // } else {
+    //     return "error"
+    // }
     console.log(`COMBINING QUESTION: ${JSON.stringify(question)}`);
     return question
 }
