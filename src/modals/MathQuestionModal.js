@@ -15,7 +15,7 @@ export function MathQuestionModal(props) {
     let { open, activeCell, question, handleAnswerSubmit, maxSquareSideLength,  } = props
     let { topic, answerInputType, instructions, formatString, vars, missingVar, } = question
 
-    const answerInputComponent = getInputComponent(answerInputType, handleAnswerSubmit)
+    // const answerInputComponent = getInputComponent(question, handleAnswerSubmit)
     
     return (
         <Dialog 
@@ -51,63 +51,126 @@ export function MathQuestionModal(props) {
             }}
             
         >
-            <DialogTitle id="Instructions"
-                sx={{ 
-                    // border: 'solid red 1px', 
-                    height: '30%',
-                    width: '80%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    fontSize: '1.4rem', 
-                }}
-            >
-                {instructions}
-            </DialogTitle>
+            
+            <InstructionsText 
+                instructions={instructions}
+            />
 
             
             <DialogContent id="Equation" 
-                dividers
+                // dividers
                 sx={{ width: '100%', 
                     // border: 'solid red 1px',
                     flex: '0 0 40%',
+                    flexFlow: 'row nowrap',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    fontSize: '3rem',
                     overflow: 'hidden'
                 }}
             >
-                {formatString}
+                <Typography 
+                    variant='h1' 
+                    // sx={{
+                    //     fontSize: '700%'
+                    // }}
+                >
+                    {formatString}
+                </Typography>
+
             </DialogContent>
 
-            {answerInputComponent}
+            <AnswerInputComponent 
+                question={question}
+                handleAnswerSubmit={handleAnswerSubmit}
+            />
             
         </Dialog>
     )
 }
 
-function getInputComponent(answerInputType, handleAnswerSubmit) {
+function InstructionsText(props) {
+    return (
+        <DialogTitle id="Instructions"
+            sx={{
+                // border: 'solid red 1px', 
+                height: '30%',
+                width: '80%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontSize: '1.4rem',
+            }}
+        >
+            {props.instructions}
+        </DialogTitle>
+    )
+}
+function AnswerInputComponent(props) {
+    const { question, handleAnswerSubmit } = props
+    
     let height = "30%"
+
+    const { answerInputType } = question
+    const answer = ""
+
+    // const [name, setName] = React.useState('Composed TextField');
+
+    // const handleChange = (event) => {
+    //     setName(event.target.value);
+    // };
+
+    
     if (answerInputType === "textField") {
         return (
-            <DialogActions sx={{ height: height }} >
+            <DialogActions
+                sx={{
+                    // border: 'solid red 1px',
+                    height: height,
+                    width: '80%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    paddingBottom: '1.5rem'
+                }} 
+            >
                 <TextField
+                    autoFocus
+                    label="Your Answer"
+                    placeholder=""
+                    // error={} // Error if contents include non-numerical characters
                     variant="outlined"
-                    handleAnswerSubmit={handleAnswerSubmit}
+                    color="primary"
+                    fullWidth
+                    size="small"
+                    margin="none"
+                    // handleAnswerSubmit={handleAnswerSubmit()}
                 />
                 <Button
-                    onClick={handleAnswerSubmit}
+                    onClick={() => handleAnswerSubmit(question, answer)}
                     variant='contained'
-                    sx={{ ml: 4 }}
+                    sx={{ ml: 1, px: 2.5 }}
                     children="Submit"
                 />
+                {/* <FormControl error variant="standard">
+                    <InputLabel htmlFor="component-error">Name</InputLabel>
+                    <Input
+                        id="component-error"
+                        value={name}
+                        onChange={handleChange}
+                        aria-describedby="component-error-text"
+                    />
+                    <FormHelperText id="component-error-text">Error</FormHelperText>
+                </FormControl> */}
             </DialogActions>
         )
     }
     else if (answerInputType === "compareButtons") {
         return (
-            <DialogActions sx={{ height: height }} >
+            <DialogActions 
+                sx={{ 
+                    height: height,
+                    width: '80%'
+                }} >
                 <CompareButtons
                     handleAnswerSubmit={handleAnswerSubmit}
                 />
@@ -115,7 +178,7 @@ function getInputComponent(answerInputType, handleAnswerSubmit) {
         )
     }
     else {
-        console.error(`getInputComponent failed. Invalid answerInputType: ${answerInputType}`)
+        console.log(`getInputComponent failed. Invalid answerInputType: ${answerInputType}`)
     }
 }
 
