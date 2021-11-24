@@ -13,7 +13,7 @@ import { MathQuestionModal } from "./modals/MathQuestionModal";
 
 // Game Logic
 import { gameIsOver, getColumnData, getGameStatus, } from './logic/connectFourLogic'
-import { generateQuestion } from './logic/questionGenerator'
+import { generateQuestion, getCorrectAnswer } from './logic/questionGenerator'
 
 // Custom Hooks
 import { useScreenWidth, useScreenHeight } from "./hooks"
@@ -42,12 +42,13 @@ export default function App() {
 
     
     const [question, setQuestion] = React.useState({
-        topic: "",
-        inputType: "",
-        instructions: "",
-        formatString: null,  // Change this to use Latex
-        vars: [],
-        missingVar: null,
+        type: "missingSum",
+        fact: [1,2,3]
+        // answerInputType: "",
+        // instructions: "",
+        // formatString: null,  // Change this to use Latex
+        // vars: [],
+        // missingVar: null,
     })
 
     
@@ -79,39 +80,25 @@ export default function App() {
         }
 
         const topic = chooseRandomFromArray(mathTopics)
-        console.log(`Selected "${topic}" from topics array: "${mathTopics}"`)
-        
         let difficulty = pickDifficulty(columnIndex)
-        console.log(`Selected difficulty "${difficulty}"`)
+        console.log(`Selected Topic "${topic}" and Difficulty level: "${difficulty}"`)
         
         let newQuestion = generateQuestion(topic, difficulty)
-        console.log(`QUESTION generated: ${JSON.stringify(question)}`)
+        console.log(`QUESTION generated: ${JSON.stringify(newQuestion)}`)
 
+        setQuestion(newQuestion)
         setOpenModal("question")
         setActiveCell(lowestUnclaimedCell)
-        // setQuestion(newQuestion)
-        console.log(`QUESTION updated state: ${JSON.stringify(newQuestion)}`)
-
-        setQuestion({
-            topic: 'combining',
-            answerInputType: 'textField',
-            instructions: "What's missing?",
-            formatString: 'a + b = c',  // Change this to use Latex
-            vars: [1, 2, 3],
-            missingVar: 2,      // index in the vars array of the term to leave blank. 
-        })
     }
 
-
-    function handleAnswerSubmit(question, answer) {
-        const { vars, missingVar } = question
-
+    function handleAnswerSubmit(question, playersAnswer) {
+        console.log(`Handling answer submit: ${playersAnswer} `);
         // let answer = answer.trim whitespace and remove commas
+        let correctAnswer = getCorrectAnswer(question)
+        console.log(`corect answer is: ${correctAnswer} `)
         
-        let answerIsCorrect = true // DEV only
-        // let answerIsCorrect = answer === vars[missingVar]
-        // console.log(`Answer submitted was ${(answer === vars[missingVar]) ? 'CORRECT' : 'WRONG'}`)
-
+        let answerIsCorrect = (Number(playersAnswer) === correctAnswer)
+        console.log(`answerIsCorrect: ${answerIsCorrect} `)
 
         let moveToAdd = (answerIsCorrect) ? activeCell : -1 // Check if answer is correct
         let updatedMoveList = moveList.concat(moveToAdd)

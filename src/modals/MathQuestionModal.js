@@ -1,5 +1,8 @@
 import React from 'react'
 
+import { getInstructions, getEquationString, getInputType } from '../logic/questionGenerator'
+
+
 // MUI  components
 import { Box, Button, 
     Dialog, DialogContent, DialogActions, DialogContentText, DialogTitle, 
@@ -19,9 +22,12 @@ export function MathQuestionModal(props) {
     const inputHeight = "35%"
 
 
-    let { open, activeCell, question, handleAnswerSubmit, maxSquareSideLength,  } = props
-    let { topic, answerInputType, instructions, formatString, vars, missingVar, } = question
+    let { open, activeCell, question, handleAnswerSubmit, maxSquareSideLength } = props
+    let { type, fact } = question
 
+    let instructions = getInstructions(type)
+    let equationString = getEquationString(question)
+    
     // const answerInputComponent = getInputComponent(question, handleAnswerSubmit)
     
     return (
@@ -48,9 +54,7 @@ export function MathQuestionModal(props) {
                 instructions={instructions}
             />
             <QuestionEquation 
-                formatString={formatString}
-                missingVar={missingVar}
-                vars={vars}
+                equationString={equationString}
             />
             <AnswerInputComponent 
                 question={question}
@@ -77,7 +81,7 @@ export function MathQuestionModal(props) {
         )
     }
     function QuestionEquation(props) {
-        const { formatString, vars, missingVar } = props
+        const { equationString } = props
 
         return (
             <Typography variant='h1' 
@@ -90,13 +94,13 @@ export function MathQuestionModal(props) {
                     overflow: 'visible',
                 }}
             >
-                {formatString}
+                {equationString}
             </Typography>
         )
     }
     function AnswerInputComponent(props) {
         const { question, handleAnswerSubmit } = props
-        const { answerInputType } = question
+        const answerInputType = getInputType(question)
 
         if (answerInputType === "textField") {
             return (
