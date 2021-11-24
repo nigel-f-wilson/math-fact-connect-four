@@ -102,4 +102,5 @@ const theme = createTheme({
 
 });
 
-export default responsiveFontSizes(theme)
+export default responsiveFontSizes(theme, {factor: 2})
+// https://mui.com/customization/theming/#responsivefontsizes-theme-options-theme
