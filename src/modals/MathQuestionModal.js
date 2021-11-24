@@ -1,7 +1,9 @@
 import React from 'react'
 
 // MUI  components
-import { Box, Button, Dialog, DialogContent, DialogActions, DialogContentText, DialogTitle, Zoom, TextField, Typography } from '@material-ui/core'
+import { Box, Button, 
+    Dialog, DialogContent, DialogActions, DialogContentText, DialogTitle, 
+    Zoom, TextField, Typography, FormControl, InputLabel, OutlinedInput, FormHelperText } from '@material-ui/core'
 
 // Style & Layout Constants
 
@@ -10,7 +12,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 })
 
 export function MathQuestionModal(props) {
-    console.log(`QUESTION MODAL PROPS: ${JSON.stringify(props)}`)
+    // console.log(`QUESTION MODAL PROPS: ${JSON.stringify(props)}`)
+
+    const instructionsHeight = "35%"
+    const equationHeight = "30%"
+    const inputHeight = "35%"
+
 
     let { open, activeCell, question, handleAnswerSubmit, maxSquareSideLength,  } = props
     let { topic, answerInputType, instructions, formatString, vars, missingVar, } = question
@@ -27,180 +34,163 @@ export function MathQuestionModal(props) {
             aria-describedby="math-question-dialog"
             TransitionComponent={Transition}
             fullWidth={true}
-            maxWidth={false}
-            sx={{
-                height: '100vh',
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-
-            }}
+            maxWidth='md'
             PaperProps={{
                 style: {
-                    // backgroundColor: 'red',
+                    margin: 0,
                     height: `${0.9 * maxSquareSideLength}px`,
                     width: `${0.9 * maxSquareSideLength}px`,
                     borderRadius: '50%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: '2rem'
                 }
             }}
-            
         >
-            
             <InstructionsText 
                 instructions={instructions}
             />
-
-            
-            <DialogContent id="Equation" 
-                // dividers
-                sx={{ width: '100%', 
-                    // border: 'solid red 1px',
-                    flex: '0 0 40%',
-                    flexFlow: 'row nowrap',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    overflow: 'hidden'
-                }}
-            >
-                <Typography 
-                    variant='h1' 
-                    // sx={{
-                    //     fontSize: '700%'
-                    // }}
-                >
-                    {formatString}
-                </Typography>
-
-            </DialogContent>
-
+            <QuestionEquation 
+                formatString={formatString}
+                missingVar={missingVar}
+                vars={vars}
+            />
             <AnswerInputComponent 
                 question={question}
                 handleAnswerSubmit={handleAnswerSubmit}
             />
-            
         </Dialog>
     )
-}
 
-function InstructionsText(props) {
-    return (
-        <DialogTitle id="Instructions"
-            sx={{
-                // border: 'solid red 1px', 
-                height: '30%',
-                width: '80%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                fontSize: '1.4rem',
-            }}
-        >
-            {props.instructions}
-        </DialogTitle>
-    )
-}
-function AnswerInputComponent(props) {
-    const { question, handleAnswerSubmit } = props
-    
-    let height = "30%"
-
-    const { answerInputType } = question
-    const answer = ""
-
-    // const [name, setName] = React.useState('Composed TextField');
-
-    // const handleChange = (event) => {
-    //     setName(event.target.value);
-    // };
-
-    
-    if (answerInputType === "textField") {
+    function InstructionsText(props) {
         return (
-            <DialogActions
+            <Typography id="Instructions"
+                variant='h3'
                 sx={{
                     // border: 'solid red 1px',
-                    height: height,
-                    width: '80%',
+                    height: instructionsHeight,
+                    width: '100%',
                     display: 'flex',
-                    alignItems: 'center',
-                    paddingBottom: '1.5rem'
-                }} 
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                }}
             >
-                <TextField
-                    autoFocus
-                    label="Your Answer"
-                    placeholder=""
-                    // error={} // Error if contents include non-numerical characters
-                    variant="outlined"
-                    color="primary"
-                    fullWidth
-                    size="small"
-                    margin="none"
-                    // handleAnswerSubmit={handleAnswerSubmit()}
-                />
-                <Button
-                    onClick={() => handleAnswerSubmit(question, answer)}
-                    variant='contained'
-                    sx={{ ml: 1, px: 2.5 }}
-                    children="Submit"
-                />
-                {/* <FormControl error variant="standard">
-                    <InputLabel htmlFor="component-error">Name</InputLabel>
-                    <Input
-                        id="component-error"
-                        value={name}
-                        onChange={handleChange}
-                        aria-describedby="component-error-text"
-                    />
-                    <FormHelperText id="component-error-text">Error</FormHelperText>
-                </FormControl> */}
-            </DialogActions>
+                {props.instructions}
+            </Typography>
         )
     }
-    else if (answerInputType === "compareButtons") {
+    function QuestionEquation(props) {
+        const { formatString, vars, missingVar } = props
+
         return (
-            <DialogActions 
-                sx={{ 
-                    height: height,
-                    width: '80%'
-                }} >
-                <CompareButtons
+            <Typography variant='h1' 
+                sx={{
+                    width: '100%',
+                    height: equationHeight,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'visible',
+                }}
+            >
+                {formatString}
+            </Typography>
+        )
+    }
+    function AnswerInputComponent(props) {
+        const { question, handleAnswerSubmit } = props
+        const { answerInputType } = question
+
+        if (answerInputType === "textField") {
+            return (
+                <NumericalTextInput
                     handleAnswerSubmit={handleAnswerSubmit}
                 />
-            </DialogActions>
-        )
-    }
-    else {
-        console.log(`getInputComponent failed. Invalid answerInputType: ${answerInputType}`)
+            )
+        }
+        else if (answerInputType === "compareButtons") {
+            return (
+                <CompareButtons 
+                    handleAnswerSubmit={handleAnswerSubmit}
+                />
+            )
+        }
+        else {
+            console.log(`getInputComponent failed. Invalid answerInputType: ${answerInputType}`)
+        }
+
+        function NumericalTextInput(props) {
+            const { handleAnswerSubmit } = props
+            const [answer, setAnswer] = React.useState("");
+
+            const handleChange = (event) => {
+                setAnswer(event.target.value);
+            }
+            let answerIsNum = /^\d+$/.test(answer)
+            let error = (answer.length > 0 && !answerIsNum)
+
+            return (
+                <Box sx={{
+                    height: inputHeight,
+                    width: '100%',
+                    padding: '0 15%',
+                }}>
+                    <FormControl id="answer-input-form"
+                        color="primary"
+                        error={error}
+                        sx={{
+                            display: 'flex',
+                            flexFlow: 'row nowrap',
+                            justifyContent: 'center',
+                            alignItems: 'flex-start',
+                        }}
+                    >
+                        <InputLabel>{(error === false) ? "Your Answer" : "Enter a whole number"}</InputLabel>
+                        <OutlinedInput
+                            autoFocus
+                            id="answer-input"
+                            label={(error === false) ? "Your Answer" : "Enter a whole number"}
+                            fullWidth
+                            size="small"
+                            inputMode='numeric'
+                            pattern='[0-9]*'
+                            value={answer}
+                            onChange={handleChange}
+                            aria-describedby="component-error-text"
+                        />
+                        <Button
+                            onClick={() => handleAnswerSubmit(question, answer)}
+                            variant='contained'
+                            sx={{ ml: 1, px: 2.5 }}
+                            children="Submit"
+                        />
+                    </FormControl>
+                </Box>
+
+
+            )
+        }
+
+
+        function CompareButtons(props) {
+            let { handleAnswerSubmit } = props
+
+
+            return (
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+
+                >
+                    <Button />
+                    <Button />
+
+                    <Button />
+
+                </Box>
+            )
+        }
     }
 }
 
 
-function CompareButtons(props) {
-    let { handleAnswerSubmit } = props
-
-    
-    return (
-        <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-
-        >
-            <Button />
-            <Button />
-
-            <Button />
-
-        </Box>
-    )
-}

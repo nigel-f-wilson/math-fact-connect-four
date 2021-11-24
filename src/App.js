@@ -41,14 +41,6 @@ export default function App() {
     const [openModal, setOpenModal] = React.useState("none") // Enum: "none", "question", "abandonGame", "newGameSettings", 
 
     
-    // 
-    // const [questionModalIsOpen, setQuestionModalIsOpen] = React.useState(false)
-    // const [gameSettingsModalIsOpen, setGameSettingsModalIsOpen] = React.useState(false)
-    // const [inGameMenuIsOpen, setInGameMenuIsOpen] = React.useState(false)
-    // const [abandonGameWarningModalIsOpen, setAbandonGameWarningModalIsOpen] = React.useState(false)
-    // const [newGameSettingsModalIsOpen, setNewGameSettingsModalIsOpen] = React.useState(false)
-
-
     const [question, setQuestion] = React.useState({
         topic: "",
         inputType: "",
@@ -97,21 +89,21 @@ export default function App() {
 
         setOpenModal("question")
         setActiveCell(lowestUnclaimedCell)
-        setQuestion(newQuestion)
+        // setQuestion(newQuestion)
         console.log(`QUESTION updated state: ${JSON.stringify(newQuestion)}`)
 
-        // setQuestion({
-        //     topic: 'combining',
-        //     answerInputType: 'textField',
-        //     instructions: "What's missing?",
-        //     formatString: 'a + b = c',  // Change this to use Latex
-        //     vars: [1, 2, 3],
-        //     missingVar: 2,      // index in the vars array of the term to leave blank. 
-        // })
+        setQuestion({
+            topic: 'combining',
+            answerInputType: 'textField',
+            instructions: "What's missing?",
+            formatString: 'a + b = c',  // Change this to use Latex
+            vars: [1, 2, 3],
+            missingVar: 2,      // index in the vars array of the term to leave blank. 
+        })
     }
 
 
-    function handleAnswerSubmit(answer) {
+    function handleAnswerSubmit(question, answer) {
         const { vars, missingVar } = question
 
         // let answer = answer.trim whitespace and remove commas
@@ -124,8 +116,12 @@ export default function App() {
         let moveToAdd = (answerIsCorrect) ? activeCell : -1 // Check if answer is correct
         let updatedMoveList = moveList.concat(moveToAdd)
         let updatedGameStatus = getGameStatus(updatedMoveList)
-        setMoveList(updatedMoveList)
-        setGameStatus(updatedGameStatus)
+        setOpenModal('none')
+        setTimeout(() => {
+            setMoveList(updatedMoveList)
+            setGameStatus(updatedGameStatus)
+        }, 500);
+        
 
         if (opponent === "bot") {
             console.error(`IT IS THE BOT'S TURN BUT GETBOTMOVE HAS NOT BEEN DEFINED`)
