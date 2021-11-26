@@ -1,3 +1,5 @@
+import { randomInt, chooseRandomFromArray } from "./lowLevelHelpers";
+
 export function generateQuestion(topic, difficulty) {
     let question
     if (topic === "combining") {
@@ -27,15 +29,7 @@ export function generateQuestion(topic, difficulty) {
 }
 
 
-function chooseRandomFromArray(array) {
-    let randomIndex = Math.floor((Math.random() * array.length))
-    return array[randomIndex]
-}
-function randomInt(min, max) { //The maximum is exclusive and the minimum is inclusive
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min) + min)
-}
+
 
 // const combiningQuestionTypes = [
 //     "missingSum",
