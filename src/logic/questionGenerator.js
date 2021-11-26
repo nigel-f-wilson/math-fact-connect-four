@@ -4,13 +4,9 @@ export function generateQuestion(topic, difficulty) {
     let question
     if (topic === "combining") {
         question = getCombiningQuestion(difficulty)
-        console.log(`QUESTION: ${JSON.stringify(question)}`)
-
     }
     else if (topic === "multiplying") {
         question = getMultiplyingQuestion(difficulty)
-        console.log(`QUESTION: ${JSON.stringify(question)}`)
-
     }
     // else if (topic === "fractions") {
     //     question = getFractionsQuestion(difficultyLevel)
