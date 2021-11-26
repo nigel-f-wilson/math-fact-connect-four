@@ -78,17 +78,19 @@ export default function App() {
         let moveToAdd = (answerIsCorrect) ? activeCell : -1
         console.log(`Handle Answer submit adding ${moveToAdd} to the moveList`);
         setTimeout(() => {
-            setActiveCell(null)
             setOpenModal("none")
-        }, 500);
+        }, 1000);
         setTimeout(() => {
-            let updatedMoveList = moveList.concat(activeCell)
+            let updatedMoveList = moveList.concat(moveToAdd)
             let updatedGameStatus = getGameStatus(updatedMoveList)
             setMoveList(updatedMoveList)
             setGameStatus(updatedGameStatus)
             setActiveCell(null)
             setOpenModal("none")
-        }, 800);
+            setActiveCell(null)
+
+        }, 1400)
+        
         // if (opponent === "bot") {
         //     console.error(`IT IS THE BOT'S TURN BUT GETBOTMOVE HAS NOT BEEN DEFINED`)
         // }
@@ -174,6 +176,7 @@ export default function App() {
                         width:  maxSquareSideLength,
                         display: 'flex',
                         flexDirection: 'column',
+                        
                         alignItems: 'center',
                         position: 'relative'
                     }}>
