@@ -10,7 +10,7 @@ import {
 
 // MUI  components
 import { Box, Button, Dialog, Zoom, Typography, 
-    TextField, FormControl, InputLabel, OutlinedInput,  
+    TextField, FormControl, InputLabel, OutlinedInput, FormHelperText,  
 } from '@material-ui/core'
 
 // Style & Layout Constants
@@ -191,6 +191,9 @@ export function MathQuestionModal(props) {
                         <SubmitButton 
                             answer={answer}
                             handleSubmitClick={handleSubmitClick}
+                        {/* <FormHelperText 
+                            label={(error === false) ? "" : "Enter a whole number"}
+                        /> */}
                         />
                     </FormControl>
                 </Box>
