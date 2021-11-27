@@ -69,10 +69,22 @@ function getCombiningQuestion(difficultyLevel) {
 
 // Returns a 3 or 4 element array where the last element is the sum of the others
 function getCombiningFact(difficultyLevel) {
-    let a = randomInt(1, 99)
-    let b = randomInt(1, 99)
-    let c = a + b
-    return [a,b,c]
+    if (difficultyLevel <= 1) {  // Outter two columns have 3 var facts
+        let a = randomInt(1, 99)
+        let b = randomInt(1, 99)
+        let c = a + b
+        return [a, b, c]
+    }
+    else if (difficultyLevel > 1) {  // Central three columns have 4 var facts
+        let a = randomInt(1, 99)
+        let b = randomInt(1, 99)
+        let c = randomInt(1, 99)
+        let d = a + b + c
+        return [a, b, c, d]
+    }
+    else {
+        console.error(`Failed to get combining fact of difficulty Level "${difficultyLevel}"`);
+    }
 }
 
 
@@ -100,9 +112,12 @@ function getAlgebraQuestion(difficultyLevel) {
 
 
 export function getEquationString(question) {
-    const { type, fact } = question
-    if (type === "missingSum") {
-        return (`${fact[0]} + ${fact[1]} = __`)
+    const { type, vars } = question
+    if (type === "missingSumTwo") {
+        return (`${vars[0]} + ${vars[1]} = __`)
+    }
+    else if (type === "missingSumThree") {
+        return (`${vars[0]} + ${vars[1]} + ${vars[2]} = __`)
     }
     else {
         console.error(`Failed to getEquationString with question: ${JSON.stringify(question)}`);
@@ -112,10 +127,10 @@ export function getEquationString(question) {
 export function getInputType(question) {
     const { type, fact } = question
     // There's a neater way to do this using a Map instead of all these if elses
-    if (type === "missingSum") {
+    if (type === "missingSumTwo" || type === "missingSumThree") {
         return "textField"
     }
-    else if (type === "missingAddend") {
+    else if (type === "missingAddendTwo" || type === "missingAddendThree") {
         return "textField"
     }
     else if (type === "compareFractions") {
@@ -129,8 +144,11 @@ export function getInputType(question) {
 export function getCorrectAnswer(question) {
     const { type, fact } = question
     // There's a neater way to do this using a Map instead of all these if elses
-    if (type === "missingSum") {
-        return fact[fact.length - 1]
+    if (type === "missingSumTwo") {
+        return vars[vars.length - 1]
+    }
+    else if (type === "missingSumThree") {
+        return vars[vars.length - 1]
     }
     else if (type === "missingAddend") {
         return fact[1]
