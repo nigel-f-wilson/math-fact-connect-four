@@ -38,15 +38,15 @@ export default function App() {
     const [activeCell, setActiveCell] = React.useState(null) 
 
     const [question, setQuestion] = React.useState({
-        type: "missingSum",
-        fact: [1, 2, 3]
+        type: "missingSumTwo",
+        vars: [1, 2, 3]
     })
 
     
     // LAYOUT
     const height = useScreenHeight()
     const width = useScreenWidth()
-    const  maxSquareSideLength = (height <= width) ? height : width
+    const  boardSideLength = (height <= width) ? height : width
 
     
     ///////////////////////////////////////////////////////
@@ -68,10 +68,11 @@ export default function App() {
         let difficulty = pickDifficulty(columnIndex)
         // console.log(`Selected Topic "${topic}" and Difficulty level: "${difficulty}"`)
         let newQuestion = generateQuestion(topic, difficulty)
-        console.log(`QUESTION generated: ${JSON.stringify(newQuestion, null, 4)}`)
+        console.log(`NEW QUESTION: ${JSON.stringify(newQuestion, null, 4)}`)
         setQuestion(newQuestion)
         setOpenModal("question")
         setActiveCell(lowestUnclaimedCell)
+
     }
 
     function handleAnswerSubmit(answerIsCorrect) {
@@ -79,7 +80,7 @@ export default function App() {
         console.log(`Handle Answer submit adding ${moveToAdd} to the moveList`);
         setTimeout(() => {
             setOpenModal("none")
-        }, 1000);
+        }, 2000);
         setTimeout(() => {
             let updatedMoveList = moveList.concat(moveToAdd)
             let updatedGameStatus = getGameStatus(updatedMoveList)
@@ -87,9 +88,8 @@ export default function App() {
             setGameStatus(updatedGameStatus)
             setActiveCell(null)
             setOpenModal("none")
-            setActiveCell(null)
 
-        }, 1400)
+        }, 4000)
         
         // if (opponent === "bot") {
         //     console.error(`IT IS THE BOT'S TURN BUT GETBOTMOVE HAS NOT BEEN DEFINED`)
@@ -172,11 +172,11 @@ export default function App() {
                     {/* <PlayPage /> */}
                     {/* <InfoPage /> */}
                     <Box id='play-page' sx={{
-                        height:  maxSquareSideLength,
-                        width:  maxSquareSideLength,
+                        height:  boardSideLength,
+                        width:  boardSideLength,
                         display: 'flex',
                         flexDirection: 'column',
-                        
+
                         alignItems: 'center',
                         position: 'relative'
                     }}>
@@ -189,7 +189,7 @@ export default function App() {
                             open={(openModal === "question")}
                             question={question}
                             handleAnswerSubmit={handleAnswerSubmit}
-                            maxSquareSideLength={maxSquareSideLength}
+                            boardSideLength={boardSideLength}
                         />
                         <GameBoard
                             moveList={moveList}
