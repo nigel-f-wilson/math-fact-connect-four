@@ -125,7 +125,7 @@ export function getEquationString(question) {
 }
 
 export function getInputType(question) {
-    const { type, fact } = question
+    const { type, vars } = question
     // There's a neater way to do this using a Map instead of all these if elses
     if (type === "missingSumTwo" || type === "missingSumThree") {
         return "textField"
@@ -142,7 +142,7 @@ export function getInputType(question) {
 }
 
 export function getCorrectAnswer(question) {
-    const { type, fact } = question
+    const { type, vars } = question
     // There's a neater way to do this using a Map instead of all these if elses
     if (type === "missingSumTwo") {
         return vars[vars.length - 1]
@@ -151,10 +151,10 @@ export function getCorrectAnswer(question) {
         return vars[vars.length - 1]
     }
     else if (type === "missingAddend") {
-        return fact[1]
+        return vars[1]
     }
     else if (type === "compareFractions") {
-        return (fact[0] > fact[1]) // TODO
+        return (vars[0] > vars[1]) // TODO
     }
     else {
         console.error(`Failed to getEquationString with question: ${JSON.stringify(question)}`);
