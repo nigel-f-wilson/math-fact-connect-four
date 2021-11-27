@@ -89,14 +89,14 @@ function getAlgebraQuestion(difficultyLevel) {
 
 }
 
-export function getInstructions(questionType) {
-    if (questionType === "missingSum") {
-        return chooseRandomFromArray([
-            "What's the Sum?",
-            "Find the Total"
-        ])
-    }
-}
+// export function getInstructions(questionType) {
+//     if (questionType === "missingSum") {
+//         return chooseRandomFromArray([
+//             "What's the Sum?",
+//             "Find the Total"
+//         ])
+//     }
+// }
 
 
 export function getEquationString(question) {
