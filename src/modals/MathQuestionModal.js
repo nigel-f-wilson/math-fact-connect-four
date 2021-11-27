@@ -23,31 +23,41 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 })
 
 export function MathQuestionModal(props) {
-    let { open, activeCell, question, addMoveToState, handleAnswerSubmit, maxSquareSideLength } = props
-    let { topic, type, vars, correctAnswer } = question
+    let { open, question, handleAnswerSubmit, boardSideLength } = props
+    // let { type, vars, instructions } = question
+    
+    let equationString = getEquationString(question)
+    let correctAnswer = getCorrectAnswer(question)
+    // let answerIsCorrect = (Number(playersAnswer.trim()) === correctAnswer)
 
     const [playersAnswer, setPlayersAnswer] = React.useState("")
+    const [answerIsCorrect, setAnswerIsCorrect] = React.useState(false)
+    const [answerFeedBack, setAnswerFeedBack] = React.useState("")
 
-    let instructions = getInstructions(type)
-    let equationString = getEquationString(question) 
+    const answerIsNum = /^\d+$/.test(playersAnswer)
+    const error = (playersAnswer.length > 0 && !answerIsNum)
     
-    // let correctAnswer = getCorrectAnswer(question)
-    // let answerIsCorrect = (Number(playersAnswer.trim()) === correctAnswer)
-    // console.log(`answerIsCorrect: ${answerIsCorrect} `)
-    
-    function handleSubmitButtonClick(question, playersAnswer) {
-        const { correctAnswer } = question
-        let answerIsCorrect = (Number(playersAnswer.trim()) === correctAnswer)
+    const handlePlayersAnswerChange = (event) => {
+        let updatedAnswer = event.target.value
+        setPlayersAnswer(updatedAnswer)
+        setAnswerIsCorrect(Number(updatedAnswer.trim()) === correctAnswer)
+    }
+    function handlePlayersAnswerSubmit(question, playersAnswer) {
+        if (error) {
+            console.log(`Returning early from answer submit b/c answer is blank or not a number.`);
+            return -1
+        }
+        setAnswerFeedBack(answerIsCorrect ? "Correct!" : `Nope. It was ${correctAnswer}`)
+
         console.log(`answerIsCorrect: ${answerIsCorrect} `)
         handleAnswerSubmit(answerIsCorrect)
-
+        setPlayersAnswer("")
     }
 
     return (
         <Dialog 
             disableEscapeKeyDown
             open={open}
-            // onClose={closeQuestionModal}  // Callback fired when the component requests to be closed.
             onBackdropClick={() => {}}  // disable close on bg click
             aria-describedby="math-question-dialog"
             TransitionComponent={Transition}
@@ -55,9 +65,9 @@ export function MathQuestionModal(props) {
             maxWidth='md'
             PaperProps={{
                 style: {
-                    margin: `${0.05 * maxSquareSideLength}px`,
-                    height: `${0.9 * maxSquareSideLength}px`,
-                    width: `${0.9 * maxSquareSideLength}px`,
+                    margin: `${0.05 * boardSideLength}px`,
+                    height: `${0.9 * boardSideLength}px`,
+                    width: `${0.9 * boardSideLength}px`,
                     borderRadius: '50%',
                     justifySelf: 'flex-start',
                     alignSelf: 'flex-start'
@@ -65,43 +75,49 @@ export function MathQuestionModal(props) {
                 }
             }}
         >
-            <InstructionsText 
-                instructions={instructions}
+            <HeaderText 
+                instructions={question.instructions}
+                answerFeedBack={answerFeedBack}
             />
             <QuestionEquation 
                 equationString={equationString}
             />
             <AnswerInputComponent 
                 question={question}
-                handleAnswerSubmit={handleAnswerSubmit}
+                handlePlayersAnswerChange={handlePlayersAnswerChange}
+                handlePlayersAnswerSubmit={handlePlayersAnswerSubmit}
             />
         </Dialog>
     )
 
     
     
-    function InstructionsText(props) {
+    function HeaderText(props) {
+        const { instructions, answerFeedBack } = props
+        let headerText = (answerFeedBack !== null) ? instructions : answerFeedBack
+        
         return (
             <Typography id="Instructions"
                 variant='h3'
                 sx={{
-                    // border: 'solid red 1px',
                     height: instructionsHeight,
                     width: '100%',
                     display: 'flex',
+                    flexFlow: 'row wrap',
                     justifyContent: 'center',
                     alignItems: 'flex-end',
                 }}
             >
-                {props.instructions}
+                {headerText}
             </Typography>
         )
     }
     function QuestionEquation(props) {
         const { equationString } = props
+        const fontStyle = (equationString.length > 12) ? 'h2' : 'h1'
 
         return (
-            <Typography variant='h1' 
+            <Typography variant={fontStyle} 
                 sx={{
                     width: '100%',
                     height: equationHeight,
@@ -116,22 +132,24 @@ export function MathQuestionModal(props) {
         )
     }
     function AnswerInputComponent(props) {
-        const { question, handleAnswerSubmit, addMoveToState } = props
+        const { question, 
+            handlePlayerAnswerSubmit, 
+            handlePlayerAnswerChange } = props
+        
+        
         const answerInputType = getInputType(question)
 
         if (answerInputType === "textField") {
             return (
                 <NumericalTextInput
-                    handleAnswerSubmit={handleAnswerSubmit}
-                    addMoveToState={addMoveToState}
+                    handlePlayersAnswerSubmit={handlePlayersAnswerSubmit}
                 />
             )
         }
         else if (answerInputType === "compareButtons") {
             return (
                 <CompareButtons 
-                    handleAnswerSubmit={handleAnswerSubmit}
-                    addMoveToState={addMoveToState}
+                    handlePlayersAnswerSubmit={handlePlayersAnswerSubmit}
                 />
             )
         }
@@ -140,19 +158,8 @@ export function MathQuestionModal(props) {
         }
 
         function NumericalTextInput(props) {
-            const { handleAnswerSubmit, addMoveToState } = props
-            const [answer, setAnswer] = React.useState("")
-            const [banner, setBanner] = React.useState()
-
-            const handleChange = (event) => {
-                setAnswer(event.target.value);
-            }
-            let answerIsNum = /^\d+$/.test(answer)
-            let error = (answer.length > 0 && !answerIsNum)
-
-            const handleSubmitClick = (event) => {
-                
-            }
+            const { handlePlayersAnswerSubmit } = props
+            
 
             return (
                 <Box sx={{
@@ -160,7 +167,8 @@ export function MathQuestionModal(props) {
                     width: '100%',
                     padding: '0 20%',
                 }}>
-                    <FormControl id="answer-input-form"
+                    <FormControl 
+                        id="answer-input-form"
                         color="primary"
                         error={error}
                         sx={{
@@ -172,28 +180,35 @@ export function MathQuestionModal(props) {
                     >
                         <InputLabel>{(error === false) ? "Your Answer" : "Enter a whole number"}</InputLabel>
                         <OutlinedInput
-                            autoFocus
-                            id="answer-input"
                             label={(error === false) ? "Your Answer" : "Enter a whole number"}
+                            value={playersAnswer}
+                            id="answer-input"
                             fullWidth
                             size="medium"
+                            autoFocus
+                            autoComplete='off'
                             inputMode='numeric'
                             pattern='[0-9]*'
-                            value={answer}
-                            onChange={handleChange}
-                            aria-describedby="component-error-text"
+                            onChange={handlePlayersAnswerChange}
+                            inputProps={{ 
+                                style: { fontSize: '2rem', height: '2rem' }
+                            }}
+                            sx={{ width: '62%' }}
                             onKeyDown={(event) => {
                                 if (event.key === "Enter") {
-                                    handleSubmitButtonClick(question, answer)
+                                    handlePlayersAnswerSubmit(answerIsCorrect)
                                 }
                             }}
                         />
-                        <SubmitButton 
-                            answer={answer}
-                            handleSubmitClick={handleSubmitClick}
                         {/* <FormHelperText 
                             label={(error === false) ? "" : "Enter a whole number"}
                         /> */}
+                        <SubmitButton
+                            disabled={error}
+                            playersAnswer={playersAnswer}
+                            handlePlayersAnswerSubmit={handlePlayersAnswerSubmit}
+                            
+
                         />
                     </FormControl>
                 </Box>
@@ -205,13 +220,14 @@ export function MathQuestionModal(props) {
             const { answer, handleAnswerSubmit } = props
             return (
                 <Button
-                    onClick={() => handleSubmitButtonClick(question, answer)}
+                    onClick={() => handlePlayersAnswerSubmit(answerIsCorrect)}
                     variant='contained'
-                    size="large"
+                    // size="large"
                     sx={{ 
                         ml: 1, 
                         px: 2.5,
-
+                        lineHeight: '3rem',
+                        width: '42%'
                     }}
                     children="Submit"
                 />
