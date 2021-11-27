@@ -44,30 +44,26 @@ export function generateQuestion(topic, difficulty) {
 
 
 function getCombiningQuestion(difficultyLevel) {
-    
-    let fact = getCombiningFact(difficultyLevel)  // This is where the difficukty level influences the number of terms and their range
-    
-    let type = "missingSum"
-    let missingSumInstructions = "What's the Sum?" // total
+    let types = [
+        "missingSumTwo", 
+        "missingAddendTwo", 
+        "missingSumThree", 
+        "missingAddendThree"
+    ]
+    let instructionsList = [
+        "What's the Sum?",
+        "Find the Total.",
+    ]
 
-    
-    // let types = ["missingSumTwo", "missingAddendTwo", "missingSumThree", "missingAddendThree"]
-    // let type = types[difficultyLevel]
-    console.log(`getCombiningQuestion chose TYPE: ${type}`);
+    let type = types[difficultyLevel]
+    let vars = getCombiningFact(difficultyLevel) 
+    let instructions = chooseRandomFromArray(instructionsList)
 
-    // let instructions = chooseRandomFromArray()
-    
     let question = {
         type: type,
-        // answerInputType: 'textField',
-        // instructions: missingSumInstructions,
-        fact: fact,
-        // formatString: 'a + b = c',  // Change this to use Latex
-        // vars: [1, 2, 3],
-        // missingVar: 2,
+        vars: vars,
+        instructions: instructions
     }
-    
-    console.log(`COMBINING QUESTION: ${JSON.stringify(question)}`);
     return question
 }
 
