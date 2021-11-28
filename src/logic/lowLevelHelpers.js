@@ -1,7 +1,10 @@
 export function chooseRandomFromArray(array) {
-    let randomIndex = Math.floor((Math.random() * array.length))
-    return array[randomIndex]
+    let randomIndex = randomInt(0, array.length)
+    let choice = array[randomIndex]
+    console.log(`CHOICE: ${choice}`);
+    return choice
 }
+
 export function randomInt(min, max) { //The maximum is exclusive and the minimum is inclusive
     min = Math.ceil(min)
     max = Math.floor(max)
