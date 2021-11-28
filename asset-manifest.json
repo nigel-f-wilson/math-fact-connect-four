@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/math-fact-connect-four/static/js/main.eea83f5c.chunk.js",
-    "main.js.map": "/math-fact-connect-four/static/js/main.eea83f5c.chunk.js.map",
+    "main.js": "/math-fact-connect-four/static/js/main.b24dac01.chunk.js",
+    "main.js.map": "/math-fact-connect-four/static/js/main.b24dac01.chunk.js.map",
     "runtime-main.js": "/math-fact-connect-four/static/js/runtime-main.1352193c.js",
     "runtime-main.js.map": "/math-fact-connect-four/static/js/runtime-main.1352193c.js.map",
     "static/js/2.75e57553.chunk.js": "/math-fact-connect-four/static/js/2.75e57553.chunk.js",
@@ -14,6 +14,6 @@
   "entrypoints": [
     "static/js/runtime-main.1352193c.js",
     "static/js/2.75e57553.chunk.js",
-    "static/js/main.eea83f5c.chunk.js"
+    "static/js/main.b24dac01.chunk.js"
   ]
 }
