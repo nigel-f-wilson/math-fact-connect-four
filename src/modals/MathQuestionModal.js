@@ -190,8 +190,8 @@ export function MathQuestionModal(props) {
                             size="medium"
                             autoFocus
                             autoComplete='off'
-                            inputMode='numeric'
-                            type="number"
+                            // type="number"
+                            type="tel"
                             // pattern="\d*"
                             pattern='[0-9]*'
                             onChange={handlePlayersAnswerChange}
