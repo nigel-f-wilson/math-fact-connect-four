@@ -45,43 +45,50 @@ export function generateQuestion(topic, difficulty) {
 
 function getCombiningQuestion(difficultyLevel) {
     let types = [
-        "missingSumTwo", 
-        "missingAddendTwo", 
-        "missingSumThree", 
-        "missingAddendThree"
+        "missingSumTwo",
+        "missingAddendTwo",
+        // "combineAndCompare"   // a + b _ c - d
+        // "missingDifference",  // a - b = _
+        // "missingMinuend",     // a - _ = c
+        // "howFarApart",        // a and b
+        // "missingSumThree",
+        // "missingAddendThree",
     ]
-    let instructionsList = [
-        "What's the Sum?",
-        "Find the Total.",
-    ]
-
-    let type = types[difficultyLevel]
-    let vars = getCombiningFact(difficultyLevel) 
-    let instructions = chooseRandomFromArray(instructionsList)
+    
+    
+    let type = chooseRandomFromArray(types)
+    let vars = getCombiningFact(type, difficultyLevel) 
+    let correctAnswer = getCorrectAnswer(type, vars)
+    let instructions = getInstructions(type)
+    let equationString = getEquationString(type, vars)
+    let inputType = getInputType(type, vars)
 
     let question = {
         type: type,
         vars: vars,
-        instructions: instructions
+        correctAnswer: correctAnswer,
+        instructions: instructions,
+        equationString: equationString,
+        inputType: inputType,
     }
     return question
+    
+    
+    
 }
 
+
 // Returns a 3 or 4 element array where the last element is the sum of the others
-function getCombiningFact(difficultyLevel) {
-    if (difficultyLevel <= 1) {  // Outter two columns have 3 var facts
+function getCombiningFact(type, difficultyLevel) {
+    const typeOnes = ["missingSumTwo", "missingAddendTwo" ] // A + B = C
+    if (typeOnes.includes(type)) {
         let a = randomInt(1, 99)
         let b = randomInt(1, 99)
         let c = a + b
         return [a, b, c]
     }
-    else if (difficultyLevel > 1) {  // Central three columns have 4 var facts
-        let a = randomInt(1, 99)
-        let b = randomInt(1, 99)
-        let c = randomInt(1, 99)
-        let d = a + b + c
-        return [a, b, c, d]
-    }
+    
+    
     else {
         console.error(`Failed to get combining fact of difficulty Level "${difficultyLevel}"`);
     }
@@ -111,52 +118,84 @@ function getAlgebraQuestion(difficultyLevel) {
 // }
 
 
-export function getEquationString(question) {
-    const { type, vars } = question
+function getEquationString(type, vars) {
     if (type === "missingSumTwo") {
         return (`${vars[0]} + ${vars[1]} = __`)
+    }
+    else if (type === "missingAddendTwo") {
+        return (`${vars[0]} + __ = ${vars[2]}`)
     }
     else if (type === "missingSumThree") {
         return (`${vars[0]} + ${vars[1]} + ${vars[2]} = __`)
     }
+    else if (type === "missingAddendThree") {
+        return (`${vars[0]} + __ + ${vars[2]} = ${vars[3]}`)
+    }
     else {
-        console.error(`Failed to getEquationString with question: ${JSON.stringify(question)}`);
+        console.error(`Failed to getEquationString with type: "${type}" and vars: "${vars}"`)
     }
 }
 
-export function getInputType(question) {
-    const { type, vars } = question
-    // There's a neater way to do this using a Map instead of all these if elses
-    if (type === "missingSumTwo" || type === "missingSumThree") {
-        return "textField"
-    }
-    else if (type === "missingAddendTwo" || type === "missingAddendThree") {
-        return "textField"
-    }
-    else if (type === "compareFractions") {
-        return "compareButtons"
+function getInputType(type) {
+    let questionTypeToInputTypeMap = new Map([
+        ["missingSumTwo", "textField"],
+        ["missingSumThree", "textField"],
+        ["missingAddendTwo", "textField"],
+        ["missingAddendThree", "textField"],
+        ["missingProductTwo", "textField"],
+        ["missingFactorTwo", "textField"],
+        ["completeMultiplication", "textField"],
+        ["compareFractions", "compareButtons"],
+        ["compareSums", "compareButtons"],
+        ["divisibility", "divisibilityCheckboxes"],
+    ])
+    if (questionTypeToInputTypeMap.has(type)) {
+        // console.log(`Input Type: ${questionTypeToInputTypeMap.get(type)}`);
+        return questionTypeToInputTypeMap.get(type)
     }
     else {
-        console.error(`Failed to getEquationString with question: ${JSON.stringify(question)}`);
+        console.error(`Failed to getInputType with type: "${type}"`)
     }
 }
 
-export function getCorrectAnswer(question) {
-    const { type, vars } = question
-    // There's a neater way to do this using a Map instead of all these if elses
+function getCorrectAnswer(type, vars) {
     if (type === "missingSumTwo") {
         return vars[vars.length - 1]
     }
     else if (type === "missingSumThree") {
         return vars[vars.length - 1]
     }
-    else if (type === "missingAddend") {
+    else if (type === "missingAddendTwo") {
         return vars[1]
     }
     else if (type === "compareFractions") {
         return (vars[0] > vars[1]) // TODO
     }
     else {
-        console.error(`Failed to getEquationString with question: ${JSON.stringify(question)}`);
+        console.error(`Failed to getCorrectAnswer with type: "${type}" and vars: "${vars}"`)
     }
+}
+
+function getInstructions(type) {
+    
+    
+    if (type === "missingSumTwo" || type === "missingSumThree") {
+        return chooseRandomFromArray(["What's the Sum?", "Find the Total."])
+    }
+    else if (type === "missingAddendTwo" || type === "missingAddendThree") {
+        return chooseRandomFromArray(["What's missing?", "How many more?"])
+    }
+    else if (type === "compareSums" || type === "compareFractions") {
+        return chooseRandomFromArray(["Compare", "Which is more?"])
+    }
+    else {
+        console.error(`Failed to getCorrectAnswer with type: "${type}"`)
+    }
+    
+    
+    let instructionsList = [
+        "What's the Sum?",
+        "Find the Total.",
+    ]
+
 }

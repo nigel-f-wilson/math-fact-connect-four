@@ -2,9 +2,9 @@ import React from 'react'
 
 import { 
     // getInstructions, 
-    getEquationString, 
-    getInputType, 
-    getCorrectAnswer 
+    // getEquationString, 
+    // getInputType, 
+    // getCorrectAnswer 
 } from '../logic/questionGenerator'
 
 
@@ -24,11 +24,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export function MathQuestionModal(props) {
     let { open, question, handleAnswerSubmit, boardSideLength } = props
-    // let { type, vars, instructions } = question
-    
-    let equationString = getEquationString(question)
-    let correctAnswer = getCorrectAnswer(question)
-    // let answerIsCorrect = (Number(playersAnswer.trim()) === correctAnswer)
+    let { type, vars, correctAnswer, instructions, equationString } = question
 
     const [playersAnswer, setPlayersAnswer] = React.useState("")
     const [answerIsCorrect, setAnswerIsCorrect] = React.useState(false)
@@ -80,8 +76,8 @@ export function MathQuestionModal(props) {
             }}
         >
             <HeaderText 
-                instructions={question.instructions}
-                answerFeedBack={answerFeedBack}
+                key={1}  // May be able to use key prop to force state reset to initial.
+                headerText={headerText}
             />
             <QuestionEquation 
                 equationString={equationString}
