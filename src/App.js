@@ -53,20 +53,20 @@ export default function App() {
     // CLICK HANDLERS
     ///////////////////////////////////////////////////////
     function handleColumnClick(columnIndex) {
-        let columnData = getColumnData(columnIndex, moveList)
-        let lowestUnclaimedRow = columnData.indexOf("unclaimed")
-        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
         if (gameIsOver(gameStatus)) {
             console.log(`handleColumnClick() had NO EFFECT since game is already over!`)
             return 
         }
+        let columnData = getColumnData(columnIndex, moveList)
+        let lowestUnclaimedRow = columnData.indexOf("unclaimed")
+        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
         if (lowestUnclaimedRow === -1) {
             console.log(`handleColumnClick() had NO EFFECT since column is full!`)
             return
         }
         const topic = chooseRandomFromArray(mathTopics)
-        let difficulty = pickDifficulty(columnIndex)
-        // console.log(`Selected Topic "${topic}" and Difficulty level: "${difficulty}"`)
+        let difficulty = pickDifficulty()
+        console.log(`Selected Topic "${topic}" and Difficulty level: "${difficulty}"`)
         let newQuestion = generateQuestion(topic, difficulty)
         console.log(`NEW QUESTION: ${JSON.stringify(newQuestion, null, 4)}`)
         setQuestion(newQuestion)
