@@ -1,6 +1,6 @@
 import { randomInt, chooseRandomFromArray } from "./lowLevelHelpers";
 
-export function generateQuestion(topic, difficulty) {
+
 export function blankQuestion() {
     return {
         type: "missingSumThree",
@@ -13,44 +13,64 @@ export function blankQuestion() {
 
 }
 
+export function generateQuestion(mathTopics, questionsRightSoFar) {
+    const topic = chooseRandomFromArray(mathTopics)
+    console.log(`GENERATING QUESTION!!! with topic "${topic}" and ${questionsRightSoFar} questions Right So Far`)
     let question
     if (topic === "combining") {
-        question = getCombiningQuestion(difficulty)
+        question = getCombiningQuestion(pickCombiningDifficulty(questionsRightSoFar))
     }
     else if (topic === "multiplying") {
-        question = getMultiplyingQuestion(difficulty)
+        // question = getMultiplyingQuestion(pickMultiplyingDifficulty(questionsRightSoFar))
+        question = getMultiplyingQuestion(pickCombiningDifficulty(questionsRightSoFar))
     }
     // else if (topic === "fractions") {
-    //     question = getFractionsQuestion(difficultyLevel)
+    //     question = getFractionsQuestion(difficulty)
     // }
     // else if (topic === "exponents") {
-    //     question = getExponentsQuestion(difficultyLevel)
+    //     question = getExponentsQuestion(difficulty)
     // }
     // else if (topic === "algebra") {
-    //     question = getAlgebraQuestion(difficultyLevel)
+    //     question = getAlgebraQuestion(difficulty)
     // }
     else {
-        console.error(`FAILED TO GET QUESTION!!!`)
+        console.error(`FAILED TO GET QUESTION!!! with topic "${topic}" and ${questionsRightSoFar} questions Right So Far`)
     }
     return question
 
 }
 
-function getCombiningQuestion(difficultyLevel) {
+function pickCombiningDifficulty(questionsRightSoFar) {
+    if (questionsRightSoFar < 6) {
+        return "easy"
+    }
+    else if (questionsRightSoFar < 12) {
+        return "medium"
+    }
+    else if (questionsRightSoFar >= 12) {
+        return "hard"
+    }
+    else {
+        console.error(`Invalid number of question right so far: ${questionsRightSoFar}`);
+    }
+    return
+}
+
+function getCombiningQuestion(difficulty) {
     let types = [
         "missingSumTwo",
         "missingAddendTwo",
+        "missingSumThree",
+        "missingAddendThree",
+    ]
         // "combineAndCompare"   // a + b _ c - d
         // "missingDifference",  // a - b = _
         // "missingMinuend",     // a - _ = c
         // "howFarApart",        // a and b
-        "missingSumThree",
-        "missingAddendThree",
-    ]
     
     let type = chooseRandomFromArray(types)
     console.log(`Get Combining question type: "${type}"`);
-    let vars = getCombiningFact(type, difficultyLevel) 
+    let vars = getCombiningFact(type, difficulty) 
     let correctAnswer = getCorrectAnswer(type, vars)
     let instructions = getInstructions(type)
     let equationString = getEquationString(type, vars)
@@ -64,7 +84,7 @@ function getCombiningQuestion(difficultyLevel) {
         equationString: equationString,
         inputType: inputType,
     }
-    // console.log(`Generated Combining Question --> ${JSON.stringify(question, null, 4)}`);
+    console.log(`Generated Combining Question --> ${JSON.stringify(question, null, 4)}`);
     return question
     
     
