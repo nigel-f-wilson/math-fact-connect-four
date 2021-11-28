@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/math-fact-connect-four/static/js/main.1cce18e8.chunk.js",
-    "main.js.map": "/math-fact-connect-four/static/js/main.1cce18e8.chunk.js.map",
+    "main.js": "/math-fact-connect-four/static/js/main.28707e5b.chunk.js",
+    "main.js.map": "/math-fact-connect-four/static/js/main.28707e5b.chunk.js.map",
     "runtime-main.js": "/math-fact-connect-four/static/js/runtime-main.1352193c.js",
     "runtime-main.js.map": "/math-fact-connect-four/static/js/runtime-main.1352193c.js.map",
-    "static/js/2.bdaa2c19.chunk.js": "/math-fact-connect-four/static/js/2.bdaa2c19.chunk.js",
-    "static/js/2.bdaa2c19.chunk.js.map": "/math-fact-connect-four/static/js/2.bdaa2c19.chunk.js.map",
+    "static/js/2.75e57553.chunk.js": "/math-fact-connect-four/static/js/2.75e57553.chunk.js",
+    "static/js/2.75e57553.chunk.js.map": "/math-fact-connect-four/static/js/2.75e57553.chunk.js.map",
     "static/js/3.69cf56f3.chunk.js": "/math-fact-connect-four/static/js/3.69cf56f3.chunk.js",
     "static/js/3.69cf56f3.chunk.js.map": "/math-fact-connect-four/static/js/3.69cf56f3.chunk.js.map",
     "index.html": "/math-fact-connect-four/index.html",
-    "static/js/2.bdaa2c19.chunk.js.LICENSE.txt": "/math-fact-connect-four/static/js/2.bdaa2c19.chunk.js.LICENSE.txt"
+    "static/js/2.75e57553.chunk.js.LICENSE.txt": "/math-fact-connect-four/static/js/2.75e57553.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.1352193c.js",
-    "static/js/2.bdaa2c19.chunk.js",
-    "static/js/main.1cce18e8.chunk.js"
+    "static/js/2.75e57553.chunk.js",
+    "static/js/main.28707e5b.chunk.js"
   ]
 }
