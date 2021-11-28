@@ -37,9 +37,9 @@ export default function App() {
     const [openModal, setOpenModal] = React.useState("none") // Enum: "none", "question", "abandonGame", "newGameSettings", 
     const [activeCell, setActiveCell] = React.useState(null) 
 
+    const defaultVars = [ 1, 2, 3]
     const [question, setQuestion] = React.useState({
         type: "missingSumTwo",
-        vars: [1, 2, 3],
         correctAnswer: 3,
         instructions: "What's the Sum?"
     })

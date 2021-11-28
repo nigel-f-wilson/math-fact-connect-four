@@ -54,7 +54,7 @@ export function MathQuestionModal(props) {
         setTimeout(() => {
             setPlayersAnswer("")
             setHeaderText(instructions)
-        }, 2000);
+        }, 1499);
 
     }
 
