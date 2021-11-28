@@ -192,8 +192,8 @@ export function MathQuestionModal(props) {
                             autoComplete='off'
                             inputMode='numeric'
                             type="number"
-                            pattern="\d*"
-                            // pattern='[0-9]*'
+                            // pattern="\d*"
+                            pattern='[0-9]*'
                             onChange={handlePlayersAnswerChange}
                             inputProps={{ 
                                 style: { fontSize: '2rem', height: '2rem' }
