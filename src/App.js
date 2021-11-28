@@ -13,7 +13,8 @@ import { MathQuestionModal } from "./modals/MathQuestionModal";
 
 // Game Logic
 import { gameIsOver, getColumnData, getGameStatus, playerOnesNumbers, playerTwosNumbers } from './logic/connectFourLogic'
-import { generateQuestion } from './logic/questionGenerator'
+import { blankQuestion, generateQuestion } from './logic/questionGenerator'
+import { chooseRandomFromArray } from "./logic/lowLevelHelpers";
 
 // Custom Hooks
 import { useScreenWidth, useScreenHeight } from "./hooks"
@@ -37,18 +38,11 @@ export default function App() {
     const [openModal, setOpenModal] = React.useState("none") // Enum: "none", "question", "abandonGame", "newGameSettings", 
     const [activeCell, setActiveCell] = React.useState(null) 
 
-    const defaultVars = [ 1, 2, 3]
-    const [question, setQuestion] = React.useState({
-        type: "missingSumTwo",
-        correctAnswer: 3,
-        instructions: "What's the Sum?"
-    })
-
     
     // LAYOUT
     const height = useScreenHeight()
     const width = useScreenWidth()
-    const  boardSideLength = (height <= width) ? height : width
+    const boardSideLength = (height <= width) ? height : width
 
     
     ///////////////////////////////////////////////////////
@@ -66,12 +60,10 @@ export default function App() {
             console.log(`handleColumnClick() had NO EFFECT since column is full!`)
             return
         }
-        const topic = chooseRandomFromArray(mathTopics)
-        let difficulty = pickDifficulty()
-        console.log(`Selected Topic "${topic}" and Difficulty level: "${difficulty}"`)
-        let newQuestion = generateQuestion(topic, difficulty)
-        console.log(`NEW QUESTION: ${JSON.stringify(newQuestion, null, 4)}`)
-        setQuestion(newQuestion)
+        
+        // let newQuestion = generateQuestion(mathTopics, questionsRightSoFar())
+        // console.log(`NEW QUESTION: ${JSON.stringify(newQuestion, null, 4)}`)
+        // setQuestion(newQuestion)
         setOpenModal("question")
         setActiveCell(lowestUnclaimedCell)
 
@@ -105,42 +97,7 @@ export default function App() {
     function pickTopic() {
         return mathTopics[(Math.random() * mathTopics.length)]
     }
-    function pickDifficulty() {
-        
-        let questionsRightSoFar = -1
-
-        if (gameStatus === "playerOnesTurn") {
-            questionsRightSoFar = playerOnesNumbers(moveList).length
-        }
-        else if (gameStatus === "playerTwosTurn") {
-            questionsRightSoFar = playerTwosNumbers(moveList).length
-        }
-        else {
-            console.error(`pickDifficulty was called but the game is already over`);
-        }
-
-        if (questionsRightSoFar < 6) {
-            return "easy"
-        }
-        else if (questionsRightSoFar < 12) {
-            return "medium"
-        }
-        else if (questionsRightSoFar >= 12) {
-            return "hard"
-        }
-        else {
-            console.error(`Invalid number of question right so far: ${questionsRightSoFar}`);
-        }
-        
-        return
-    }
-    function chooseRandomFromArray(array) {
-        let randomIndex = Math.floor((Math.random() * array.length))
-        return array[randomIndex]
-    }
-
-
-    
+ 
     function openAbandonGameModal() {
         setOpenModal("abandonGame")
         
@@ -163,6 +120,24 @@ export default function App() {
         setGameStatus(getGameStatus(shortenedMoveList))
         setOpenModal("none")
     }
+
+    function getNextPlayersMoves() {
+        if (gameStatus === "playerOnesTurn") {
+            return playerOnesNumbers(moveList)
+        }
+        else if (gameStatus === "playerTwosTurn") {
+            return playerTwosNumbers(moveList)
+        }
+        else {
+            console.warn(`getNextPlayersMoves was called but the game is already over`);
+            return []
+        }
+    }
+    let turnNumber = moveList.length
+    let nextPlayersMoves = getNextPlayersMoves()
+    console.log(`nextPlayersMoves ${nextPlayersMoves}`);
+    let questionsRightSoFar = Math.max(1, nextPlayersMoves.length)
+
 
     return (
         <React.Fragment>
@@ -199,8 +174,13 @@ export default function App() {
                             handleUndoClick={handleUndoClick}
                         />
                         <MathQuestionModal
+                            key={1}
+                            // turnNumber={moveList.length}
+                            turnNumber={turnNumber}
                             open={(openModal === "question")}
-                            question={question}
+                            // question={question}
+                            mathTopics={mathTopics}
+                            questionsRightSoFar={questionsRightSoFar}
                             handleAnswerSubmit={handleAnswerSubmit}
                             boardSideLength={boardSideLength}
                         />

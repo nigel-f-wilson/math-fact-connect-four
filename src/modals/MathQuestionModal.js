@@ -1,17 +1,11 @@
-import React from 'react'
-
-import { 
-    // getInstructions, 
-    // getEquationString, 
-    // getInputType, 
-    // getCorrectAnswer 
-} from '../logic/questionGenerator'
+import React, { useState } from 'react'
 
 
 // MUI  components
 import { Box, Button, Dialog, Zoom, Typography, 
     TextField, FormControl, InputLabel, OutlinedInput, FormHelperText,  
 } from '@material-ui/core'
+import { generateQuestion } from '../logic/questionGenerator'
 
 // Style & Layout Constants
 const instructionsHeight = "30%"
@@ -25,7 +19,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export function MathQuestionModal(props) {
-    let { open, question, handleAnswerSubmit, boardSideLength } = props
+    let { mathTopics, topic, questionsRightSoFar, turnNumber, open, handleAnswerSubmit, boardSideLength } = props
+    
+    const [question, setQuestion] = React.useState(generateQuestion(mathTopics, questionsRightSoFar))
+    // let question = generateQuestion(mathTopics, questionsRightSoFar)
+    console.log(`NEW QUESTION: ${JSON.stringify(question, null, 4)}`)
+
+    
     let { type, vars, correctAnswer, instructions, equationString } = question
 
     const [playersAnswer, setPlayersAnswer] = React.useState("")
@@ -54,12 +54,14 @@ export function MathQuestionModal(props) {
         setTimeout(() => {
             setPlayersAnswer("")
             setHeaderText(instructions)
-        }, 1499);
+            setQuestion(generateQuestion(mathTopics, questionsRightSoFar))
+        }, 1500);
 
     }
 
     return (
         <Dialog 
+            keepMounted
             disableEscapeKeyDown
             open={open}
             onBackdropClick={() => {}}  // disable close on bg click
@@ -80,7 +82,8 @@ export function MathQuestionModal(props) {
             }}
         >
             <HeaderText 
-                key={1}  // May be able to use key prop to force state reset to initial.
+                // key={1}
+                key={turnNumber}  // May be able to use key prop to force state reset to initial.
                 headerText={headerText}
             />
             <QuestionEquation 
