@@ -37,6 +37,7 @@ function getCombiningQuestion(difficultyLevel) {
     ]
     
     let type = chooseRandomFromArray(types)
+    console.log(`Get Combining question type: "${type}"`);
     let vars = getCombiningFact(type, difficultyLevel) 
     let correctAnswer = getCorrectAnswer(type, vars)
     let instructions = getInstructions(type)
@@ -51,6 +52,7 @@ function getCombiningQuestion(difficultyLevel) {
         equationString: equationString,
         inputType: inputType,
     }
+    // console.log(`Generated Combining Question --> ${JSON.stringify(question, null, 4)}`);
     return question
     
     
