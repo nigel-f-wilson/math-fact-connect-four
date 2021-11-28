@@ -72,8 +72,16 @@ function getCombiningFact(type, difficultyLevel) {
         console.log(`Combining Vars of difficulty "${difficultyLevel}": ${[a, b, c]}`);
         return [a, b, c]
     }
+    else if (["missingSumThree", "missingAddendThree"].includes(type)) {
+        let a = (difficultyLevel === "hard") ? getHardAddend() : getEasyAddend()
+        let b = (difficultyLevel === "easy") ? getEasyAddend() : getMediumAddend()
+        let c = (difficultyLevel === "easy") ? getEasyAddend() : getMediumAddend()
+        let d = a + b + c
+        console.log(`Combining Vars of difficulty "${difficultyLevel}": ${[a, b, c, d]}`);
+        return [a, b, c, d]
+    }
     else {
-        console.error(`Failed to get combining fact of difficulty Level "${difficultyLevel}"`);
+        console.error(`Failed to get combining fact of type: "${type}" difficulty Level "${difficultyLevel}"`);
     }
 }
 
@@ -90,16 +98,6 @@ function getExponentsQuestion(difficultyLevel) {
 function getAlgebraQuestion(difficultyLevel) {
 
 }
-
-// export function getInstructions(questionType) {
-//     if (questionType === "missingSum") {
-//         return chooseRandomFromArray([
-//             "What's the Sum?",
-//             "Find the Total"
-//         ])
-//     }
-// }
-
 
 function getEquationString(type, vars) {
     let questionTypeToEquationStringMap = new Map([
