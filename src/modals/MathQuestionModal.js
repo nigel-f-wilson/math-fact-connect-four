@@ -48,6 +48,10 @@ export function MathQuestionModal(props) {
             return -1
         }
         setAnswerFeedBack(answerIsCorrect ? "Correct!" : `Nope. It was ${correctAnswer}`)
+        setTimeout(() => {
+            setPlayersAnswer("")
+            setHeaderText(instructions)
+        }, 2000);
 
         console.log(`answerIsCorrect: ${answerIsCorrect} `)
         handleAnswerSubmit(answerIsCorrect)

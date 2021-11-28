@@ -77,19 +77,17 @@ export default function App() {
 
     function handleAnswerSubmit(answerIsCorrect) {
         let moveToAdd = (answerIsCorrect) ? activeCell : -1
-        console.log(`Handle Answer submit adding ${moveToAdd} to the moveList`);
+        let updatedMoveList = moveList.concat(moveToAdd)
+        let updatedGameStatus = getGameStatus(updatedMoveList)
+        console.log(`Adding ${moveToAdd} to the moveList. Game status: ${updatedGameStatus}`);
         setTimeout(() => {
             setOpenModal("none")
-        }, 2000);
+        }, 1500);
         setTimeout(() => {
-            let updatedMoveList = moveList.concat(moveToAdd)
-            let updatedGameStatus = getGameStatus(updatedMoveList)
             setMoveList(updatedMoveList)
             setGameStatus(updatedGameStatus)
             setActiveCell(null)
-            setOpenModal("none")
-
-        }, 4000)
+        }, 1750)
         
         // if (opponent === "bot") {
         //     console.error(`IT IS THE BOT'S TURN BUT GETBOTMOVE HAS NOT BEEN DEFINED`)
