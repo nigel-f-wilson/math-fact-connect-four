@@ -165,6 +165,13 @@ function getCorrectAnswer(type, vars) {
 
 function getInstructions(type) {
     let questionTypeToInstructionsMap = new Map([
+        ["double", chooseRandomFromArray(["Double it!", "Add it to itself"])],
+        ["triple", chooseRandomFromArray(["Triple it!", "Three of them"])],
+        ["quadruple", chooseRandomFromArray(["Quadruple it!", "Double double it!"])],
+        ["half", chooseRandomFromArray(["Half it!", "Add it to itself"])],
+        ["third", chooseRandomFromArray(["What's a third of", "Cut in three"])],
+        ["quarter", chooseRandomFromArray(["Quarter it!", "Half half it!", "What's a fourth of"])],
+
         ["missingSumTwo", chooseRandomFromArray(["What's the Sum?", "Find the Total."])],
         ["missingSumThree", chooseRandomFromArray(["What's the Sum?", "Find the Total."])],
         ["missingAddendTwo", chooseRandomFromArray(["What's missing?", "How many more?"])],
