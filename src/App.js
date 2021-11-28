@@ -6,14 +6,14 @@ import WelcomePage from "./pages/Welcome"
 // import PlayPage from "./pages/Play"
 import InfoPage from "./pages/Info"
 // MY components
-import { InGameMenu, AccountMenu } from "./modals/Menu";
+import { InGameMenu } from "./modals/Menu";
 import { GameBoard } from "./pages/GameBoard";
 import { MathQuestionModal } from "./modals/MathQuestionModal";
 // import { GameSettingsModal } from "./components/GameSettingsModal";
 
 // Game Logic
-import { gameIsOver, getColumnData, getGameStatus } from './logic/connectFourLogic'
 import { generateQuestion, getCorrectAnswer } from './logic/questionGenerator'
+import { gameIsOver, getColumnData, getGameStatus, playerOnesNumbers, playerTwosNumbers } from './logic/connectFourLogic'
 
 // Custom Hooks
 import { useScreenWidth, useScreenHeight } from "./hooks"
@@ -103,21 +103,34 @@ export default function App() {
     function pickTopic() {
         return mathTopics[(Math.random() * mathTopics.length)]
     }
-    function pickDifficulty(columnIndex) {  // Harder questions near the center of the board.
-        if (columnIndex < 4) {
-            return columnIndex
+    function pickDifficulty() {
+        
+        let questionsRightSoFar = -1
+
+        if (gameStatus === "playerOnesTurn") {
+            questionsRightSoFar = playerOnesNumbers(moveList).length
         }
-        else if (columnIndex === 4) {
-            return 2
+        else if (gameStatus === "playerTwosTurn") {
+            questionsRightSoFar = playerTwosNumbers(moveList).length
         }
-        else if (columnIndex === 5) {
-            return 1
+        else {
+            console.error(`pickDifficulty was called but the game is already over`);
         }
-        else if (columnIndex === 6) {
-            return 0
-        } else {
-            return "error"
+
+        if (questionsRightSoFar < 6) {
+            return "easy"
         }
+        else if (questionsRightSoFar < 12) {
+            return "medium"
+        }
+        else if (questionsRightSoFar >= 12) {
+            return "hard"
+        }
+        else {
+            console.error(`Invalid number of question right so far: ${questionsRightSoFar}`);
+        }
+        
+        return
     }
     function chooseRandomFromArray(array) {
         let randomIndex = Math.floor((Math.random() * array.length))
