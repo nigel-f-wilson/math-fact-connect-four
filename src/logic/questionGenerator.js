@@ -119,7 +119,7 @@ function getAlgebraQuestion(difficultyLevel) {
 
 
 function getEquationString(type, vars) {
-    let questionTypeToInputTypeMap = new Map([
+    let questionTypeToEquationStringMap = new Map([
         ["missingSumTwo", `${vars[0]} + ${vars[1]} = __`],
         ["missingSumThree", `${vars[0]} + ${vars[1]} + ${vars[2]} = __`],
         ["missingAddendTwo", `${vars[0]} + __ = ${vars[2]}`],
@@ -131,9 +131,9 @@ function getEquationString(type, vars) {
         ["compareSums", `${vars[0]} + ${vars[1]} __ ${vars[2]} + ${vars[3]}`],
         ["divisibility", "divisibilityCheckboxes NOT BUILT YET"],
     ])
-    if (questionTypeToInputTypeMap.has(type)) {
-        console.log(`Equation String: ${questionTypeToInputTypeMap.get(type)}`);
-        return questionTypeToInputTypeMap.get(type)
+    if (questionTypeToEquationStringMap.has(type)) {
+        console.log(`Equation String: ${questionTypeToEquationStringMap.get(type)}`);
+        return questionTypeToEquationStringMap.get(type)
     }
     else {
         console.error(`Failed to getEquationString with type: "${type}" and vars: "${vars}"`)
