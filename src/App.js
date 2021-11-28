@@ -6,147 +6,98 @@ import WelcomePage from "./pages/Welcome"
 // import PlayPage from "./pages/Play"
 import InfoPage from "./pages/Info"
 // MY components
-import { InGameMenu, AccountMenu } from "./modals/Menu";
+import { InGameMenu } from "./modals/Menu";
 import { GameBoard } from "./pages/GameBoard";
 import { MathQuestionModal } from "./modals/MathQuestionModal";
 // import { GameSettingsModal } from "./components/GameSettingsModal";
 
 // Game Logic
-import { gameIsOver, getColumnData, getGameStatus, } from './logic/connectFourLogic'
-import { generateQuestion, getCorrectAnswer } from './logic/questionGenerator'
+import { gameIsOver, getColumnData, getGameStatus, playerOnesNumbers, playerTwosNumbers } from './logic/connectFourLogic'
+import { blankQuestion, generateQuestion } from './logic/questionGenerator'
+import { chooseRandomFromArray } from "./logic/lowLevelHelpers";
 
 // Custom Hooks
 import { useScreenWidth, useScreenHeight } from "./hooks"
 
-
 // MUI  components
 import { CssBaseline, Box } from '@material-ui/core'
-
-
 
 // THEME
 import theme from "./theme"
 import { ThemeProvider, } from '@material-ui/core/styles'
 
+
 export default function App() {
     // GAME SETTINGS
     const [opponent, setOpponent] = React.useState("human")
     const [mathTopics, setMathTopics] = React.useState(["combining"])  // An array of all types player wants
-    // const [timeLimit, setTimeLimit] = React.useState(30)
 
-    // GAME STATUS
+    // GAME STATE
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')  // Enum ['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw']
-    const [activeCell, setActiveCell] = React.useState(false)
     const [openModal, setOpenModal] = React.useState("none") // Enum: "none", "question", "abandonGame", "newGameSettings", 
+    const [activeCell, setActiveCell] = React.useState(null) 
 
-    
-    const [question, setQuestion] = React.useState({
-        type: "missingSum",
-        fact: [1,2,3]
-        // answerInputType: "",
-        // instructions: "",
-        // formatString: null,  // Change this to use Latex
-        // vars: [],
-        // missingVar: null,
-    })
-
-    
-    
-    
     
     // LAYOUT
     const height = useScreenHeight()
     const width = useScreenWidth()
-    const  maxSquareSideLength = (height <= width) ? height : width
+    const boardSideLength = (height <= width) ? height : width
 
-    
-    
     
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
     ///////////////////////////////////////////////////////
     function handleColumnClick(columnIndex) {
-        let columnData = getColumnData(columnIndex, moveList)
-        let lowestUnclaimedRow = columnData.indexOf("unclaimed")
-        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
         if (gameIsOver(gameStatus)) {
             console.log(`handleColumnClick() had NO EFFECT since game is already over!`)
             return 
         }
+        let columnData = getColumnData(columnIndex, moveList)
+        let lowestUnclaimedRow = columnData.indexOf("unclaimed")
+        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
         if (lowestUnclaimedRow === -1) {
             console.log(`handleColumnClick() had NO EFFECT since column is full!`)
             return
         }
-
-        const topic = chooseRandomFromArray(mathTopics)
-        let difficulty = pickDifficulty(columnIndex)
-        console.log(`Selected Topic "${topic}" and Difficulty level: "${difficulty}"`)
         
-        let newQuestion = generateQuestion(topic, difficulty)
-        console.log(`QUESTION generated: ${JSON.stringify(newQuestion)}`)
-
-        setQuestion(newQuestion)
+        // let newQuestion = generateQuestion(mathTopics, questionsRightSoFar())
+        // console.log(`NEW QUESTION: ${JSON.stringify(newQuestion, null, 4)}`)
+        // setQuestion(newQuestion)
         setOpenModal("question")
         setActiveCell(lowestUnclaimedCell)
+
     }
 
-    function handleAnswerSubmit(question, playersAnswer) {
-        console.log(`Handling answer submit: ${playersAnswer} `);
-        // let answer = answer.trim whitespace and remove commas
-        let correctAnswer = getCorrectAnswer(question)
-        console.log(`corect answer is: ${correctAnswer} `)
-        
-        let answerIsCorrect = (Number(playersAnswer) === correctAnswer)
-        console.log(`answerIsCorrect: ${answerIsCorrect} `)
-
-        let moveToAdd = (answerIsCorrect) ? activeCell : -1 // Check if answer is correct
+    function handleAnswerSubmit(answerIsCorrect) {
+        let moveToAdd = (answerIsCorrect) ? activeCell : -1
         let updatedMoveList = moveList.concat(moveToAdd)
         let updatedGameStatus = getGameStatus(updatedMoveList)
-        setOpenModal('none')
+        console.log(`Adding ${moveToAdd} to the moveList. Game status: ${updatedGameStatus}`);
+        setTimeout(() => {
+            setOpenModal("none")
+        }, 1500);
         setTimeout(() => {
             setMoveList(updatedMoveList)
             setGameStatus(updatedGameStatus)
-        }, 500);
+            setActiveCell(null)
+        }, 1750)
         
-
-        if (opponent === "bot") {
-            console.error(`IT IS THE BOT'S TURN BUT GETBOTMOVE HAS NOT BEEN DEFINED`)
-            // let botsUpdatedMoveList = moveList.concat(getBotMove(updatedMoveList))
-            // let botsUpdatedGameStatus = getGameStatus(botsUpdatedMoveList)
-            // setMoveList(botsUpdatedMoveList)
-            // setGameStatus(botsUpdatedGameStatus)
-            // console.log(`moveList after BOT's move: ${botsUpdatedMoveList}`)
-        }
-        return 0
+        // if (opponent === "bot") {
+        //     console.error(`IT IS THE BOT'S TURN BUT GETBOTMOVE HAS NOT BEEN DEFINED`)
+        // }
     }
+
+    function closeModal() {
+        setOpenModal("none")
+    }
+    
+    
 
     function pickTopic() {
         return mathTopics[(Math.random() * mathTopics.length)]
     }
-    function pickDifficulty(columnIndex) {  // Harder questions near the center of the board.
-        if (columnIndex < 4) {
-            return columnIndex
-        }
-        else if (columnIndex === 4) {
-            return 2
-        }
-        else if (columnIndex === 5) {
-            return 1
-        }
-        else if (columnIndex === 6) {
-            return 0
-        } else {
-            return "error"
-        }
-    }
-    function chooseRandomFromArray(array) {
-        let randomIndex = Math.floor((Math.random() * array.length))
-        return array[randomIndex]
-    }
-
-
-    
+ 
     function openAbandonGameModal() {
         setOpenModal("abandonGame")
         
@@ -170,32 +121,22 @@ export default function App() {
         setOpenModal("none")
     }
 
-    // function closeQuestionModal() {
-    //     let timeout = 800
-
-    //     // /determine if answer correct and display 
-
-    //     // DO SOME OTHER STUFF
-    //     setTimeout(() => {
-    //         setQuestionModalIsOpen(false)
-    //     }, timeout)
-
-
-    // }
-
-    // function generateQuestion(questionType) {
-
-    // }
-    // QUESTION INTERFACE
-    // interface Question {
-    //     topic: string,
-    //     inputType: string,
-    //     instructions: string,
-    //     formatString: string,  // Change this to use Latex
-    //     vars: Array<number>,
-    //     missingVar: number,
-    // }
-    // const unsetQuestion = 
+    function getNextPlayersMoves() {
+        if (gameStatus === "playerOnesTurn") {
+            return playerOnesNumbers(moveList)
+        }
+        else if (gameStatus === "playerTwosTurn") {
+            return playerTwosNumbers(moveList)
+        }
+        else {
+            console.warn(`getNextPlayersMoves was called but the game is already over`);
+            return []
+        }
+    }
+    let turnNumber = moveList.length
+    let nextPlayersMoves = getNextPlayersMoves()
+    console.log(`nextPlayersMoves ${nextPlayersMoves}`);
+    let questionsRightSoFar = Math.max(1, nextPlayersMoves.length)
 
 
     return (
@@ -212,17 +153,18 @@ export default function App() {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        justifyContent: 'center',
+                        justifyContent: 'flex-start',
                     }}
                 >
                     {/* <WelcomePage /> */}
                     {/* <PlayPage /> */}
                     {/* <InfoPage /> */}
                     <Box id='play-page' sx={{
-                        height:  maxSquareSideLength,
-                        width:  maxSquareSideLength,
+                        height:  boardSideLength,
+                        width:  boardSideLength,
                         display: 'flex',
                         flexDirection: 'column',
+
                         alignItems: 'center',
                         position: 'relative'
                     }}>
@@ -231,12 +173,16 @@ export default function App() {
                             handleAbandonGameClick={openSettingsModal}
                             handleUndoClick={handleUndoClick}
                         />
-
                         <MathQuestionModal
+                            key={1}
+                            // turnNumber={moveList.length}
+                            turnNumber={turnNumber}
                             open={(openModal === "question")}
-                            question={question}
+                            // question={question}
+                            mathTopics={mathTopics}
+                            questionsRightSoFar={questionsRightSoFar}
                             handleAnswerSubmit={handleAnswerSubmit}
-                            maxSquareSideLength={maxSquareSideLength}
+                            boardSideLength={boardSideLength}
                         />
                         <GameBoard
                             moveList={moveList}
