@@ -22,36 +22,40 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Zoom ref={ref} {...props} />;
 })
 
+
+
 export function MathQuestionModal(props) {
     let { open, question, handleAnswerSubmit, boardSideLength } = props
     let { type, vars, correctAnswer, instructions, equationString } = question
 
     const [playersAnswer, setPlayersAnswer] = React.useState("")
-    const [answerIsCorrect, setAnswerIsCorrect] = React.useState(false)
-    const [answerFeedBack, setAnswerFeedBack] = React.useState("")
+    const [headerText, setHeaderText] = React.useState(instructions)
 
     const answerIsNum = /^\d+$/.test(playersAnswer)
     const error = (playersAnswer.length > 0 && !answerIsNum)
     
-    const handlePlayersAnswerChange = (event) => {
-        let updatedAnswer = event.target.value
-        setPlayersAnswer(updatedAnswer)
-        setAnswerIsCorrect(Number(updatedAnswer.trim()) === correctAnswer)
+    function answerIsCorrect(pa = playersAnswer, ca = correctAnswer) {
+        return (Number(pa.trim()) === ca)
     }
-    function handlePlayersAnswerSubmit(question, playersAnswer) {
+    const handlePlayersAnswerChange = (event) => {
+        let updatedAnswer = event.target.value.trim()
+        setPlayersAnswer(updatedAnswer)
+    }
+    function handleSubmitButtonClick() {
         if (error) {
-            console.log(`Returning early from answer submit b/c answer is blank or not a number.`);
+            console.warn(`Returning early from answer submit b/c answer is blank or not a number.`);
             return -1
         }
-        setAnswerFeedBack(answerIsCorrect ? "Correct!" : `Nope. It was ${correctAnswer}`)
+        const correct = answerIsCorrect()
+        const answerFeedbackHeaderText = (correct ? "Correct!" : `Nope. It was ${correctAnswer}.`)
+        setHeaderText(answerFeedbackHeaderText)
+        console.log(`answerFeedbackHeaderText: ${answerFeedbackHeaderText} `)
+        handleAnswerSubmit(correct)
         setTimeout(() => {
             setPlayersAnswer("")
             setHeaderText(instructions)
         }, 2000);
 
-        console.log(`answerIsCorrect: ${answerIsCorrect} `)
-        handleAnswerSubmit(answerIsCorrect)
-        setPlayersAnswer("")
     }
 
     return (
@@ -84,8 +88,9 @@ export function MathQuestionModal(props) {
             />
             <AnswerInputComponent 
                 question={question}
+                error={error}
                 handlePlayersAnswerChange={handlePlayersAnswerChange}
-                handlePlayersAnswerSubmit={handlePlayersAnswerSubmit}
+                handleSubmitButtonClick={handleSubmitButtonClick}
             />
         </Dialog>
     )
@@ -93,9 +98,6 @@ export function MathQuestionModal(props) {
     
     
     function HeaderText(props) {
-        const { instructions, answerFeedBack } = props
-        let headerText = (answerFeedBack !== null) ? instructions : answerFeedBack
-        
         return (
             <Typography id="Instructions"
                 variant='h3'
@@ -108,7 +110,7 @@ export function MathQuestionModal(props) {
                     alignItems: 'flex-end',
                 }}
             >
-                {headerText}
+                {props.headerText}
             </Typography>
         )
     }
@@ -132,24 +134,22 @@ export function MathQuestionModal(props) {
         )
     }
     function AnswerInputComponent(props) {
-        const { question, 
-            handlePlayerAnswerSubmit, 
-            handlePlayerAnswerChange } = props
-        
-        
-        const answerInputType = getInputType(question)
+        const { question, error, handleSubmitButtonClick, handlePlayersAnswerChange } = props
+        const answerInputType = question.inputType
 
         if (answerInputType === "textField") {
             return (
                 <NumericalTextInput
-                    handlePlayersAnswerSubmit={handlePlayersAnswerSubmit}
+                    error={error}
+                    handleSubmitButtonClick={handleSubmitButtonClick}
                 />
             )
         }
         else if (answerInputType === "compareButtons") {
             return (
                 <CompareButtons 
-                    handlePlayersAnswerSubmit={handlePlayersAnswerSubmit}
+                    // handleAnswerSubmit={handleAnswerSubmit}
+                    // handleSubmitButtonClick={handleSubmitButtonClick}
                 />
             )
         }
@@ -158,7 +158,7 @@ export function MathQuestionModal(props) {
         }
 
         function NumericalTextInput(props) {
-            const { handlePlayersAnswerSubmit } = props
+            const { error, handleSubmitButtonClick } = props
             
 
             return (
@@ -196,7 +196,7 @@ export function MathQuestionModal(props) {
                             sx={{ width: '62%' }}
                             onKeyDown={(event) => {
                                 if (event.key === "Enter") {
-                                    handlePlayersAnswerSubmit(answerIsCorrect)
+                                    handleSubmitButtonClick()
                                 }
                             }}
                         />
@@ -206,7 +206,8 @@ export function MathQuestionModal(props) {
                         <SubmitButton
                             disabled={error}
                             playersAnswer={playersAnswer}
-                            handlePlayersAnswerSubmit={handlePlayersAnswerSubmit}
+                            correctAnswer={correctAnswer}
+                            handleSubmitButtonClick={handleSubmitButtonClick}
                             
 
                         />
@@ -217,10 +218,10 @@ export function MathQuestionModal(props) {
             )
         }
         function SubmitButton(props) {
-            const { answer, handleAnswerSubmit } = props
+            const { playersAnswer, correctAnswer, handleSubmitButtonClick } = props
             return (
                 <Button
-                    onClick={() => handlePlayersAnswerSubmit(answerIsCorrect)}
+                    onClick={handleSubmitButtonClick}
                     variant='contained'
                     // size="large"
                     sx={{ 
@@ -229,13 +230,14 @@ export function MathQuestionModal(props) {
                         lineHeight: '3rem',
                         width: '42%'
                     }}
+                    // children="Check"
                     children="Submit"
                 />
             )
         }
 
         function CompareButtons(props) {
-            let { handleAnswerSubmit } = props
+            // let { handleAnswerSubmit, handleSubmitButtonClick } = props
 
 
             return (
