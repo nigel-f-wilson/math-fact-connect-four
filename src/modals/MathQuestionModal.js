@@ -116,7 +116,7 @@ export function MathQuestionModal(props) {
     }
     function QuestionEquation(props) {
         const { equationString } = props
-        const fontStyle = (equationString.length > 12) ? 'h2' : 'h1'
+        const fontStyle = (equationString.length > 14) ? 'h2' : 'h1'
 
         return (
             <Typography variant={fontStyle} 
