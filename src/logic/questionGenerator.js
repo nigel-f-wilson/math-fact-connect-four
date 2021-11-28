@@ -119,17 +119,21 @@ function getAlgebraQuestion(difficultyLevel) {
 
 
 function getEquationString(type, vars) {
-    if (type === "missingSumTwo") {
-        return (`${vars[0]} + ${vars[1]} = __`)
-    }
-    else if (type === "missingAddendTwo") {
-        return (`${vars[0]} + __ = ${vars[2]}`)
-    }
-    else if (type === "missingSumThree") {
-        return (`${vars[0]} + ${vars[1]} + ${vars[2]} = __`)
-    }
-    else if (type === "missingAddendThree") {
-        return (`${vars[0]} + __ + ${vars[2]} = ${vars[3]}`)
+    let questionTypeToInputTypeMap = new Map([
+        ["missingSumTwo", `${vars[0]} + ${vars[1]} = __`],
+        ["missingSumThree", `${vars[0]} + ${vars[1]} + ${vars[2]} = __`],
+        ["missingAddendTwo", `${vars[0]} + __ = ${vars[2]}`],
+        ["missingAddendThree", `${vars[0]} + __ + ${vars[2]} = ${vars[3]}`],
+        ["missingProductTwo", `${vars[0]} x ${vars[1]} = __}`],
+        ["missingFactorTwo", `${vars[0]} x __ = ${vars[2]}`],
+        ["completeMultiplication", `${vars[0]} x ${vars[1]} = ${vars[2]} x __`],
+        ["compareFractions", "FRACTIONS NOT BUILT YET"],
+        ["compareSums", `${vars[0]} + ${vars[1]} __ ${vars[2]} + ${vars[3]}`],
+        ["divisibility", "divisibilityCheckboxes NOT BUILT YET"],
+    ])
+    if (questionTypeToInputTypeMap.has(type)) {
+        console.log(`Equation String: ${questionTypeToInputTypeMap.get(type)}`);
+        return questionTypeToInputTypeMap.get(type)
     }
     else {
         console.error(`Failed to getEquationString with type: "${type}" and vars: "${vars}"`)
