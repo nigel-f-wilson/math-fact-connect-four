@@ -181,25 +181,24 @@ function getCorrectAnswer(type, vars) {
 }
 
 function getInstructions(type) {
-    
-    
-    if (type === "missingSumTwo" || type === "missingSumThree") {
-        return chooseRandomFromArray(["What's the Sum?", "Find the Total."])
-    }
-    else if (type === "missingAddendTwo" || type === "missingAddendThree") {
-        return chooseRandomFromArray(["What's missing?", "How many more?"])
-    }
-    else if (type === "compareSums" || type === "compareFractions") {
-        return chooseRandomFromArray(["Compare", "Which is more?"])
+    let questionTypeToInstructionsMap = new Map([
+        ["missingSumTwo", chooseRandomFromArray(["What's the Sum?", "Find the Total."])],
+        ["missingSumThree", chooseRandomFromArray(["What's the Sum?", "Find the Total."])],
+        ["missingAddendTwo", chooseRandomFromArray(["What's missing?", "How many more?"])],
+        ["missingAddendThree", chooseRandomFromArray(["What's missing?", "How many more?"])],
+        ["missingProductTwo", chooseRandomFromArray(["Find the Product.", "Multiply."])],
+        ["missingFactorTwo", chooseRandomFromArray(["What's missing?", "How many groups?"])],
+        ["completeMultiplication", chooseRandomFromArray(["Find that factor!", "How many copies?"])],
+        ["compareFractions", chooseRandomFromArray(["Which is more?", "Compare", "Which is greater?"])],
+        ["compareSums", chooseRandomFromArray(["Which is more?", "Compare", "Which is greater?"])],
+        ["divisibility", chooseRandomFromArray(["Is divisible by...", "Is a multiple of..."])],
+    ])
+    if (questionTypeToInstructionsMap.has(type)) {
+        const instructions = questionTypeToInstructionsMap.get(type)
+        console.log(`Instructions for Question type "${type}"--> "${instructions}"`);
+        return instructions
     }
     else {
-        console.error(`Failed to getCorrectAnswer with type: "${type}"`)
+        console.error(`Failed to getInstructions with type: "${type}"`)
     }
-    
-    
-    let instructionsList = [
-        "What's the Sum?",
-        "Find the Total.",
-    ]
-
 }
