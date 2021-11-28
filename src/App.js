@@ -12,8 +12,8 @@ import { MathQuestionModal } from "./modals/MathQuestionModal";
 // import { GameSettingsModal } from "./components/GameSettingsModal";
 
 // Game Logic
-import { generateQuestion, getCorrectAnswer } from './logic/questionGenerator'
 import { gameIsOver, getColumnData, getGameStatus, playerOnesNumbers, playerTwosNumbers } from './logic/connectFourLogic'
+import { generateQuestion } from './logic/questionGenerator'
 
 // Custom Hooks
 import { useScreenWidth, useScreenHeight } from "./hooks"
@@ -39,7 +39,9 @@ export default function App() {
 
     const [question, setQuestion] = React.useState({
         type: "missingSumTwo",
-        vars: [1, 2, 3]
+        vars: [1, 2, 3],
+        correctAnswer: 3,
+        instructions: "What's the Sum?"
     })
 
     
