@@ -252,10 +252,11 @@ function HoverChipArea(props) {
                     zIndex: 8,
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'flex-end'
+                    alignItems: 'flex-end',
+                    fontSize: '2rem'
                 }}
             >
-                {props.columnLetter}
+                {props.columnLetter}  
             </Box>
         </Box>
     )
