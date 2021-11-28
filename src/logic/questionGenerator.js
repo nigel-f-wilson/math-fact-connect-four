@@ -146,17 +146,26 @@ function getInputType(type) {
 }
 
 function getCorrectAnswer(type, vars) {
-    if (type === "missingSumTwo") {
-        return vars[vars.length - 1]
+    if (vars === undefined) {
+        console.error(`Correct Answer called with no Vars.`);
+        return -1
     }
-    else if (type === "missingSumThree") {
-        return vars[vars.length - 1]
-    }
-    else if (type === "missingAddendTwo") {
-        return vars[1]
-    }
-    else if (type === "compareFractions") {
-        return (vars[0] > vars[1]) // TODO
+    let questionTypeToCorrectAnswerMap = new Map([
+        ["missingSumTwo", vars[vars.length - 1]],
+        ["missingSumThree", vars[vars.length - 1]],
+        ["missingAddendTwo", vars[1]],
+        ["missingAddendThree", vars[1]],
+        ["missingProductTwo", vars[vars.length - 1]],
+        ["missingFactorTwo", vars[1]],
+        ["completeMultiplication", vars[3]],
+        ["compareFractions", "compareButtons"],
+        ["compareSums", "compareButtons"],
+        ["divisibility", "divisibilityCheckboxes"]
+    ])
+    if (questionTypeToCorrectAnswerMap.has(type)) {
+        const correctAnswer = questionTypeToCorrectAnswerMap.get(type)
+        console.log(`Correct Answer: ${correctAnswer}`);
+        return correctAnswer
     }
     else {
         console.error(`Failed to getCorrectAnswer with type: "${type}" and vars: "${vars}"`)
