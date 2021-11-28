@@ -1,6 +1,18 @@
 import { randomInt, chooseRandomFromArray } from "./lowLevelHelpers";
 
 export function generateQuestion(topic, difficulty) {
+export function blankQuestion() {
+    return {
+        type: "missingSumThree",
+        vars: [0,0,0,0],
+        correctAnswer: 0,
+        instructions: "",
+        equationString: `0 + 0 + 0 = __`,
+        inputType: "textField",
+    }
+
+}
+
     let question
     if (topic === "combining") {
         question = getCombiningQuestion(difficulty)
