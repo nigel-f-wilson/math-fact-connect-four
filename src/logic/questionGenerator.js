@@ -24,25 +24,6 @@ export function generateQuestion(topic, difficulty) {
 
 }
 
-
-
-
-// const combiningQuestionTypes = [
-//     "missingSum",
-//     "What's the missing addend?",
-//     "What's the difference?",
-//     "How far apart?"
-
-// ]
-// const combiningQuestionInstructions = [
-//     "What's the sum?",
-//     "What's the missing addend?",
-//     "What's the difference?",
-//     "How far apart?"
-
-// ]
-
-
 function getCombiningQuestion(difficultyLevel) {
     let types = [
         "missingSumTwo",
@@ -51,10 +32,9 @@ function getCombiningQuestion(difficultyLevel) {
         // "missingDifference",  // a - b = _
         // "missingMinuend",     // a - _ = c
         // "howFarApart",        // a and b
-        // "missingSumThree",
-        // "missingAddendThree",
+        "missingSumThree",
+        "missingAddendThree",
     ]
-    
     
     let type = chooseRandomFromArray(types)
     let vars = getCombiningFact(type, difficultyLevel) 
@@ -80,15 +60,18 @@ function getCombiningQuestion(difficultyLevel) {
 
 // Returns a 3 or 4 element array where the last element is the sum of the others
 function getCombiningFact(type, difficultyLevel) {
-    const typeOnes = ["missingSumTwo", "missingAddendTwo" ] // A + B = C
-    if (typeOnes.includes(type)) {
-        let a = randomInt(1, 99)
-        let b = randomInt(1, 99)
+    const getEasyAddend = () => { return randomInt(1, 20)  }
+    const getMediumAddend = () => { return randomInt(20, 99) }
+    const getHardAddend = () => { return randomInt(99, 999) }
+    
+    // A + B = C
+    if (["missingSumTwo", "missingAddendTwo"].includes(type)) {
+        let a = (difficultyLevel === "hard") ? getHardAddend() : getMediumAddend()
+        let b = (difficultyLevel === "easy") ? getEasyAddend() : getMediumAddend()
         let c = a + b
+        console.log(`Combining Vars of difficulty "${difficultyLevel}": ${[a, b, c]}`);
         return [a, b, c]
     }
-    
-    
     else {
         console.error(`Failed to get combining fact of difficulty Level "${difficultyLevel}"`);
     }
