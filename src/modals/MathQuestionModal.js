@@ -14,8 +14,8 @@ import { Box, Button, Dialog, Zoom, Typography,
 } from '@material-ui/core'
 
 // Style & Layout Constants
-const instructionsHeight = "35%"
-const equationHeight = "30%"
+const instructionsHeight = "30%"
+const equationHeight = "35%"
 const inputHeight = "35%"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
