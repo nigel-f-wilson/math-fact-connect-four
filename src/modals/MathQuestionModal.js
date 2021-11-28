@@ -19,10 +19,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export function MathQuestionModal(props) {
-    let { mathTopics, topic, questionsRightSoFar, turnNumber, open, handleAnswerSubmit, boardSideLength } = props
+    let { mathTopics, topic, score, turnNumber, open, handleAnswerSubmit, boardSideLength } = props
     
-    const [question, setQuestion] = React.useState(generateQuestion(mathTopics, questionsRightSoFar))
-    // let question = generateQuestion(mathTopics, questionsRightSoFar)
+    const [question, setQuestion] = React.useState(generateQuestion(mathTopics, score))
+    // let question = generateQuestion(mathTopics, score)
     console.log(`NEW QUESTION: ${JSON.stringify(question, null, 4)}`)
 
     
@@ -54,7 +54,7 @@ export function MathQuestionModal(props) {
         setTimeout(() => {
             setPlayersAnswer("")
             setHeaderText(instructions)
-            setQuestion(generateQuestion(mathTopics, questionsRightSoFar))
+            setQuestion(generateQuestion(mathTopics, score))
         }, 1500);
 
     }
@@ -191,7 +191,9 @@ export function MathQuestionModal(props) {
                             autoFocus
                             autoComplete='off'
                             inputMode='numeric'
-                            pattern='[0-9]*'
+                            type="number"
+                            pattern="\d*"
+                            // pattern='[0-9]*'
                             onChange={handlePlayersAnswerChange}
                             inputProps={{ 
                                 style: { fontSize: '2rem', height: '2rem' }

@@ -13,8 +13,8 @@ import { MathQuestionModal } from "./modals/MathQuestionModal";
 
 // Game Logic
 import { gameIsOver, getColumnData, getGameStatus, playerOnesNumbers, playerTwosNumbers } from './logic/connectFourLogic'
-import { blankQuestion, generateQuestion } from './logic/questionGenerator'
-import { chooseRandomFromArray } from "./logic/lowLevelHelpers";
+// import { blankQuestion, generateQuestion } from './logic/questionGenerator'
+// import { chooseRandomFromArray } from "./logic/lowLevelHelpers";
 
 // Custom Hooks
 import { useScreenWidth, useScreenHeight } from "./hooks"

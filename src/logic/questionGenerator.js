@@ -13,16 +13,16 @@ export function blankQuestion() {
 
 }
 
-export function generateQuestion(mathTopics, questionsRightSoFar) {
+export function generateQuestion(mathTopics, score) {
     const topic = chooseRandomFromArray(mathTopics)
-    console.log(`GENERATING QUESTION!!! with topic "${topic}" and ${questionsRightSoFar} questions Right So Far`)
+    console.log(`GENERATING QUESTION!!! with topic "${topic}" and ${score} questions Right So Far`)
     let question
     if (topic === "combining") {
-        question = getCombiningQuestion(pickCombiningDifficulty(questionsRightSoFar))
+        question = getCombiningQuestion(pickCombiningDifficulty(score))
     }
     else if (topic === "multiplying") {
-        // question = getMultiplyingQuestion(pickMultiplyingDifficulty(questionsRightSoFar))
-        question = getMultiplyingQuestion(pickCombiningDifficulty(questionsRightSoFar))
+        // question = getMultiplyingQuestion(pickMultiplyingDifficulty(score))
+        question = getMultiplyingQuestion(pickCombiningDifficulty(score))
     }
     // else if (topic === "fractions") {
     //     question = getFractionsQuestion(difficulty)
@@ -34,24 +34,24 @@ export function generateQuestion(mathTopics, questionsRightSoFar) {
     //     question = getAlgebraQuestion(difficulty)
     // }
     else {
-        console.error(`FAILED TO GET QUESTION!!! with topic "${topic}" and ${questionsRightSoFar} questions Right So Far`)
+        console.error(`FAILED TO GET QUESTION!!! with topic "${topic}" and ${score} questions Right So Far`)
     }
     return question
 
 }
 
-function pickCombiningDifficulty(questionsRightSoFar) {
-    if (questionsRightSoFar < 6) {
+function pickCombiningDifficulty(score) {
+    if (score < 6) {
         return "easy"
     }
-    else if (questionsRightSoFar < 12) {
+    else if (score < 12) {
         return "medium"
     }
-    else if (questionsRightSoFar >= 12) {
+    else if (score >= 12) {
         return "hard"
     }
     else {
-        console.error(`Invalid number of question right so far: ${questionsRightSoFar}`);
+        console.error(`Invalid number of question right so far: ${score}`);
     }
     return
 }

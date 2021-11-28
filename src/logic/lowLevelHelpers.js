@@ -1,7 +1,7 @@
 export function chooseRandomFromArray(array) {
     let randomIndex = randomInt(0, array.length)
     let choice = array[randomIndex]
-    console.log(`CHOICE: ${choice}`);
+    // console.log(`CHOICE: ${choice}`);
     return choice
 }
 
