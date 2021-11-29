@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import { Box, Button, Dialog, Zoom, Typography, 
     TextField, FormControl, InputLabel, OutlinedInput, FormHelperText,  
 } from '@material-ui/core'
-import { generateQuestion } from '../logic/questionGenerator'
+import { generateQuestion, blankQuestion } from '../logic/questionGenerator'
 
 // Style & Layout Constants
 const instructionsHeight = "30%"
@@ -19,14 +19,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export function MathQuestionModal(props) {
-    let { mathTopics, topic, score, turnNumber, open, handleAnswerSubmit, boardSideLength } = props
+    let { mathTopics, score, turnNumber, open, handleAnswerSubmit, boardSideLength } = props
     
+    mathTopics = (mathTopics === undefined) ? ["combining"] : mathTopics
+    score = (score === undefined) ? 0 : score
+
+    // const [question, setQuestion] = React.useState(blankQuestion())
     const [question, setQuestion] = React.useState(generateQuestion(mathTopics, score))
-    // let question = generateQuestion(mathTopics, score)
-    console.log(`NEW QUESTION: ${JSON.stringify(question, null, 4)}`)
 
     
-    let { type, vars, correctAnswer, instructions, equationString } = question
+    let { correctAnswer, instructions, equationString } = question
 
     const [playersAnswer, setPlayersAnswer] = React.useState("")
     const [headerText, setHeaderText] = React.useState(instructions)
@@ -49,7 +51,6 @@ export function MathQuestionModal(props) {
         const correct = answerIsCorrect()
         const answerFeedbackHeaderText = (correct ? "Correct!" : `Nope. It was ${correctAnswer}.`)
         setHeaderText(answerFeedbackHeaderText)
-        console.log(`answerFeedbackHeaderText: ${answerFeedbackHeaderText} `)
         handleAnswerSubmit(correct)
         setTimeout(() => {
             setPlayersAnswer("")
@@ -157,7 +158,7 @@ export function MathQuestionModal(props) {
             )
         }
         else {
-            console.log(`getInputComponent failed. Invalid answerInputType: ${answerInputType}`)
+            console.error(`getInputComponent failed. Invalid answerInputType: ${answerInputType}`)
         }
 
         function NumericalTextInput(props) {
@@ -190,10 +191,10 @@ export function MathQuestionModal(props) {
                             size="medium"
                             autoFocus
                             autoComplete='off'
-                            inputMode='numeric'
-                            type="number"
-                            pattern="\d*"
-                            // pattern='[0-9]*'
+                            // type="number"
+                            type="tel"
+                            // pattern="\d*"
+                            pattern='[0-9]*'
                             onChange={handlePlayersAnswerChange}
                             inputProps={{ 
                                 style: { fontSize: '2rem', height: '2rem' }

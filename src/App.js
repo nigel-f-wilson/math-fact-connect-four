@@ -81,7 +81,7 @@ export default function App() {
             setMoveList(updatedMoveList)
             setGameStatus(updatedGameStatus)
             setActiveCell(null)
-        }, 1750)
+        }, 1800)
         
         // if (opponent === "bot") {
         //     console.error(`IT IS THE BOT'S TURN BUT GETBOTMOVE HAS NOT BEEN DEFINED`)
@@ -135,9 +135,8 @@ export default function App() {
     }
     let turnNumber = moveList.length
     let nextPlayersMoves = getNextPlayersMoves()
-    console.log(`nextPlayersMoves ${nextPlayersMoves}`);
+    // console.log(`nextPlayersMoves ${nextPlayersMoves}`);
     let questionsRightSoFar = Math.max(1, nextPlayersMoves.length)
-
 
     return (
         <React.Fragment>
