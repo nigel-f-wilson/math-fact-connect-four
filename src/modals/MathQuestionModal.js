@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import { Box, Button, Dialog, Zoom, Typography, 
     TextField, FormControl, InputLabel, OutlinedInput, FormHelperText,  
 } from '@material-ui/core'
-import { generateQuestion } from '../logic/questionGenerator'
+import { generateQuestion, blankQuestion } from '../logic/questionGenerator'
 
 // Style & Layout Constants
 const instructionsHeight = "30%"
@@ -19,12 +19,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export function MathQuestionModal(props) {
-    let { mathTopics, topic, score, turnNumber, open, handleAnswerSubmit, boardSideLength } = props
+    let { mathTopics, score, turnNumber, open, handleAnswerSubmit, boardSideLength } = props
     
+    mathTopics = (mathTopics === undefined) ? ["combining"] : mathTopics
+    score = (score === undefined) ? 0 : score
+
+    // const [question, setQuestion] = React.useState(blankQuestion())
     const [question, setQuestion] = React.useState(generateQuestion(mathTopics, score))
 
     
-    let { type, vars, correctAnswer, instructions, equationString } = question
+    let { correctAnswer, instructions, equationString } = question
 
     const [playersAnswer, setPlayersAnswer] = React.useState("")
     const [headerText, setHeaderText] = React.useState(instructions)
