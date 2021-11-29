@@ -25,8 +25,8 @@ export function MathQuestionModal(props) {
     score = (score === undefined) ? 0 : score
 
     // const [question, setQuestion] = React.useState(blankQuestion())
-    const [question, setQuestion] = React.useState(generateQuestion(mathTopics, score))
-
+    const initialQuestion = generateQuestion(["combining"], 0)
+    const [question, setQuestion] = React.useState(initialQuestion)
     
     let { correctAnswer, instructions, equationString } = question
 
