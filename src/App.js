@@ -135,9 +135,8 @@ export default function App() {
     }
     let turnNumber = moveList.length
     let nextPlayersMoves = getNextPlayersMoves()
-    console.log(`nextPlayersMoves ${nextPlayersMoves}`);
+    // console.log(`nextPlayersMoves ${nextPlayersMoves}`);
     let questionsRightSoFar = Math.max(1, nextPlayersMoves.length)
-
 
     return (
         <React.Fragment>

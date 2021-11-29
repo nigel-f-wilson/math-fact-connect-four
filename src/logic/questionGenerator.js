@@ -13,9 +13,15 @@ export function blankQuestion() {
 
 }
 
+
+
 export function generateQuestion(mathTopics, score) {
+    // 1) pick topic from array of options
     const topic = chooseRandomFromArray(mathTopics)
-    console.log(`GENERATING QUESTION!!! with topic "${topic}" and ${score} questions Right So Far`)
+
+    // 2) determine difficulty based on score
+    const difficulty = determineDifficulty(score)
+    
     let question
     if (topic === "combining") {
         question = getCombiningQuestion(pickCombiningDifficulty(score))
@@ -34,13 +40,15 @@ export function generateQuestion(mathTopics, score) {
     //     question = getAlgebraQuestion(difficulty)
     // }
     else {
-        console.error(`FAILED TO GET QUESTION!!! with topic "${topic}" and ${score} questions Right So Far`)
+        console.error(`FAILED TO GET QUESTION!!! with topic "${mathTopics}" and ${score} questions Right So Far`)
     }
+    console.log(`Generated an "${difficulty}" ${topic} Question --> ${JSON.stringify(question, null, 4)}`);
     return question
 
 }
 
 function pickCombiningDifficulty(score) {
+    console.log(`determineDifficulty called with ${score} `);
     if (score < 6) {
         return "easy"
     }
@@ -84,7 +92,6 @@ function getCombiningQuestion(difficulty) {
         equationString: equationString,
         inputType: inputType,
     }
-    console.log(`Generated Combining Question --> ${JSON.stringify(question, null, 4)}`);
     return question
     
     

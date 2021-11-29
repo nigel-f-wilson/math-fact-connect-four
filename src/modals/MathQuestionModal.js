@@ -22,8 +22,6 @@ export function MathQuestionModal(props) {
     let { mathTopics, topic, score, turnNumber, open, handleAnswerSubmit, boardSideLength } = props
     
     const [question, setQuestion] = React.useState(generateQuestion(mathTopics, score))
-    // let question = generateQuestion(mathTopics, score)
-    console.log(`NEW QUESTION: ${JSON.stringify(question, null, 4)}`)
 
     
     let { type, vars, correctAnswer, instructions, equationString } = question
@@ -49,7 +47,6 @@ export function MathQuestionModal(props) {
         const correct = answerIsCorrect()
         const answerFeedbackHeaderText = (correct ? "Correct!" : `Nope. It was ${correctAnswer}.`)
         setHeaderText(answerFeedbackHeaderText)
-        console.log(`answerFeedbackHeaderText: ${answerFeedbackHeaderText} `)
         handleAnswerSubmit(correct)
         setTimeout(() => {
             setPlayersAnswer("")
@@ -157,7 +154,7 @@ export function MathQuestionModal(props) {
             )
         }
         else {
-            console.log(`getInputComponent failed. Invalid answerInputType: ${answerInputType}`)
+            console.error(`getInputComponent failed. Invalid answerInputType: ${answerInputType}`)
         }
 
         function NumericalTextInput(props) {
