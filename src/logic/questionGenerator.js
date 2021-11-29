@@ -24,11 +24,10 @@ export function generateQuestion(mathTopics, score) {
     
     let question
     if (topic === "combining") {
-        question = getCombiningQuestion(pickCombiningDifficulty(score))
+        question = getCombiningQuestion(difficulty)
     }
     else if (topic === "multiplying") {
-        // question = getMultiplyingQuestion(pickMultiplyingDifficulty(score))
-        question = getMultiplyingQuestion(pickCombiningDifficulty(score))
+        question = getMultiplyingQuestion(difficulty)
     }
     // else if (topic === "fractions") {
     //     question = getFractionsQuestion(difficulty)
@@ -44,10 +43,9 @@ export function generateQuestion(mathTopics, score) {
     }
     console.log(`Generated an "${difficulty}" ${topic} Question --> ${JSON.stringify(question, null, 4)}`);
     return question
-
 }
 
-function pickCombiningDifficulty(score) {
+function determineDifficulty(score) {
     console.log(`determineDifficulty called with ${score} `);
     if (score < 6) {
         return "easy"
@@ -60,8 +58,8 @@ function pickCombiningDifficulty(score) {
     }
     else {
         console.error(`Invalid number of question right so far: ${score}`);
+        return "error"
     }
-    return
 }
 
 function getCombiningQuestion(difficulty) {
