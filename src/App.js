@@ -60,13 +60,8 @@ export default function App() {
             console.log(`handleColumnClick() had NO EFFECT since column is full!`)
             return
         }
-        
-        // let newQuestion = generateQuestion(mathTopics, questionsRightSoFar())
-        // console.log(`NEW QUESTION: ${JSON.stringify(newQuestion, null, 4)}`)
-        // setQuestion(newQuestion)
         setOpenModal("question")
         setActiveCell(lowestUnclaimedCell)
-
     }
 
     function handleAnswerSubmit(answerIsCorrect) {
@@ -173,7 +168,6 @@ export default function App() {
                             handleUndoClick={handleUndoClick}
                         />
                         <MathQuestionModal
-                            key={1}
                             // turnNumber={moveList.length}
                             turnNumber={turnNumber}
                             open={(openModal === "question")}
