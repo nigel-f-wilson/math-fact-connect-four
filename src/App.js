@@ -55,13 +55,17 @@ export default function App() {
         }
         let columnData = getColumnData(columnIndex, moveList)
         let lowestUnclaimedRow = columnData.indexOf("unclaimed")
-        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
         if (lowestUnclaimedRow === -1) {
             console.log(`handleColumnClick() had NO EFFECT since column is full!`)
             return
         }
+        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
+        openMathQuestionModal(lowestUnclaimedCell)
+    }
+    function openMathQuestionModal(activeCell) {
+        // GET question here?
         setOpenModal("question")
-        setActiveCell(lowestUnclaimedCell)
+        setActiveCell(activeCell)
     }
 
     function handleAnswerSubmit(answerIsCorrect) {
