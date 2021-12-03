@@ -70,8 +70,6 @@ function getCombiningQuestion(difficulty) {
 
     ]
     let type = chooseRandomFromArray(types)
-    // "missingAddendTwo",
-    // "missingSumThree",
     // "missingAddendThree",
     // "combineAndCompare"   // a + b _ c - d
     // "missingDifference",  // a - b = _
