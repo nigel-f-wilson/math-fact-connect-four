@@ -1,12 +1,13 @@
 import { randomInt, chooseRandomFromArray } from "./lowLevelHelpers";
 
 export function blankQuestion() {
+    let vars = [0, 0, 0, 0]
     return {
         type: "missingSumThree",
-        vars: [0,0,0,0],
-        correctAnswer: 0,
+        vars: vars,
+        correctAnswer: vars[3],
+        equationString: `${vars[0]} + ${vars[1]} + ${vars[2]} = __`,
         instructions: "",
-        equationString: `0 + 0 + 0 = __`,
         inputType: "textField",
     }
 }
