@@ -157,14 +157,14 @@ export default function App() {
                     {/* <WelcomePage /> */}
                     {/* <PlayPage /> */}
                     {/* <InfoPage /> */}
-                    <Box id='play-page' sx={{
-                        height:  boardSideLength,
-                        width:  boardSideLength,
-                        display: 'flex',
-                        flexDirection: 'column',
-
-                        alignItems: 'center',
-                        position: 'relative'
+                    <Box id='play-page' 
+                        sx={{
+                            height:  boardSideLength,
+                            width:  boardSideLength,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            position: 'relative'
                     }}>
                         <InGameMenu
                             handleNewGameClick={openAbandonGameModal}
