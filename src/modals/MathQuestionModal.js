@@ -24,7 +24,7 @@ export function MathQuestionModal(props) {
     mathTopics = (mathTopics === undefined) ? ["combining"] : mathTopics
     score = (score === undefined) ? 0 : score
 
-    // const [question, setQuestion] = React.useState(blankQuestion())
+    // const initialQuestion = blankQuestion()
     const initialQuestion = generateQuestion(["combining"], 0)
     const [question, setQuestion] = React.useState(initialQuestion)
     
@@ -55,7 +55,7 @@ export function MathQuestionModal(props) {
         setTimeout(() => {
             setPlayersAnswer("")
             setHeaderText(instructions)
-            setQuestion(generateQuestion(mathTopics, score))
+            // setQuestion(generateQuestion(mathTopics, score))
         }, 1500);
 
     }
