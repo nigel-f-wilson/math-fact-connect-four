@@ -64,6 +64,10 @@ export function generateQuestion(mathTopics, score) {
 function getCombiningQuestion(difficulty) {
     let types = [
         "missingSumTwo",
+        "missingAddendTwo",
+        "missingAddendTwo",
+        "missingSumThree",
+
     ]
     let type = chooseRandomFromArray(types)
     // "missingAddendTwo",
@@ -94,6 +98,11 @@ function getCombiningQuestion(difficulty) {
     else if (type === "missingAddendTwo") {
         question = missingAddendTwo(difficulty)
     }
+    else if (type === "missingAddendThree") {
+        question = missingAddendThree(difficulty)
+    } else if (type === "missingAddendThree") {
+        question = missingAddendThree(difficulty)
+    }
     return question
     
     function getSumOfTwoFact(difficulty) {
@@ -103,6 +112,13 @@ function getCombiningQuestion(difficulty) {
         // console.log(`Combining Vars of difficulty "${difficultyLevel}": ${[a, b, c]}`);
         return [a, b, c]
     }
+    function getSumOfThreeFact(difficulty) {
+        let a = (difficulty === "hard") ? getHardAddend() : getMediumAddend()
+        let b = (difficulty === "easy") ? getEasyAddend() : getMediumAddend()
+        let c = (difficulty === "hard") ? getEasyAddend() : getMediumAddend()
+        let d = a + b + c
+        return [a, b, c, d]
+    }
     
     function missingSumTwo(difficulty) {
         let vars = getSumOfTwoFact(difficulty)
@@ -110,8 +126,19 @@ function getCombiningQuestion(difficulty) {
             type: "missingSumTwo",
             vars: vars,
             correctAnswer: vars[2],
-            instructions: chooseRandomFromArray(missingSumInstructions),
             equationString: `${vars[0]} + ${vars[1]} = __`,
+            instructions: chooseRandomFromArray(missingSumInstructions),
+            inputType: "textField",
+        }
+    }
+    function missingSumThree(difficulty) {
+        let vars = getSumOfThreeFact(difficulty)
+        return question = {
+            type: "missingSumThree",
+            vars: vars,
+            correctAnswer: vars[3],
+            equationString: `${vars[0]} + ${vars[1]} + ${vars[2]} = __`,
+            instructions: chooseRandomFromArray(missingSumInstructions),
             inputType: "textField",
         }
     }
@@ -122,8 +149,19 @@ function getCombiningQuestion(difficulty) {
             type: "missingAddendTwo",
             vars: vars,
             correctAnswer: vars[1],
+            equationString: `${vars[0]} + __ = + ${vars[2]}`,
             instructions: chooseRandomFromArray(missingAddendInstructions),
-            equationString: `${vars[0]} + __ = ${vars[2]}`,
+            inputType: "textField",
+        }
+    }
+    function missingAddendThree(difficulty) {
+        let vars = getSumOfThreeFact(difficulty)
+        return question = {
+            type: "missingAddendThree",
+            vars: vars,
+            correctAnswer: vars[1],
+            equationString: `${vars[0]} + __ + ${vars[2]} = + ${vars[3]}`,
+            instructions: chooseRandomFromArray(missingAddendInstructions),
             inputType: "textField",
         }
     }
