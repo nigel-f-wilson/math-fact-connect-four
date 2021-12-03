@@ -26,39 +26,14 @@ export function MathQuestionModal(props) {
 
     // const initialQuestion = blankQuestion()
     const initialQuestion = generateQuestion(["combining"], 0)
-    const [question, setQuestion] = React.useState(initialQuestion)
+    // const [question, setQuestion] = React.useState(initialQuestion)
+    const [question, setQuestion] = React.useState(generateQuestion(mathTopics, score))
+
     
     let { correctAnswer, instructions, equationString } = question
 
-    const [playersAnswer, setPlayersAnswer] = React.useState("")
     const [headerText, setHeaderText] = React.useState(instructions)
-
-    const answerIsNum = /^\d+$/.test(playersAnswer)
-    const error = (playersAnswer.length > 0 && !answerIsNum)
     
-    function answerIsCorrect(pa = playersAnswer, ca = correctAnswer) {
-        return (Number(pa.trim()) === ca)
-    }
-    const handlePlayersAnswerChange = (event) => {
-        let updatedAnswer = event.target.value.trim()
-        setPlayersAnswer(updatedAnswer)
-    }
-    function handleSubmitButtonClick() {
-        if (error) {
-            console.warn(`Returning early from answer submit b/c answer is blank or not a number.`);
-            return -1
-        }
-        const correct = answerIsCorrect()
-        const answerFeedbackHeaderText = (correct ? "Correct!" : `Nope. It was ${correctAnswer}.`)
-        setHeaderText(answerFeedbackHeaderText)
-        handleAnswerSubmit(correct)
-        setTimeout(() => {
-            setPlayersAnswer("")
-            setHeaderText(instructions)
-            // setQuestion(generateQuestion(mathTopics, score))
-        }, 1500);
-
-    }
 
     return (
         <Dialog 
@@ -92,9 +67,6 @@ export function MathQuestionModal(props) {
             />
             <AnswerInputComponent 
                 question={question}
-                error={error}
-                handlePlayersAnswerChange={handlePlayersAnswerChange}
-                handleSubmitButtonClick={handleSubmitButtonClick}
             />
         </Dialog>
     )
@@ -138,8 +110,36 @@ export function MathQuestionModal(props) {
         )
     }
     function AnswerInputComponent(props) {
-        const { question, error, handleSubmitButtonClick, handlePlayersAnswerChange } = props
+        const { question } = props
         const answerInputType = question.inputType
+
+        const [playersAnswer, setPlayersAnswer] = React.useState("")
+        const answerIsNum = /^\d+$/.test(playersAnswer)
+        const error = (playersAnswer.length > 0 && !answerIsNum)
+
+        function answerIsCorrect(pa = playersAnswer, ca = correctAnswer) {
+            return (Number(pa.trim()) === ca)
+        }
+        const handlePlayersAnswerChange = (event) => {
+            let updatedAnswer = event.target.value.trim()
+            setPlayersAnswer(updatedAnswer)
+        }
+        function handleSubmitButtonClick() {
+            if (error) {
+                console.warn(`Returning early from answer submit b/c answer is blank or not a number.`);
+                return -1
+            }
+            const correct = answerIsCorrect()
+            const answerFeedbackHeaderText = (correct ? "Correct!" : `Nope. It was ${correctAnswer}.`)
+            setHeaderText(answerFeedbackHeaderText)
+            handleAnswerSubmit(correct)
+            setTimeout(() => {
+                setPlayersAnswer("")
+                setHeaderText(instructions)
+                // setQuestion(generateQuestion(mathTopics, score))
+            }, 1500);
+
+        }
 
         if (answerInputType === "textField") {
             return (
@@ -163,7 +163,6 @@ export function MathQuestionModal(props) {
 
         function NumericalTextInput(props) {
             const { error, handleSubmitButtonClick } = props
-            
 
             return (
                 <Box sx={{
