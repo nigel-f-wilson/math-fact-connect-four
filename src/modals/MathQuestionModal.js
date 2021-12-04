@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-
+// Logic
+import { gameIsOver, nextPlayerColor } from '../logic/connectFourLogic'
 
 // MUI  components
 import { Box, Button, Dialog, Zoom, Typography, 
@@ -21,6 +22,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export function MathQuestionModal(props) {
     let { question, 
         open, 
+        gameStatus,
+        nextPlayerColor,
         handleAnswerSubmit, 
         boardSideLength,
         turnNumber,
@@ -28,6 +31,7 @@ export function MathQuestionModal(props) {
     
     let { correctAnswer, instructions, equationString, inputType } = question
 
+    let borderColor = `chip.${nextPlayerColor}`
 
     return (
         <Dialog 
@@ -40,7 +44,11 @@ export function MathQuestionModal(props) {
             fullWidth={true}
             maxWidth='md'
             PaperProps={{
-                style: {
+                sx: {
+                    // border: `solid ${nextPlayerColor(gameStatus)} 5px`,
+                    border: `solid green 0.5rem`,
+                    // border: `solid ${borderColor} 5px`,
+                    borderColor: borderColor,
                     margin: `${0.05 * boardSideLength}px`,
                     height: `${0.9 * boardSideLength}px`,
                     width: `${0.9 * boardSideLength}px`,
@@ -113,28 +121,19 @@ export function MathQuestionModal(props) {
         const answerIsNum = /^\d+$/.test(playersAnswer)
         const error = (playersAnswer.length > 0 && !answerIsNum)
 
-        // function answerIsCorrect(pa = playersAnswer, ca = correctAnswer) {
-        //     return (Number(pa.trim()) === ca)
-        // }
         const handlePlayersAnswerChange = (event) => {
             let updatedAnswer = event.target.value.trim()
             setPlayersAnswer(updatedAnswer)
         }
         function handleSubmitButtonClick() {
             
-            handleAnswerSubmit(playersAnswer)
-            // setTimeout(() => {
-            //     setPlayersAnswer("")
-            //     setHeaderText(instructions)
-            //     // setQuestion(generateQuestion(mathTopics, score))
-            // }, 1500);
         }
 
         if (inputType === "textField") {
             return (
                 <NumericalTextInput
                     error={error}
-                    handleSubmitButtonClick={handleSubmitButtonClick}
+                    handleSubmitButtonClick={() => handleAnswerSubmit(playersAnswer)}
                 />
             )
         }

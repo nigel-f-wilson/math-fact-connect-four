@@ -12,7 +12,13 @@ import { MathQuestionModal } from "./modals/MathQuestionModal";
 // import { GameSettingsModal } from "./components/GameSettingsModal";
 
 // Game Logic
-import { gameIsOver, getColumnData, getGameStatus, playerOnesMoves, playerTwosMoves, nextPlayersMoves } from './logic/connectFourLogic'
+import { gameIsOver, 
+    getColumnData, 
+    getGameStatus, 
+    playerOnesMoves, 
+    playerTwosMoves, 
+    nextPlayersMoves, 
+    nextPlayerColor } from './logic/connectFourLogic'
 import { testQuestion, generateQuestion } from './logic/questionGenerator'
 // import { chooseRandomFromArray } from "./logic/lowLevelHelpers";
 
@@ -190,6 +196,9 @@ export default function App() {
                         <MathQuestionModal
                             // turnNumber={moveList.length}
                             // turnNumber={turnNumber}
+                            nextPlayerColor={nextPlayerColor(gameStatus)}
+                            // nextPlayerColor={nextPlayerColor}
+                            gameStatus={gameStatus}
                             open={(openModal === "question")}
                             question={question}
                             headerText={headerText}
