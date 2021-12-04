@@ -12,7 +12,7 @@ import { MathQuestionModal } from "./modals/MathQuestionModal";
 // import { GameSettingsModal } from "./components/GameSettingsModal";
 
 // Game Logic
-import { gameIsOver, getColumnData, getGameStatus, playerOnesNumbers, playerTwosNumbers } from './logic/connectFourLogic'
+import { gameIsOver, getColumnData, getGameStatus, playerOnesMoves, playerTwosMoves, nextPlayersMoves } from './logic/connectFourLogic'
 import { testQuestion, generateQuestion } from './logic/questionGenerator'
 // import { chooseRandomFromArray } from "./logic/lowLevelHelpers";
 
@@ -121,23 +121,7 @@ export default function App() {
         setOpenModal("none")
     }
 
-    function getNextPlayersMoves() {
-        if (gameStatus === "playerOnesTurn") {
-            return playerOnesNumbers(moveList)
-        }
-        else if (gameStatus === "playerTwosTurn") {
-            return playerTwosNumbers(moveList)
-        }
-        else {
-            console.warn(`getNextPlayersMoves was called but the game is already over`);
-            return []
-        }
-    }
-    let turnNumber = moveList.length
-    let nextPlayersMoves = getNextPlayersMoves()
-    // console.log(`nextPlayersMoves ${nextPlayersMoves}`);
-    let questionsRightSoFar = Math.max(1, nextPlayersMoves.length)
-
+    
     return (
         <React.Fragment>
             <CssBaseline />
