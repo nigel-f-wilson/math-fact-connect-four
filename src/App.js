@@ -12,8 +12,14 @@ import { MathQuestionModal } from "./modals/MathQuestionModal";
 // import { GameSettingsModal } from "./components/GameSettingsModal";
 
 // Game Logic
-import { gameIsOver, getColumnData, getGameStatus, playerOnesNumbers, playerTwosNumbers } from './logic/connectFourLogic'
-// import { blankQuestion, generateQuestion } from './logic/questionGenerator'
+import { gameIsOver, 
+    getColumnData, 
+    getGameStatus, 
+    playerOnesMoves, 
+    playerTwosMoves, 
+    nextPlayersMoves, 
+    nextPlayerColor } from './logic/connectFourLogic'
+import { testQuestion, generateQuestion } from './logic/questionGenerator'
 // import { chooseRandomFromArray } from "./logic/lowLevelHelpers";
 
 // Custom Hooks
@@ -25,6 +31,7 @@ import { CssBaseline, Box } from '@material-ui/core'
 // THEME
 import theme from "./theme"
 import { ThemeProvider, } from '@material-ui/core/styles'
+import { chooseRandomFromArray } from './logic/lowLevelHelpers';
 
 
 export default function App() {
@@ -38,7 +45,14 @@ export default function App() {
     const [openModal, setOpenModal] = React.useState("none") // Enum: "none", "question", "abandonGame", "newGameSettings", 
     const [activeCell, setActiveCell] = React.useState(null) 
 
+    const [question, setQuestion] = React.useState(testQuestion())
+    // const [question, setQuestion] = React.useState(generateQuestion(["combining"], 0))
+    // const [questsion, setQuestion] = React.useState(generateQuestion(mathTopics, score))
+
+    const [headerText, setHeaderText] = React.useState("")
+
     
+
     // LAYOUT
     const height = useScreenHeight()
     const width = useScreenWidth()
@@ -55,21 +69,44 @@ export default function App() {
         }
         let columnData = getColumnData(columnIndex, moveList)
         let lowestUnclaimedRow = columnData.indexOf("unclaimed")
-        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
         if (lowestUnclaimedRow === -1) {
             console.log(`handleColumnClick() had NO EFFECT since column is full!`)
             return
         }
-        
-        // let newQuestion = generateQuestion(mathTopics, questionsRightSoFar())
-        // console.log(`NEW QUESTION: ${JSON.stringify(newQuestion, null, 4)}`)
-        // setQuestion(newQuestion)
-        setOpenModal("question")
-        setActiveCell(lowestUnclaimedCell)
-
+        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
+        openMathQuestionModal(lowestUnclaimedCell)
     }
 
-    function handleAnswerSubmit(answerIsCorrect) {
+    function openMathQuestionModal(activeCell) {
+        const score = nextPlayersMoves(gameStatus, moveList).length
+        
+        // My first Promise     
+        const newQuestion = generateQuestion(mathTopics, score).then(newQuestion => {
+            console.log(`Opening Modal with Question --> ${JSON.stringify(newQuestion, null, 4)}`);
+            setQuestion(newQuestion)
+            setHeaderText(newQuestion.instructions)
+            setOpenModal("question")
+            setActiveCell(activeCell)
+        })
+        console.log(`Opening Modal with Question --> ${JSON.stringify(newQuestion, null, 4)}`);
+        
+        
+    }
+
+    const waysToSayCorrect = [
+        "Correct!",
+        "Right!",
+        "That's it!",
+        "Good job!",
+        "Very good!"
+    ]
+    
+    function handleAnswerSubmit(playersAnswer) {
+        const answerIsCorrect = (Number(playersAnswer.trim()) === question.correctAnswer)
+        const answerFeedbackHeaderText = (answerIsCorrect ? chooseRandomFromArray(waysToSayCorrect) : `Nope. It was ${question.correctAnswer}.`)
+        setHeaderText(answerFeedbackHeaderText)
+         
+
         let moveToAdd = (answerIsCorrect) ? activeCell : -1
         let updatedMoveList = moveList.concat(moveToAdd)
         let updatedGameStatus = getGameStatus(updatedMoveList)
@@ -121,23 +158,7 @@ export default function App() {
         setOpenModal("none")
     }
 
-    function getNextPlayersMoves() {
-        if (gameStatus === "playerOnesTurn") {
-            return playerOnesNumbers(moveList)
-        }
-        else if (gameStatus === "playerTwosTurn") {
-            return playerTwosNumbers(moveList)
-        }
-        else {
-            console.warn(`getNextPlayersMoves was called but the game is already over`);
-            return []
-        }
-    }
-    let turnNumber = moveList.length
-    let nextPlayersMoves = getNextPlayersMoves()
-    // console.log(`nextPlayersMoves ${nextPlayersMoves}`);
-    let questionsRightSoFar = Math.max(1, nextPlayersMoves.length)
-
+    
     return (
         <React.Fragment>
             <CssBaseline />
@@ -158,14 +179,14 @@ export default function App() {
                     {/* <WelcomePage /> */}
                     {/* <PlayPage /> */}
                     {/* <InfoPage /> */}
-                    <Box id='play-page' sx={{
-                        height:  boardSideLength,
-                        width:  boardSideLength,
-                        display: 'flex',
-                        flexDirection: 'column',
-
-                        alignItems: 'center',
-                        position: 'relative'
+                    <Box id='play-page' 
+                        sx={{
+                            height:  boardSideLength,
+                            width:  boardSideLength,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            position: 'relative'
                     }}>
                         <InGameMenu
                             handleNewGameClick={openAbandonGameModal}
@@ -173,14 +194,18 @@ export default function App() {
                             handleUndoClick={handleUndoClick}
                         />
                         <MathQuestionModal
-                            key={1}
                             // turnNumber={moveList.length}
-                            turnNumber={turnNumber}
+                            // turnNumber={turnNumber}
+                            nextPlayerColor={nextPlayerColor(gameStatus)}
+                            // nextPlayerColor={nextPlayerColor}
+                            gameStatus={gameStatus}
                             open={(openModal === "question")}
-                            // question={question}
-                            mathTopics={mathTopics}
-                            questionsRightSoFar={questionsRightSoFar}
+                            question={question}
+                            headerText={headerText}
                             handleAnswerSubmit={handleAnswerSubmit}
+                            // mathTopics={mathTopics}
+                            // questionsRightSoFar={questionsRightSoFar}
+                            // handleAnswerSubmit={handleAnswerSubmit}
                             boardSideLength={boardSideLength}
                         />
                         <GameBoard

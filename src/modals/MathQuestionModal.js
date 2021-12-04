@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-
+// Logic
+import { gameIsOver, nextPlayerColor } from '../logic/connectFourLogic'
 
 // MUI  components
 import { Box, Button, Dialog, Zoom, Typography, 
     TextField, FormControl, InputLabel, OutlinedInput, FormHelperText,  
 } from '@material-ui/core'
-import { generateQuestion, blankQuestion } from '../logic/questionGenerator'
+import { generateQuestion, testQuestion } from '../logic/questionGenerator'
 
 // Style & Layout Constants
 const instructionsHeight = "30%"
@@ -19,50 +20,22 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export function MathQuestionModal(props) {
-    let { mathTopics, score, turnNumber, open, handleAnswerSubmit, boardSideLength } = props
+    let { question, 
+        open, 
+        gameStatus,
+        nextPlayerColor,
+        handleAnswerSubmit, 
+        boardSideLength,
+        turnNumber,
+        headerText } = props 
     
-    mathTopics = (mathTopics === undefined) ? ["combining"] : mathTopics
-    score = (score === undefined) ? 0 : score
+    let { correctAnswer, instructions, equationString, inputType } = question
 
-    // const [question, setQuestion] = React.useState(blankQuestion())
-    const [question, setQuestion] = React.useState(generateQuestion(mathTopics, score))
-
-    
-    let { correctAnswer, instructions, equationString } = question
-
-    const [playersAnswer, setPlayersAnswer] = React.useState("")
-    const [headerText, setHeaderText] = React.useState(instructions)
-
-    const answerIsNum = /^\d+$/.test(playersAnswer)
-    const error = (playersAnswer.length > 0 && !answerIsNum)
-    
-    function answerIsCorrect(pa = playersAnswer, ca = correctAnswer) {
-        return (Number(pa.trim()) === ca)
-    }
-    const handlePlayersAnswerChange = (event) => {
-        let updatedAnswer = event.target.value.trim()
-        setPlayersAnswer(updatedAnswer)
-    }
-    function handleSubmitButtonClick() {
-        if (error) {
-            console.warn(`Returning early from answer submit b/c answer is blank or not a number.`);
-            return -1
-        }
-        const correct = answerIsCorrect()
-        const answerFeedbackHeaderText = (correct ? "Correct!" : `Nope. It was ${correctAnswer}.`)
-        setHeaderText(answerFeedbackHeaderText)
-        handleAnswerSubmit(correct)
-        setTimeout(() => {
-            setPlayersAnswer("")
-            setHeaderText(instructions)
-            setQuestion(generateQuestion(mathTopics, score))
-        }, 1500);
-
-    }
+    let borderColor = `chip.${nextPlayerColor}`
 
     return (
         <Dialog 
-            keepMounted
+            // keepMounted
             disableEscapeKeyDown
             open={open}
             onBackdropClick={() => {}}  // disable close on bg click
@@ -71,7 +44,11 @@ export function MathQuestionModal(props) {
             fullWidth={true}
             maxWidth='md'
             PaperProps={{
-                style: {
+                sx: {
+                    // border: `solid ${nextPlayerColor(gameStatus)} 5px`,
+                    border: `solid green 0.5rem`,
+                    // border: `solid ${borderColor} 5px`,
+                    borderColor: borderColor,
                     margin: `${0.05 * boardSideLength}px`,
                     height: `${0.9 * boardSideLength}px`,
                     width: `${0.9 * boardSideLength}px`,
@@ -84,17 +61,17 @@ export function MathQuestionModal(props) {
         >
             <HeaderText 
                 // key={1}
-                key={turnNumber}  // May be able to use key prop to force state reset to initial.
+                // key={turnNumber}  // May be able to use key prop to force state reset to initial.
                 headerText={headerText}
             />
             <QuestionEquation 
                 equationString={equationString}
             />
             <AnswerInputComponent 
-                question={question}
-                error={error}
-                handlePlayersAnswerChange={handlePlayersAnswerChange}
-                handleSubmitButtonClick={handleSubmitButtonClick}
+                inputType={inputType}
+                correctAnswer={correctAnswer}
+                handleAnswerSubmit={handleAnswerSubmit}
+                // question={question}
             />
         </Dialog>
     )
@@ -138,18 +115,29 @@ export function MathQuestionModal(props) {
         )
     }
     function AnswerInputComponent(props) {
-        const { question, error, handleSubmitButtonClick, handlePlayersAnswerChange } = props
-        const answerInputType = question.inputType
+        const { inputType, correctAnswer, handleAnswerSubmit } = props
 
-        if (answerInputType === "textField") {
+        const [playersAnswer, setPlayersAnswer] = React.useState("")
+        const answerIsNum = /^\d+$/.test(playersAnswer)
+        const error = (playersAnswer.length > 0 && !answerIsNum)
+
+        const handlePlayersAnswerChange = (event) => {
+            let updatedAnswer = event.target.value.trim()
+            setPlayersAnswer(updatedAnswer)
+        }
+        function handleSubmitButtonClick() {
+            
+        }
+
+        if (inputType === "textField") {
             return (
                 <NumericalTextInput
                     error={error}
-                    handleSubmitButtonClick={handleSubmitButtonClick}
+                    handleSubmitButtonClick={() => handleAnswerSubmit(playersAnswer)}
                 />
             )
         }
-        else if (answerInputType === "compareButtons") {
+        else if (inputType === "compareButtons") {
             return (
                 <CompareButtons 
                     // handleAnswerSubmit={handleAnswerSubmit}
@@ -158,12 +146,11 @@ export function MathQuestionModal(props) {
             )
         }
         else {
-            console.error(`getInputComponent failed. Invalid answerInputType: ${answerInputType}`)
+            console.error(`getInputComponent failed. Invalid inputType: ${inputType}`)
         }
 
         function NumericalTextInput(props) {
             const { error, handleSubmitButtonClick } = props
-            
 
             return (
                 <Box sx={{
