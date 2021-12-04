@@ -1,10 +1,10 @@
 import React from 'react'
 
 // PAGES
-import WelcomePage from "./pages/Welcome"
+// import WelcomePage from "./pages/Welcome"
 // import SettingsPage from "./pages/Settings"
 // import PlayPage from "./pages/Play"
-import InfoPage from "./pages/Info"
+// import InfoPage from "./pages/Info"
 // MY components
 import { InGameMenu } from "./modals/Menu";
 import { GameBoard } from "./pages/GameBoard";
@@ -15,8 +15,6 @@ import { MathQuestionModal } from "./modals/MathQuestionModal";
 import { gameIsOver, 
     getColumnData, 
     getGameStatus, 
-    playerOnesMoves, 
-    playerTwosMoves, 
     nextPlayersMoves, 
     nextPlayerColor } from './logic/connectFourLogic'
 import { testQuestion, generateQuestion } from './logic/questionGenerator'
