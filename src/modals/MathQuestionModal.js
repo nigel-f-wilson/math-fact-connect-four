@@ -19,10 +19,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export function MathQuestionModal(props) {
-    let { question, open, handleAnswerSubmit, boardSideLength } = props  // turnNumber,
+    let { question, 
+        open, 
+        handleAnswerSubmit, 
+        boardSideLength,
+        turnNumber,
+        headerText } = props 
+    
     let { correctAnswer, instructions, equationString, inputType } = question
 
-    const [headerText, setHeaderText] = useState(instructions)
 
     return (
         <Dialog 
@@ -102,31 +107,22 @@ export function MathQuestionModal(props) {
         )
     }
     function AnswerInputComponent(props) {
-        // const { question } = props
-        // const { inputType, correctAnswer }  = question
         const { inputType, correctAnswer, handleAnswerSubmit } = props
-
 
         const [playersAnswer, setPlayersAnswer] = React.useState("")
         const answerIsNum = /^\d+$/.test(playersAnswer)
         const error = (playersAnswer.length > 0 && !answerIsNum)
 
-        function answerIsCorrect(pa = playersAnswer, ca = correctAnswer) {
-            return (Number(pa.trim()) === ca)
-        }
+        // function answerIsCorrect(pa = playersAnswer, ca = correctAnswer) {
+        //     return (Number(pa.trim()) === ca)
+        // }
         const handlePlayersAnswerChange = (event) => {
             let updatedAnswer = event.target.value.trim()
             setPlayersAnswer(updatedAnswer)
         }
         function handleSubmitButtonClick() {
-            if (error) {
-                console.warn(`Returning early from answer submit b/c answer is blank or not a number.`);
-                return -1
-            }
-            const correct = answerIsCorrect()
-            const answerFeedbackHeaderText = (correct ? "Correct!" : `Nope. It was ${correctAnswer}.`)
-            setHeaderText(answerFeedbackHeaderText)
-            handleAnswerSubmit(correct)
+            
+            handleAnswerSubmit(playersAnswer)
             // setTimeout(() => {
             //     setPlayersAnswer("")
             //     setHeaderText(instructions)

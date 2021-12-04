@@ -42,6 +42,9 @@ export default function App() {
     const [question, setQuestion] = React.useState(testQuestion())
     // const [question, setQuestion] = React.useState(generateQuestion(["combining"], 0))
     // const [questsion, setQuestion] = React.useState(generateQuestion(mathTopics, score))
+
+    const [headerText, setHeaderText] = React.useState("")
+
     
 
     // LAYOUT
@@ -67,6 +70,7 @@ export default function App() {
         let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
         openMathQuestionModal(lowestUnclaimedCell)
     }
+
     function openMathQuestionModal(activeCell) {
         const score = nextPlayersMoves(gameStatus, moveList).length
 
@@ -76,7 +80,6 @@ export default function App() {
         setActiveCell(activeCell)
     }
 
-    function handleAnswerSubmit(answerIsCorrect) {
     const waysToSayCorrect = [
         "Correct!",
         "Right!",
@@ -84,7 +87,13 @@ export default function App() {
         "Good job!",
         "Very good!"
     ]
+    
+    function handleAnswerSubmit(playersAnswer) {
+        const answerIsCorrect = (Number(playersAnswer.trim()) === question.correctAnswer)
         const answerFeedbackHeaderText = (answerIsCorrect ? chooseRandomFromArray(waysToSayCorrect) : `Nope. It was ${question.correctAnswer}.`)
+        setHeaderText(answerFeedbackHeaderText)
+         
+
         let moveToAdd = (answerIsCorrect) ? activeCell : -1
         let updatedMoveList = moveList.concat(moveToAdd)
         let updatedGameStatus = getGameStatus(updatedMoveList)
@@ -176,6 +185,7 @@ export default function App() {
                             // turnNumber={turnNumber}
                             open={(openModal === "question")}
                             question={question}
+                            headerText={headerText}
                             handleAnswerSubmit={handleAnswerSubmit}
                             // mathTopics={mathTopics}
                             // questionsRightSoFar={questionsRightSoFar}
