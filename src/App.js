@@ -39,6 +39,8 @@ export default function App() {
     const [activeCell, setActiveCell] = React.useState(null) 
 
     const [question, setQuestion] = React.useState(testQuestion())
+    // const [question, setQuestion] = React.useState(generateQuestion(["combining"], 0))
+    // const [questsion, setQuestion] = React.useState(generateQuestion(mathTopics, score))
     
 
     // LAYOUT
