@@ -55,7 +55,10 @@ export function MathQuestionModal(props) {
                 equationString={equationString}
             />
             <AnswerInputComponent 
-                question={question}
+                inputType={inputType}
+                correctAnswer={correctAnswer}
+                handleAnswerSubmit={handleAnswerSubmit}
+                // question={question}
             />
         </Dialog>
     )
@@ -99,8 +102,10 @@ export function MathQuestionModal(props) {
         )
     }
     function AnswerInputComponent(props) {
-        const { question } = props
-        const answerInputType = question.inputType
+        // const { question } = props
+        // const { inputType, correctAnswer }  = question
+        const { inputType, correctAnswer, handleAnswerSubmit } = props
+
 
         const [playersAnswer, setPlayersAnswer] = React.useState("")
         const answerIsNum = /^\d+$/.test(playersAnswer)
@@ -122,15 +127,14 @@ export function MathQuestionModal(props) {
             const answerFeedbackHeaderText = (correct ? "Correct!" : `Nope. It was ${correctAnswer}.`)
             setHeaderText(answerFeedbackHeaderText)
             handleAnswerSubmit(correct)
-            setTimeout(() => {
-                setPlayersAnswer("")
-                setHeaderText(instructions)
-                // setQuestion(generateQuestion(mathTopics, score))
-            }, 1500);
-
+            // setTimeout(() => {
+            //     setPlayersAnswer("")
+            //     setHeaderText(instructions)
+            //     // setQuestion(generateQuestion(mathTopics, score))
+            // }, 1500);
         }
 
-        if (answerInputType === "textField") {
+        if (inputType === "textField") {
             return (
                 <NumericalTextInput
                     error={error}
@@ -138,7 +142,7 @@ export function MathQuestionModal(props) {
                 />
             )
         }
-        else if (answerInputType === "compareButtons") {
+        else if (inputType === "compareButtons") {
             return (
                 <CompareButtons 
                     // handleAnswerSubmit={handleAnswerSubmit}
@@ -147,7 +151,7 @@ export function MathQuestionModal(props) {
             )
         }
         else {
-            console.error(`getInputComponent failed. Invalid answerInputType: ${answerInputType}`)
+            console.error(`getInputComponent failed. Invalid inputType: ${inputType}`)
         }
 
         function NumericalTextInput(props) {
