@@ -45,13 +45,9 @@ export default function App() {
     const [openModal, setOpenModal] = React.useState("none") // Enum: "none", "question", "abandonGame", "newGameSettings", 
     const [activeCell, setActiveCell] = React.useState(null) 
 
+    // QUESTION MODAL PROPS
     const [question, setQuestion] = React.useState(testQuestion())
-    // const [question, setQuestion] = React.useState(generateQuestion(["combining"], 0))
-    // const [questsion, setQuestion] = React.useState(generateQuestion(mathTopics, score))
-
     const [headerText, setHeaderText] = React.useState("")
-
-    
 
     // LAYOUT
     const height = useScreenHeight()
@@ -124,16 +120,6 @@ export default function App() {
         //     console.error(`IT IS THE BOT'S TURN BUT GETBOTMOVE HAS NOT BEEN DEFINED`)
         // }
     }
-
-    function closeModal() {
-        setOpenModal("none")
-    }
-    
-    
-
-    function pickTopic() {
-        return mathTopics[(Math.random() * mathTopics.length)]
-    }
  
     function openAbandonGameModal() {
         setOpenModal("abandonGame")
@@ -165,7 +151,6 @@ export default function App() {
             <ThemeProvider theme={theme}>
                 <Box id='root'
                     sx={{
-                        // border: 'solid red 5px',
                         bgcolor: 'background',
                         height: '100vh',
                         width: '100vw',
@@ -194,18 +179,12 @@ export default function App() {
                             handleUndoClick={handleUndoClick}
                         />
                         <MathQuestionModal
-                            // turnNumber={moveList.length}
-                            // turnNumber={turnNumber}
                             nextPlayerColor={nextPlayerColor(gameStatus)}
-                            // nextPlayerColor={nextPlayerColor}
                             gameStatus={gameStatus}
                             open={(openModal === "question")}
                             question={question}
                             headerText={headerText}
                             handleAnswerSubmit={handleAnswerSubmit}
-                            // mathTopics={mathTopics}
-                            // questionsRightSoFar={questionsRightSoFar}
-                            // handleAnswerSubmit={handleAnswerSubmit}
                             boardSideLength={boardSideLength}
                         />
                         <GameBoard

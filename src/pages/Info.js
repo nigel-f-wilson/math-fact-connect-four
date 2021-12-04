@@ -3,7 +3,7 @@ import React from 'react'
 // MY components
 
 // MUI  components
-import { Box, Typography, Container } from '@material-ui/core';
+import { Typography, Container } from '@material-ui/core';
 
 export default function InfoPage() {
     return (

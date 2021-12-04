@@ -1,15 +1,11 @@
 import React from 'react'
 
-import { useScreenWidth } from "../hooks";
-
-// MY components
-
 // ICONS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRobot, faUser, faPlus, faTimes, faDivide, faSuperscript } from '@fortawesome/free-solid-svg-icons'
 
 // MUI  components
-import { Box, Grid, Button, Typography, Container, Divider,  Stack } from '@material-ui/core';
+import { Box, Grid, Button, Typography, Container } from '@material-ui/core';
 
 
 

@@ -1,30 +1,13 @@
 import * as React from 'react';
-import { Popover, Typography, Button } from '@material-ui/core'
-import {
-    Box,
-    Avatar,
-    Menu,
-    MenuItem,
-    ListItemIcon,
-    Divider,
-    IconButton,
-    Tooltip } from '@material-ui/core'
-
-
-
-
+import { Popover, Button, Menu, MenuItem, } from '@material-ui/core'
 
 // Icons
 import ReplayIcon from "@material-ui/icons/Replay";
 import UndoIcon from "@material-ui/icons/Undo";
 import MenuIcon from '@material-ui/icons/Menu';
-import PersonAdd from '@material-ui/icons/PersonAdd';
-import Settings from '@material-ui/icons/Settings';
+// import PersonAdd from '@material-ui/icons/PersonAdd';
+// import Settings from '@material-ui/icons/Settings';
 // import Logout from '@material-ui/icons/Logout';
-
-
-
-
 
 export function InGameMenu(props) {
     let { handleNewGameClick, handleUndoClick } = props
@@ -34,11 +17,9 @@ export function InGameMenu(props) {
     const openMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
     const closeMenu = () => {
         setAnchorEl(null);
     };
-
     const open = Boolean(anchorEl)   // Is open if anchor element set.
     const id = open ? 'simple-popover' : undefined;
 
