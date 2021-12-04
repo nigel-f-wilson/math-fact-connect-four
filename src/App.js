@@ -18,7 +18,8 @@ import { gameIsOver,
     nextPlayersMoves, 
     nextPlayerColor } from './logic/connectFourLogic'
 import { testQuestion, generateQuestion } from './logic/questionGenerator'
-// import { chooseRandomFromArray } from "./logic/lowLevelHelpers";
+import { waysToSayCorrect } from "./logic/instructionsAndFeedbackStrings";
+import { chooseRandomFromArray } from './logic/lowLevelHelpers';
 
 // Custom Hooks
 import { useScreenWidth, useScreenHeight } from "./hooks"
@@ -29,8 +30,6 @@ import { CssBaseline, Box } from '@material-ui/core'
 // THEME
 import theme from "./theme"
 import { ThemeProvider, } from '@material-ui/core/styles'
-import { chooseRandomFromArray } from './logic/lowLevelHelpers';
-
 
 export default function App() {
     // GAME SETTINGS
@@ -87,13 +86,6 @@ export default function App() {
         
     }
 
-    const waysToSayCorrect = [
-        "Correct!",
-        "Right!",
-        "That's it!",
-        "Good job!",
-        "Very good!"
-    ]
     
     function handleAnswerSubmit(playersAnswer) {
         const answerIsCorrect = (Number(playersAnswer.trim()) === question.correctAnswer)

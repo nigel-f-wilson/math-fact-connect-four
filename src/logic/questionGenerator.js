@@ -1,4 +1,13 @@
 import { randomInt, chooseRandomFromArray } from "./lowLevelHelpers";
+import { 
+    missingSumInstructions,
+    missingAddendInstructions,
+    missingDifferenceInstructions,
+    missingMinuendInstructions,
+    howFarApart,
+    missingProductInstructions,
+    missingFactorInstructions 
+} from "./instructionsAndFeedbackStrings";
 
 export function testQuestion() {
     let vars = [1, 2, 3, 6]
@@ -76,14 +85,6 @@ function getCombiningQuestion(difficulty) {
     ]
     let type = chooseRandomFromArray(types)
    
-    const missingSumInstructions = [
-        "What's the Sum?",
-        "Find the Total"
-    ]
-    const missingAddendInstructions = [
-        "What's missing?",
-        "How many more?"
-    ]
     const getEasyAddend = () => { return randomInt(1, 20) }
     const getMediumAddend = () => { return randomInt(20, 99) }
     const getHardAddend = () => { return randomInt(99, 999) }
