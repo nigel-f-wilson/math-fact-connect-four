@@ -31,32 +31,38 @@ function determineDifficulty(score) {
 
 
 export function generateQuestion(mathTopics, score) {
+    return new Promise((resolve, reject) => {
+        const topic = chooseRandomFromArray(mathTopics)
+        const difficulty = determineDifficulty(score)
+        let question
+        if (topic === "combining") {
+            question = getCombiningQuestion(difficulty)
+        }
+        else if (topic === "multiplying") {
+            question = getMultiplyingQuestion(difficulty)
+        }
+        // else if (topic === "fractions") {
+        //     question = getFractionsQuestion(difficulty)
+        // }
+        // else if (topic === "exponents") {
+        //     question = getExponentsQuestion(difficulty)
+        // }
+        // else if (topic === "algebra") {
+        //     question = getAlgebraQuestion(difficulty)
+        // }
+        else {
+            reject(`generateQuestion FAILED with topic "${mathTopics}" and score ${score}!`)
+            // console.error(`generateQuestion FAILED with topic "${mathTopics}" and score ${score}!`)
+        }
+        console.log(`Generated an "${difficulty}" ${topic} Question --> ${JSON.stringify(question, null, 4)}`);
+
+        resolve(question)
+    });
+    
     // 1) pick topic from array of options
     // 2) determine difficulty based on score
     // 3) call topic specific question generator
-    const topic = chooseRandomFromArray(mathTopics)
-    const difficulty = determineDifficulty(score)
-    let question
-    if (topic === "combining") {
-        question = getCombiningQuestion(difficulty)
-    }
-    else if (topic === "multiplying") {
-        question = getMultiplyingQuestion(difficulty)
-    }
-    // else if (topic === "fractions") {
-    //     question = getFractionsQuestion(difficulty)
-    // }
-    // else if (topic === "exponents") {
-    //     question = getExponentsQuestion(difficulty)
-    // }
-    // else if (topic === "algebra") {
-    //     question = getAlgebraQuestion(difficulty)
-    // }
-    else {
-        console.error(`generateQuestion FAILED with topic "${mathTopics}" and ${score} questions Right So Far!`)
-    }
-    console.log(`Generated an "${difficulty}" ${topic} Question --> ${JSON.stringify(question, null, 4)}`);
-    return question
+    
 }
 
 
@@ -64,13 +70,12 @@ export function generateQuestion(mathTopics, score) {
 function getCombiningQuestion(difficulty) {
     let types = [
         "missingSumTwo",
-        "missingAddendTwo",
-        "missingAddendTwo",
         "missingSumThree",
+        "missingAddendTwo",
+        "missingAddendThree",
 
     ]
     let type = chooseRandomFromArray(types)
-    // "missingAddendThree",
     // "combineAndCompare"   // a + b _ c - d
     // "missingDifference",  // a - b = _
     // "missingMinuend",     // a - _ = c

@@ -73,11 +73,18 @@ export default function App() {
 
     function openMathQuestionModal(activeCell) {
         const score = nextPlayersMoves(gameStatus, moveList).length
-
-        setQuestion(generateQuestion(mathTopics, score))
-        // GET question here?
-        setOpenModal("question")
-        setActiveCell(activeCell)
+        
+        // My first Promise     
+        const newQuestion = generateQuestion(mathTopics, score).then(newQuestion => {
+            console.log(`Opening Modal with Question --> ${JSON.stringify(newQuestion, null, 4)}`);
+            setQuestion(newQuestion)
+            setHeaderText(newQuestion.instructions)
+            setOpenModal("question")
+            setActiveCell(activeCell)
+        })
+        console.log(`Opening Modal with Question --> ${JSON.stringify(newQuestion, null, 4)}`);
+        
+        
     }
 
     const waysToSayCorrect = [
