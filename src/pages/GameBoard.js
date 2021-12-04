@@ -265,7 +265,6 @@ function ChipContainer(props) {
     return (
         <Box id="chipContainer"
             sx={{
-                bgcolor: 'primary.main',
                 width: '100%',
                 height: '100%',
                 position: 'absolute',
