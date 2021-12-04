@@ -25,6 +25,7 @@ import { CssBaseline, Box } from '@material-ui/core'
 // THEME
 import theme from "./theme"
 import { ThemeProvider, } from '@material-ui/core/styles'
+import { chooseRandomFromArray } from './logic/lowLevelHelpers';
 
 
 export default function App() {
@@ -76,6 +77,14 @@ export default function App() {
     }
 
     function handleAnswerSubmit(answerIsCorrect) {
+    const waysToSayCorrect = [
+        "Correct!",
+        "Right!",
+        "That's it!",
+        "Good job!",
+        "Very good!"
+    ]
+        const answerFeedbackHeaderText = (answerIsCorrect ? chooseRandomFromArray(waysToSayCorrect) : `Nope. It was ${question.correctAnswer}.`)
         let moveToAdd = (answerIsCorrect) ? activeCell : -1
         let updatedMoveList = moveList.concat(moveToAdd)
         let updatedGameStatus = getGameStatus(updatedMoveList)
