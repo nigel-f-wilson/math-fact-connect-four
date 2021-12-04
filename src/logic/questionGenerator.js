@@ -78,38 +78,16 @@ export function generateQuestion(mathTopics, score) {
 }
 
 function getCombiningQuestion(difficulty) {
-    let types = [
-        "missingSumTwo",
-        "missingSumThree",
-        "missingAddendTwo",
-        "missingAddendThree",
+    let combiningQuestionGenerators = [
+        missingSumTwo,
+        missingSumThree,
+        missingAddendTwo,
+        missingAddendThree,
         // "combineAndCompare",   // a + b _ c - d
         // "missingDifference",  // a - b = _
         // "missingMinuend",     // a - _ = c
         // "howFarApart",        // a and b
     ]
-    let type = chooseRandomFromArray(types)
-   
-    const getEasyAddend = () => { return randomInt(1, 20) }
-    const getMediumAddend = () => { return randomInt(20, 99) }
-    const getHardAddend = () => { return randomInt(99, 999) }
-    
-    
-    let question
-    if (type === "missingSumTwo") {
-        question = missingSumTwo(difficulty)
-    }
-    else if (type === "missingAddendTwo") {
-        question = missingAddendTwo(difficulty)
-    }
-    else if (type === "missingSumThree") {
-        question = missingSumThree(difficulty)
-    } 
-    else if (type === "missingAddendThree") {
-        question = missingAddendThree(difficulty)
-    }
-    return question
-    
     function getSumOfTwoFact(difficulty) {
         let a = (difficulty === "hard") ? getHardAddend() : getMediumAddend()
         let b = (difficulty === "easy") ? getEasyAddend() : getMediumAddend()
@@ -125,6 +103,8 @@ function getCombiningQuestion(difficulty) {
         return [a, b, c, d]
     }
     
+    let randomIndex = randomInt(0, combiningQuestionGenerators.length)
+    return combiningQuestionGenerators[randomIndex](difficulty)
 }
 
 
