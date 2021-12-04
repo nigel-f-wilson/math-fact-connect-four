@@ -29,8 +29,10 @@ function determineDifficulty(score) {
 }
 
 
-
 export function generateQuestion(mathTopics, score) {
+    // 1) pick topic from array of options
+    // 2) determine difficulty based on score
+    // 3) call topic specific question generator
     return new Promise((resolve, reject) => {
         const topic = chooseRandomFromArray(mathTopics)
         const difficulty = determineDifficulty(score)
@@ -59,13 +61,7 @@ export function generateQuestion(mathTopics, score) {
         resolve(question)
     });
     
-    // 1) pick topic from array of options
-    // 2) determine difficulty based on score
-    // 3) call topic specific question generator
-    
 }
-
-
 
 function getCombiningQuestion(difficulty) {
     let types = [
@@ -80,7 +76,6 @@ function getCombiningQuestion(difficulty) {
     ]
     let type = chooseRandomFromArray(types)
    
-
     const missingSumInstructions = [
         "What's the Sum?",
         "Find the Total"
@@ -153,7 +148,7 @@ function getCombiningQuestion(difficulty) {
             type: "missingAddendTwo",
             vars: vars,
             correctAnswer: vars[1],
-            equationString: `${vars[0]} + __ = + ${vars[2]}`,
+            equationString: `${vars[0]} + __ = ${vars[2]}`,
             instructions: chooseRandomFromArray(missingAddendInstructions),
             inputType: "textField",
         }
@@ -164,7 +159,7 @@ function getCombiningQuestion(difficulty) {
             type: "missingAddendThree",
             vars: vars,
             correctAnswer: vars[1],
-            equationString: `${vars[0]} + __ + ${vars[2]} = + ${vars[3]}`,
+            equationString: `${vars[0]} + __ + ${vars[2]} = ${vars[3]}`,
             instructions: chooseRandomFromArray(missingAddendInstructions),
             inputType: "textField",
         }
