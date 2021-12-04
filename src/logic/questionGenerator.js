@@ -1,13 +1,5 @@
 import { randomInt, chooseRandomFromArray } from "./lowLevelHelpers";
 import { 
-    missingSumInstructions,
-    missingAddendInstructions,
-    missingDifferenceInstructions,
-    missingMinuendInstructions,
-    howFarApart,
-    missingProductInstructions,
-    missingFactorInstructions 
-} from "./instructionsAndFeedbackStrings";
     missingSumTwo,
     missingSumThree,
     missingAddendTwo,
@@ -88,24 +80,10 @@ function getCombiningQuestion(difficulty) {
         // "missingMinuend",     // a - _ = c
         // "howFarApart",        // a and b
     ]
-    function getSumOfTwoFact(difficulty) {
-        let a = (difficulty === "hard") ? getHardAddend() : getMediumAddend()
-        let b = (difficulty === "easy") ? getEasyAddend() : getMediumAddend()
-        let c = a + b
-        // console.log(`Combining Vars of difficulty "${difficultyLevel}": ${[a, b, c]}`);
-        return [a, b, c]
-    }
-    function getSumOfThreeFact(difficulty) {
-        let a = (difficulty === "hard") ? getHardAddend() : getMediumAddend()
-        let b = (difficulty === "easy") ? getEasyAddend() : getMediumAddend()
-        let c = (difficulty === "hard") ? getEasyAddend() : getMediumAddend()
-        let d = a + b + c
-        return [a, b, c, d]
-    }
-    
     let randomIndex = randomInt(0, combiningQuestionGenerators.length)
     return combiningQuestionGenerators[randomIndex](difficulty)
 }
+
 
 
 // Returns a 3 or 4 element array where the last element is the sum of the others
