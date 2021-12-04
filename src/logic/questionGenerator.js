@@ -73,13 +73,13 @@ function getCombiningQuestion(difficulty) {
         "missingSumThree",
         "missingAddendTwo",
         "missingAddendThree",
-
+        // "combineAndCompare",   // a + b _ c - d
+        // "missingDifference",  // a - b = _
+        // "missingMinuend",     // a - _ = c
+        // "howFarApart",        // a and b
     ]
     let type = chooseRandomFromArray(types)
-    // "combineAndCompare"   // a + b _ c - d
-    // "missingDifference",  // a - b = _
-    // "missingMinuend",     // a - _ = c
-    // "howFarApart",        // a and b
+   
 
     const missingSumInstructions = [
         "What's the Sum?",
@@ -101,9 +101,10 @@ function getCombiningQuestion(difficulty) {
     else if (type === "missingAddendTwo") {
         question = missingAddendTwo(difficulty)
     }
+    else if (type === "missingSumThree") {
+        question = missingSumThree(difficulty)
+    } 
     else if (type === "missingAddendThree") {
-        question = missingAddendThree(difficulty)
-    } else if (type === "missingAddendThree") {
         question = missingAddendThree(difficulty)
     }
     return question
