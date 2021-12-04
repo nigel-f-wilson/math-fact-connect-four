@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import { Box, Button, Dialog, Zoom, Typography, 
     TextField, FormControl, InputLabel, OutlinedInput, FormHelperText,  
 } from '@material-ui/core'
-import { generateQuestion, blankQuestion } from '../logic/questionGenerator'
+import { generateQuestion, testQuestion } from '../logic/questionGenerator'
 
 // Style & Layout Constants
 const instructionsHeight = "30%"
@@ -19,25 +19,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export function MathQuestionModal(props) {
-    let { mathTopics, score, turnNumber, open, handleAnswerSubmit, boardSideLength } = props
-    
-    mathTopics = (mathTopics === undefined) ? ["combining"] : mathTopics
-    score = (score === undefined) ? 0 : score
+    let { question, open, handleAnswerSubmit, boardSideLength } = props  // turnNumber,
+    let { correctAnswer, instructions, equationString, inputType } = question
 
-    // const initialQuestion = blankQuestion()
-    const initialQuestion = generateQuestion(["combining"], 0)
-    // const [question, setQuestion] = React.useState(initialQuestion)
-    const [question, setQuestion] = React.useState(generateQuestion(mathTopics, score))
-
-    
-    let { correctAnswer, instructions, equationString } = question
-
-    const [headerText, setHeaderText] = React.useState(instructions)
-    
+    const [headerText, setHeaderText] = useState(instructions)
 
     return (
         <Dialog 
-            keepMounted
+            // keepMounted
             disableEscapeKeyDown
             open={open}
             onBackdropClick={() => {}}  // disable close on bg click
@@ -59,7 +48,7 @@ export function MathQuestionModal(props) {
         >
             <HeaderText 
                 // key={1}
-                key={turnNumber}  // May be able to use key prop to force state reset to initial.
+                // key={turnNumber}  // May be able to use key prop to force state reset to initial.
                 headerText={headerText}
             />
             <QuestionEquation 

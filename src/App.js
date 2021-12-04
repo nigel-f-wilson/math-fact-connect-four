@@ -40,6 +40,7 @@ export default function App() {
 
     const [question, setQuestion] = React.useState(testQuestion())
     
+
     // LAYOUT
     const height = useScreenHeight()
     const width = useScreenWidth()
@@ -64,6 +65,9 @@ export default function App() {
         openMathQuestionModal(lowestUnclaimedCell)
     }
     function openMathQuestionModal(activeCell) {
+        const score = nextPlayersMoves(gameStatus, moveList).length
+
+        setQuestion(generateQuestion(mathTopics, score))
         // GET question here?
         setOpenModal("question")
         setActiveCell(activeCell)
@@ -158,12 +162,13 @@ export default function App() {
                         />
                         <MathQuestionModal
                             // turnNumber={moveList.length}
-                            turnNumber={turnNumber}
+                            // turnNumber={turnNumber}
                             open={(openModal === "question")}
-                            // question={question}
-                            mathTopics={mathTopics}
-                            questionsRightSoFar={questionsRightSoFar}
+                            question={question}
                             handleAnswerSubmit={handleAnswerSubmit}
+                            // mathTopics={mathTopics}
+                            // questionsRightSoFar={questionsRightSoFar}
+                            // handleAnswerSubmit={handleAnswerSubmit}
                             boardSideLength={boardSideLength}
                         />
                         <GameBoard
