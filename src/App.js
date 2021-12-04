@@ -13,7 +13,7 @@ import { MathQuestionModal } from "./modals/MathQuestionModal";
 
 // Game Logic
 import { gameIsOver, getColumnData, getGameStatus, playerOnesNumbers, playerTwosNumbers } from './logic/connectFourLogic'
-// import { blankQuestion, generateQuestion } from './logic/questionGenerator'
+import { testQuestion, generateQuestion } from './logic/questionGenerator'
 // import { chooseRandomFromArray } from "./logic/lowLevelHelpers";
 
 // Custom Hooks
@@ -38,6 +38,7 @@ export default function App() {
     const [openModal, setOpenModal] = React.useState("none") // Enum: "none", "question", "abandonGame", "newGameSettings", 
     const [activeCell, setActiveCell] = React.useState(null) 
 
+    const [question, setQuestion] = React.useState(testQuestion())
     
     // LAYOUT
     const height = useScreenHeight()
