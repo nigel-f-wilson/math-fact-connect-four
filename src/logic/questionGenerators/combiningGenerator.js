@@ -24,9 +24,9 @@ export function getCombiningQuestion(difficulty) {
     console.log(`Generating Combining Question of difficulty ${difficulty}`)
     let combiningQuestionTypes = [
         missingSum,
+        missingDifference, 
         missingAddend,
         // "combineAndCompare",   // a + b _ c - d
-        // "missingDifference",  // a - b = _
         // "missingMinuend",     // a - _ = c
         // "howFarApart",        // a and b
     ]
@@ -86,18 +86,25 @@ function missingSum(difficulty) {
         }
     }
 }
+
+function missingDifference(difficulty) {
     const instructions = [
         "Subtract",
         "How far apart?",
         "Find the Difference",
         "How much is left?"
     ]
+
+    let vars = {}
+    let equationString = ""
+    let correctAnswer 
+
     if (difficulty === "easy") {
-        let a = randomInt(2, 33)
-        let b = randomInt(2, 33)
-        let c = randomInt(2, 33)
-        let d = a + b + c
-        return [a, b, c, d]
+        vars.a = randomInt(20, 80)
+        vars.b = randomInt(5, 20)
+        vars.c = vars.a - vars.b
+        equationString = `${vars.a} - ${vars.b} = __`
+        correctAnswer = vars.c
     }
     else if (difficulty === "medium") {
         vars.a = randomInt(100, 300)
@@ -107,11 +114,11 @@ function missingSum(difficulty) {
         correctAnswer = vars.c
     }
     else if (difficulty === "hard") {
-        let a = randomInt(60, 600)
-        let b = randomInt(21, 60)
-        let c = randomInt(21, 100)
-        let d = a + b + c
-        return [a, b, c, d]
+        vars.a = randomInt(200, 1000)
+        vars.b = randomInt(20, 200)
+        vars.c = vars.a - vars.b
+        equationString = `${vars.a} - ${vars.b} = __`
+        correctAnswer = vars.c
     }
     return {
         type: "missingDifference",
