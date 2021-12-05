@@ -90,7 +90,6 @@ function missingSum(difficulty) {
 function missingDifference(difficulty) {
     const instructions = [
         "Subtract",
-        "How far apart?",
         "Find the Difference",
         "How much is left?"
     ]
@@ -129,6 +128,7 @@ function missingDifference(difficulty) {
         inputType: "textField",
     }
 }
+
 
 function missingAddend(difficulty) {
     const instructions = [
