@@ -32,6 +32,11 @@ export function getCombiningQuestion(difficulty) {
 
 
 export function getSumOfTwoFact(difficulty) {
+    const instructions = [
+        "Add",
+        "What's the Sum?",
+        "Find the Total"
+    ]
     if (difficulty === "easy") {
         let a = randomInt(2, 60)
         let b = randomInt(2, 25)
@@ -53,6 +58,12 @@ export function getSumOfTwoFact(difficulty) {
     else { console.error(`getSumOfTwoFact called with Invalid difficulty: "${difficulty}".`) }
 }
 export function getSumOfThreeFact(difficulty) {
+    const instructions = [
+        "Subtract",
+        "How far apart?",
+        "Find the Difference",
+        "How much is left?"
+    ]
     if (difficulty === "easy") {
         let a = randomInt(2, 33)
         let b = randomInt(2, 33)
@@ -109,6 +120,10 @@ export function missingAddendTwo(difficulty) {
         equationString: `${vars[0]} + __ = ${vars[2]}`,
         instructions: chooseRandomFromArray(missingAddendInstructions),
         inputType: "textField",
+    const instructions = [
+        "What's missing?",
+        "How many more?"
+    ]
     }
 }
 export function missingAddendThree(difficulty) {

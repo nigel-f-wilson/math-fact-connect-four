@@ -2,10 +2,6 @@
 
 import { randomInt, chooseRandomFromArray } from "../lowLevelHelpers";
 
-import {
-    missingProductInstructions,
-    missingFactorInstructions,
-} from "./instructionsAndFeedbackStrings";
 
 export function getMultiplyingQuestion(difficulty) {
     let multiplyingQuestionTypes = [
@@ -24,6 +20,14 @@ export function getMultiplyingQuestion(difficulty) {
 const easyFactor = () => chooseRandomFromArray([2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 40, 50, 60])
 
 
+const missingProductInstructions = [
+    "Multiply",
+    "Find the Product",
+]
+const missingFactorInstructions = [
+    "What's missing?",
+    "Times what?"
+]
 
 function missingProduct(difficulty) {
     if (difficulty === "easy") {        // 2 factors 2 thru 10

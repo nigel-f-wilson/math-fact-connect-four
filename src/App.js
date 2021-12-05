@@ -18,7 +18,6 @@ import { gameIsOver,
     nextPlayersMoves, 
     nextPlayerColor } from './logic/connectFourLogic'
 import { testQuestion, generateQuestion } from './logic/questionGenerators/questionGenerator'
-import { waysToSayCorrect } from "./logic/questionGenerators/instructionsAndFeedbackStrings";
 import { chooseRandomFromArray } from './logic/lowLevelHelpers';
 
 // Custom Hooks
@@ -45,6 +44,13 @@ export default function App() {
     // QUESTION MODAL PROPS
     const [question, setQuestion] = React.useState(testQuestion())
     const [headerText, setHeaderText] = React.useState("")
+    const waysToSayCorrect = [
+        "Correct!",
+        "Right!",
+        "That's it!",
+        "Good job!",
+        "Very good!"
+    ]
 
     // LAYOUT
     const height = useScreenHeight()
