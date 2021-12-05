@@ -1,14 +1,8 @@
-import { randomInt, chooseRandomFromArray } from "./lowLevelHelpers";
-import { 
-    missingSumTwo,
-    missingSumThree,
-    missingAddendTwo,
-    missingAddendThree,
-    missingProductTwo, 
-    missingProductThree,
-    missingFactorTwo,
-    missingFactorThree,
-} from "./questionTypes";
+import { randomInt, chooseRandomFromArray } from "../lowLevelHelpers";
+import { getCombiningQuestion } from "./combiningGenerator";
+import { getMultiplyingQuestion } from "./multiplyingGenerator";
+// import { getFractionsQuestion } from "./fractionsGenerator";
+
 
 export function testQuestion() {
     let vars = [1, 2, 3, 6]
@@ -58,33 +52,9 @@ export function generateQuestion(mathTopics, score) {
     });
 }
 
-function getCombiningQuestion(difficulty) {
-    let combiningQuestionTypes = [
-        missingSumTwo,
-        missingSumThree,
-        missingAddendTwo,
-        missingAddendThree,
-        // "combineAndCompare",   // a + b _ c - d
-        // "missingDifference",  // a - b = _
-        // "missingMinuend",     // a - _ = c
-        // "howFarApart",        // a and b
-    ]
-    let randomIndex = randomInt(0, combiningQuestionTypes.length)
-    return combiningQuestionTypes[randomIndex](difficulty)
-}
-function getMultiplyingQuestion(difficulty) {
-    let multiplyingQuestionTypes = [
-        missingProductTwo,
-        missingProductThree,
-        missingFactorTwo,
-        missingFactorThree,
-    ]
-    let randomIndex = randomInt(0, multiplyingQuestionTypes.length)
-    return multiplyingQuestionTypes[randomIndex](difficulty)
-}
-function getFractionsQuestion(difficulty) {
 
-}
+
+
 function getExponentsQuestion(difficulty) {
 
 }

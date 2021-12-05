@@ -17,8 +17,8 @@ import { gameIsOver,
     getGameStatus, 
     nextPlayersMoves, 
     nextPlayerColor } from './logic/connectFourLogic'
-import { testQuestion, generateQuestion } from './logic/questionGenerator'
-import { waysToSayCorrect } from "./logic/instructionsAndFeedbackStrings";
+import { testQuestion, generateQuestion } from './logic/questionGenerators/questionGenerator'
+import { waysToSayCorrect } from "./logic/questionGenerators/instructionsAndFeedbackStrings";
 import { chooseRandomFromArray } from './logic/lowLevelHelpers';
 
 // Custom Hooks

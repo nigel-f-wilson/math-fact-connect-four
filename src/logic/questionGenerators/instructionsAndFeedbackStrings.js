@@ -19,7 +19,7 @@ export const missingAddendInstructions = [
 
 export const missingDifferenceInstructions = [
     "How far apart?",
-    "What's the Difference?",
+    "Find the Difference",
     "How much is left?"
 ]
 export const missingMinuendInstructions = [
@@ -33,9 +33,9 @@ export const howFarApart = [
 
 export const missingProductInstructions = [
     "Multiply",
-    "What's the Product?",
+    "Find the Product",
 ]
 export const missingFactorInstructions = [
-    "Find the missing factor",
+    "What's missing?",
     "Times what?"
 ]
