@@ -46,3 +46,55 @@ export function getSumOfThreeFact(difficulty) {
     }
     else { console.error(`getSumOfThreeFact called with Invalid difficulty: "${difficulty}".`) }
 }
+
+// Mult
+const easyFactor = () => chooseRandomFromArray([2,3,4,5,6,7,8,9,10,15,20,25,30,40,50,60])
+export function getProductOfTwoFact(difficulty) {
+    if (difficulty === "easy") {
+        let a = easyFactor()
+        let b = randomInt(2, 11)
+        let c = a * b
+        return [a, b, c]
+    }
+    else if (difficulty === "medium") {
+        let a = randomInt(5, 25)
+        let b = randomInt(5, 25)
+        let c = a * b
+        return [a, b, c]
+    }
+    else if (difficulty === "hard") {
+        let a = randomInt(11, 100)
+        let b = randomInt(11, 100)
+        let c = a * b
+        return [a, b, c]
+    }
+    else { console.error(`getProductOfTwoFact called with Invalid difficulty: "${difficulty}".`) }
+}
+
+const primeFactor = () => chooseRandomFromArray([2, 3, 5, 7, 11, 13])
+
+export function getProductOfThreeFact(difficulty) {
+    
+    if (difficulty === "easy") {
+        let a = randomInt(2, 11)
+        let b = randomInt(2, 11)
+        let c = randomInt(2, 11)
+        let d = a * b * c
+        return [a, b, c, d]
+    }
+    else if (difficulty === "medium") {
+        let a = randomInt(12, 99)
+        let b = randomInt(2, 11)
+        let c = randomInt(2, 11)
+        let d = a * b * c
+        return [a, b, c, d]
+    }
+    else if (difficulty === "hard") {
+        let a = randomInt(12, 100)
+        let b = easyFactor()
+        let c = randomInt(2, 100)
+        let d = a * b * c
+        return [a, b, c, d]
+    }
+    else { console.error(`getSumOfThreeFact called with Invalid difficulty: "${difficulty}".`) }
+}

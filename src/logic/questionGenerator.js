@@ -4,6 +4,10 @@ import {
     missingSumThree,
     missingAddendTwo,
     missingAddendThree
+    missingProductTwo, 
+    missingProductThree,
+    missingFactorTwo,
+    missingFactorThree,
 } from "./questionTypes";
 
 export function testQuestion() {
