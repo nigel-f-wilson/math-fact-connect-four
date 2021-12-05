@@ -3,7 +3,7 @@ import {
     missingSumTwo,
     missingSumThree,
     missingAddendTwo,
-    missingAddendThree
+    missingAddendThree,
     missingProductTwo, 
     missingProductThree,
     missingFactorTwo,
@@ -40,41 +40,26 @@ function determineDifficulty(score) {
 
 
 export function generateQuestion(mathTopics, score) {
-    // 1) pick topic from array of options
-    // 2) determine difficulty based on score
-    // 3) call topic specific question generator
     return new Promise((resolve, reject) => {
-        const topic = chooseRandomFromArray(mathTopics)
         const difficulty = determineDifficulty(score)
-        let question
-        if (topic === "combining") {
-            question = getCombiningQuestion(difficulty)
-        }
-        else if (topic === "multiplying") {
-            question = getMultiplyingQuestion(difficulty)
-        }
-        // else if (topic === "fractions") {
-        //     question = getFractionsQuestion(difficulty)
-        // }
-        // else if (topic === "exponents") {
-        //     question = getExponentsQuestion(difficulty)
-        // }
-        // else if (topic === "algebra") {
-        //     question = getAlgebraQuestion(difficulty)
-        // }
-        else {
-            reject(`generateQuestion FAILED with topic "${mathTopics}" and score ${score}!`)
-            // console.error(`generateQuestion FAILED with topic "${mathTopics}" and score ${score}!`)
-        }
-        console.log(`Generated an "${difficulty}" ${topic} Question --> ${JSON.stringify(question, null, 4)}`);
-
-        resolve(question)
+        const questionTopics = [
+            getCombiningQuestion,
+            getMultiplyingQuestion,
+            // getFractionsQuestion,
+            // getExponentsQuestion,
+            // getAlgebraQuestion,
+            // getDTQQuestion,
+        ]
+        let randomIndex = randomInt(0, questionTopics.length)
+        resolve (questionTopics[randomIndex](difficulty))
+        // let question = questionGeneratorFuntions[randomIndex](difficulty)
+        // console.log(`Generated an "${difficulty}" ${topic} Question --> ${JSON.stringify(question, null, 4)}`);
+        // resolve(question)
     });
-    
 }
 
 function getCombiningQuestion(difficulty) {
-    let combiningQuestionGenerators = [
+    let combiningQuestionTypes = [
         missingSumTwo,
         missingSumThree,
         missingAddendTwo,
@@ -84,51 +69,31 @@ function getCombiningQuestion(difficulty) {
         // "missingMinuend",     // a - _ = c
         // "howFarApart",        // a and b
     ]
-    let randomIndex = randomInt(0, combiningQuestionGenerators.length)
-    return combiningQuestionGenerators[randomIndex](difficulty)
+    let randomIndex = randomInt(0, combiningQuestionTypes.length)
+    return combiningQuestionTypes[randomIndex](difficulty)
 }
-
-
-
-// Returns a 3 or 4 element array where the last element is the sum of the others
-function getCombiningFact(type, difficultyLevel) {
-    const getEasyAddend = () => { return randomInt(1, 20)  }
-    const getMediumAddend = () => { return randomInt(20, 99) }
-    const getHardAddend = () => { return randomInt(99, 999) }
-    
-    // A + B = C
-    if (["missingSumThree", "missingAddendThree"].includes(type)) {
-        let a = (difficultyLevel === "hard") ? getHardAddend() : getEasyAddend()
-        let b = (difficultyLevel === "easy") ? getEasyAddend() : getMediumAddend()
-        let c = (difficultyLevel === "easy") ? getEasyAddend() : getMediumAddend()
-        let d = a + b + c
-        console.log(`Combining Vars of difficulty "${difficultyLevel}": ${[a, b, c, d]}`);
-        return [a, b, c, d]
-    }
-    else {
-        console.error(`Failed to get combining fact of type: "${type}" difficulty Level "${difficultyLevel}"`);
-    }
+function getMultiplyingQuestion(difficulty) {
+    let multiplyingQuestionTypes = [
+        missingProductTwo,
+        missingProductThree,
+        missingFactorTwo,
+        missingFactorThree,
+    ]
+    let randomIndex = randomInt(0, multiplyingQuestionTypes.length)
+    return multiplyingQuestionTypes[randomIndex](difficulty)
 }
-
-
-function getMultiplyingQuestion(difficultyLevel) {
+function getFractionsQuestion(difficulty) {
 
 }
-function getFractionsQuestion(difficultyLevel) {
+function getExponentsQuestion(difficulty) {
 
 }
-function getExponentsQuestion(difficultyLevel) {
-
-}
-function getAlgebraQuestion(difficultyLevel) {
+function getAlgebraQuestion(difficulty) {
 
 }
 
 function getEquationString(type, vars) {
     let questionTypeToEquationStringMap = new Map([
-        ["missingSumThree", `${vars[0]} + ${vars[1]} + ${vars[2]} = __`],
-        ["missingAddendTwo", `${vars[0]} + __ = ${vars[2]}`],
-        ["missingAddendThree", `${vars[0]} + __ + ${vars[2]} = ${vars[3]}`],
         ["missingProductTwo", `${vars[0]} x ${vars[1]} = __}`],
         ["missingFactorTwo", `${vars[0]} x __ = ${vars[2]}`],
         ["completeMultiplication", `${vars[0]} x ${vars[1]} = ${vars[2]} x __`],
