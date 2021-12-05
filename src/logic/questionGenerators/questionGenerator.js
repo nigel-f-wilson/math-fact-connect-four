@@ -34,11 +34,14 @@ function determineDifficulty(score) {
 
 
 export function generateQuestion(mathTopics, score) {
+    // ERROR mathTopics is not actually used.  A filter needs to be written to remove 
+    // generatorFuntions from questionTopics
+    
     return new Promise((resolve, reject) => {
         const difficulty = determineDifficulty(score)
         const questionTopics = [
             getCombiningQuestion,
-            getMultiplyingQuestion,
+            // getMultiplyingQuestion,
             // getFractionsQuestion,
             // getExponentsQuestion,
             // getAlgebraQuestion,
