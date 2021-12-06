@@ -21,7 +21,7 @@ function easyMultiplyingQuestion() {
         missingProductThree,
         missingFactorTwo,
         missingFactorThree,
-        // doubleTripleQuadruple,
+        doubleTripleQuadruple,
 
     ]
     return chooseRandomFromArray(types)("easy")
@@ -46,12 +46,41 @@ function hardMultiplyingQuestion() {
 }
 
 
-const easyFactor = () => chooseRandomFromArray([4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 40, 50, 60])
+const easyFactor = () => chooseRandomFromArray([4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90])
 
+// DOUBLE TRIPLE QUADRUPLE
+function doubleTripleQuadruple(difficulty) { 
+    console.assert((difficulty === "easy"), `DOUBLE TRIPLE QUADRUPLE called in multiply with difficulty other than "easy"` )
+    let type = chooseRandomFromArray(["double", "triple", "quadruple"])
+    let vars = {}
+    let instructions
 
+    if (type === "double") {
+        vars.a = randomInt(50, 150)
+        vars.b = vars.a * 2
+        instructions = chooseRandomFromArray(["Double", "Times Two"])
+    }
+    else if (type === "triple") {
+        vars.a = randomInt(25, 100)
+        vars.b = vars.a * 3
+        instructions = chooseRandomFromArray(["Triple"])
+    }
+    else if (type === "quadruple") {
+        vars.a = randomInt(21, 66)
+        vars.b = vars.a * 4
+        instructions = chooseRandomFromArray(["Quadruple", "Double Double"])
+    }
+    return {
+        type: "missingProductTwo",
+        vars: vars,
+        correctAnswer: vars.b,
+        equationString: `${vars.a}`,
+        instructions: instructions,
+        inputType: "textField",
+    }
+}
 
 // MISSING PRODUCT
-
 const missingProductInstructions = [
     "Multiply",
     "Find the Product",
