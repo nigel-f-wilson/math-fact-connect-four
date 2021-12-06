@@ -153,8 +153,8 @@ function missingDifference(difficulty) {
     return {
         type: "missingDifference",
         vars: vars,
-        equationString: `${vars.a} - ${vars.b} = __`,
         correctAnswer: vars.c,
+        equationString: `${vars.a} - ${vars.b} = __`,
         instructions: chooseRandomFromArray(instructions),
         inputType: "textField",
     }
@@ -169,7 +169,7 @@ function missingAddendTwo(difficulty) {
     let vars = {}
     if (difficulty === "easy") {
         vars.a = randomInt(20, 80)
-        vars.b = randomInt(2, 20)
+        vars.b = randomInt(5, 25)
         vars.c = vars.a + vars.b
     }
     else if (difficulty === "medium") {
@@ -185,8 +185,8 @@ function missingAddendTwo(difficulty) {
     return {
         type: "missingAddendTwo",
         vars: vars,
-        equationString: `${vars.a} + ${vars.b} = __`,
-        correctAnswer: vars.c,
+        correctAnswer: vars.b,
+        equationString: `${vars.a} + __ = ${vars.c}`,
         instructions: chooseRandomFromArray(missingAddendInstructions),
         inputType: "textField",
     }
@@ -214,8 +214,8 @@ function missingAddendThree(difficulty) {
     return {
         type: "missingAddendThree",
         vars: vars,
-        correctAnswer: vars.b,
-        equationString: `${vars.a} + __ + ${vars.c} = ${vars.d}`,
+        correctAnswer: vars.c,
+        equationString: `${vars.a} + ${vars.b} + __ = ${vars.d}`,
         instructions: chooseRandomFromArray(missingAddendInstructions),
         inputType: "textField",
     }
