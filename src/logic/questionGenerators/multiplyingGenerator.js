@@ -1,83 +1,115 @@
 // Exports helpers for when questionGenerator has selected the "multiplying" topic
-
 import { randomInt, chooseRandomFromArray } from "../lowLevelHelpers";
 
 
 export function getMultiplyingQuestion(difficulty) {
-    let multiplyingQuestionTypes = [
-        missingProduct,
-        missingFactor,
+    console.assert((difficulty === "easy" || difficulty === "medium" || difficulty === "hard"), `getMultiplyingQuestion recieved invalid difficulty ${difficulty}`)
+    console.log(`Generating Multiplying Question of difficulty "${difficulty}"`)
+    if (difficulty === "easy") {
+        return easyMultiplyingQuestion()
+    }
+    else if (difficulty === "medium") {
+        return mediumMultiplyingQuestion()
+    }
+    else if (difficulty === "hard") {
+        return hardMultiplyingQuestion()
+    }
+}
+function easyMultiplyingQuestion() {
+    let types = [
         missingProductTwo,
-        missingProductThree,
         missingFactorTwo,
-        missingFactorThree,
+        // doubleTripleQuadruple,
+
     ]
-    let randomIndex = randomInt(0, multiplyingQuestionTypes.length)
-    return multiplyingQuestionTypes[randomIndex](difficulty)
+    return chooseRandomFromArray(types)("easy")
+}
+function mediumMultiplyingQuestion() {
+    let types = [
+        missingProductTwo,
+        // missingProductThree,
+        missingFactorTwo,
+        // missingFactorThree,
+    ]
+    return chooseRandomFromArray(types)("medium")
+}
+function hardMultiplyingQuestion() {
+    let types = [
+        missingProductTwo,
+        // missingProductThree,
+        missingFactorTwo,
+        // missingFactorThree,
+    ]
+    return chooseRandomFromArray(types)("hard")
 }
 
 
 const easyFactor = () => chooseRandomFromArray([2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 40, 50, 60])
 
 
+
+// MISSING PRODUCT
+
 const missingProductInstructions = [
     "Multiply",
     "Find the Product",
 ]
+function missingProductTwo(difficulty) {
+    const instructions = chooseRandomFromArray(missingProductInstructions)
+    let vars = {}
+    let equationString = ""
+    let correctAnswer
+
+    if (difficulty === "easy") {
+        vars.a = easyFactor()
+        vars.b = randomInt(2, 11)
+        vars.c = vars.a * vars.b
+        correctAnswer = vars.c
+    }
+    else if (difficulty === "medium") {
+        vars.a = randomInt(5, 26)
+        vars.b = randomInt(5, 26)
+        vars.c = vars.a - vars.b
+        correctAnswer = vars.c
+    }
+    else if (difficulty === "hard") {
+        vars.a = randomInt(11, 100)
+        vars.b = randomInt(11, 100)
+        vars.c = vars.a - vars.b
+        correctAnswer = vars.c
+    }
+    return {
+        type: "missingSumTwo",
+        vars: vars,
+        correctAnswer: vars.c,
+        equationString: `${vars.a} x ${vars.b} = __`,
+        instructions: instructions,
+        inputType: "textField",
+    }
+    
+}
+
+
+// MISSING FACTOR
+
 const missingFactorInstructions = [
     "What's missing?",
     "Times what?"
 ]
+function missingFactorTwo(difficulty) {
+    
+}
+function missingFactorThree(difficulty) {
 
-function missingProduct(difficulty) {
-    if (difficulty === "easy") {        // 2 factors 2 thru 10
-        let a = easyFactor()
-        let b = randomInt(2, 11)
-        let c = a * b
-        return [a, b, c]
-    }
-    else if (difficulty === "medium") { // 2
-        let a = randomInt(5, 25)
-        let b = randomInt(5, 25)
-        let c = a * b
-        return [a, b, c]
-    }
-    else if (difficulty === "hard") {   // 3 part 
-        let a = randomInt(11, 100)
-        let b = randomInt(11, 100)
-        let c = a * b
-        return [a, b, c]
-    }
-    let vars = getProductOfTwoFact(difficulty)
-    return {
-        type: "missingProductTwo",
-        difficulty: difficulty,
-        vars: vars,
-        correctAnswer: vars[2],
-        equationString: `${vars[0]} x ${vars[1]} = __`,
-        instructions: chooseRandomFromArray(missingProductInstructions),
-        inputType: "textField",
-    }
 }
 
 
-function missingFactor(difficulty) {
-    let vars = getProductOfTwoFact(difficulty)
-    return {
-        type: "missingFactorTwo",
-        vars: vars,
-        correctAnswer: vars[1],
-        equationString: `${vars[0]} x __ = ${vars[2]}`,
-        instructions: chooseRandomFromArray(missingFactorInstructions),
-        inputType: "textField",
-    }
-}
+// MISSING DIVIDEND
 
+// MISSING DIVISOR
 
+// MISSING QUOTIENT
 
-
-
-// Mult
 
 
 export function getProductOfTwoFact(difficulty) {
@@ -131,7 +163,7 @@ export function getProductOfThreeFact(difficulty) {
 }
 
 // Mult
-export function missingProductTwo(difficulty) {
+export function missingProductTwgfo(difficulty) {
     let vars = getProductOfTwoFact(difficulty)
     return {
         type: "missingProductTwo",
@@ -143,7 +175,7 @@ export function missingProductTwo(difficulty) {
         inputType: "textField",
     }
 }
-export function missingProductThree(difficulty) {
+export function missingProductTfhree(difficulty) {
     let vars = getProductOfThreeFact(difficulty)
     return {
         type: "missingSumThree",
@@ -155,7 +187,7 @@ export function missingProductThree(difficulty) {
     }
 }
 
-export function missingFactorTwo(difficulty) {
+export function missingFajctorTwo(difficulty) {
     let vars = getProductOfTwoFact(difficulty)
     return {
         type: "missingFactorTwo",
@@ -166,7 +198,7 @@ export function missingFactorTwo(difficulty) {
         inputType: "textField",
     }
 }
-export function missingFactorThree(difficulty) {
+export function missinggFactorThree(difficulty) {
     let vars = getProductOfThreeFact(difficulty)
     return {
         type: "missingFactorThree",
