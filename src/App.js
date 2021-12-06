@@ -34,7 +34,7 @@ export default function App() {
     // GAME SETTINGS
     const [opponent, setOpponent] = React.useState("human")
     // const [mathTopics, setMathTopics] = React.useState(["combining", "multiplying"])  // An array of all types player wants
-    const [mathTopics, setMathTopics] = React.useState(["combining"])  // An array of all types player wants
+    const [mathTopics, setMathTopics] = React.useState(["multiplying"])  // An array of all types player wants
 
     // GAME STATE
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
