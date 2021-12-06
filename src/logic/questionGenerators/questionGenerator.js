@@ -17,13 +17,13 @@ export function testQuestion() {
 }
 function determineDifficulty(score) {
     console.log(`determineDifficulty called with ${score} `);
-    if (score < 6) {
+    if (score < 8) {
         return "easy"
     }
-    else if (score < 12) {
+    else if (score < 16) {
         return "medium"
     }
-    else if (score >= 12) {
+    else if (score >= 16) {
         return "hard"
     }
     else {
@@ -40,7 +40,7 @@ export function generateQuestion(mathTopics, score) {
     return new Promise((resolve, reject) => {
         const difficulty = determineDifficulty(score)
         const questionTopics = [
-            // getCombiningQuestion,
+            getCombiningQuestion,
             getMultiplyingQuestion,
             // getFractionsQuestion,
             // getExponentsQuestion,
