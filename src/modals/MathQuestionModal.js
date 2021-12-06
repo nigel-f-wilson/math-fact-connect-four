@@ -4,8 +4,8 @@ import React, { useState } from 'react'
 import { Box, Button, Dialog, Zoom, Typography, FormControl, InputLabel, OutlinedInput } from '@material-ui/core'
 
 // Style & Layout Constants
-const instructionsHeight = "30%"
-const equationHeight = "35%"
+const instructionsHeight = "33%"
+const equationHeight = "32%"
 const inputHeight = "35%"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -78,7 +78,7 @@ export function MathQuestionModal(props) {
     }
     function QuestionEquation(props) {
         const { equationString } = props
-        const fontStyle = (equationString.length > 14) ? 'h2' : 'h1'
+        const fontStyle = (equationString.length > 12) ? 'h2' : 'h1'
 
         return (
             <Typography variant={fontStyle} 
