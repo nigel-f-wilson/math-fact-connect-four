@@ -21,17 +21,50 @@ const howFarApart = [
 // some types only occur in hard mode such as 3 part sums and products
 export function getCombiningQuestion(difficulty) {
     console.assert((difficulty === "easy" || difficulty === "medium" || difficulty === "hard"), `getCombiningQuestion recieved invalid difficulty ${difficulty}` )
-    console.log(`Generating Combining Question of difficulty ${difficulty}`)
-    let combiningQuestionTypes = [
+    console.log(`Generating Combining Question of difficulty "${difficulty}"`)
+    if (difficulty === "easy") {
+        return easyCombiningQuestion()
+    }
+    else if (difficulty === "medium") {
+        return mediumCombiningQuestion()
+    }
+    else if (difficulty === "hard") {
+        return hardCombiningQuestion()
+    }
+}
+
+function easyCombiningQuestion() {
+    let types = [
         missingSum,
-        missingDifference, 
-        missingAddend,
-        // "combineAndCompare",   // a + b _ c - d
-        // "missingMinuend",     // a - _ = c
-        // "howFarApart",        // a and b
+        missingDifference,
+        // double,
+        // howFarApart,        // a and b
     ]
-    let randomIndex = randomInt(0, combiningQuestionTypes.length)
-    return combiningQuestionTypes[randomIndex](difficulty)
+    return chooseRandomFromArray(types)("easy") 
+}
+function mediumCombiningQuestion() {
+    let types = [
+        missingSum,
+        missingDifference,
+        missingAddend,
+        // triple,
+        // combineAndCompare,   // a + b _ c - d
+        // missingMinuend,     // a - _ = c
+        // howFarApart,        // a and b
+    ]
+    return chooseRandomFromArray(types)("medium") 
+}
+function hardCombiningQuestion() {
+    let types = [
+        missingSum,
+        missingDifference,
+        missingAddend,
+        // quadruple,
+        // combineAndCompare,   // a + b _ c - d
+        // missingMinuend,     // a - _ = c
+        // howFarApart,        // a and b
+    ]
+    return chooseRandomFromArray(types)("hard") 
 }
 
 
