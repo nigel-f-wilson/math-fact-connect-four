@@ -40,7 +40,7 @@ export function generateQuestion(mathTopics, score) {
     return new Promise((resolve, reject) => {
         const difficulty = determineDifficulty(score)
         const questionTopics = [
-            // getCombiningQuestion,
+            getCombiningQuestion,
             getMultiplyingQuestion,
             // getFractionsQuestion,
             // getExponentsQuestion,
