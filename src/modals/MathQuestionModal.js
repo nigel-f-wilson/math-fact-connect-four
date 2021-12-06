@@ -1,36 +1,26 @@
 import React, { useState } from 'react'
-// Logic
-import { gameIsOver, nextPlayerColor } from '../logic/connectFourLogic'
 
 // MUI  components
-import { Box, Button, Dialog, Zoom, Typography, 
-    TextField, FormControl, InputLabel, OutlinedInput, FormHelperText,  
-} from '@material-ui/core'
-import { generateQuestion, testQuestion } from '../logic/questionGenerator'
+import { Box, Button, Dialog, Zoom, Typography, FormControl, InputLabel, OutlinedInput } from '@material-ui/core'
 
 // Style & Layout Constants
-const instructionsHeight = "30%"
-const equationHeight = "35%"
+const instructionsHeight = "33%"
+const equationHeight = "32%"
 const inputHeight = "35%"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Zoom ref={ref} {...props} />;
 })
 
-
-
 export function MathQuestionModal(props) {
     let { question, 
-        open, 
-        gameStatus,
+        open,
+        headerText,
         nextPlayerColor,
         handleAnswerSubmit, 
-        boardSideLength,
-        turnNumber,
-        headerText } = props 
+        boardSideLength } = props 
     
-    let { correctAnswer, instructions, equationString, inputType } = question
-
+    let { correctAnswer, equationString, inputType } = question
     let borderColor = `chip.${nextPlayerColor}`
 
     return (
@@ -59,24 +49,15 @@ export function MathQuestionModal(props) {
                 }
             }}
         >
-            <HeaderText 
-                // key={1}
-                // key={turnNumber}  // May be able to use key prop to force state reset to initial.
-                headerText={headerText}
-            />
-            <QuestionEquation 
-                equationString={equationString}
-            />
+            <HeaderText headerText={headerText} />
+            <QuestionEquation equationString={equationString} />
             <AnswerInputComponent 
                 inputType={inputType}
                 correctAnswer={correctAnswer}
                 handleAnswerSubmit={handleAnswerSubmit}
-                // question={question}
             />
         </Dialog>
     )
-
-    
     
     function HeaderText(props) {
         return (
@@ -97,7 +78,7 @@ export function MathQuestionModal(props) {
     }
     function QuestionEquation(props) {
         const { equationString } = props
-        const fontStyle = (equationString.length > 14) ? 'h2' : 'h1'
+        const fontStyle = (equationString.length > 12) ? 'h2' : 'h1'
 
         return (
             <Typography variant={fontStyle} 
@@ -117,16 +98,13 @@ export function MathQuestionModal(props) {
     function AnswerInputComponent(props) {
         const { inputType, correctAnswer, handleAnswerSubmit } = props
 
-        const [playersAnswer, setPlayersAnswer] = React.useState("")
+        const [playersAnswer, setPlayersAnswer] = useState("")
         const answerIsNum = /^\d+$/.test(playersAnswer)
         const error = (playersAnswer.length > 0 && !answerIsNum)
 
         const handlePlayersAnswerChange = (event) => {
             let updatedAnswer = event.target.value.trim()
             setPlayersAnswer(updatedAnswer)
-        }
-        function handleSubmitButtonClick() {
-            
         }
 
         if (inputType === "textField") {
@@ -140,8 +118,7 @@ export function MathQuestionModal(props) {
         else if (inputType === "compareButtons") {
             return (
                 <CompareButtons 
-                    // handleAnswerSubmit={handleAnswerSubmit}
-                    // handleSubmitButtonClick={handleSubmitButtonClick}
+                    // handleSubmitButtonClick={() => handleAnswerSubmit(playersAnswer)}
                 />
             )
         }
@@ -193,25 +170,18 @@ export function MathQuestionModal(props) {
                                 }
                             }}
                         />
-                        {/* <FormHelperText 
-                            label={(error === false) ? "" : "Enter a whole number"}
-                        /> */}
                         <SubmitButton
                             disabled={error}
                             playersAnswer={playersAnswer}
                             correctAnswer={correctAnswer}
                             handleSubmitButtonClick={handleSubmitButtonClick}
-                            
-
                         />
                     </FormControl>
                 </Box>
-
-
             )
         }
         function SubmitButton(props) {
-            const { playersAnswer, correctAnswer, handleSubmitButtonClick } = props
+            const { handleSubmitButtonClick } = props
             return (
                 <Button
                     onClick={handleSubmitButtonClick}
@@ -223,30 +193,26 @@ export function MathQuestionModal(props) {
                         lineHeight: '3rem',
                         width: '42%'
                     }}
-                    // children="Check"
                     children="Submit"
                 />
             )
         }
 
         function CompareButtons(props) {
-            // let { handleAnswerSubmit, handleSubmitButtonClick } = props
-
+            // let { handleSubmitButtonClick } = props
 
             return (
-                <Box sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-
+                <Box 
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
                 >
                     <Button />
                     <Button />
-
                     <Button />
-
                 </Box>
             )
         }

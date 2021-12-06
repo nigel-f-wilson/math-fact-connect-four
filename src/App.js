@@ -1,10 +1,10 @@
 import React from 'react'
 
 // PAGES
-import WelcomePage from "./pages/Welcome"
+// import WelcomePage from "./pages/Welcome"
 // import SettingsPage from "./pages/Settings"
 // import PlayPage from "./pages/Play"
-import InfoPage from "./pages/Info"
+// import InfoPage from "./pages/Info"
 // MY components
 import { InGameMenu } from "./modals/Menu";
 import { GameBoard } from "./pages/GameBoard";
@@ -15,12 +15,10 @@ import { MathQuestionModal } from "./modals/MathQuestionModal";
 import { gameIsOver, 
     getColumnData, 
     getGameStatus, 
-    playerOnesMoves, 
-    playerTwosMoves, 
     nextPlayersMoves, 
     nextPlayerColor } from './logic/connectFourLogic'
-import { testQuestion, generateQuestion } from './logic/questionGenerator'
-// import { chooseRandomFromArray } from "./logic/lowLevelHelpers";
+import { testQuestion, generateQuestion } from './logic/questionGenerators/questionGenerator'
+import { chooseRandomFromArray } from './logic/lowLevelHelpers';
 
 // Custom Hooks
 import { useScreenWidth, useScreenHeight } from "./hooks"
@@ -31,13 +29,12 @@ import { CssBaseline, Box } from '@material-ui/core'
 // THEME
 import theme from "./theme"
 import { ThemeProvider, } from '@material-ui/core/styles'
-import { chooseRandomFromArray } from './logic/lowLevelHelpers';
-
 
 export default function App() {
     // GAME SETTINGS
     const [opponent, setOpponent] = React.useState("human")
-    const [mathTopics, setMathTopics] = React.useState(["combining"])  // An array of all types player wants
+    // const [mathTopics, setMathTopics] = React.useState(["combining", "multiplying"])  // An array of all types player wants
+    const [mathTopics, setMathTopics] = React.useState(["multiplying"])  // An array of all types player wants
 
     // GAME STATE
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
@@ -45,13 +42,16 @@ export default function App() {
     const [openModal, setOpenModal] = React.useState("none") // Enum: "none", "question", "abandonGame", "newGameSettings", 
     const [activeCell, setActiveCell] = React.useState(null) 
 
+    // QUESTION MODAL PROPS
     const [question, setQuestion] = React.useState(testQuestion())
-    // const [question, setQuestion] = React.useState(generateQuestion(["combining"], 0))
-    // const [questsion, setQuestion] = React.useState(generateQuestion(mathTopics, score))
-
     const [headerText, setHeaderText] = React.useState("")
-
-    
+    const waysToSayCorrect = [
+        "Correct!",
+        "Right!",
+        "That's it!",
+        "Good job!",
+        "Very good!"
+    ]
 
     // LAYOUT
     const height = useScreenHeight()
@@ -88,18 +88,7 @@ export default function App() {
             setOpenModal("question")
             setActiveCell(activeCell)
         })
-        console.log(`Opening Modal with Question --> ${JSON.stringify(newQuestion, null, 4)}`);
-        
-        
     }
-
-    const waysToSayCorrect = [
-        "Correct!",
-        "Right!",
-        "That's it!",
-        "Good job!",
-        "Very good!"
-    ]
     
     function handleAnswerSubmit(playersAnswer) {
         const answerIsCorrect = (Number(playersAnswer.trim()) === question.correctAnswer)
@@ -123,16 +112,6 @@ export default function App() {
         // if (opponent === "bot") {
         //     console.error(`IT IS THE BOT'S TURN BUT GETBOTMOVE HAS NOT BEEN DEFINED`)
         // }
-    }
-
-    function closeModal() {
-        setOpenModal("none")
-    }
-    
-    
-
-    function pickTopic() {
-        return mathTopics[(Math.random() * mathTopics.length)]
     }
  
     function openAbandonGameModal() {
@@ -165,7 +144,6 @@ export default function App() {
             <ThemeProvider theme={theme}>
                 <Box id='root'
                     sx={{
-                        // border: 'solid red 5px',
                         bgcolor: 'background',
                         height: '100vh',
                         width: '100vw',
@@ -194,18 +172,12 @@ export default function App() {
                             handleUndoClick={handleUndoClick}
                         />
                         <MathQuestionModal
-                            // turnNumber={moveList.length}
-                            // turnNumber={turnNumber}
                             nextPlayerColor={nextPlayerColor(gameStatus)}
-                            // nextPlayerColor={nextPlayerColor}
                             gameStatus={gameStatus}
                             open={(openModal === "question")}
                             question={question}
                             headerText={headerText}
                             handleAnswerSubmit={handleAnswerSubmit}
-                            // mathTopics={mathTopics}
-                            // questionsRightSoFar={questionsRightSoFar}
-                            // handleAnswerSubmit={handleAnswerSubmit}
                             boardSideLength={boardSideLength}
                         />
                         <GameBoard

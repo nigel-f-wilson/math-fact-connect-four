@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 
 // Logic
 import { gameIsOver, nextPlayerColor } from '../logic/connectFourLogic'
-// Custom Hooks
-import { useScreenWidth, useScreenHeight } from "../hooks"
 
 // MUI  components
-import { Box, Container, Switch, Paper, Slide, FormControlLabel, Typography, Zoom } from '@material-ui/core'
+import { Box, Container, Slide, Typography, Zoom } from '@material-ui/core'
 
 // Style & Layout Constants
 const oneSixth = '16.666%'
@@ -24,12 +22,6 @@ let columnNumbers = [0, 1, 2, 3, 4, 5, 6]
 
 export function GameBoard(props) {
     const { moveList, handleColumnClick, gameStatus } = props
-
-    const height = useScreenHeight()
-    const width = useScreenWidth()
-    const boardSideLength = (height <= width) ? height * 0.95 : width * 0.95
-    // const boardSideLength = (height <= width) ? height : width
-
 
     function getColumnChipColors(columnIndex) {
         let chipColors = boardChipColors().filter((player, cellId) => cellId % 7 === columnIndex)
@@ -62,10 +54,8 @@ export function GameBoard(props) {
             }}
         >
             <InfoHeaderRow gameStatus={gameStatus} />  
-
             {columnNumbers.map((columnIndex) => {
                 let chipColors = getColumnChipColors(columnIndex)
-                {/* console.log(`Column Chip Colors for column ${columnIndex}: ${chipColors}`) */}
                 return (
                     <Column 
                         key={columnIndex}
@@ -77,7 +67,6 @@ export function GameBoard(props) {
                     />
                 )
             })}
-            
             <RoundedBoardFrame />
         </Container>
     )
@@ -175,7 +164,6 @@ function Column(props) {
                 height: '100%',
                 zIndex: 9,
                 '&:hover #hoverChip': {
-                    // backgroundColor: `chip.playerOne`,
                     backgroundColor: `chip.${nextPlayerColor}`,
                 },
             }}
@@ -193,7 +181,7 @@ Column.propTypes = {
 }
 
 function Chip(props) {
-    const { id, color } = props
+    const { color } = props
     let claimed = (color !== "unclaimed")
     let bgcolor = `chip.${color}`
     return (
@@ -266,7 +254,6 @@ function ChipContainer(props) {
         <Box id="chipContainer"
             sx={{
                 width: '100%',
-                height: '100%',
                 position: 'absolute',
                 top: squarePercentage,
                 bgcolor: 'transparent',
