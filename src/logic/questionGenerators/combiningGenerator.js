@@ -1,10 +1,5 @@
-// Exports helpers for when questionGenerator has selected the "combining" topic
-
+// Exports helper for when questionGenerator has selected the "combining" topic
 import { randomInt, chooseRandomFromArray } from "../lowLevelHelpers";
-
-
-
-
 
 const missingMinuendInstructions = [
     "Minus how many?",
@@ -15,10 +10,6 @@ const howFarApart = [
     "How far apart?"
 ]
 
-
-// Takes a difficulty param: easy medium or hard
-
-// some types only occur in hard mode such as 3 part sums and products
 export function getCombiningQuestion(difficulty) {
     console.assert((difficulty === "easy" || difficulty === "medium" || difficulty === "hard"), `getCombiningQuestion recieved invalid difficulty ${difficulty}` )
     console.log(`Generating Combining Question of difficulty "${difficulty}"`)
@@ -35,8 +26,10 @@ export function getCombiningQuestion(difficulty) {
 
 function easyCombiningQuestion() {
     let types = [
-        missingSum,
+        missingSumTwo,
+        missingSumThree,
         missingDifference,
+        missingAddendTwo,
         // double,
         // howFarApart,        // a and b
     ]
@@ -44,9 +37,10 @@ function easyCombiningQuestion() {
 }
 function mediumCombiningQuestion() {
     let types = [
-        missingSum,
+        missingSumTwo,
+        missingSumThree,
         missingDifference,
-        missingAddend,
+        missingAddendTwo,
         // triple,
         // combineAndCompare,   // a + b _ c - d
         // missingMinuend,     // a - _ = c
@@ -56,9 +50,10 @@ function mediumCombiningQuestion() {
 }
 function hardCombiningQuestion() {
     let types = [
-        missingSum,
+        missingSumTwo,
+        missingSumThree,
         missingDifference,
-        missingAddend,
+        missingAddendTwo,
         // quadruple,
         // combineAndCompare,   // a + b _ c - d
         // missingMinuend,     // a - _ = c
@@ -68,57 +63,70 @@ function hardCombiningQuestion() {
 }
 
 
-function missingSum(difficulty) {
-    const instructions = [
-        "Add",
-        "What's the Sum?",
-        "Find the Total"
-    ]
-
+const missingSumInstructions = [
+    "Add",
+    "What's the Sum?",
+    "Find the Total"
+]
+function missingSumTwo(difficulty) {
+    let vars = {}
     if (difficulty === "easy") {
-        let a = randomInt(5, 75)
-        let b = randomInt(5, 25)
-        let c = a + b
-        let vars = [a, b, c]
-        return {
-            type: "missingSumTwo",
-            vars: vars,
-            correctAnswer: vars[2],
-            equationString: `${vars[0]} + ${vars[1]} = __`,
-            instructions: chooseRandomFromArray(instructions),
-            inputType: "textField",
-        }
+        vars.a = randomInt(5,75)
+        vars.b = randomInt(5,75)
+        vars.c = vars.a + vars.b
     }
     else if (difficulty === "medium") {
-        let a = randomInt(20, 100)
-        let b = randomInt(20, 100)
-        let c = a + b
-        let vars = [a, b, c]
-        return {
-            type: "missingSumTwo",
-            vars: vars,
-            correctAnswer: vars[2],
-            equationString: `${vars[0]} + ${vars[1]} = __`,
-            instructions: chooseRandomFromArray(instructions),
-            inputType: "textField",
-        }
+        vars.a = randomInt(40, 160)
+        vars.b = randomInt(40, 160)
+        vars.c = vars.a + vars.b
     }
     else if (difficulty === "hard") {
-        let a = randomInt(50, 200)
-        let b = randomInt(1, 100)
-        let c = randomInt(10, 100)
-        let d = a + b + c
-        let vars = [a, b, c, d]
-        return {
-            type: "missingSumThree",
-            vars: vars,
-            correctAnswer: vars[3],
-            equationString: `${vars[0]} + ${vars[1]} + ${vars[2]} = __`,
-            instructions: chooseRandomFromArray(instructions),
-            inputType: "textField",
-        }
+        vars.a = randomInt(100, 1000)
+        vars.b = randomInt(100, 1000)
+        vars.c = vars.a + vars.b
+    }
+    return {
+        type: "missingSumTwo",
+        vars: vars,
+        correctAnswer: vars.c,
+        equationString: `${vars.a} + ${vars.b} = __`,
+        instructions: chooseRandomFromArray(missingSumInstructions),
+        inputType: "textField",
     }
 }
+
+function missingSumThree(difficulty) {
+    let vars = {}
+    if (difficulty === "easy") {
+        vars.a = randomInt(5, 25)
+        vars.b = randomInt(5, 25)
+        vars.c = randomInt(5, 25)
+        vars.d = vars.a + vars.b + vars.c
+    }
+    else if (difficulty === "medium") {
+        vars.a = randomInt(20, 100)
+        vars.b = randomInt(20, 100)
+        vars.c = randomInt(20, 100)
+        vars.d = vars.a + vars.b + vars.c
+    }
+    else if (difficulty === "hard") {
+        vars.a = randomInt(100, 333)
+        vars.b = randomInt(100, 333)
+        vars.c = randomInt(100, 333)
+        vars.d = vars.a + vars.b + vars.c
+        
+    }
+    return {
+        type: "missingSumThree",
+        vars: vars,
+        correctAnswer: vars.d,
+        equationString: `${vars.a} + ${vars.b} + ${vars.c} = __`,
+        instructions: chooseRandomFromArray(missingSumInstructions),
+        inputType: "textField",
+    }
+}
+
+
 
 function missingDifference(difficulty) {
     const instructions = [
@@ -126,92 +134,92 @@ function missingDifference(difficulty) {
         "Find the Difference",
         "How much is left?"
     ]
-
     let vars = {}
-    let equationString = ""
-    let correctAnswer 
-
     if (difficulty === "easy") {
         vars.a = randomInt(20, 80)
         vars.b = randomInt(5, 20)
         vars.c = vars.a - vars.b
-        equationString = `${vars.a} - ${vars.b} = __`
-        correctAnswer = vars.c
     }
     else if (difficulty === "medium") {
         vars.a = randomInt(100, 300)
-        vars.b = randomInt(5, 100)
+        vars.b = randomInt(20, 100)
         vars.c = vars.a - vars.b
-        equationString = `${vars.a} - ${vars.b} = __`
-        correctAnswer = vars.c
     }
     else if (difficulty === "hard") {
         vars.a = randomInt(200, 1000)
-        vars.b = randomInt(20, 200)
+        vars.b = randomInt(50, 200)
         vars.c = vars.a - vars.b
-        equationString = `${vars.a} - ${vars.b} = __`
-        correctAnswer = vars.c
     }
     return {
         type: "missingDifference",
         vars: vars,
-        equationString: equationString,
-        correctAnswer: correctAnswer,
+        equationString: `${vars.a} - ${vars.b} = __`,
+        correctAnswer: vars.c,
         instructions: chooseRandomFromArray(instructions),
         inputType: "textField",
     }
 }
 
 
-function missingAddend(difficulty) {
-    const instructions = [
-        "What's missing?",
-        "How many more?"
-    ]
-        
+const missingAddendInstructions = [
+    "What's missing?",
+    "How many more?"
+]
+function missingAddendTwo(difficulty) {
+    let vars = {}
     if (difficulty === "easy") {
-        let a = randomInt(1, 75)
-        let b = randomInt(1, 25)
-        let c = a + b
-        let vars = [a, b, c]
-        return {
-            type: "missingAddendTwo",
-            vars: vars,
-            correctAnswer: vars[1],
-            equationString: `${vars[0]} + __ = ${vars[2]}`,
-            instructions: chooseRandomFromArray(instructions),
-            inputType: "textField",
-        }
+        vars.a = randomInt(20, 80)
+        vars.b = randomInt(2, 20)
+        vars.c = vars.a + vars.b
     }
     else if (difficulty === "medium") {
-        let a = randomInt(20, 100)
-        let b = randomInt(20, 100)
-        let c = a + b
-        let vars = [a, b, c]
-        return {
-            type: "missingAddendTwo",
-            vars: vars,
-            correctAnswer: vars[1],
-            equationString: `${vars[0]} + __ = ${vars[2]}`,
-            instructions: chooseRandomFromArray(instructions),
-            inputType: "textField",
-        }
+        vars.a = randomInt(50, 300)
+        vars.b = randomInt(50, 100)
+        vars.c = vars.a + vars.b
     }
     else if (difficulty === "hard") {
-        let a = randomInt(50, 100)
-        let b = randomInt(1, 100)
-        let c = randomInt(1, 50)
-        let d = a + b + c
-        let vars = [a, b, c, d]
-        return {
-            type: "missingAddendThree",
-            vars: vars,
-            correctAnswer: vars[1],
-            equationString: `${vars[0]} + __ + ${vars[2]} = ${vars[3]}`,
-            instructions: chooseRandomFromArray(instructions),
-            inputType: "textField",
-        }
+        vars.a = randomInt(200, 1000)
+        vars.b = randomInt(200, 500)
+        vars.c = vars.a + vars.b
     }
+    return {
+        type: "missingAddendTwo",
+        vars: vars,
+        equationString: `${vars.a} + ${vars.b} = __`,
+        correctAnswer: vars.c,
+        instructions: chooseRandomFromArray(missingAddendInstructions),
+        inputType: "textField",
+    }
+}
+function missingAddendThree(difficulty) {
+    let vars = {}
+    if (difficulty === "easy") {
+        vars.a = randomInt(2, 20)
+        vars.b = randomInt(2, 20)
+        vars.c = randomInt(2, 20)
+        vars.d = vars.a + vars.b + vars.c
+    }
+    else if (difficulty === "medium") {
+        vars.a = randomInt(20, 100)
+        vars.b = randomInt(20, 100)
+        vars.c = randomInt(20, 100)
+        vars.d = vars.a + vars.b + vars.c
+    }
+    else if (difficulty === "hard") {
+        vars.a = randomInt(50, 300)
+        vars.b = randomInt(50, 300)
+        vars.c = randomInt(50, 300)
+        vars.d = vars.a + vars.b + vars.c
+    }
+    return {
+        type: "missingAddendThree",
+        vars: vars,
+        correctAnswer: vars.b,
+        equationString: `${vars.a} + __ + ${vars.c} = ${vars.d}`,
+        instructions: chooseRandomFromArray(missingAddendInstructions),
+        inputType: "textField",
+    }
+
 }
 
 
