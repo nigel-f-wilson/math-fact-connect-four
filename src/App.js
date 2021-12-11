@@ -116,9 +116,6 @@ export default function App() {
         //     console.error(`IT IS THE BOT'S TURN BUT GETBOTMOVE HAS NOT BEEN DEFINED`)
         // }
     }
- 
-    function openAbandonGameModal() {
-        setOpenModal("abandonGame")
 
     function determineDifficulty(score) {
         console.log(`determineDifficulty called with ${score} `);
@@ -185,8 +182,9 @@ export default function App() {
                             position: 'relative'
                     }}>
                         <InGameMenu
-                            handleNewGameClick={openAbandonGameModal}
-                            handleAbandonGameClick={openSettingsModal}
+                            // handleNewGameClick={openAbandonGameModal}
+                            // handleAbandonGameClick={openNewGameSettingsModal}
+                            handleNewGameClick={openNewGameSettingsModal}
                             handleUndoClick={handleUndoClick}
                         />
 
