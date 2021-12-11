@@ -81,7 +81,7 @@ export default function App() {
 
     function openMathQuestionModal(activeCell) {
         const score = nextPlayersMoves(gameStatus, moveList).length
-        
+
         // My first Promise     
         const newQuestion = generateQuestion(mathTopics, score).then(newQuestion => {
             console.log(`Opening Modal with Question --> ${JSON.stringify(newQuestion, null, 4)}`);
@@ -96,7 +96,6 @@ export default function App() {
         const answerIsCorrect = (Number(playersAnswer.trim()) === question.correctAnswer)
         const answerFeedbackHeaderText = (answerIsCorrect ? chooseRandomFromArray(waysToSayCorrect) : `Nope. It was ${question.correctAnswer}.`)
         setHeaderText(answerFeedbackHeaderText)
-         
 
         let moveToAdd = (answerIsCorrect) ? activeCell : -1
         let updatedMoveList = moveList.concat(moveToAdd)
@@ -118,7 +117,7 @@ export default function App() {
  
     function openAbandonGameModal() {
         setOpenModal("abandonGame")
-        
+
     }
     function openSettingsModal() {
         setMoveList([])
@@ -182,14 +181,16 @@ export default function App() {
                         />
 
                         <MathQuestionModal
+                            open={(openModal === "question")}
                             nextPlayerColor={nextPlayerColor(gameStatus)}
                             gameStatus={gameStatus}
-                            open={(openModal === "question")}
                             question={question}
                             headerText={headerText}
                             handleAnswerSubmit={handleAnswerSubmit}
                             boardSideLength={boardSideLength}
                         />
+
+
                         <GameBoard
                             moveList={moveList}
                             gameStatus={gameStatus}
