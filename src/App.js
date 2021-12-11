@@ -8,6 +8,7 @@ import React from 'react'
 // MY components
 import { InGameMenu } from "./modals/Menu";
 import { GameBoard } from "./pages/GameBoard";
+import { NewGameSettingsModal } from "./modals/NewGameSettingsModal";
 import { MathQuestionModal } from "./modals/MathQuestionModal";
 // import { GameSettingsModal } from "./components/GameSettingsModal";
 
@@ -39,7 +40,8 @@ export default function App() {
     // GAME STATE
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')  // Enum ['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw']
-    const [openModal, setOpenModal] = React.useState("none") // Enum: "none", "question", "abandonGame", "newGameSettings", 
+    // const [openModal, setOpenModal] = React.useState("none") // Enum: "none", "question", "abandonGame", "newGameSettings", 
+    const [openModal, setOpenModal] = React.useState("newGameSettings") // Enum: "none", "question", "abandonGame", "newGameSettings", 
     const [activeCell, setActiveCell] = React.useState(null) 
 
     // QUESTION MODAL PROPS
@@ -171,6 +173,14 @@ export default function App() {
                             handleAbandonGameClick={openSettingsModal}
                             handleUndoClick={handleUndoClick}
                         />
+
+                        <NewGameSettingsModal 
+                            open={(openModal === "newGameSettingsModal")}
+                            handleStartGameClick={startGame}
+                            boardSideLength={boardSideLength}
+
+                        />
+
                         <MathQuestionModal
                             nextPlayerColor={nextPlayerColor(gameStatus)}
                             gameStatus={gameStatus}
