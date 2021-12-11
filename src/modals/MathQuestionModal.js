@@ -98,6 +98,7 @@ export function MathQuestionModal(props) {
     function AnswerInputComponent(props) {
         const { inputType, correctAnswer, handleAnswerSubmit } = props
 
+        const [submitted, setSubmitted] = useState(false)
         const [playersAnswer, setPlayersAnswer] = useState("")
         const answerIsNum = /^\d+$/.test(playersAnswer)
         const error = (playersAnswer.length > 0 && !answerIsNum)
@@ -106,12 +107,21 @@ export function MathQuestionModal(props) {
             let updatedAnswer = event.target.value.trim()
             setPlayersAnswer(updatedAnswer)
         }
+        const handlePlayersAnswerSubmit = () => {
+            // if (submitted) {
+                // return // No Effect
+            // }
+            // else {
+                // setSubmitted(true)
+                handleAnswerSubmit(playersAnswer)
+            // }
+        }
 
         if (inputType === "textField") {
             return (
                 <NumericalTextInput
                     error={error}
-                    handleSubmitButtonClick={() => handleAnswerSubmit(playersAnswer)}
+                    handleSubmitButtonClick={handlePlayersAnswerSubmit}
                 />
             )
         }
@@ -164,11 +174,11 @@ export function MathQuestionModal(props) {
                                 style: { fontSize: '2rem', height: '2rem' }
                             }}
                             sx={{ width: '62%' }}
-                            onKeyDown={(event) => {
-                                if (event.key === "Enter") {
-                                    handleSubmitButtonClick()
-                                }
-                            }}
+                            // onKeyDown={(event) => {
+                            //     if (event.key === "Enter") {
+                            //         handleSubmitButtonClick()
+                            //     }
+                            // }}
                         />
                         <SubmitButton
                             disabled={error}
