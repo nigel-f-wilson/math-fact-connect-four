@@ -54,6 +54,12 @@ const theme = createTheme({
         },
     },
     typography: {
+        h1: {
+            fontSize: '5.5rem',
+        },
+        h2: {
+            fontSize: '4.0rem',
+        },
         button: {
             fontSize: '1.0rem',
             fontWeight: '700'
