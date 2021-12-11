@@ -15,30 +15,14 @@ export function testQuestion() {
         inputType: "textField",
     }
 }
-function determineDifficulty(score) {
-    console.log(`determineDifficulty called with ${score} `);
-    if (score < 8) {
-        return "easy"
-    }
-    else if (score < 16) {
-        return "medium"
-    }
-    else if (score >= 16) {
-        return "hard"
-    }
-    else {
-        console.error(`Invalid number of question right so far: ${score}`);
-        return "error"
-    }
-}
 
 
-export function generateQuestion(mathTopics, score) {
+
+export function generateQuestion(mathTopics, difficulty) {
     // ERROR mathTopics is not actually used.  A filter needs to be written to remove 
     // generatorFuntions from questionTopics
     
     return new Promise((resolve, reject) => {
-        const difficulty = determineDifficulty(score)
         const questionTopics = [
             getCombiningQuestion,
             getMultiplyingQuestion,

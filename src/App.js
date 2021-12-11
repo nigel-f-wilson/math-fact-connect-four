@@ -36,6 +36,7 @@ export default function App() {
     const [opponent, setOpponent] = React.useState("human")
     // const [mathTopics, setMathTopics] = React.useState(["combining", "multiplying"])  // An array of all types player wants
     const [mathTopics, setMathTopics] = React.useState(["multiplying"])  // An array of all types player wants
+    const [difficultyMode, setDifficultyMode] = React.useState("hard")  // One of "easy" "medium" "hard" "increasing"
 
     // GAME STATE
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
@@ -81,9 +82,10 @@ export default function App() {
 
     function openMathQuestionModal(activeCell) {
         const score = nextPlayersMoves(gameStatus, moveList).length
+        let difficulty = (difficultyMode === "increasing") ? determineDifficulty(score) : difficultyMode
 
         // My first Promise     
-        const newQuestion = generateQuestion(mathTopics, score).then(newQuestion => {
+        const newQuestion = generateQuestion(mathTopics, difficulty).then(newQuestion => {
             console.log(`Opening Modal with Question --> ${JSON.stringify(newQuestion, null, 4)}`);
             setQuestion(newQuestion)
             setHeaderText(newQuestion.instructions)
@@ -118,6 +120,21 @@ export default function App() {
     function openAbandonGameModal() {
         setOpenModal("abandonGame")
 
+    function determineDifficulty(score) {
+        console.log(`determineDifficulty called with ${score} `);
+        if (score < 8) {
+            return "easy"
+        }
+        else if (score < 16) {
+            return "medium"
+        }
+        else if (score >= 16) {
+            return "hard"
+        }
+        else {
+            console.error(`Invalid number of question right so far: ${score}`);
+            return "error"
+        }
     }
     function openSettingsModal() {
         setMoveList([])
