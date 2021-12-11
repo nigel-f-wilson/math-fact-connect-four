@@ -78,7 +78,7 @@ function InfoHeaderRow(props) {
     let gameOver = gameIsOver(gameStatus)
     let message = ""
     if (gameOver) {
-        message = (gameStatus === "playerOneWins" ? "Player One Wins!" : "Player Two Wins!")
+        message = (gameStatus === "playerOneWins" ? "Red Wins!" : "Yellow Wins!")
     }
     
     return (
