@@ -98,7 +98,7 @@ export function MathQuestionModal(props) {
     function AnswerInputComponent(props) {
         const { inputType, correctAnswer, handleAnswerSubmit } = props
 
-        const [submitted, setSubmitted] = useState(false)
+        // const [submitted, setSubmitted] = useState(false)
         const [playersAnswer, setPlayersAnswer] = useState("")
         const answerIsNum = /^\d+$/.test(playersAnswer)
         const error = (playersAnswer.length > 0 && !answerIsNum)
@@ -176,6 +176,7 @@ export function MathQuestionModal(props) {
                             sx={{ width: '62%' }}
                             // onKeyDown={(event) => {
                             //     if (event.key === "Enter") {
+                            //         setSubmitted(true)
                             //         handleSubmitButtonClick()
                             //     }
                             // }}
