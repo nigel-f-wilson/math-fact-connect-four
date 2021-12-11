@@ -34,8 +34,7 @@ import { ThemeProvider, } from '@material-ui/core/styles'
 export default function App() {
     // GAME SETTINGS
     const [opponent, setOpponent] = React.useState("human")
-    // const [mathTopics, setMathTopics] = React.useState(["combining", "multiplying"])  // An array of all types player wants
-    const [mathTopics, setMathTopics] = React.useState(["multiplying"])  // An array of all types player wants
+    const [mathTopics, setMathTopics] = React.useState(["combining", "multiplying"])  // An array of all types player wants
     const [difficultyMode, setDifficultyMode] = React.useState("hard")  // One of "easy" "medium" "hard" "increasing"
 
     // GAME STATE
@@ -133,15 +132,17 @@ export default function App() {
             return "error"
         }
     }
-    function openSettingsModal() {
-        setMoveList([])
-        setGameStatus('playerOnesTurn')
-        setOpenModal("newGameSettings")
+ 
+
+    function openNewGameSettingsModal() {
+        setOpenModal("newGameSettingsModal")
     }
-    function handlePlayNowClick() {
+    function startGame(mathTopics, difficultyMode, opponent ) {
+        setMathTopics(mathTopics)
+        setDifficultyMode(difficultyMode)
         setMoveList([])
         setGameStatus('playerOnesTurn')
-        setOpenModal("question")
+        setOpenModal("none")
         setActiveCell(null)
     }
 
