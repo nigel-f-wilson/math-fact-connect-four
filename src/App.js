@@ -14,7 +14,7 @@ import { MathQuestionModal } from "./modals/MathQuestionModal";
 
 // Game Logic
 import { gameIsOver, 
-    getColumnData, 
+    getLowestUnclaimedCell,
     getGameStatus, 
     nextPlayersMoves, 
     nextPlayerColor } from './logic/connectFourLogic'
@@ -72,9 +72,8 @@ export default function App() {
             console.log(`handleColumnClick() had NO EFFECT since game is already over!`)
             return 
         }
-        let columnData = getColumnData(columnIndex, moveList)
-        let lowestUnclaimedRow = columnData.indexOf("unclaimed")
-        if (lowestUnclaimedRow === -1) {
+        let lowestUnclaimedCell = getLowestUnclaimedCell(columnIndex, moveList)
+        if (lowestUnclaimedCell === -1) {
             console.log(`handleColumnClick() had NO EFFECT since column is full!`)
             return
         }
