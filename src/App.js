@@ -41,7 +41,7 @@ export default function App() {
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')  // Enum ['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw']
     // const [openModal, setOpenModal] = React.useState("none") // Enum: "none", "question", "abandonGame", "newGameSettings", 
-    const [openModal, setOpenModal] = React.useState("newGameSettings") // Enum: "none", "question", "abandonGame", "newGameSettings", 
+    const [openModal, setOpenModal] = React.useState("newGameSettings") // Enum: "none", "question", "newGameSettings", 
     const [activeCell, setActiveCell] = React.useState(null) 
 
     // QUESTION MODAL PROPS
@@ -183,9 +183,7 @@ export default function App() {
                             position: 'relative'
                     }}>
                         <InGameMenu
-                            // handleNewGameClick={openAbandonGameModal}
-                            // handleAbandonGameClick={openNewGameSettingsModal}
-                            handleNewGameClick={openNewGameSettingsModal}
+                            handleNewGameClick={() => {setOpenModal("newGameSettings")}}
                             handleUndoClick={handleUndoClick}
                         />
 
