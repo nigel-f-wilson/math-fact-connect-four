@@ -13,6 +13,17 @@ const howFarApart = [
 export function getCombiningQuestion(difficulty) {
     console.assert((difficulty === "easy" || difficulty === "medium" || difficulty === "hard"), `getCombiningQuestion recieved invalid difficulty ${difficulty}` )
     console.log(`Generating Combining Question of difficulty "${difficulty}"`)
+    
+    let types = [
+        missingSumTwo,
+        missingSumThree,
+        missingDifference,
+        missingAddendTwo,
+        // double,
+        // howFarApart,        // a and b
+    ]
+    return chooseRandomFromArray(types)(difficulty)
+    
     if (difficulty === "easy") {
         return easyCombiningQuestion()
     }
@@ -63,24 +74,39 @@ function hardCombiningQuestion() {
 }
 
 
+/////////////////////////////////////////////////////////////////
+//  INSTRUCTIONS
+/////////////////////////////////////////////////////////////////
+
 const missingSumInstructions = [
     "Add",
     "What's the Sum?",
     "Find the Total"
 ]
-function missingSumTwo(difficulty) {
+const missingDifferenceInstructions = [
+    "Subtract",
+    "Find the Difference",
+    "How much is left?"
+]
+const missingAddendInstructions = [
+    "Plus what?",
+    "Add how many?",
+    "How many more?"
+]
+
+function missingSumTwo(difficulty) { 
     let vars = {}
-    if (difficulty === "easy") {
-        vars.a = randomInt(5,75)
-        vars.b = randomInt(5,75)
+    if (difficulty === "easy") {            // Grade 1
+        vars.a = randomInt(3,20)
+        vars.b = randomInt(3,20)
         vars.c = vars.a + vars.b
     }
-    else if (difficulty === "medium") {
-        vars.a = randomInt(40, 160)
-        vars.b = randomInt(40, 160)
+    else if (difficulty === "medium") {     // Grade 2
+        vars.a = randomInt(20, 100)
+        vars.b = randomInt(20, 100)
         vars.c = vars.a + vars.b
     }
-    else if (difficulty === "hard") {
+    else if (difficulty === "hard") {       // Grade 3
         vars.a = randomInt(100, 1000)
         vars.b = randomInt(100, 1000)
         vars.c = vars.a + vars.b
@@ -94,22 +120,21 @@ function missingSumTwo(difficulty) {
         inputType: "textField",
     }
 }
-
 function missingSumThree(difficulty) {
     let vars = {}
-    if (difficulty === "easy") {
-        vars.a = randomInt(5, 25)
-        vars.b = randomInt(5, 25)
-        vars.c = randomInt(5, 25)
+    if (difficulty === "easy") {            // Grade 1
+        vars.a = randomInt(2, 13)
+        vars.b = randomInt(2, 13)
+        vars.c = randomInt(2, 13)
         vars.d = vars.a + vars.b + vars.c
     }
-    else if (difficulty === "medium") {
-        vars.a = randomInt(20, 100)
-        vars.b = randomInt(20, 100)
-        vars.c = randomInt(20, 100)
+    else if (difficulty === "medium") {     // Grade 2
+        vars.a = randomInt(10, 100)
+        vars.b = randomInt(10, 100)
+        vars.c = randomInt(10, 100)
         vars.d = vars.a + vars.b + vars.c
     }
-    else if (difficulty === "hard") {
+    else if (difficulty === "hard") {       // Grade 3
         vars.a = randomInt(100, 333)
         vars.b = randomInt(100, 333)
         vars.c = randomInt(100, 333)
@@ -125,29 +150,21 @@ function missingSumThree(difficulty) {
         inputType: "textField",
     }
 }
-
-
-
 function missingDifference(difficulty) {
-    const instructions = [
-        "Subtract",
-        "Find the Difference",
-        "How much is left?"
-    ]
     let vars = {}
-    if (difficulty === "easy") {
-        vars.a = randomInt(20, 80)
-        vars.b = randomInt(5, 20)
+    if (difficulty === "easy") {            // Grade 1
+        vars.a = randomInt(10, 40)
+        vars.b = randomInt(3, 10)
         vars.c = vars.a - vars.b
     }
-    else if (difficulty === "medium") {
-        vars.a = randomInt(100, 300)
-        vars.b = randomInt(20, 100)
+    else if (difficulty === "medium") {     // Grade 2
+        vars.a = randomInt(40, 200)
+        vars.b = randomInt(10, 40)
         vars.c = vars.a - vars.b
     }
-    else if (difficulty === "hard") {
-        vars.a = randomInt(200, 1000)
-        vars.b = randomInt(50, 200)
+    else if (difficulty === "hard") {       // Grade 3
+        vars.a = randomInt(300, 1000)
+        vars.b = randomInt(50, 300)
         vars.c = vars.a - vars.b
     }
     return {
@@ -155,31 +172,26 @@ function missingDifference(difficulty) {
         vars: vars,
         correctAnswer: vars.c,
         equationString: `${vars.a} - ${vars.b} = __`,
-        instructions: chooseRandomFromArray(instructions),
+        instructions: chooseRandomFromArray(missingDifferenceInstructions),
         inputType: "textField",
     }
 }
 
-
-const missingAddendInstructions = [
-    "What's missing?",
-    "How many more?"
-]
 function missingAddendTwo(difficulty) {
     let vars = {}
-    if (difficulty === "easy") {
-        vars.a = randomInt(20, 80)
-        vars.b = randomInt(5, 25)
+    if (difficulty === "easy") {            // Grade 1
+        vars.a = randomInt(10, 40)
+        vars.b = randomInt(3, 10)
         vars.c = vars.a + vars.b
     }
-    else if (difficulty === "medium") {
-        vars.a = randomInt(50, 300)
-        vars.b = randomInt(50, 100)
+    else if (difficulty === "medium") {     // Grade 2
+        vars.a = randomInt(40, 200)
+        vars.b = randomInt(10, 40)
         vars.c = vars.a + vars.b
     }
-    else if (difficulty === "hard") {
-        vars.a = randomInt(200, 1000)
-        vars.b = randomInt(200, 500)
+    else if (difficulty === "hard") {       // Grade 3
+        vars.a = randomInt(100, 700)
+        vars.b = randomInt(50, 300)
         vars.c = vars.a + vars.b
     }
     return {
@@ -193,22 +205,22 @@ function missingAddendTwo(difficulty) {
 }
 function missingAddendThree(difficulty) {
     let vars = {}
-    if (difficulty === "easy") {
-        vars.a = randomInt(2, 20)
-        vars.b = randomInt(2, 20)
-        vars.c = randomInt(2, 20)
+    if (difficulty === "easy") {            // Grade 1
+        vars.a = randomInt(2, 12)
+        vars.b = randomInt(2, 12)
+        vars.c = randomInt(2, 12)
         vars.d = vars.a + vars.b + vars.c
     }
-    else if (difficulty === "medium") {
-        vars.a = randomInt(20, 100)
-        vars.b = randomInt(20, 100)
-        vars.c = randomInt(20, 100)
+    else if (difficulty === "medium") {     // Grade 2
+        vars.a = randomInt(11, 33)
+        vars.b = randomInt(11, 33)
+        vars.c = randomInt(11, 33)
         vars.d = vars.a + vars.b + vars.c
     }
-    else if (difficulty === "hard") {
-        vars.a = randomInt(50, 300)
-        vars.b = randomInt(50, 300)
-        vars.c = randomInt(50, 300)
+    else if (difficulty === "hard") {       // Grade 3
+        vars.a = randomInt(30, 100)
+        vars.b = randomInt(30, 100)
+        vars.c = randomInt(30, 100)
         vars.d = vars.a + vars.b + vars.c
     }
     return {
@@ -219,7 +231,8 @@ function missingAddendThree(difficulty) {
         instructions: chooseRandomFromArray(missingAddendInstructions),
         inputType: "textField",
     }
-
 }
 
-
+// vars.c = randomInt(3, 20)
+// vars.a = randomInt(2, vars.c)
+// vars.b = vars.c - vars.a
