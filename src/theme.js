@@ -60,6 +60,9 @@ const theme = createTheme({
         h2: {
             fontSize: '4.0rem',
         },
+        h3: {
+            fontSize: '2.3rem',
+        },
         button: {
             fontSize: '1.0rem',
             fontWeight: '700'
