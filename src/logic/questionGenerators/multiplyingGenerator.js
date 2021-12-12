@@ -243,3 +243,12 @@ function halfThirdQuarter(difficulty) {
         inputType: "textField",
     }
 }
+
+// ["completeMultiplication", `${vars[0]} x ${vars[1]} = ${vars[2]} x __`],
+        // ["divisibility", "divisibilityCheckboxes"],
+// ["divisibility", "divisibilityCheckboxes NOT BUILT YET"],  
+
+// ["completeMultiplication", chooseRandomFromArray(["Find that factor!", "How many copies?"])],
+//     ["compareFractions", chooseRandomFromArray(["Which is more?", "Compare", "Which is greater?"])],
+//     ["compareSums", chooseRandomFromArray(["Which is more?", "Compare", "Which is greater?"])],
+//     ["divisibility", chooseRandomFromArray(["Is divisible by...", "Is a multiple of..."])],
