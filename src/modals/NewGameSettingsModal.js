@@ -31,6 +31,15 @@ export function NewGameSettingsModal(props) {
         selectOpponent,
         selectDifficulty
     } = props
+
+    // let opponent = "human"
+    // let mathTopics = {
+    //     combine: false,
+    //     multiply: false,
+    // }
+    // let difficultyMode = "increasing"
+
+    let noneSelectedError = Object.values(mathTopics).filter((v) => v).length === 0;
     
     return (
         <Dialog
@@ -67,8 +76,6 @@ export function NewGameSettingsModal(props) {
 
 
     function OpponentSelector() {
-        
-        
         return (
             <Box sx={{ 
                 // border: 'solid red 1px',
@@ -98,6 +105,7 @@ export function NewGameSettingsModal(props) {
         function PlayVsHumanButton(props){
             return (
                 <IconButton
+                    // onClick={() => { opponent = "human" }}
                     onClick={() => selectOpponent("human")}
                     sx={{
                         height: "100%",
@@ -115,6 +123,7 @@ export function NewGameSettingsModal(props) {
         function PlayVsBotButton(props) {
             return (
                 <IconButton
+                    // onClick={() => {opponent = "bot"}}
                     onClick={() => selectOpponent("bot")}
                     sx={{ 
                         height: "100%",
@@ -134,7 +143,6 @@ export function NewGameSettingsModal(props) {
     }
 
     function MathTopicSelector() {
-        let noneSelectedError = Object.values(mathTopics).filter((v) => v).length === 0;
         
         return (
             <Box sx={{
@@ -161,10 +169,11 @@ export function NewGameSettingsModal(props) {
                         <Typography
                             variant='body1'
                             align="center"
+                            color="error"
                             display={noneSelectedError ? "flex" : "none"}
                             gutterBottom
                         >
-                            You must select at least one topic.
+                            *** You must select at least one topic.
                         </Typography>
                     </Grid>
                 </Grid>
@@ -272,7 +281,8 @@ export function NewGameSettingsModal(props) {
             <Button
                 onClick={cancelNewGame}
                 variant='outlined'
-                // color="error.main"
+                // color="error"
+                disabled={noneSelectedError}
                 sx={{
                     m: 1,
                     width: '42%'
@@ -287,6 +297,7 @@ export function NewGameSettingsModal(props) {
             <Button
                 onClick={() => startNewGame(mathTopics, difficultyMode, opponent)}
                 variant='contained'
+                disabled={noneSelectedError}
                 sx={{
                     m: 1,
                     width: '42%'
