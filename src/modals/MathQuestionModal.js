@@ -174,12 +174,12 @@ export function MathQuestionModal(props) {
                                 style: { fontSize: '2rem', height: '2rem' }
                             }}
                             sx={{ width: '62%' }}
-                            // onKeyDown={(event) => {
-                            //     if (event.key === "Enter") {
-                            //         setSubmitted(true)
-                            //         handleSubmitButtonClick()
-                            //     }
-                            // }}
+                            onKeyDown={(event) => {
+                                if (event.key === "Enter") {
+                                    // setSubmitted(true)
+                                    handleSubmitButtonClick()
+                                }
+                            }}
                         />
                         <SubmitButton
                             disabled={error}
