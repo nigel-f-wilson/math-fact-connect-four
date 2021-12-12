@@ -90,7 +90,7 @@ export default function App() {
         let topic = chooseRandomFromArray(mathTopicsArray)
 
         // My first Promise     
-        const newQuestion = generateQuestion(topic, difficulty).then(newQuestion => {
+        generateQuestion(topic, difficulty).then(newQuestion => {
             // console.log(`Opening Modal with Question --> ${JSON.stringify(newQuestion, null, 4)}`);
             setQuestion(newQuestion)
             setHeaderText(newQuestion.instructions)
@@ -161,10 +161,6 @@ export default function App() {
         }
     }
  
-
-    function openNewGameSettingsModal() {
-        setOpenModal("newGameSettingsModal")
-    }
     function startNewGame(mathTopics, difficultyMode, opponent ) {
         console.log(`STARTING NEW GAME with ...`);
         console.log(`opponent: "${opponent}"`);
