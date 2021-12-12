@@ -18,8 +18,8 @@ export function getCombiningQuestion(difficulty) {
         missingDifference,
         missingAddendTwo,
         missingAddendThree,
-        // double,
-        howFarApart,        // a and b
+        doubleTripleQuadruple,
+        howFarApart,
     ]
     return chooseRandomFromArray(types)(difficulty)
     
@@ -54,18 +54,16 @@ function missingSumTwo(difficulty) {
     if (difficulty === "easy") {            // Grade 1
         vars.a = randomInt(3,20)
         vars.b = randomInt(3,20)
-        vars.c = vars.a + vars.b
     }
     else if (difficulty === "medium") {     // Grade 2
         vars.a = randomInt(20, 100)
         vars.b = randomInt(20, 100)
-        vars.c = vars.a + vars.b
     }
     else if (difficulty === "hard") {       // Grade 3
         vars.a = randomInt(100, 1000)
         vars.b = randomInt(100, 1000)
-        vars.c = vars.a + vars.b
     }
+    vars.c = vars.a + vars.b
     return {
         type: "missingSumTwo",
         vars: vars,
@@ -81,20 +79,18 @@ function missingSumThree(difficulty) {
         vars.a = randomInt(2, 13)
         vars.b = randomInt(2, 13)
         vars.c = randomInt(2, 13)
-        vars.d = vars.a + vars.b + vars.c
     }
     else if (difficulty === "medium") {     // Grade 2
         vars.a = randomInt(10, 100)
         vars.b = randomInt(10, 100)
         vars.c = randomInt(10, 100)
-        vars.d = vars.a + vars.b + vars.c
     }
     else if (difficulty === "hard") {       // Grade 3
         vars.a = randomInt(100, 600)
         vars.b = randomInt(50, 100)
         vars.c = randomInt(50, 100)
-        vars.d = vars.a + vars.b + vars.c
     }
+    vars.d = vars.a + vars.b + vars.c
     return {
         type: "missingSumThree",
         vars: vars,
@@ -205,6 +201,36 @@ function howFarApart(difficulty) {
         instructions: chooseRandomFromArray(howFarApartInstructions),
         inputType: "textField",
     }
+}
+
+// DOUBLE TRIPLE QUADRUPLE
+function doubleTripleQuadruple(difficulty) {
+    let vars = {}
+    let dtqInstructions = ""
+    if (difficulty === "easy") {            // Grade 1
+        dtqInstructions = "Double"
+        vars.a = randomInt(3, 50)
+        vars.b = vars.a * 2
+    }
+    else if (difficulty === "medium") {     // Grade 2
+        dtqInstructions = "Triple"
+        vars.a = randomInt(20, 100)
+        vars.b = vars.a * 3
+    }
+    else if (difficulty === "hard") {       // Grade 3
+        dtqInstructions = chooseRandomFromArray(["Quadruple", "Double Double"])
+        vars.a = randomInt(20, 250)
+        vars.b = vars.a * 4
+    }
+    return {
+        type: "doubleTripleQuadruple",
+        vars: vars,
+        correctAnswer: vars.b,
+        equationString: `${vars.a}`,
+        instructions: dtqInstructions,
+        inputType: "textField",
+    }
+
 }
 
 // vars.c = randomInt(3, 20)
