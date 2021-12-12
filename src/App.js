@@ -122,6 +122,19 @@ export default function App() {
         // }
     }
 
+    function toggleCombine() {
+        setMathTopics(prev => { return { ...prev, combine: !prev.combine } })
+    }
+    function toggleMultiply() {
+        setMathTopics(prev => { return { ...prev, multiply: !prev.multiply } })
+    }
+    function selectOpponent(opponent) {
+        setOpponent(opponent)
+    }
+    function selectDifficulty(difficulty) {
+        setDifficultyMode(difficulty)
+    }
+
     function determineDifficulty(score) {
         console.log(`determineDifficulty called with ${score} `);
         if (score < 8) {
@@ -206,6 +219,15 @@ export default function App() {
                             startNewGame={startNewGame}
                             cancelNewGame={cancelNewGame}
                             boardSideLength={boardSideLength}
+
+                            opponent={opponent}
+                            mathTopics={mathTopics}
+                            difficultyMode={difficultyMode}
+
+                            toggleCombine={toggleCombine}
+                            toggleMultiply={toggleMultiply}
+                            selectOpponent={selectOpponent}
+                            selectDifficulty={selectDifficulty}
 
                         />
 

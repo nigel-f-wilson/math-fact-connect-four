@@ -23,22 +23,15 @@ export function NewGameSettingsModal(props) {
         boardSideLength,
         startNewGame,
         cancelNewGame,
+        opponent,
+        mathTopics,
+        difficultyMode,
+        toggleCombine,
+        toggleMultiply,
+        selectOpponent,
+        selectDifficulty
     } = props
     
-    let [opponent, setOpponent] = React.useState("human")
-    let [mathTopics, setMathTopics] = React.useState({
-        combine: true,
-        multiply: false,
-    })
-    let [difficultyMode, setDifficultyMode] = React.useState("increasing")
-
-    function toggleCombine() {
-        setMathTopics(prev => {return {...prev, combine: !prev.combine}})
-    }
-    function toggleMultiply() {
-        setMathTopics(prev => { return { ...prev, multiply: !prev.multiply } })
-    }
-
     return (
         <Dialog
             open={open}
@@ -105,9 +98,8 @@ export function NewGameSettingsModal(props) {
         function PlayVsHumanButton(props){
             return (
                 <IconButton
-                    onClick={() => setOpponent("human")}
+                    onClick={() => selectOpponent("human")}
                     sx={{
-                        // border: 'solid blue 1px',
                         height: "100%",
                         width: '100%'
                     }}
@@ -123,9 +115,8 @@ export function NewGameSettingsModal(props) {
         function PlayVsBotButton(props) {
             return (
                 <IconButton
-                    onClick={() => setOpponent("bot")}
+                    onClick={() => selectOpponent("bot")}
                     sx={{ 
-                        // border: 'solid blue 1px',
                         height: "100%",
                         width: '100%' 
                     }}
@@ -160,12 +151,6 @@ export function NewGameSettingsModal(props) {
                     What math topics should we include?
                 </Typography>
                 <Grid container spacing={1} px="2rem" >
-                    {/* <Grid item xs={12} >
-                        <MathTopicButton topic="combine" />
-                    </Grid>
-                    <Grid item xs={12} >
-                        <MathTopicButton topic="multiply" />
-                    </Grid> */}
                     <Grid item xs={12} >
                         <CombineButton />
                     </Grid>
@@ -200,7 +185,6 @@ export function NewGameSettingsModal(props) {
             )
         }
         function MultiplyButton(props) {
-            // let selected = Object.values(mathTopics).includes("combine")
             let selected = (mathTopics.multiply === true)
             return (
                 <Button
@@ -216,11 +200,8 @@ export function NewGameSettingsModal(props) {
     }
 
     function DifficultyModeSelector() {
-        
-        
         return (
             <Box sx={{
-                // border: 'solid red 1px',
                 height: difficultyHeight,
                 display: 'flex',
                 flexDirection: 'column'
@@ -248,12 +229,11 @@ export function NewGameSettingsModal(props) {
                 </Grid>
             </Box>
         )
-
         function DifficultyModeButton(props) {
             let { mode } = props
             return (
                 <Button
-                    onClick={() => setDifficultyMode(mode)}
+                    onClick={() => selectDifficulty(mode)}
                     variant={(difficultyMode === mode) ? "contained" : "outlined"}
                     sx={{
                         width: "100%"
@@ -264,7 +244,7 @@ export function NewGameSettingsModal(props) {
         }
     }
 
-    function StartAndCancelButtons(params) {
+    function StartAndCancelButtons() {
         return(
             <Box sx={{
                 borderTop: `solid green 3px`,
@@ -286,7 +266,6 @@ export function NewGameSettingsModal(props) {
             </Box>
         )
     }
-
     function CancelButton(props) {
         const { cancelNewGame } = props
         return (
@@ -302,11 +281,8 @@ export function NewGameSettingsModal(props) {
             />
         )
     }
-
     function StartGameButton(props) {
         const { startNewGame } = props
-        // let disabled = ()
-        
         return (
             <Button
                 onClick={() => startNewGame(mathTopics, difficultyMode, opponent)}
@@ -316,7 +292,6 @@ export function NewGameSettingsModal(props) {
                     width: '42%'
                 }}
                 children="Start Game"
-                // disabled={disabled}
             />
         )
     }
