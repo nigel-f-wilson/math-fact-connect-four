@@ -16,23 +16,17 @@ export function testQuestion() {
     }
 }
 
+let generatorFuntions = new Map([
+    ['combine', getCombiningQuestion],
+    ['multiply', getMultiplyingQuestion]
+])
 
 
 export function generateQuestion(topic, difficulty) {
     return new Promise((resolve, reject) => {
-        const questionTopics = [
-            getCombiningQuestion,
-            getMultiplyingQuestion,
-            // getFractionsQuestion,
-            // getExponentsQuestion,
-            // getAlgebraQuestion,
-            // getDTQQuestion,
-        ]
-        let randomIndex = randomInt(0, questionTopics.length)
-        resolve (questionTopics[randomIndex](difficulty))
-        // let question = questionGeneratorFuntions[randomIndex](difficulty)
-        // console.log(`Generated an "${difficulty}" ${topic} Question --> ${JSON.stringify(question, null, 4)}`);
-        // resolve(question)
+        let question = (generatorFuntions.get(topic)(difficulty))
+        console.log(`Generated an "${difficulty}" ${topic} Question --> ${JSON.stringify(question, null, 4)}`);
+        resolve(question)
     });
 }
 
