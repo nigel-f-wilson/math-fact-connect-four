@@ -182,6 +182,30 @@ function missingAddendThree(difficulty) {
         inputType: "textField",
     }
 }
+function howFarApart(difficulty) {
+    let vars = {}
+    if (difficulty === "easy") {            // Grade 1
+        vars.a = randomInt(3, 10)
+        vars.b = randomInt(10, 20)
+    }
+    else if (difficulty === "medium") {     // Grade 2
+        vars.a = randomInt(10, 40)
+        vars.b = randomInt(20, 100)
+    }
+    else if (difficulty === "hard") {       // Grade 3
+        vars.a = randomInt(100, 1000)
+        vars.b = randomInt(100, 1000)
+    }
+    vars.c = Math.abs(vars.a - vars.b)
+    return {
+        type: "howFarApart",
+        vars: vars,
+        correctAnswer: vars.c,
+        equationString: `${vars.a}  &  ${vars.b}`,
+        instructions: chooseRandomFromArray(howFarApartInstructions),
+        inputType: "textField",
+    }
+}
 
 // vars.c = randomInt(3, 20)
 // vars.a = randomInt(2, vars.c)
