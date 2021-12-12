@@ -11,69 +11,54 @@ export function getMultiplyingQuestion(difficulty) {
         missingProductThree,
         missingFactorTwo,
         missingFactorThree,
-        doubleTripleQuadruple,
+        halfThirdQuarter
 
     ]
     return chooseRandomFromArray(types)(difficulty)
 
 }
 
-const easyFactor = () => chooseRandomFromArray([4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90])
+const mediumFactor = () => chooseRandomFromArray([4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90])
 
-// DOUBLE TRIPLE QUADRUPLE
-function doubleTripleQuadruple(difficulty) { 
-    console.assert((difficulty === "easy"), `DOUBLE TRIPLE QUADRUPLE called in multiply with difficulty other than "easy"` )
-    let type = chooseRandomFromArray(["double", "triple", "quadruple"])
-    let vars = {}
-    let instructions
 
-    if (type === "double") {
-        vars.a = randomInt(50, 150)
-        vars.b = vars.a * 2
-        instructions = chooseRandomFromArray(["Double", "Times Two"])
-    }
-    else if (type === "triple") {
-        vars.a = randomInt(25, 100)
-        vars.b = vars.a * 3
-        instructions = chooseRandomFromArray(["Triple"])
-    }
-    else if (type === "quadruple") {
-        vars.a = randomInt(21, 66)
-        vars.b = vars.a * 4
-        instructions = chooseRandomFromArray(["Quadruple", "Double Double"])
-    }
-    return {
-        type: "missingProductTwo",
-        vars: vars,
-        correctAnswer: vars.b,
-        equationString: `${vars.a}`,
-        instructions: instructions,
-        inputType: "textField",
-    }
-}
-
-// MISSING PRODUCT
+/////////////////////////////////////////////////////////////////
+//  INSTRUCTIONS
+/////////////////////////////////////////////////////////////////
 const missingProductInstructions = [
     "Multiply",
     "Find the Product",
 ]
+const missingFactorInstructions = [
+    "What's missing?",
+    "Times what?"
+]
+const missingDivisorInstructions = [
+    "Find the Divisor",
+    "How many groups of...",
+    "Divide by what?"
+]
+const missingQuotientInstructions = [
+    "Find the Quotient",
+    "How many per group?"
+]
+
+// MISSING PRODUCT
 function missingProductTwo(difficulty) {
     let vars = {}
-    if (difficulty === "easy") {
-        vars.a = easyFactor()
+    if (difficulty === "easy") {            // Grade 2
+        vars.a = randomInt(2, 11)
         vars.b = randomInt(2, 11)
-        vars.c = vars.a * vars.b
     }
-    else if (difficulty === "medium") {
-        vars.a = randomInt(5, 26)
-        vars.b = randomInt(5, 26)
-        vars.c = vars.a * vars.b
+    else if (difficulty === "medium") {     // Grade 3
+        vars.a = mediumFactor()
+        vars.b = randomInt(2, 16)
     }
-    else if (difficulty === "hard") {
+    else if (difficulty === "hard") {       // Grade 5
         vars.a = randomInt(11, 100)
         vars.b = randomInt(11, 100)
-        vars.c = vars.a * vars.b
     }
+    vars.c = vars.a * vars.b
+
     return {
         type: "missingProductTwo",
         vars: vars,
@@ -86,23 +71,21 @@ function missingProductTwo(difficulty) {
 function missingProductThree(difficulty) {
     let vars = {}
     if (difficulty === "easy") {
-        vars.a = randomInt(2, 6)
-        vars.b = randomInt(2, 6)
-        vars.c = randomInt(2, 11)
-        vars.d = vars.a * vars.b * vars.c
+        vars.a = randomInt(2, 7)
+        vars.b = randomInt(2, 7)
+        vars.c = randomInt(2, 7)
     }
     else if (difficulty === "medium") {
         vars.a = randomInt(2, 11)
         vars.b = randomInt(2, 11)
         vars.c = randomInt(2, 11)
-        vars.d = vars.a * vars.b * vars.c
     }
     else if (difficulty === "hard") {
         vars.a = randomInt(2, 26)
         vars.b = randomInt(2, 16)
         vars.c = randomInt(2, 11)
-        vars.d = vars.a * vars.b * vars.c
     }
+    vars.d = vars.a * vars.b * vars.c
     return {
         type: "missingProductThree",
         vars: vars,
@@ -115,28 +98,21 @@ function missingProductThree(difficulty) {
 
 
 // MISSING FACTOR
-
-const missingFactorInstructions = [
-    "What's missing?",
-    "Times what?"
-]
 function missingFactorTwo(difficulty) {
     let vars = {}
     if (difficulty === "easy") {
-        vars.a = randomInt(3, 16)
+        vars.a = randomInt(2, 11)
         vars.b = randomInt(2, 11)
-        vars.c = vars.a * vars.b
     }
     else if (difficulty === "medium") {
         vars.a = randomInt(5, 31)
-        vars.b = randomInt(5, 16)
-        vars.c = vars.a * vars.b
+        vars.b = mediumFactor()
     }
     else if (difficulty === "hard") {
         vars.a = randomInt(20, 100)
-        vars.b = randomInt(11, 26)
-        vars.c = vars.a * vars.b
+        vars.b = randomInt(5, 20)
     }
+    vars.c = vars.a * vars.b
     return {
         type: "missingFactorTwo",
         vars: vars,
@@ -149,23 +125,22 @@ function missingFactorTwo(difficulty) {
 function missingFactorThree(difficulty) {
     let vars = {}
     if (difficulty === "easy") {
-        vars.a = randomInt(2, 6)
-        vars.b = randomInt(2, 6)
-        vars.c = randomInt(2, 11)
-        vars.d = vars.a * vars.b * vars.c
+        vars.a = randomInt(2, 7)
+        vars.b = randomInt(2, 7)
+        vars.c = randomInt(2, 7)
     }
     else if (difficulty === "medium") {
         vars.a = randomInt(3, 11)
         vars.b = randomInt(3, 11)
         vars.c = randomInt(3, 11)
-        vars.d = vars.a * vars.b * vars.c
     }
     else if (difficulty === "hard") {
         vars.a = randomInt(4, 26)
         vars.b = randomInt(4, 11)
         vars.c = randomInt(4, 16)
-        vars.d = vars.a * vars.b * vars.c
     }
+    vars.d = vars.a * vars.b * vars.c
+
     return {
         type: "missingFactorThree",
         vars: vars,
@@ -181,27 +156,22 @@ function missingFactorThree(difficulty) {
 
 
 // MISSING DIVISOR
-const missingDivisorInstructions = [
-    "Find the Divisor",
-    "Divide by what?"
-]
 function missingDivisor(difficulty) {
     let vars = {}
     if (difficulty === "easy") {
         vars.a = randomInt(3, 16)
         vars.b = randomInt(2, 11)
-        vars.c = vars.a * vars.b
     }
     else if (difficulty === "medium") {
         vars.a = randomInt(5, 31)
         vars.b = randomInt(5, 16)
-        vars.c = vars.a * vars.b
     }
     else if (difficulty === "hard") {
         vars.a = randomInt(20, 100)
         vars.b = randomInt(11, 26)
-        vars.c = vars.a * vars.b
     }
+    vars.c = vars.a * vars.b
+
     return {
         type: "missingDivisor",
         vars: vars,
@@ -214,4 +184,62 @@ function missingDivisor(difficulty) {
 
 
 // MISSING QUOTIENT
+function missingQuotient(difficulty) {
+    let vars = {}
+    if (difficulty === "easy") {
+        vars.a = randomInt(3, 16)
+        vars.b = randomInt(2, 11)
+    }
+    else if (difficulty === "medium") {
+        vars.a = randomInt(5, 31)
+        vars.b = randomInt(5, 16)
+    }
+    else if (difficulty === "hard") {
+        vars.a = randomInt(20, 100)
+        vars.b = randomInt(11, 26)
+    }
+    vars.c = vars.a * vars.b
 
+    return {
+        type: "missingQuotient",
+        vars: vars,
+        correctAnswer: vars.b,
+        equationString: `${vars.c} ÷ ${vars.a} = __`,
+        instructions: chooseRandomFromArray(missingQuotientInstructions),
+        inputType: "textField",
+    }
+}
+
+// DOUBLE TRIPLE QUADRUPLE  --> Now lives in Combining
+
+// HALF THIRD QUARTER 
+function halfThirdQuarter(difficulty) {
+    let vars = {}
+    let instructions = ""
+    if (difficulty === "easy") {            // Grade 1
+        instructions = "What's half of"
+        // instructions = chooseRandomFromArray(["What's half of", "Split evenly"])
+        vars.a = randomInt(3, 50)
+        vars.b = vars.a * 2
+    }
+    else if (difficulty === "medium") {     // Grade 2
+        instructions = "What's a third of"
+        // instructions = chooseRandomFromArray(["Find a third of", "Split three ways"])
+        vars.a = randomInt(20, 100)
+        vars.b = vars.a * 3
+    }
+    else if (difficulty === "hard") {       // Grade 3
+        instructions = "What's a quarter of"
+        // instructions = chooseRandomFromArray(["Find a quarter of", "Half and half again"])
+        vars.a = randomInt(20, 250)
+        vars.b = vars.a * 4
+    }
+    return {
+        type: "doubleTripleQuadruple",
+        vars: vars,
+        correctAnswer: vars.a,
+        equationString: `${vars.b} ?`,
+        instructions: instructions,
+        inputType: "textField",
+    }
+}
