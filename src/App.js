@@ -34,13 +34,15 @@ import { ThemeProvider, } from '@material-ui/core/styles'
 export default function App() {
     // GAME SETTINGS
     const [opponent, setOpponent] = React.useState("human")
-    const [mathTopics, setMathTopics] = React.useState(["combining", "multiplying"])  // An array of all types player wants
+    const [mathTopics, setMathTopics] = React.useState({
+        combine: true,
+        multiply: false,
+    })
     const [difficultyMode, setDifficultyMode] = React.useState("easy")  // One of "easy" "medium" "hard" "increasing"
 
     // GAME STATE
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')  // Enum ['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw']
-    // const [openModal, setOpenModal] = React.useState("none") // Enum: "none", "question", "abandonGame", "newGameSettings", 
     const [openModal, setOpenModal] = React.useState("newGameSettings") // Enum: "none", "question", "newGameSettings", 
     const [activeCell, setActiveCell] = React.useState(null) 
 
@@ -83,8 +85,11 @@ export default function App() {
         const score = nextPlayersMoves(gameStatus, moveList).length
         let difficulty = (difficultyMode === "increasing") ? determineDifficulty(score) : difficultyMode
 
+        const mathTopicsArray = Object.entries(mathTopics).filter(entry => entry[1]).map(entry => entry[0])
+        console.log(`Math Topics Array: ${mathTopicsArray}`);
+
         // My first Promise     
-        const newQuestion = generateQuestion(mathTopics, difficulty).then(newQuestion => {
+        const newQuestion = generateQuestion(mathTopicsArray, difficulty).then(newQuestion => {
             console.log(`Opening Modal with Question --> ${JSON.stringify(newQuestion, null, 4)}`);
             setQuestion(newQuestion)
             setHeaderText(newQuestion.instructions)
