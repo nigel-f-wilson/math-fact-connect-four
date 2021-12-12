@@ -1,20 +1,12 @@
 // MY Logical components
 import { lineToCellsMap, cellToLinesMap } from './winningLineMaps'
-
+import { intersect } from "./lowLevelHelpers";
 
 export function gameIsOver(gameStatus) {
     return (gameStatus === 'playerOneWins' || gameStatus === 'playerTwoWins' || gameStatus === 'gameDrawn')
 }
 
-// This function could be made more efficient through using sorted arrays and pointers that 
-// enabled us to not re-scan the leading portion of setTwo when we know we are looking for a 
-// higher number it only makes sense to look in higher indices. Besides that, early returns 
-// could be added in case the lowest or highest numbers in setOne fall outside the range of 
-// setTwo. This intersect is being made with setOne.length === 4 (cells in line) and a 
-// potentially much longer setTwo (player's numbers)
-export function intersect(setOne, setTwo) {
-    return setOne.filter(item => setTwo.includes(item))
-}
+
 
 export function playerOnesMoves(moveList) {
     return moveList.filter((cell, turn) => turn % 2 === 0).filter(cell => cell !== -1)
@@ -63,28 +55,15 @@ export function nextPlayersMoves(gameStatus, moveList) {
 export function nextPlayerColor(gameStatus) {
     return gameIsOver(gameStatus) ? "unclaimed" : (gameStatus === "playerOnesTurn") ? "playerOne" : "playerTwo"
 }
-// function getNextPlayersMoves() {
-//     if (gameStatus === "playerOnesTurn") {
-//         return playerOnesMoves(moveList)
-//     }
-//     else if (gameStatus === "playerTwosTurn") {
-//         return playerTwosMoves(moveList)
-//     }
-//     else {
-//         console.warn(`getNextPlayersMoves was called but the game is already over`);
-//         return []
-//     }
+
+// function getLastChipDropped(moveList) {
+//     let ml = moveList.slice()
+//     let lastCellId
+//     do {
+//         lastCellId = ml.pop()
+//     } while (lastCellId === -1)
+//     return lastCellId
 // }
-
-
-function getLastChipDropped(moveList) {
-    let ml = moveList.slice()
-    let lastCellId
-    do {
-        lastCellId = ml.pop()
-    } while (lastCellId === -1)
-    return lastCellId
-}
 
 // Returns ENUM: 'playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw'
 // This function efficiently checks to see if the last move created a win for the player who made it.
@@ -108,4 +87,9 @@ export function getGameStatus(moveList) {
     else {
         return (moveList.length % 2 === 0) ? 'playerOnesTurn' : 'playerTwosTurn'
     }
+}
+
+
+export function cellIsUnclaimed(cellId, moveList) {
+    return (!moveList.includes(cellId))
 }
