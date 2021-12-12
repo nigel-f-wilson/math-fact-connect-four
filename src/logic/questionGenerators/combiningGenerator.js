@@ -6,9 +6,7 @@ const missingMinuendInstructions = [
     "Take away what?",
     "How far apart?",
 ]
-const howFarApart = [
-    "How far apart?"
-]
+
 
 export function getCombiningQuestion(difficulty) {
     console.assert((difficulty === "easy" || difficulty === "medium" || difficulty === "hard"), `getCombiningQuestion recieved invalid difficulty ${difficulty}` )
@@ -19,58 +17,12 @@ export function getCombiningQuestion(difficulty) {
         missingSumThree,
         missingDifference,
         missingAddendTwo,
+        missingAddendThree,
         // double,
-        // howFarApart,        // a and b
+        howFarApart,        // a and b
     ]
     return chooseRandomFromArray(types)(difficulty)
     
-    if (difficulty === "easy") {
-        return easyCombiningQuestion()
-    }
-    else if (difficulty === "medium") {
-        return mediumCombiningQuestion()
-    }
-    else if (difficulty === "hard") {
-        return hardCombiningQuestion()
-    }
-}
-
-function easyCombiningQuestion() {
-    let types = [
-        missingSumTwo,
-        missingSumThree,
-        missingDifference,
-        missingAddendTwo,
-        // double,
-        // howFarApart,        // a and b
-    ]
-    return chooseRandomFromArray(types)("easy") 
-}
-function mediumCombiningQuestion() {
-    let types = [
-        missingSumTwo,
-        missingSumThree,
-        missingDifference,
-        missingAddendTwo,
-        // triple,
-        // combineAndCompare,   // a + b _ c - d
-        // missingMinuend,     // a - _ = c
-        // howFarApart,        // a and b
-    ]
-    return chooseRandomFromArray(types)("medium") 
-}
-function hardCombiningQuestion() {
-    let types = [
-        missingSumTwo,
-        missingSumThree,
-        missingDifference,
-        missingAddendTwo,
-        // quadruple,
-        // combineAndCompare,   // a + b _ c - d
-        // missingMinuend,     // a - _ = c
-        // howFarApart,        // a and b
-    ]
-    return chooseRandomFromArray(types)("hard") 
 }
 
 
@@ -92,6 +44,9 @@ const missingAddendInstructions = [
     "Plus what?",
     "Add how many?",
     "How many more?"
+]
+const howFarApartInstructions = [
+    "How far apart?"
 ]
 
 function missingSumTwo(difficulty) { 
@@ -135,17 +90,16 @@ function missingSumThree(difficulty) {
         vars.d = vars.a + vars.b + vars.c
     }
     else if (difficulty === "hard") {       // Grade 3
-        vars.a = randomInt(100, 333)
-        vars.b = randomInt(100, 333)
-        vars.c = randomInt(100, 333)
+        vars.a = randomInt(100, 600)
+        vars.b = randomInt(50, 100)
+        vars.c = randomInt(50, 100)
         vars.d = vars.a + vars.b + vars.c
-        
     }
     return {
         type: "missingSumThree",
         vars: vars,
         correctAnswer: vars.d,
-        equationString: `${vars.a} + ${vars.b} + ${vars.c} = __`,
+        equationString: `${vars.a} + ${vars.b} + ${vars.c} =__`,
         instructions: chooseRandomFromArray(missingSumInstructions),
         inputType: "textField",
     }
@@ -155,18 +109,16 @@ function missingDifference(difficulty) {
     if (difficulty === "easy") {            // Grade 1
         vars.a = randomInt(10, 40)
         vars.b = randomInt(3, 10)
-        vars.c = vars.a - vars.b
     }
     else if (difficulty === "medium") {     // Grade 2
         vars.a = randomInt(40, 200)
         vars.b = randomInt(10, 40)
-        vars.c = vars.a - vars.b
     }
     else if (difficulty === "hard") {       // Grade 3
         vars.a = randomInt(300, 1000)
         vars.b = randomInt(50, 300)
-        vars.c = vars.a - vars.b
     }
+    vars.c = vars.a - vars.b
     return {
         type: "missingDifference",
         vars: vars,
@@ -209,20 +161,18 @@ function missingAddendThree(difficulty) {
         vars.a = randomInt(2, 12)
         vars.b = randomInt(2, 12)
         vars.c = randomInt(2, 12)
-        vars.d = vars.a + vars.b + vars.c
     }
     else if (difficulty === "medium") {     // Grade 2
         vars.a = randomInt(11, 33)
         vars.b = randomInt(11, 33)
         vars.c = randomInt(11, 33)
-        vars.d = vars.a + vars.b + vars.c
     }
     else if (difficulty === "hard") {       // Grade 3
         vars.a = randomInt(30, 100)
         vars.b = randomInt(30, 100)
         vars.c = randomInt(30, 100)
-        vars.d = vars.a + vars.b + vars.c
     }
+    vars.d = vars.a + vars.b + vars.c
     return {
         type: "missingAddendThree",
         vars: vars,

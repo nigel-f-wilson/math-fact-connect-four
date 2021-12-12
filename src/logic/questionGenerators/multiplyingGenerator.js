@@ -5,17 +5,7 @@ import { randomInt, chooseRandomFromArray } from "../lowLevelHelpers";
 export function getMultiplyingQuestion(difficulty) {
     console.assert((difficulty === "easy" || difficulty === "medium" || difficulty === "hard"), `getMultiplyingQuestion recieved invalid difficulty ${difficulty}`)
     console.log(`Generating Multiplying Question of difficulty "${difficulty}"`)
-    if (difficulty === "easy") {
-        return easyMultiplyingQuestion()
-    }
-    else if (difficulty === "medium") {
-        return mediumMultiplyingQuestion()
-    }
-    else if (difficulty === "hard") {
-        return hardMultiplyingQuestion()
-    }
-}
-function easyMultiplyingQuestion() {
+    
     let types = [
         missingProductTwo,
         missingProductThree,
@@ -24,27 +14,9 @@ function easyMultiplyingQuestion() {
         doubleTripleQuadruple,
 
     ]
-    return chooseRandomFromArray(types)("easy")
-}
-function mediumMultiplyingQuestion() {
-    let types = [
-        missingProductTwo,
-        missingProductThree,
-        // missingFactorTwo,
-        // missingFactorThree,
-    ]
-    return chooseRandomFromArray(types)("medium")
-}
-function hardMultiplyingQuestion() {
-    let types = [
-        missingProductTwo,
-        missingProductThree,
-        // missingFactorTwo,
-        // missingFactorThree,
-    ]
-    return chooseRandomFromArray(types)("hard")
-}
+    return chooseRandomFromArray(types)(difficulty)
 
+}
 
 const easyFactor = () => chooseRandomFromArray([4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90])
 
