@@ -1,42 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 // MUI  components
-import { Box, Button, IconButton, Dialog, Zoom, Typography, FormControl, InputLabel, OutlinedInput, Grid } from '@material-ui/core'
-import { Radio, RadioGroup, Checkbox, Slider, Switch, FormControlLabel, FormGroup, FormHelperText } from '@material-ui/core';
-import { Settings } from '@material-ui/icons';
+import { Box, Button, IconButton, Dialog, Zoom, Typography, Grid } from '@material-ui/core'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserFriends, faRobot } from '@fortawesome/free-solid-svg-icons';
 
 // Style & Layout Constants
 const opponentHeight = "25%"
-const topicHeight = "30%"
+const topicHeight = "35%"
 const difficultyHeight = "25%"
 const inputHeight = "15%"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Zoom ref={ref} {...props} />;
 })
-
-const HeaderText = () => {
-    return (
-        <Typography  
-            variant='h3'
-            sx={{
-                width: '100%',
-                marginTop: 2,
-                display: 'flex',
-                flexFlow: 'row wrap',
-                justifyContent: 'center',
-                alignItems: 'flex-end',
-            }}
-        >
-            Choose Math Topics
-        </Typography>
-    )
-}
-
-
 
 
 export function NewGameSettingsModal(props) {
@@ -46,15 +24,6 @@ export function NewGameSettingsModal(props) {
         startNewGame,
         cancelNewGame,
     } = props
-
-    // let [settings, setSettings] = React.useState({
-    //     opponent: "human",
-    //     mathTopics: {
-    //         combine: true,
-    //         multiply: true,
-    //     },
-    //     difficultyMode: "increasing",
-    // })
     
     let [opponent, setOpponent] = React.useState("human")
     let [mathTopics, setMathTopics] = React.useState({
@@ -63,13 +32,17 @@ export function NewGameSettingsModal(props) {
     })
     let [difficultyMode, setDifficultyMode] = React.useState("increasing")
 
+    function toggleCombine() {
+        setMathTopics(prev => {return {...prev, combine: !prev.combine}})
+    }
+    function toggleMultiply() {
+        setMathTopics(prev => { return { ...prev, multiply: !prev.multiply } })
+    }
 
     return (
         <Dialog
-            disableEscapeKeyDown
             open={open}
-            onBackdropClick={() => { }}  // disable close on bg click
-            aria-describedby="math-question-dialog"
+            aria-describedby="game settings dialog"
             TransitionComponent={Transition}
             fullWidth={true}
             maxWidth='md'
@@ -82,32 +55,19 @@ export function NewGameSettingsModal(props) {
                     borderRadius: '3rem',
                     justifySelf: 'flex-start',
                     alignSelf: 'flex-start',
-                    p: 3
+                    px: 2,
+                    py: 2
                 }
             }}
         >
-            {/* <HeaderText /> */}
-
             <OpponentSelector />
-
             <MathTopicSelector />
             <DifficultyModeSelector />
-
-            <Box sx={{
-                border: `solid green 1px`,
-                height: inputHeight,
-                display: 'flex',
-                justifyContent: 'flex-end',
-                py: 2,
-                pr: 1,
-            }}>
-                <CancelButton 
-                    cancelNewGame={cancelNewGame}
-                />
-                <StartGameButton 
-                    startNewGame={startNewGame}
-                />
-            </Box>
+            <StartAndCancelButtons 
+                cancelNewGame={cancelNewGame}
+                startNewGame={startNewGame}
+            />
+            
 
         </Dialog>
     )
@@ -118,7 +78,7 @@ export function NewGameSettingsModal(props) {
         
         return (
             <Box sx={{ 
-                border: 'solid red 1px',
+                // border: 'solid red 1px',
                 height: opponentHeight, 
                 display: 'flex', 
                 flexDirection: 'column' 
@@ -183,11 +143,11 @@ export function NewGameSettingsModal(props) {
     }
 
     function MathTopicSelector() {
-        // const noneSelectedError = Object.values(mathTopics).filter((v) => v).length === 0;
+        let noneSelectedError = Object.values(mathTopics).filter((v) => v).length === 0;
         
         return (
             <Box sx={{
-                border: 'solid red 1px',
+                // border: 'solid red 1px',
                 height: topicHeight,  
                 display: 'flex', 
                 flexDirection: 'column' 
@@ -199,41 +159,59 @@ export function NewGameSettingsModal(props) {
                 >
                     What math topics should we include?
                 </Typography>
-                <Grid container spacing={2}  >
-                    <Grid item xs={12} >
+                <Grid container spacing={1} px="2rem" >
+                    {/* <Grid item xs={12} >
                         <MathTopicButton topic="combine" />
                     </Grid>
                     <Grid item xs={12} >
                         <MathTopicButton topic="multiply" />
+                    </Grid> */}
+                    <Grid item xs={12} >
+                        <CombineButton />
+                    </Grid>
+                    <Grid item xs={12} >
+                        <MultiplyButton />
+                    </Grid>
+                    <Grid item xs={12} sx={{ py: 0 }}>
+                        <Typography
+                            variant='body1'
+                            align="center"
+                            display={noneSelectedError ? "flex" : "none"}
+                            gutterBottom
+                        >
+                            You must select at least one topic.
+                        </Typography>
                     </Grid>
                 </Grid>
-                <Typography
-                    variant='h5'
-                    align="center"
-                    display={(mathTopics.length === 0) ? "flex" : "none" }
-                >
-                    You must select at least one topic.
-                </Typography>
+                
             </Box>
         )
-        function MathTopicButton(props) {
-            const { topic } = props
-
-            let selected = Object.values(mathTopics).includes(topic)
-
+        function CombineButton(props) {
+            let selected = (mathTopics.combine === true)
             return (
                 <Button
-                    onClick={() => setMathTopics(prev => !(prev.topic))}
-                    variant={ selected ? "contained" : "outlined" }
-                    sx={{  width: '100%' }}
-                >
-                    {getTopicButtonText(topic)}
-                </Button>
+                    onClick={toggleCombine}
+                    variant={selected ? "contained" : "outlined"}
+                    sx={{ width: '100%' }}
+                    children={
+                        "Combine & Split Up"
+                    }
+                />
             )
         }
-        function getTopicButtonText(topic) {
-            console.assert(topic === "combine" || topic === "multiply")
-            return (topic === "combine") ? "Combine and Break Apart" : "Multiply and Factor"
+        function MultiplyButton(props) {
+            // let selected = Object.values(mathTopics).includes("combine")
+            let selected = (mathTopics.multiply === true)
+            return (
+                <Button
+                    onClick={toggleMultiply}
+                    variant={selected ? "contained" : "outlined"}
+                    sx={{ width: '100%' }}
+                    children={
+                        "Multiply & Factor"
+                    }
+                />
+            )
         }
     }
 
@@ -242,7 +220,7 @@ export function NewGameSettingsModal(props) {
         
         return (
             <Box sx={{
-                border: 'solid red 1px',
+                // border: 'solid red 1px',
                 height: difficultyHeight,
                 display: 'flex',
                 flexDirection: 'column'
@@ -254,7 +232,7 @@ export function NewGameSettingsModal(props) {
                 >
                     How hard should the questions be?
                 </Typography>
-                <Grid container spacing={2}  >
+                <Grid container spacing={1} px="2rem" >
                     <Grid item xs={4} >
                         <DifficultyModeButton mode="easy" />
                     </Grid>
@@ -280,13 +258,34 @@ export function NewGameSettingsModal(props) {
                     sx={{
                         width: "100%"
                     }}
-                    children={`${mode}`}
+                    children={(mode === "increasing") ? "increasing difficulty" : `${mode}`}
                 />
             )
         }
     }
 
-
+    function StartAndCancelButtons(params) {
+        return(
+            <Box sx={{
+                borderTop: `solid green 3px`,
+                borderColor: 'primary.main',
+                height: inputHeight,
+                display: 'flex',
+                justifyContent: 'flex-end',
+                mt: 3,
+                mb: 1,
+                pt: 2,
+                pr: 1,
+            }}>
+                <CancelButton
+                    cancelNewGame={cancelNewGame}
+                />
+                <StartGameButton
+                    startNewGame={startNewGame}
+                />
+            </Box>
+        )
+    }
 
     function CancelButton(props) {
         const { cancelNewGame } = props
@@ -316,7 +315,7 @@ export function NewGameSettingsModal(props) {
                     m: 1,
                     width: '42%'
                 }}
-                children="Start New Game"
+                children="Start Game"
                 // disabled={disabled}
             />
         )
