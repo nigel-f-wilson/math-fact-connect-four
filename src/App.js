@@ -19,7 +19,8 @@ import { gameIsOver,
     nextPlayersMoves, 
     nextPlayerColor } from './logic/connectFourLogic'
 import { testQuestion, generateQuestion } from './logic/questionGenerators/questionGenerator'
-import { chooseRandomFromArray } from './logic/lowLevelHelpers';
+import { chooseRandomFromArray } from './logic/lowLevelHelpers'
+import { getBotMove } from "./logic/getBotMove";
 
 // Custom Hooks
 import { useScreenWidth, useScreenHeight } from "./hooks"
@@ -116,6 +117,7 @@ export default function App() {
             setGameStatus(updatedGameStatus)
             setActiveCell(null)
         }, 1800)
+            let botMove = getBotMove(updatedMoveList)
         
         // if (opponent === "bot") {
         //     console.error(`IT IS THE BOT'S TURN BUT GETBOTMOVE HAS NOT BEEN DEFINED`)
