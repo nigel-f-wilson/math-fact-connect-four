@@ -35,7 +35,7 @@ export default function App() {
     // GAME SETTINGS
     const [opponent, setOpponent] = React.useState("human")
     const [mathTopics, setMathTopics] = React.useState(["combining", "multiplying"])  // An array of all types player wants
-    const [difficultyMode, setDifficultyMode] = React.useState("hard")  // One of "easy" "medium" "hard" "increasing"
+    const [difficultyMode, setDifficultyMode] = React.useState("easy")  // One of "easy" "medium" "hard" "increasing"
 
     // GAME STATE
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
@@ -137,13 +137,16 @@ export default function App() {
     function openNewGameSettingsModal() {
         setOpenModal("newGameSettingsModal")
     }
-    function startGame(mathTopics, difficultyMode, opponent ) {
+    function startNewGame(mathTopics, difficultyMode, opponent ) {
         setMathTopics(mathTopics)
         setDifficultyMode(difficultyMode)
         setMoveList([])
         setGameStatus('playerOnesTurn')
         setOpenModal("none")
         setActiveCell(null)
+    }
+    function cancelNewGame() {
+        setOpenModal("none")
     }
 
     function handleUndoClick() {
@@ -188,8 +191,9 @@ export default function App() {
                         />
 
                         <NewGameSettingsModal 
-                            open={(openModal === "newGameSettingsModal")}
-                            handleStartGameClick={startGame}
+                            open={(openModal === "newGameSettings")}
+                            startNewGame={startNewGame}
+                            cancelNewGame={cancelNewGame}
                             boardSideLength={boardSideLength}
 
                         />
