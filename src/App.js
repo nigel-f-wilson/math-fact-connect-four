@@ -87,10 +87,11 @@ export default function App() {
 
         const mathTopicsArray = Object.entries(mathTopics).filter(entry => entry[1]).map(entry => entry[0])
         console.log(`Math Topics Array: ${mathTopicsArray}`);
+        let topic = chooseRandomFromArray(mathTopicsArray)
 
         // My first Promise     
-        const newQuestion = generateQuestion(mathTopicsArray, difficulty).then(newQuestion => {
-            console.log(`Opening Modal with Question --> ${JSON.stringify(newQuestion, null, 4)}`);
+        const newQuestion = generateQuestion(topic, difficulty).then(newQuestion => {
+            // console.log(`Opening Modal with Question --> ${JSON.stringify(newQuestion, null, 4)}`);
             setQuestion(newQuestion)
             setHeaderText(newQuestion.instructions)
             setOpenModal("question")

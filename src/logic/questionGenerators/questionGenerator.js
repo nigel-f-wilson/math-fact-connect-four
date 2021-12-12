@@ -18,10 +18,7 @@ export function testQuestion() {
 
 
 
-export function generateQuestion(mathTopics, difficulty) {
-    // ERROR mathTopics is not actually used.  A filter needs to be written to remove 
-    // generatorFuntions from questionTopics
-    
+export function generateQuestion(topic, difficulty) {
     return new Promise((resolve, reject) => {
         const questionTopics = [
             getCombiningQuestion,
@@ -38,9 +35,6 @@ export function generateQuestion(mathTopics, difficulty) {
         // resolve(question)
     });
 }
-
-
-
 
 function getExponentsQuestion(difficulty) {
 
