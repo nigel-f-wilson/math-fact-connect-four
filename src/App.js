@@ -138,6 +138,11 @@ export default function App() {
         setOpenModal("newGameSettingsModal")
     }
     function startNewGame(mathTopics, difficultyMode, opponent ) {
+        console.log(`STARTING NEW GAME with ...`);
+        console.log(`mathTopics: "${JSON.stringify(mathTopics, null, 4)}", `);
+        console.log(`difficultyMode: "${difficultyMode}"`);
+        console.log(`opponent: "${opponent}"`);
+
         setMathTopics(mathTopics)
         setDifficultyMode(difficultyMode)
         setMoveList([])
