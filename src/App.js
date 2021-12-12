@@ -39,7 +39,8 @@ export default function App() {
         combine: true,
         multiply: false,
     })
-    const [difficultyMode, setDifficultyMode] = React.useState("easy")  // One of "easy" "medium" "hard" "increasing"
+    const [difficultyMode, setDifficultyMode] = React.useState("increasing")  // One of "easy" "medium" "hard" "increasing"
+    // I chose to use three separate useState calls rather than one settings object with these same three keys because this way I avoid having to use spread syntax to keep all other state as-is when updating one piece in the settings modal.  This may be misguided.
 
     // GAME STATE
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
