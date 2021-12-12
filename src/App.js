@@ -78,7 +78,6 @@ export default function App() {
             console.log(`handleColumnClick() had NO EFFECT since column is full!`)
             return
         }
-        let lowestUnclaimedCell = lowestUnclaimedRow * 7 + columnIndex
         openMathQuestionModal(lowestUnclaimedCell)
     }
 
@@ -108,6 +107,7 @@ export default function App() {
         let moveToAdd = (answerIsCorrect) ? activeCell : -1
         let updatedMoveList = moveList.concat(moveToAdd)
         let updatedGameStatus = getGameStatus(updatedMoveList)
+        
         console.log(`Adding ${moveToAdd} to the moveList. Game status: ${updatedGameStatus}`);
         setTimeout(() => {
             setOpenModal("none")
@@ -116,12 +116,19 @@ export default function App() {
             setMoveList(updatedMoveList)
             setGameStatus(updatedGameStatus)
             setActiveCell(null)
-        }, 1800)
+        }, 1850)
+
+        if (opponent === "bot" && !gameIsOver(updatedGameStatus)) {
             let botMove = getBotMove(updatedMoveList)
+            let moveListAfterBot = updatedMoveList.concat(botMove)
+            let gameStatusAfterBot = getGameStatus(moveListAfterBot)
+            console.log(`Adding Bot Move: ${botMove} to the moveList. Game status: ${gameStatusAfterBot}`);
+            setTimeout(() => {
+                setMoveList(moveListAfterBot)
+                setGameStatus(gameStatusAfterBot)
+            }, 2200)
+        }
         
-        // if (opponent === "bot") {
-        //     console.error(`IT IS THE BOT'S TURN BUT GETBOTMOVE HAS NOT BEEN DEFINED`)
-        // }
     }
 
     function toggleCombine() {
@@ -160,9 +167,9 @@ export default function App() {
     }
     function startNewGame(mathTopics, difficultyMode, opponent ) {
         console.log(`STARTING NEW GAME with ...`);
+        console.log(`opponent: "${opponent}"`);
         console.log(`mathTopics: "${JSON.stringify(mathTopics, null, 4)}", `);
         console.log(`difficultyMode: "${difficultyMode}"`);
-        console.log(`opponent: "${opponent}"`);
 
         setMathTopics(mathTopics)
         setDifficultyMode(difficultyMode)
