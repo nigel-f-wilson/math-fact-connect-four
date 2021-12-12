@@ -233,6 +233,12 @@ function doubleTripleQuadruple(difficulty) {
 
 }
 
-// vars.c = randomInt(3, 20)
-// vars.a = randomInt(2, vars.c)
-// vars.b = vars.c - vars.a
+function missingMinuend(params) {
+    // vars.c = randomInt(3, 20)
+    // vars.a = randomInt(2, vars.c)
+    // vars.b = vars.c - vars.a
+}
+
+
+
+// ["compareSums", `${vars[0]} + ${vars[1]} __ ${vars[2]} + ${vars[3]}`],
