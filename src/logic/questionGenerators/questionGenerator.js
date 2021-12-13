@@ -1,8 +1,6 @@
-import { chooseRandomFromArray } from "../lowLevelHelpers";
 import { getCombiningQuestion } from "./combiningGenerator";
 import { getMultiplyingQuestion } from "./multiplyingGenerator";
 // import { getFractionsQuestion } from "./fractionsGenerator";
-
 
 export function testQuestion() {
     let vars = [1, 2, 3, 6]
