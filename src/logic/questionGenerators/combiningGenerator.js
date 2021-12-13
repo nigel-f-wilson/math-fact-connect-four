@@ -20,6 +20,7 @@ export function getCombiningQuestion(difficulty) {
         missingAddendThree,
         doubleTripleQuadruple,
         howFarApart,
+        missingMinuend
     ]
     return chooseRandomFromArray(types)(difficulty)
     
@@ -209,7 +210,7 @@ function doubleTripleQuadruple(difficulty) {
     let dtqInstructions = ""
     if (difficulty === "easy") {            // Grade 1
         dtqInstructions = "Double"
-        vars.a = randomInt(3, 50)
+        vars.a = randomInt(3, 20)
         vars.b = vars.a * 2
     }
     else if (difficulty === "medium") {     // Grade 2
@@ -233,10 +234,31 @@ function doubleTripleQuadruple(difficulty) {
 
 }
 
-function missingMinuend(params) {
-    // vars.c = randomInt(3, 20)
-    // vars.a = randomInt(2, vars.c)
-    // vars.b = vars.c - vars.a
+function missingMinuend(difficulty) {
+    let vars = {}
+    if (difficulty === "easy") {            // Grade 1
+        vars.a = randomInt(3, 20)
+        vars.b = randomInt(0, vars.a)
+        vars.c = vars.a - vars.b
+    }
+    else if (difficulty === "medium") {     // Grade 2
+        vars.a = randomInt(40, 100)
+        vars.b = randomInt(5, vars.a)
+        vars.c = vars.a - vars.b
+    }
+    else if (difficulty === "hard") {       // Grade 3
+        vars.a = randomInt(200, 1000)
+        vars.b = randomInt(100, vars.a)
+        vars.c = vars.a - vars.b
+    }
+    return {
+        type: "missingMinuend",
+        vars: vars,
+        correctAnswer: vars.b,
+        equationString: `${vars.a} - __ = ${vars.c}`,
+        instructions: chooseRandomFromArray(missingMinuendInstructions),
+        inputType: "textField",
+    }
 }
 
 
