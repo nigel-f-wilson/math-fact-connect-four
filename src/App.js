@@ -1,16 +1,11 @@
 import React from 'react'
 
-// PAGES
-// import WelcomePage from "./pages/Welcome"
-// import SettingsPage from "./pages/Settings"
-// import PlayPage from "./pages/Play"
-// import InfoPage from "./pages/Info"
 // MY components
-import { InGameMenu } from "./modals/Menu";
-import { GameBoard } from "./pages/GameBoard";
-import { NewGameSettingsModal } from "./modals/NewGameSettingsModal";
+import { GameBoard } from "./GameBoard";
+import { WelcomeModal } from "./modals/WelcomeModal";
+import { InGameMenu } from "./modals/InGameMenu";
+import { SettingsModal } from "./modals/SettingsModal";
 import { MathQuestionModal } from "./modals/MathQuestionModal";
-// import { GameSettingsModal } from "./components/GameSettingsModal";
 
 // Game Logic
 import { gameIsOver, 
@@ -45,7 +40,7 @@ export default function App() {
     // GAME STATE
     const [moveList, setMoveList] = React.useState([])  // An Array of integers ranging -1 thru 41 of indeterminate length
     const [gameStatus, setGameStatus] = React.useState('playerOnesTurn')  // Enum ['playerOnesTurn', 'playerTwosTurn', 'playerOneWins', 'playerTwoWins', 'gameOverDraw']
-    const [openModal, setOpenModal] = React.useState("newGameSettings") // Enum: "none", "question", "newGameSettings", 
+    const [openModal, setOpenModal] = React.useState("welcome") // Enum: "none", "question", "settings", "welcome", "inGameMenu"
     const [activeCell, setActiveCell] = React.useState(null) 
 
     // QUESTION MODAL PROPS
@@ -63,7 +58,6 @@ export default function App() {
     const height = useScreenHeight()
     const width = useScreenWidth()
     const boardSideLength = (height <= width) ? height : width
-
     
     ///////////////////////////////////////////////////////
     // CLICK HANDLERS
@@ -118,6 +112,7 @@ export default function App() {
             setActiveCell(null)
         }, 1850)
 
+        // Handle Bot'sTurn
         if (opponent === "bot" && !gameIsOver(updatedGameStatus)) {
             let botMove = getBotMove(updatedMoveList)
             let moveListAfterBot = updatedMoveList.concat(botMove)
@@ -146,13 +141,13 @@ export default function App() {
 
     function determineDifficulty(score) {
         console.log(`determineDifficulty called with ${score} `);
-        if (score < 8) {
+        if (score < 7) {
             return "easy"
         }
-        else if (score < 16) {
+        else if (score < 14) {
             return "medium"
         }
-        else if (score >= 16) {
+        else if (score >= 14) {
             return "hard"
         }
         else {
@@ -185,6 +180,16 @@ export default function App() {
         setOpenModal("none")
     }
 
+    function openSettingsModal() {
+        setOpenModal("settings")
+    }
+    function handleNewGameClick() {
+        setOpenModal("settings")
+    }
+    function openInGameMenu() {
+        setOpenModal("menu")
+    }
+
     
     return (
         <React.Fragment>
@@ -214,13 +219,23 @@ export default function App() {
                             alignItems: 'center',
                             position: 'relative'
                     }}>
+
+                        <WelcomeModal
+                            open={(openModal === "welcome")}
+                            openSettingsModal={openSettingsModal}
+                            boardSideLength={boardSideLength}
+                        />
+
                         <InGameMenu
-                            handleNewGameClick={() => {setOpenModal("newGameSettings")}}
+                            open={(openModal === "menu")}
+                            openSettingsModal={openSettingsModal}
+                            openInGameMenu={openInGameMenu}
+                            handleNewGameClick={handleNewGameClick}
                             handleUndoClick={handleUndoClick}
                         />
 
-                        <NewGameSettingsModal 
-                            open={(openModal === "newGameSettings")}
+                        <SettingsModal 
+                            open={(openModal === "settings")}
                             startNewGame={startNewGame}
                             cancelNewGame={cancelNewGame}
                             boardSideLength={boardSideLength}
@@ -246,12 +261,10 @@ export default function App() {
                             boardSideLength={boardSideLength}
                         />
 
-
                         <GameBoard
                             moveList={moveList}
                             gameStatus={gameStatus}
                             handleColumnClick={handleColumnClick}
-
                         />
                         
                     </Box>
