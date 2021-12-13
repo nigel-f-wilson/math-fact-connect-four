@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // Logic
-import { gameIsOver, nextPlayerColor } from '../logic/connectFourLogic'
+import { gameIsOver, nextPlayerColor } from './logic/connectFourLogic'
 
 // MUI  components
 import { Box, Container, Slide, Typography, Zoom } from '@material-ui/core'
