@@ -6,6 +6,17 @@ import { Box, Button, IconButton, Dialog, Zoom, Typography, Grid } from '@materi
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserFriends, faRobot } from '@fortawesome/free-solid-svg-icons';
 
+// ICONS
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faRobot, faUser, faPlus, faTimes, faDivide, faSuperscript } from '@fortawesome/free-solid-svg-icons'
+// const RobotIcon = () => { return <FontAwesomeIcon icon={faRobot} /> }
+// const UserIcon = () => { return <FontAwesomeIcon icon={faUser} /> }
+// const PlusIcon = () => { return <FontAwesomeIcon icon={faPlus} /> }
+// const TimesIcon = () => { return <FontAwesomeIcon icon={faTimes} /> }
+// const DivideIcon = () => { return <FontAwesomeIcon icon={faDivide} /> }
+// const SuperscriptIcon = () => { return <FontAwesomeIcon icon={faSuperscript} /> }
+// import { faPlus, faTimes, faDivide, faSuperscript } from '@fortawesome/free-solid-svg-icons'
+
 // Style & Layout Constants
 const opponentHeight = "25%"
 const topicHeight = "35%"
@@ -17,7 +28,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 })
 
 
-export function NewGameSettingsModal(props) {
+export function SettingsModal(props) {
     let { 
         open,
         boardSideLength,
@@ -31,13 +42,6 @@ export function NewGameSettingsModal(props) {
         selectOpponent,
         selectDifficulty
     } = props
-
-    // let opponent = "human"
-    // let mathTopics = {
-    //     combine: false,
-    //     multiply: false,
-    // }
-    // let difficultyMode = "increasing"
 
     let noneSelectedError = Object.values(mathTopics).filter((v) => v).length === 0;
     
@@ -180,7 +184,7 @@ export function NewGameSettingsModal(props) {
                 
             </Box>
         )
-        function CombineButton(props) {
+        function CombineButton() {
             let selected = (mathTopics.combine === true)
             return (
                 <Button
@@ -193,7 +197,7 @@ export function NewGameSettingsModal(props) {
                 />
             )
         }
-        function MultiplyButton(props) {
+        function MultiplyButton() {
             let selected = (mathTopics.multiply === true)
             return (
                 <Button
