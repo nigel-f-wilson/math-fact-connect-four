@@ -34,7 +34,13 @@ export function WelcomeModal(props) {
                     justifyContent: 'stretch',
                     // alignItems: 'center',
                     px: 3,
-                    py: 3
+                    py: 3,
+                    overflowY: "scroll",
+                    "-ms-overflow-style": "none",    /* IE and Edge */
+                    "scrollbar-width": "none",       /* Firefox */
+                    "::-webkit-scrollbar": {         /* Hide scrollbar for Chrome, Safari and Opera */
+                        display: "none"
+                    }
                 }
             }}
         >
