@@ -10,17 +10,20 @@ import MenuIcon from '@material-ui/icons/Menu';
 // import Logout from '@material-ui/icons/Logout';
 
 export function InGameMenu(props) {
-    let { handleNewGameClick, handleUndoClick } = props
+    let { open, 
+        openInGameMenu,
+        handleNewGameClick, 
+        handleUndoClick } = props
     
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const openMenu = (event) => {
         setAnchorEl(event.currentTarget);
+        openInGameMenu()
     };
     const closeMenu = () => {
         setAnchorEl(null);
     };
-    const open = Boolean(anchorEl)   // Is open if anchor element set.
     const id = open ? 'simple-popover' : undefined;
 
     return (
