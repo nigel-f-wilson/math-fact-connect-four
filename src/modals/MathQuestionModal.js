@@ -182,7 +182,7 @@ export function MathQuestionModal(props) {
                             }}
                         />
                         <SubmitButton
-                            disabled={error}
+                            error={error}
                             playersAnswer={playersAnswer}
                             correctAnswer={correctAnswer}
                             handleSubmitButtonClick={handleSubmitButtonClick}
@@ -192,9 +192,10 @@ export function MathQuestionModal(props) {
             )
         }
         function SubmitButton(props) {
-            const { handleSubmitButtonClick } = props
+            const { error, playersAnswer, handleSubmitButtonClick } = props
             return (
                 <Button
+                    disabled={error || playersAnswer === "" }
                     onClick={handleSubmitButtonClick}
                     variant='contained'
                     // size="large"
