@@ -98,30 +98,19 @@ export function MathQuestionModal(props) {
     function AnswerInputComponent(props) {
         const { inputType, correctAnswer, handleAnswerSubmit } = props
 
-        // const [submitted, setSubmitted] = useState(false)
         const [playersAnswer, setPlayersAnswer] = useState("")
         const answerIsNum = /^\d+$/.test(playersAnswer)
         const error = (playersAnswer.length > 0 && !answerIsNum)
-
         const handlePlayersAnswerChange = (event) => {
             let updatedAnswer = event.target.value.trim()
             setPlayersAnswer(updatedAnswer)
-        }
-        const handlePlayersAnswerSubmit = () => {
-            // if (submitted) {
-                // return // No Effect
-            // }
-            // else {
-                // setSubmitted(true)
-                handleAnswerSubmit(playersAnswer)
-            // }
         }
 
         if (inputType === "textField") {
             return (
                 <NumericalTextInput
                     error={error}
-                    handleSubmitButtonClick={handlePlayersAnswerSubmit}
+                    handleSubmitButtonClick={handleAnswerSubmit}
                 />
             )
         }
@@ -165,9 +154,7 @@ export function MathQuestionModal(props) {
                             size="medium"
                             autoFocus
                             autoComplete='off'
-                            // type="number"
                             type="tel"
-                            // pattern="\d*"
                             pattern='[0-9]*'
                             onChange={handlePlayersAnswerChange}
                             inputProps={{ 
@@ -175,10 +162,9 @@ export function MathQuestionModal(props) {
                             }}
                             sx={{ width: '62%' }}
                             onKeyDown={(event) => {
-                                if (event.key === "Enter") {
-                                    // setSubmitted(true)
-                                    handleSubmitButtonClick()
-                                }
+                              if (event.key === "Enter" && playersAnswer !== "") {
+                                handleSubmitButtonClick(playersAnswer)
+                              }
                             }}
                         />
                         <SubmitButton
@@ -191,14 +177,14 @@ export function MathQuestionModal(props) {
                 </Box>
             )
         }
+
         function SubmitButton(props) {
             const { error, playersAnswer, handleSubmitButtonClick } = props
             return (
                 <Button
                     disabled={error || playersAnswer === "" }
-                    onClick={handleSubmitButtonClick}
+                    onClick={() => handleSubmitButtonClick(playersAnswer)}
                     variant='contained'
-                    // size="large"
                     sx={{ 
                         ml: 1, 
                         px: 2.5,
